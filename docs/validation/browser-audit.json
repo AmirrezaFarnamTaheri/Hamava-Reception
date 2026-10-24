@@ -1,0 +1,454 @@
+{
+  "schema_version": "1.0",
+  "suite": "audit",
+  "captured_at": "2026-10-23T11:59:40.417Z",
+  "source_script": "frontend/scripts/check-ui.mjs",
+  "current_source_script_sha256": "0673a501d1cfcb09d462cb17bd370fd928795aea7a9f29583472d5eec3dcc760",
+  "report_sha256": "5b1fd357ad40e24e8ffda584300b6de51c35f599c696734b216b1e44d9750ddc",
+  "validation_environment": "Local headless Chromium against isolated synthetic demo API",
+  "scope": "Observed browser behavior only. No iOS/Android device, carrier, real vendor settlement/delivery, native-listener quality or production capacity qualification.",
+  "results": [
+    {
+      "name": "login-desktop",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "dashboard-desktop",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "offline-notice",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "appointments",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "tasks",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "notifications",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "capacity",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "capacity-disruptions",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "capacity-followups",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "capacity-payments",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "capacity-billing",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "reports",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "building",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-tab-1",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-tab-2",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-tab-3",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-tab-4",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-tab-5",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-tab-6",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-tab-7",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-tab-8",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-tab-9",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-tab-10",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-tab-11",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-tab-12",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "talk-consent",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "talk-active",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "talk-reply",
+      "layout": {
+        "viewport": 1440,
+        "scroll": 1440,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "dashboard-mobile-390",
+      "layout": {
+        "viewport": 390,
+        "scroll": 390,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "mobile-navigation-keyboard",
+      "layout": {
+        "viewport": 390,
+        "scroll": 390,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "appointments-mobile-390",
+      "layout": {
+        "viewport": 390,
+        "scroll": 390,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "capacity-mobile-390",
+      "layout": {
+        "viewport": 390,
+        "scroll": 390,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-mobile-390",
+      "layout": {
+        "viewport": 390,
+        "scroll": 390,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "payment-policy-mobile-390",
+      "layout": {
+        "viewport": 390,
+        "scroll": 390,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "launch-readiness-mobile-390",
+      "layout": {
+        "viewport": 390,
+        "scroll": 390,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "talk-mobile-390",
+      "layout": {
+        "viewport": 390,
+        "scroll": 390,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "dashboard-mobile-320",
+      "layout": {
+        "viewport": 320,
+        "scroll": 320,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "appointments-mobile-320",
+      "layout": {
+        "viewport": 320,
+        "scroll": 320,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "capacity-mobile-320",
+      "layout": {
+        "viewport": 320,
+        "scroll": 320,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "settings-mobile-320",
+      "layout": {
+        "viewport": 320,
+        "scroll": 320,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "payment-policy-mobile-320",
+      "layout": {
+        "viewport": 320,
+        "scroll": 320,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "launch-readiness-mobile-320",
+      "layout": {
+        "viewport": 320,
+        "scroll": 320,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    },
+    {
+      "name": "talk-mobile-320",
+      "layout": {
+        "viewport": 320,
+        "scroll": 320,
+        "direction": "rtl",
+        "title": "هم‌آوا | پذیرش آرام‌تر، ارتباط بهتر"
+      },
+      "audit": []
+    }
+  ],
+  "errors": [],
+  "failedResponses": []
+}

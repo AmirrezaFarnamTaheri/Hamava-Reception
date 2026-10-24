@@ -1,0 +1,35 @@
+{
+  "schema_version": "2.0",
+  "suite": "conversation",
+  "captured_at": "2026-10-23T16:28:25.218060+00:00",
+  "source_script": "frontend/scripts/exercise-conversation.mjs",
+  "source_script_sha256": "e8ed19ee69141c702659c44b3b28a25adbc01f0a1b12bdd372b3e11a4ffde904",
+  "raw_report_sha256": "962357b9dd5c91f524015b0839af022a2a606fe966c92aa4dd704248460dd9f5",
+  "frontend_bundle": {
+    "entry": "/assets/index-Ckub5VW6.js",
+    "entry_sha256": "3123db40444ad5246b56a360c5ffdb082054c322781d9e3f5cb51caf5188bdbc",
+    "css": "/assets/index-s66hjDZo.css",
+    "css_sha256": "563441bd41212ca3605d0a25c969f92efb4ed309b85ccc7add49c5f700ca7ebf",
+    "source_tree_sha256": "1f89d1da8540334073689a3213182e18f9ce343d91bde4a7596a372d997512ae",
+    "captured_at": "2026-10-23T16:18:56.647867+00:00",
+    "app_version": "0.2.0"
+  },
+  "validation_environment": {
+    "interface": "built production frontend",
+    "browser": "packaged headless Chromium",
+    "api": "fresh isolated SQLite synthetic demo API per suite; RTC lifecycle uses an explicitly synthetic Room/API fixture",
+    "provider_transmission": "disabled; no external messaging, carrier, calendar or settlement qualification",
+    "functional_tool_timeout_ms": 30000,
+    "latency_slo_claim": false,
+    "accessibility": "axe WCAG2A/AA and WCAG2.1AA tags on named states; audit contexts bypass CSP only for checker injection",
+    "physical_device_qualification": false
+  },
+  "checks": [
+    "Processing consent gates session creation; microphone starts only by explicit action",
+    "A lost response retries the same committed request without duplicating its result",
+    "Mobile public conversation completes verified booking, explicit confirmation, and separate reminder choice",
+    "Human request queues a real handoff without claiming a live connection",
+    "Conversation ends cleanly and fits a 390px screen"
+  ],
+  "errors": []
+}

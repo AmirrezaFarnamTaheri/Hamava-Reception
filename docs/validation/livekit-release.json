@@ -1,0 +1,8 @@
+{
+  "version": "1.13.10",
+  "source": "https://github.com/livekit/livekit/releases/download/v1.13.10/livekit_1.13.10_linux_amd64.tar.gz",
+  "official_checksum_url": "https://github.com/livekit/livekit/releases/download/v1.13.10/checksums.txt",
+  "sha256": "c25a3e45fb922e9a93c6443d10c0ed041ba64342097e38632331736630283165",
+  "checksum_verified": true,
+  "purpose": "Local synthetic protocol validation only"
+}

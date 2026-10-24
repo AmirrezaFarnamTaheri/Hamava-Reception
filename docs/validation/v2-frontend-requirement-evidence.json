@@ -1,0 +1,1266 @@
+{
+  "schema_version": "2.1",
+  "title": "Hamava 0.2 companion and frontend requirement evidence",
+  "generated_at": "2026-10-23T17:17:24.843070+00:00",
+  "assessor": "frontend",
+  "source_register": "docs/requirements.json",
+  "source_register_sha256": "d1e0085f81c42e25a5e3f2249eea9055805b12e9925c50a4ac21675d25645d60",
+  "updates_main_register": false,
+  "frontend_bundle": {
+    "entry": "/assets/index-DnPskxcg.js",
+    "entry_sha256": "804e49f0653e9d64320676a0a9d9caf308d39955b3cb80823caa870a787efebd",
+    "css": "/assets/index-DVYiIkCe.css",
+    "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+    "source_tree_sha256": "5132a4fd75fca3d9515df28dd3a901e821c25b4913c573d44f7bde01bc620874",
+    "captured_at": "2026-10-23T17:13:37.643135+00:00",
+    "app_version": "0.2.0"
+  },
+  "final_color_correction_and_source_equivalence": "docs/validation/v2-ui-source-equivalence.json",
+  "focused_setup_contrast_evidence": "docs/validation/v2-ui-setup-contrast.json",
+  "interpretation": "UI assessments apply only to named rendered behavior and explicit source inspection. They are not replacement product requirement statuses. Reported checks are not unique requirements or comprehensive coverage. Audited states count audit executions and can recur across suites.",
+  "technical_checks": {
+    "production_build": "npm run build passed, including TypeScript and Vite, against the hashed frontend/src tree",
+    "format": "npm run format:check passed; no app source changed afterward",
+    "license_notices": "The parent-owned prebuild generated notices for 21 locked runtime packages",
+    "tool_budget": "Synthetic functional tests use TOOL_TIMEOUT_MS=30000 on the shared host; production retains 3000 and no latency SLO is inferred",
+    "immutable_capture": "61 output files captured immediately in the successful build process; manifests and frontend source/config hashes retained in the final latency-label source-equivalence record."
+  },
+  "browser_summary": {
+    "passing_workflow_and_contract_checks": 92,
+    "passing_non_rtc_checks": 80,
+    "passing_rtc_event_contract_checks": 12,
+    "audited_states": 93,
+    "direct_final_bundle_checks": 11,
+    "source_equivalent_prior_bundle_checks": 81,
+    "direct_final_bundle_audit_executions": 5,
+    "preserved_prior_bundle_audit_executions": 88,
+    "additional_focused_setup_audit_executions": 6,
+    "check_count_definition": "Named successful workflow/contract steps; audit totals are executions, not unique screens or requirements",
+    "reported_axe_violations": 0,
+    "document_overflow_in_named_audits": 0,
+    "runtime_errors": "No errors recorded by the successful suite monitors",
+    "http_errors": "No unexpected responses in baseline/companion monitors; other workflow response assertions passed. Deliberate 409/503 recovery cases are expected and are not zero-HTTP-error claims.",
+    "primary_matrix_checks": 88,
+    "primary_matrix_audit_executions": 90,
+    "additional_targeted_latency_checks": 4,
+    "additional_targeted_latency_audit_executions": 3,
+    "replaced_release_report_counted_once": true
+  },
+  "test_trace_files": [
+    {
+      "suite": "audit",
+      "path": "docs/validation/v2-browser-audit.json",
+      "sha256": "a687e5e30713f00eba934a85abbfd4d795914706c58fedcbd19fcfb519f3de66",
+      "captured_at": "2026-10-23T16:54:59.149080+00:00",
+      "checks_passed": 0,
+      "audited_states": 44,
+      "tested_frontend_bundle": {
+        "entry": "/assets/index-5GKqz5J0.js",
+        "entry_sha256": "d01c1f6cf9027782d0ae4364f12e0825e410bca7a6436616b6160144126070e3",
+        "css": "/assets/index-DVYiIkCe.css",
+        "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+        "source_tree_sha256": "563cb1db1b3f0123e93ca6a47e37fbc459502a92857991abd0b069279a9a4b98",
+        "captured_at": "2026-10-23T16:44:31.080735+00:00",
+        "app_version": "0.2.0"
+      },
+      "direct_final_bundle_execution": false,
+      "source_equivalence_evidence": "docs/validation/v2-ui-latency-labels-source-equivalence.json",
+      "source_equivalence_chain": [
+        "docs/validation/v2-ui-latency-labels-source-equivalence.json"
+      ],
+      "qualification": "See report for real synthetic API versus explicit fixture boundaries"
+    },
+    {
+      "suite": "workflows",
+      "path": "docs/validation/v2-browser-workflows.json",
+      "sha256": "ad574afffbdb97f9d7a73b4592da6b8b98b084f08ee0edad589c3541ada5e3c1",
+      "captured_at": "2026-10-23T16:27:40.290669+00:00",
+      "checks_passed": 10,
+      "audited_states": 0,
+      "tested_frontend_bundle": {
+        "entry": "/assets/index-Ckub5VW6.js",
+        "entry_sha256": "3123db40444ad5246b56a360c5ffdb082054c322781d9e3f5cb51caf5188bdbc",
+        "css": "/assets/index-s66hjDZo.css",
+        "css_sha256": "563441bd41212ca3605d0a25c969f92efb4ed309b85ccc7add49c5f700ca7ebf",
+        "source_tree_sha256": "1f89d1da8540334073689a3213182e18f9ce343d91bde4a7596a372d997512ae",
+        "captured_at": "2026-10-23T16:18:56.647867+00:00",
+        "app_version": "0.2.0"
+      },
+      "direct_final_bundle_execution": false,
+      "source_equivalence_evidence": "docs/validation/v2-ui-latency-labels-source-equivalence.json",
+      "source_equivalence_chain": [
+        "docs/validation/v2-ui-source-equivalence.json",
+        "docs/validation/v2-ui-latency-labels-source-equivalence.json"
+      ],
+      "qualification": "See report for real synthetic API versus explicit fixture boundaries"
+    },
+    {
+      "suite": "conversation",
+      "path": "docs/validation/v2-browser-conversation.json",
+      "sha256": "d9c29f90dc2eaa4e37f856bc849fd77121fa3ff7be21609767057a11f3edbdb7",
+      "captured_at": "2026-10-23T16:28:25.218060+00:00",
+      "checks_passed": 5,
+      "audited_states": 0,
+      "tested_frontend_bundle": {
+        "entry": "/assets/index-Ckub5VW6.js",
+        "entry_sha256": "3123db40444ad5246b56a360c5ffdb082054c322781d9e3f5cb51caf5188bdbc",
+        "css": "/assets/index-s66hjDZo.css",
+        "css_sha256": "563441bd41212ca3605d0a25c969f92efb4ed309b85ccc7add49c5f700ca7ebf",
+        "source_tree_sha256": "1f89d1da8540334073689a3213182e18f9ce343d91bde4a7596a372d997512ae",
+        "captured_at": "2026-10-23T16:18:56.647867+00:00",
+        "app_version": "0.2.0"
+      },
+      "direct_final_bundle_execution": false,
+      "source_equivalence_evidence": "docs/validation/v2-ui-latency-labels-source-equivalence.json",
+      "source_equivalence_chain": [
+        "docs/validation/v2-ui-source-equivalence.json",
+        "docs/validation/v2-ui-latency-labels-source-equivalence.json"
+      ],
+      "qualification": "See report for real synthetic API versus explicit fixture boundaries"
+    },
+    {
+      "suite": "extensions",
+      "path": "docs/validation/v2-browser-extensions.json",
+      "sha256": "73647b0b5dc25a52f3a5178113b7616838da38945c26afd66ba15e6428f4bc58",
+      "captured_at": "2026-10-23T16:34:24.185395+00:00",
+      "checks_passed": 13,
+      "audited_states": 5,
+      "tested_frontend_bundle": {
+        "entry": "/assets/index-Ckub5VW6.js",
+        "entry_sha256": "3123db40444ad5246b56a360c5ffdb082054c322781d9e3f5cb51caf5188bdbc",
+        "css": "/assets/index-s66hjDZo.css",
+        "css_sha256": "563441bd41212ca3605d0a25c969f92efb4ed309b85ccc7add49c5f700ca7ebf",
+        "source_tree_sha256": "1f89d1da8540334073689a3213182e18f9ce343d91bde4a7596a372d997512ae",
+        "captured_at": "2026-10-23T16:18:56.647867+00:00",
+        "app_version": "0.2.0"
+      },
+      "direct_final_bundle_execution": false,
+      "source_equivalence_evidence": "docs/validation/v2-ui-latency-labels-source-equivalence.json",
+      "source_equivalence_chain": [
+        "docs/validation/v2-ui-source-equivalence.json",
+        "docs/validation/v2-ui-latency-labels-source-equivalence.json"
+      ],
+      "qualification": "See report for real synthetic API versus explicit fixture boundaries"
+    },
+    {
+      "suite": "outreach",
+      "path": "docs/validation/v2-browser-outreach.json",
+      "sha256": "610d7974f5a65c72be6b6472ce3b0707c55aee91f39435a9ba220dbe7684ecd0",
+      "captured_at": "2026-10-23T16:35:44.928361+00:00",
+      "checks_passed": 8,
+      "audited_states": 3,
+      "tested_frontend_bundle": {
+        "entry": "/assets/index-Ckub5VW6.js",
+        "entry_sha256": "3123db40444ad5246b56a360c5ffdb082054c322781d9e3f5cb51caf5188bdbc",
+        "css": "/assets/index-s66hjDZo.css",
+        "css_sha256": "563441bd41212ca3605d0a25c969f92efb4ed309b85ccc7add49c5f700ca7ebf",
+        "source_tree_sha256": "1f89d1da8540334073689a3213182e18f9ce343d91bde4a7596a372d997512ae",
+        "captured_at": "2026-10-23T16:18:56.647867+00:00",
+        "app_version": "0.2.0"
+      },
+      "direct_final_bundle_execution": false,
+      "source_equivalence_evidence": "docs/validation/v2-ui-latency-labels-source-equivalence.json",
+      "source_equivalence_chain": [
+        "docs/validation/v2-ui-source-equivalence.json",
+        "docs/validation/v2-ui-latency-labels-source-equivalence.json"
+      ],
+      "qualification": "See report for real synthetic API versus explicit fixture boundaries"
+    },
+    {
+      "suite": "release",
+      "path": "docs/validation/v2-browser-release.json",
+      "sha256": "675387739c38c68e676df319e362c67c627dfbb2cf1f5737bc8bf36437126a92",
+      "captured_at": "2026-10-23T17:16:23.255777+00:00",
+      "checks_passed": 7,
+      "audited_states": 2,
+      "tested_frontend_bundle": {
+        "entry": "/assets/index-DnPskxcg.js",
+        "entry_sha256": "804e49f0653e9d64320676a0a9d9caf308d39955b3cb80823caa870a787efebd",
+        "css": "/assets/index-DVYiIkCe.css",
+        "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+        "source_tree_sha256": "5132a4fd75fca3d9515df28dd3a901e821c25b4913c573d44f7bde01bc620874",
+        "captured_at": "2026-10-23T17:13:37.643135+00:00",
+        "app_version": "0.2.0"
+      },
+      "direct_final_bundle_execution": true,
+      "source_equivalence_evidence": null,
+      "source_equivalence_chain": [],
+      "qualification": "See report for real synthetic API versus explicit fixture boundaries"
+    },
+    {
+      "suite": "waitlist-deposit",
+      "path": "docs/validation/v2-browser-waitlist-deposit.json",
+      "sha256": "8a70e952365a93b9901d4a7a44f9e1596dcbdbdb6377e15ecc5a37c8650f56b5",
+      "captured_at": "2026-10-23T16:48:13.890272+00:00",
+      "checks_passed": 8,
+      "audited_states": 4,
+      "tested_frontend_bundle": {
+        "entry": "/assets/index-5GKqz5J0.js",
+        "entry_sha256": "d01c1f6cf9027782d0ae4364f12e0825e410bca7a6436616b6160144126070e3",
+        "css": "/assets/index-DVYiIkCe.css",
+        "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+        "source_tree_sha256": "563cb1db1b3f0123e93ca6a47e37fbc459502a92857991abd0b069279a9a4b98",
+        "captured_at": "2026-10-23T16:44:31.080735+00:00",
+        "app_version": "0.2.0"
+      },
+      "direct_final_bundle_execution": false,
+      "source_equivalence_evidence": "docs/validation/v2-ui-latency-labels-source-equivalence.json",
+      "source_equivalence_chain": [
+        "docs/validation/v2-ui-latency-labels-source-equivalence.json"
+      ],
+      "qualification": "See report for real synthetic API versus explicit fixture boundaries"
+    },
+    {
+      "suite": "privacy-notice",
+      "path": "docs/validation/v2-browser-privacy-notice.json",
+      "sha256": "ea675c3dba6ed2818c6d7836c853dc6665294d36bcf1a2359cc5583ee2d2a3ad",
+      "captured_at": "2026-10-23T16:17:10.727184+00:00",
+      "checks_passed": 6,
+      "audited_states": 5,
+      "tested_frontend_bundle": {
+        "entry": "/assets/index-Ckub5VW6.js",
+        "entry_sha256": "3123db40444ad5246b56a360c5ffdb082054c322781d9e3f5cb51caf5188bdbc",
+        "css": "/assets/index-s66hjDZo.css",
+        "css_sha256": "563441bd41212ca3605d0a25c969f92efb4ed309b85ccc7add49c5f700ca7ebf",
+        "source_tree_sha256": "1f89d1da8540334073689a3213182e18f9ce343d91bde4a7596a372d997512ae",
+        "captured_at": "2026-10-23T16:18:56.647867+00:00",
+        "app_version": "0.2.0"
+      },
+      "direct_final_bundle_execution": false,
+      "source_equivalence_evidence": "docs/validation/v2-ui-latency-labels-source-equivalence.json",
+      "source_equivalence_chain": [
+        "docs/validation/v2-ui-source-equivalence.json",
+        "docs/validation/v2-ui-latency-labels-source-equivalence.json"
+      ],
+      "qualification": "See report for real synthetic API versus explicit fixture boundaries"
+    },
+    {
+      "suite": "rtc-lifecycle",
+      "path": "docs/validation/v2-browser-rtc-lifecycle.json",
+      "sha256": "eb01f2a0b9fc628f6899d12918dd80741298a9916af532a075a1b38ef5b47484",
+      "captured_at": "2026-10-23T16:49:45.749078+00:00",
+      "checks_passed": 12,
+      "audited_states": 3,
+      "tested_frontend_bundle": {
+        "entry": "/assets/index-5GKqz5J0.js",
+        "entry_sha256": "d01c1f6cf9027782d0ae4364f12e0825e410bca7a6436616b6160144126070e3",
+        "css": "/assets/index-DVYiIkCe.css",
+        "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+        "source_tree_sha256": "563cb1db1b3f0123e93ca6a47e37fbc459502a92857991abd0b069279a9a4b98",
+        "captured_at": "2026-10-23T16:44:31.080735+00:00",
+        "app_version": "0.2.0"
+      },
+      "direct_final_bundle_execution": false,
+      "source_equivalence_evidence": "docs/validation/v2-ui-latency-labels-source-equivalence.json",
+      "source_equivalence_chain": [
+        "docs/validation/v2-ui-latency-labels-source-equivalence.json"
+      ],
+      "qualification": "Injected Room/API event contract; no actual RTC network recovery"
+    },
+    {
+      "suite": "companion",
+      "path": "docs/validation/v2-browser-companion.json",
+      "sha256": "ab1ead49c30c4e91613580c02ef2b5a88a142c81379463bd41d014eb72f4b3c4",
+      "captured_at": "2026-10-23T17:03:49.029728+00:00",
+      "checks_passed": 19,
+      "audited_states": 24,
+      "tested_frontend_bundle": {
+        "entry": "/assets/index-5GKqz5J0.js",
+        "entry_sha256": "d01c1f6cf9027782d0ae4364f12e0825e410bca7a6436616b6160144126070e3",
+        "css": "/assets/index-DVYiIkCe.css",
+        "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+        "source_tree_sha256": "563cb1db1b3f0123e93ca6a47e37fbc459502a92857991abd0b069279a9a4b98",
+        "captured_at": "2026-10-23T16:44:31.080735+00:00",
+        "app_version": "0.2.0"
+      },
+      "direct_final_bundle_execution": false,
+      "source_equivalence_evidence": "docs/validation/v2-ui-latency-labels-source-equivalence.json",
+      "source_equivalence_chain": [
+        "docs/validation/v2-ui-latency-labels-source-equivalence.json"
+      ],
+      "qualification": "See report for real synthetic API versus explicit fixture boundaries"
+    },
+    {
+      "suite": "latency-labels",
+      "path": "docs/validation/v2-browser-latency-labels.json",
+      "sha256": "418af1e3fc12671e371814adb9d140b16428608f5a6f0dd2b8807fab7988320c",
+      "captured_at": "2026-10-23T17:15:23.024615+00:00",
+      "checks_passed": 4,
+      "audited_states": 3,
+      "tested_frontend_bundle": {
+        "entry": "/assets/index-DnPskxcg.js",
+        "entry_sha256": "804e49f0653e9d64320676a0a9d9caf308d39955b3cb80823caa870a787efebd",
+        "css": "/assets/index-DVYiIkCe.css",
+        "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+        "source_tree_sha256": "5132a4fd75fca3d9515df28dd3a901e821c25b4913c573d44f7bde01bc620874",
+        "captured_at": "2026-10-23T17:13:37.643135+00:00",
+        "app_version": "0.2.0"
+      },
+      "direct_final_bundle_execution": true,
+      "source_equivalence_evidence": null,
+      "source_equivalence_chain": [],
+      "qualification": "See report for real synthetic API versus explicit fixture boundaries"
+    }
+  ],
+  "interrupted_runs": "docs/validation/v2-ui-interrupted-runs.json",
+  "visual_review": {
+    "builder": "Rendered desktop, 390px and 320px output inspected; screenshot capture resets focus/scroll only after separate functional focus checks.",
+    "independent": "Parent independently inspected actual companion Today at 390 pixels, service connections at desktop width and final setup guide at 320 pixels, accepting readability and semantic hierarchy: phone schedule/tasks lead, persistent navigation is clear, desktop control tabs are readable and four incomplete setup steps are represented honestly. Earlier desktop Costs review accepted its hierarchy and content fit. Earlier review led to mobile schedule-priority and chronological-card refinements. This is rendered browser-viewport review, not physical-device or screen-reader acceptance.",
+    "artifact_policy": "Screenshots are internal review artifacts; sanitized JSON reports are retained as source evidence.",
+    "contrast_corrections": "Navigation group text, companion tab labels and companion explanatory copy were darkened before the predecessor audit. The final correction darkened exactly two setup-summary selectors and one shared mobile clinic-label selector; the affected baseline/companion matrix and six configured/incomplete setup states were rerun.",
+    "final_latency_labels": "The shared latency component has five distinct Persian tool labels. Actual API-backed report rows were checked at 1440/390/320 pixels; the source change adds labels only. Element screenshots can include fixed workspace navigation and checker-induced focus; JSON audits and label/count assertions are the acceptance evidence."
+  },
+  "explicit_fixture_boundaries": [
+    "Companion external-calendar response contract uses injected cached/unknown/verified records, not a live remote provider.",
+    "Companion non-demo metadata is a fixture; controlled cost 503 is followed by recovery from the actual local API.",
+    "Waitlist stale-policy 409 is deliberately injected for UI recovery; successful bookings use the actual local synthetic API.",
+    "Privacy notice race changes actual local policy and receives an actual 409; it is not an injected consent-error response.",
+    "RTC lifecycle uses explicit synthetic Room events/API fixtures. Actual network recovery remains partial."
+  ],
+  "global_acceptance_limits": [
+    "All current real service interactions use fresh isolated synthetic demo databases. Provider transmission is disabled.",
+    "No real customer/patient data, vendor invoice, merchant settlement, carrier transfer, platform send or live-provider qualification is represented.",
+    "Axe WCAG2A/AA and WCAG2.1AA-tag audits and selected keyboard checks are bounded evidence, not full accessibility conformance or physical assistive-technology testing.",
+    "Desktop Chromium viewport tests do not qualify physical mobile hardware, native WebView/OS storage, microphone/Bluetooth routes, background operation, signing or installed app behavior.",
+    "Parent-owned platform, native packaging, backend concurrency/security, supplier UAT, legal and clinical approvals retain separate evidence.",
+    "Historical v1 browser-audio/live transport reports remain history and are not included in the current totals.",
+    "Interrupted runs are retained separately: an undetermined local ECONNRESET during extensions, an obsolete release-test expectation for the old onboarding heading, and the setup contrast findings that led to the final three-color correction. Failed attempts are not counted as passing evidence; their resolutions link the named reruns.",
+    "The final five-label correction received four focused latency checks and a fresh seven-check release rerun. Other suites retain their original bundle/script hashes; the prior release report is archived and excluded from totals. Source-equivalence records distinguish the earlier three-color change from the final label-only change.",
+    "The immutable build record retains the detected stale repository-dist read and the initial system-Python launcher failure before any browser/API check. The accepted build and both successful suites used the verified capture and project virtual environment."
+  ],
+  "requirements": [
+    {
+      "id": "CONSOLE-001",
+      "title": "RTL responsive console",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "The built Persian RTL workspace and public pages were audited at desktop, 390px and 320px; named states have no horizontal document overflow.",
+        "Mobile Today leads with the schedule; chronological appointment cards and bottom navigation clearance were exercised at both narrow widths."
+      ],
+      "implemented_and_inspected": [
+        "Mixed Latin identifiers use appropriate direction and local Vazirmatn typography."
+      ],
+      "evidence": [
+        "frontend/src/style.css",
+        "frontend/src/workspace.css",
+        "frontend/src/Workspace.tsx",
+        "frontend/src/pages/Appointments.tsx",
+        "docs/validation/v2-browser-audit.json",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "Browser viewports are not physical Android/iOS or screen-reader qualification."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-002",
+      "title": "Immediate work overview",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Today and companion navigation load real appointments, tasks and calls; meaningful task/call empty states are visible.",
+        "The schedule precedes secondary metrics and integration details on 390px and 320px screens."
+      ],
+      "implemented_and_inspected": [
+        "Status summaries distinguish actual work, current mode and configured services."
+      ],
+      "evidence": [
+        "frontend/src/pages/Overview.tsx",
+        "frontend/src/pages/Calls.tsx",
+        "frontend/src/Workspace.tsx",
+        "docs/validation/v2-browser-audit.json",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "Configuration and an empty local call queue do not establish live provider health or staffed pickup capacity."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-003",
+      "title": "Call cards",
+      "ui_assessment": "implemented_inspected",
+      "observed_browser_behavior": [],
+      "implemented_and_inspected": [
+        "Call cards render scoped clinic, masked contact, state, intent, duration and handoff status without dumping private conversation context.",
+        "Access to the call surface follows appointment:read; takeover controls follow task:write."
+      ],
+      "evidence": [
+        "frontend/src/LiveCalls.tsx",
+        "frontend/src/pages/Calls.tsx",
+        "frontend/src/permissions.ts",
+        "docs/validation/v2-browser-audit.json",
+        "docs/validation/v2-browser-companion.json",
+        "docs/validation/v2-browser-rtc-lifecycle.json"
+      ],
+      "acceptance_limits": [
+        "Current RTC room data is an explicit event-contract fixture; actual transport evidence remains historical and separate."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-004",
+      "title": "Task atomic ownership",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "A real disruption case was claimed and the returned version used for subsequent callback, resolve and reopen actions."
+      ],
+      "implemented_and_inspected": [
+        "Task mutations disable concurrent local actions and send authoritative versions/idempotency keys."
+      ],
+      "evidence": [
+        "frontend/src/pages/TaskQueue.tsx",
+        "docs/validation/v2-browser-extensions.json"
+      ],
+      "acceptance_limits": [
+        "One browser cannot establish cross-process atomic ownership; server concurrency tests are required for that invariant."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-005",
+      "title": "Task lifecycle",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Claim, scheduled callback, resolution and reopening persisted through real task action endpoints."
+      ],
+      "implemented_and_inspected": [
+        "Reassign/redirect, pending and reject controls require the relevant reason, assignee and permission."
+      ],
+      "evidence": [
+        "frontend/src/pages/TaskQueue.tsx",
+        "docs/validation/v2-browser-extensions.json",
+        "docs/validation/v2-browser-workflows.json"
+      ],
+      "acceptance_limits": [
+        "The complete transition/concurrency permutation belongs to backend evidence; every source-visible action was not clicked in this UI run."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-006",
+      "title": "Honest handoff controls",
+      "ui_assessment": "observed_local_with_contract_fixture",
+      "observed_browser_behavior": [
+        "A typed public request for a person queued a real handoff without claiming that someone had joined.",
+        "Caller and staff RTC controls reflected connected, reconnecting and disconnected states in the explicit event fixture."
+      ],
+      "implemented_and_inspected": [
+        "Unavailable media yields callback/request-followup wording; no fake joined state is produced."
+      ],
+      "evidence": [
+        "frontend/src/LiveCalls.tsx",
+        "frontend/src/pages/Talk.tsx",
+        "frontend/src/rtcLifecycle.ts",
+        "docs/validation/v2-browser-conversation.json",
+        "docs/validation/v2-browser-rtc-lifecycle.json"
+      ],
+      "acceptance_limits": [
+        "Actual room connectivity, carrier transfer, pickup and network recovery are not qualified by event injection."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-007",
+      "title": "Clear appointment statuses",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Booking, cancellation, payment-pending and waitlist acceptance results retained the authoritative server status.",
+        "A cached remote appointment stayed READBACK_REQUIRED; an UNKNOWN fixture result did not expose change actions; verified readback enabled them."
+      ],
+      "implemented_and_inspected": [
+        "Status labels separate confirmed, staff review, deposit pending, canceled, expired, failed and external pending operations."
+      ],
+      "evidence": [
+        "frontend/src/pages/Appointments.tsx",
+        "frontend/src/pages/CalendarControl.tsx",
+        "frontend/src/types.ts",
+        "frontend/src/pages/Payments.tsx",
+        "docs/validation/v2-browser-workflows.json",
+        "docs/validation/v2-browser-waitlist-deposit.json",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "External-calendar readback is a response-contract fixture, not a live vendor integration."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-008",
+      "title": "Staff schedule actions",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Staff booking required explicit confirmation; reschedule and cancel changed the real synthetic calendar and visible day/status."
+      ],
+      "implemented_and_inspected": [
+        "The browser uses the documented appointment API and retains pending external operations instead of inventing success."
+      ],
+      "evidence": [
+        "frontend/src/pages/Appointments.tsx",
+        "frontend/src/pages/CalendarControl.tsx",
+        "docs/validation/v2-browser-workflows.json",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "Atomic availability and provider readback enforcement are server responsibilities."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-009",
+      "title": "Accessible keyboard UI",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Named audited states passed axe WCAG2A/AA and WCAG2.1AA-tag checks with no violations.",
+        "Command menu keyboard selection opened the actual booking dialog; mobile drawer focus/Escape, privacy disclosure keyboard access and bottom-navigation focus clearance were exercised."
+      ],
+      "implemented_and_inspected": [
+        "Forms use labels, explicit confirmation, visible focus, status text and error recovery; reduced motion is supported."
+      ],
+      "evidence": [
+        "frontend/src/components.tsx",
+        "frontend/src/Workspace.tsx",
+        "frontend/src/style.css",
+        "frontend/src/workspace.css",
+        "docs/validation/v2-browser-audit.json",
+        "docs/validation/v2-browser-companion.json",
+        "docs/validation/v2-browser-extensions.json",
+        "docs/validation/v2-browser-outreach.json",
+        "docs/validation/v2-browser-waitlist-deposit.json",
+        "docs/validation/v2-browser-privacy-notice.json",
+        "docs/validation/v2-browser-rtc-lifecycle.json",
+        "docs/validation/v2-browser-latency-labels.json"
+      ],
+      "acceptance_limits": [
+        "Automated tags and selected keyboard checks do not establish full WCAG conformance or physical assistive-technology compatibility. Audit contexts bypass CSP only for checker injection."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-010",
+      "title": "Browser conversation UI",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Consent-gated start, typed booking, explicit confirmation, separate reminder choice, human request and session end were exercised through the actual synthetic API.",
+        "A lost response retried the same committed request without duplicating its result; stale consent required fresh notice review."
+      ],
+      "implemented_and_inspected": [
+        "Repeat, slower playback and correction controls are implemented and inspected; their clicks are not claimed as exercised by these browser scripts."
+      ],
+      "evidence": [
+        "frontend/src/pages/Talk.tsx",
+        "docs/validation/v2-browser-conversation.json",
+        "docs/validation/v2-browser-privacy-notice.json",
+        "docs/validation/v2-browser-audit.json"
+      ],
+      "acceptance_limits": [
+        "Current runs did not qualify real microphone recognition, synthesis quality, carrier delivery or physical mobile audio."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-011",
+      "title": "Stale/disconnected indication",
+      "ui_assessment": "observed_local_with_contract_fixture",
+      "observed_browser_behavior": [
+        "Offline/recovery updated the visible connection notice; a controlled cost-service failure displayed retry without invented data and then recovered from the real API.",
+        "RTC reconnecting/reconnected/disconnected event mapping and stale/deferred-room cleanup passed the retained component contract."
+      ],
+      "implemented_and_inspected": [
+        "Unknown remote calendar records remain explicitly unverified."
+      ],
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks.ts",
+        "frontend/src/pages/Costs.tsx",
+        "frontend/src/pages/CalendarControl.tsx",
+        "frontend/src/rtcLifecycle.ts",
+        "docs/validation/v2-browser-audit.json",
+        "docs/validation/v2-browser-companion.json",
+        "docs/validation/v2-browser-rtc-lifecycle.json"
+      ],
+      "acceptance_limits": [
+        "Actual-network RTC recovery remains partial; network reachability is not provider health."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-012",
+      "title": "Owner daily digest",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "The daily digest rendered actual metrics with current-backlog and attendance definitions.",
+        "Digest destination create/disable preserved explicit consent and left automatic delivery off; no report was transmitted."
+      ],
+      "implemented_and_inspected": [
+        "Booked, attended and unknown attendance remain distinct; recipient delivery status distinguishes submission from delivery."
+      ],
+      "evidence": [
+        "frontend/src/pages/DailyDigest.tsx",
+        "frontend/src/pages/DigestDestinations.tsx",
+        "frontend/src/pages/Reports.tsx",
+        "docs/validation/v2-browser-extensions.json",
+        "docs/validation/v2-browser-audit.json"
+      ],
+      "acceptance_limits": [
+        "No live channel, recipient delivery or business outcome is established."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-013",
+      "title": "Building aggregate scope",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Authorized building views loaded aggregate counts and a real draft allocation balanced to the entered pooled contract without charging."
+      ],
+      "implemented_and_inspected": [
+        "Building views omit patient records and only offer authorized memberships."
+      ],
+      "evidence": [
+        "frontend/src/pages/BuildingContracts.tsx",
+        "frontend/src/pages/Work.tsx",
+        "docs/validation/v2-browser-audit.json",
+        "docs/validation/v2-browser-extensions.json"
+      ],
+      "acceptance_limits": [
+        "Actual contracts, authority and financial collection remain external evidence."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-014",
+      "title": "Tenant switch context",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Workflows explicitly switched tenant for finance work and returned to the authorized seed clinic; no-code creation entered the newly authorized clinic."
+      ],
+      "implemented_and_inspected": [
+        "Clinic switch replaces the session and remounts incompatible page state; route guards use current server permissions."
+      ],
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/Workspace.tsx",
+        "docs/validation/v2-browser-workflows.json",
+        "docs/validation/v2-browser-outreach.json",
+        "docs/validation/v2-browser-release.json",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "Cross-tenant denial and token revocation invariants are independently enforced by the backend."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-015",
+      "title": "Simple automation controls",
+      "ui_assessment": "implemented_inspected",
+      "observed_browser_behavior": [],
+      "implemented_and_inspected": [
+        "Settings expose human-primary, after-hours, overflow, supervised, AI-primary and paused with behavior descriptions; changes use versioned settings.",
+        "Launch-readiness target changes clear incomplete evidence rather than carrying approval to another mode."
+      ],
+      "evidence": [
+        "frontend/src/pages/Settings.tsx",
+        "frontend/src/pages/LaunchReadiness.tsx",
+        "docs/validation/v2-browser-audit.json",
+        "docs/validation/v2-browser-release.json"
+      ],
+      "acceptance_limits": [
+        "Mode enforcement, automatic scheduling and production activation gates are backend evidence; each live mode was not operationally qualified here."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-016",
+      "title": "Patient correction workflow",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Audited staff correction updated a real synthetic name and phone and cleared reminder permission on phone change.",
+        "Booking dialogs retained explicit final review; caller booking and correction affordances remain separate from a committed result."
+      ],
+      "implemented_and_inspected": [
+        "Caller repeat/slow/correction shortcuts are present; full natural-language correction permutations belong to voice tests."
+      ],
+      "evidence": [
+        "frontend/src/pages/Appointments.tsx",
+        "frontend/src/pages/Talk.tsx",
+        "docs/validation/v2-browser-extensions.json",
+        "docs/validation/v2-browser-conversation.json"
+      ],
+      "acceptance_limits": [
+        "No claim that every voice correction phrase was browser-tested."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "CONSOLE-017",
+      "title": "PWA/offline behavior",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Loss and restoration of browser connectivity produced honest connection feedback without fabricating a successful write."
+      ],
+      "implemented_and_inspected": [
+        "The UI has no offline patient-record mutation queue; native connection/setup uses the shared service and parent-owned runtime."
+      ],
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/Connection.tsx",
+        "frontend/src/Workspace.tsx",
+        "docs/validation/v2-browser-audit.json",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "Installers, native secure storage, app signing, installed-device behavior and background calling are separate platform evidence."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "TENANT-001",
+      "title": "Resumable onboarding",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "An owner created a clinic through the interface; the four-step setup guide retained the selected clinic, incomplete progress and inactive mode across reload, and was audited at desktop/320px.",
+        "A practitioner and service were created through real no-code catalog forms."
+      ],
+      "implemented_and_inspected": [
+        "Setup links to saved identity, hours, catalog, approved answers, integration and launch readiness; server connection is a separate surface."
+      ],
+      "evidence": [
+        "frontend/src/pages/Setup.tsx",
+        "frontend/src/pages/Catalog.tsx",
+        "frontend/src/pages/Settings.tsx",
+        "frontend/src/pages/Connection.tsx",
+        "docs/validation/v2-browser-release.json",
+        "docs/validation/v2-browser-workflows.json",
+        "docs/validation/v2-browser-audit.json"
+      ],
+      "acceptance_limits": [
+        "Native connection transport and secure credential behavior are assessed by parent-owned platform tests."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "TENANT-006",
+      "title": "Policy rollback",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "A reviewed historical policy snapshot restored prior values through a new audited current version."
+      ],
+      "implemented_and_inspected": [],
+      "evidence": [
+        "frontend/src/pages/Policies.tsx",
+        "docs/validation/v2-browser-extensions.json"
+      ],
+      "acceptance_limits": [],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "TENANT-011",
+      "title": "Automation modes",
+      "ui_assessment": "implemented_inspected",
+      "observed_browser_behavior": [],
+      "implemented_and_inspected": [
+        "All six operating modes are represented accurately in settings and the configuration workflow; the UI does not infer live automation from a saved form."
+      ],
+      "evidence": [
+        "frontend/src/pages/Settings.tsx",
+        "frontend/src/pages/LaunchReadiness.tsx",
+        "docs/validation/v2-browser-audit.json",
+        "docs/validation/v2-browser-release.json"
+      ],
+      "acceptance_limits": [
+        "Actual mode enforcement and staffed availability require backend and operational evidence."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "TENANT-014",
+      "title": "Clinic policy UAT",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Launch review required five independent evidence references plus explicit reviewer confirmation; changing target mode cleared the draft and no incomplete approval was submitted."
+      ],
+      "implemented_and_inspected": [
+        "The view identifies synthetic clinic attestation, fingerprint-bound scope and production-enforcement status."
+      ],
+      "evidence": [
+        "frontend/src/pages/LaunchReadiness.tsx",
+        "docs/validation/v2-browser-release.json"
+      ],
+      "acceptance_limits": [
+        "This browser test intentionally did not attest that real clinic, carrier or production checks were completed."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "AUTH-002",
+      "title": "Roles and memberships",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Real billing, technical and coordinator accounts received permitted navigation and direct-route guards without inappropriate patient or finance reads.",
+        "A real partner account received only aggregate mobile UI and its membership was revoked."
+      ],
+      "implemented_and_inspected": [
+        "Permission-aware actions and route guards use the server permissions array; role fallback is limited to old fixtures, and unknown roles do not gain full access."
+      ],
+      "evidence": [
+        "frontend/src/permissions.ts",
+        "frontend/src/App.tsx",
+        "frontend/src/Workspace.tsx",
+        "frontend/src/pages/Management.tsx",
+        "docs/validation/v2-browser-companion.json",
+        "docs/validation/v2-browser-extensions.json"
+      ],
+      "acceptance_limits": [
+        "UI guards improve usability; authorization, tenant isolation and device-session revocation remain server-enforced."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "FOUNDATION-008",
+      "title": "Health and readiness",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Connections distinguished saved configuration, operator approval and absent observations without showing an invented healthy result.",
+        "Observed stage-latency distributions retained the successful-observation boundary and did not claim first-audible caller latency.",
+        "The actual latency API returned the four existing stages and five exact tool stages after a successful synthetic slots dispatch. At1440/390/320px each tool row had a distinct Persian label, actual count and empty percentiles when no successful sample existed."
+      ],
+      "implemented_and_inspected": [
+        "Service health renders in-app alerts, responsible colleagues and evidence-bearing resolution; bounded probe controls are permission-gated."
+      ],
+      "evidence": [
+        "frontend/src/pages/ServiceConnections.tsx",
+        "frontend/src/pages/ServiceHealth.tsx",
+        "frontend/src/pages/Latency.tsx",
+        "docs/validation/v2-browser-companion.json",
+        "docs/validation/v2-browser-release.json",
+        "frontend/src/pages/Latency.tsx",
+        "docs/validation/v2-browser-latency-labels.json",
+        "docs/validation/v2-ui-latency-labels-source-equivalence.json"
+      ],
+      "acceptance_limits": [
+        "Provider probes, alert mutations and real incident/paging response were not fully exercised by this browser matrix.",
+        "Successful local tool-dispatch observations do not establish provider, generative-model, caller first-audible or latency-SLO acceptance; core MEDIA-012 evidence remains authoritative."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "BILLING-001",
+      "title": "Usage event ledger",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "An exact fractional provider tariff was stored as a decimal string with a locally hashed synthetic evidence document."
+      ],
+      "implemented_and_inspected": [
+        "Costs show versioned rates, ledger quantities and exact cost/exposure fields; missing price and unresolved liability are not converted to zero."
+      ],
+      "evidence": [
+        "frontend/src/pages/Costs.tsx",
+        "frontend/src/Evidence.tsx",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "Ledger uniqueness and provider quantity accounting are backend evidence; a local file hash is not independent receipt verification."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "BILLING-003",
+      "title": "Invoice reconciliation",
+      "ui_assessment": "implemented_inspected",
+      "observed_browser_behavior": [],
+      "implemented_and_inspected": [
+        "Cost statements support bounded line import, discrepancy review and evidence-bearing reconciliation of STARTED/UNKNOWN reservations.",
+        "The reviewer explicitly verifies provider evidence; timeout is not treated as no charge."
+      ],
+      "evidence": [
+        "frontend/src/pages/Costs.tsx",
+        "frontend/src/Evidence.tsx",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "Budget/rate forms and page states were exercised; every statement/reconciliation mutation was not clicked, and no vendor statement was received."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "BILLING-004",
+      "title": "Pooled building allowance",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "An authorized building contract produced a balanced draft pooled allocation without initiating a charge."
+      ],
+      "implemented_and_inspected": [],
+      "evidence": [
+        "frontend/src/pages/BuildingContracts.tsx",
+        "docs/validation/v2-browser-extensions.json"
+      ],
+      "acceptance_limits": [
+        "Entered draft terms do not prove a signed contract or financial settlement."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "BILLING-005",
+      "title": "Cost budget enforcement",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Budget caps persisted through the real API, and editing values cleared prior confirmation."
+      ],
+      "implemented_and_inspected": [
+        "Monthly, call, operation and provider exposure limits are displayed with unknown/unpriced conditions."
+      ],
+      "evidence": [
+        "frontend/src/pages/Costs.tsx",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "Hard-cap reservation and humane fallback enforcement are backend responsibilities, not inferred from a saved form."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PAYMENT-001",
+      "title": "Published deposit policy",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Explicit owner review published a versioned synthetic deposit/cancel/refund policy; public mobile reception displayed safe terms without merchant identity.",
+        "Original policy values were restored through a new version; paid waitlist acceptance carried the reviewed terms version and remained pending payment."
+      ],
+      "implemented_and_inspected": [
+        "Terms and server payment state remain distinct from actual bank settlement."
+      ],
+      "evidence": [
+        "frontend/src/pages/PaymentPolicy.tsx",
+        "frontend/src/pages/Talk.tsx",
+        "frontend/src/pages/Waitlist.tsx",
+        "docs/validation/v2-browser-release.json",
+        "docs/validation/v2-browser-waitlist-deposit.json"
+      ],
+      "acceptance_limits": [
+        "No actual merchant, legal publication approval, transfer or settlement qualification."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "WAITLIST-005",
+      "title": "Atomic acceptance",
+      "ui_assessment": "observed_local_with_contract_fixture",
+      "observed_browser_behavior": [
+        "Immediate and resumed paid offers required refreshed terms and explicit patient acceptance; a stale-terms 409 cleared approval and required review again.",
+        "Successful real demo API acceptance stayed PENDING_PAYMENT and did not create a paid/confirmed claim."
+      ],
+      "implemented_and_inspected": [
+        "The browser passes the current version only after explicit review and does not bypass the normal payment-intent flow."
+      ],
+      "evidence": [
+        "frontend/src/pages/Waitlist.tsx",
+        "docs/validation/v2-browser-workflows.json",
+        "docs/validation/v2-browser-waitlist-deposit.json"
+      ],
+      "acceptance_limits": [
+        "One 409 is deliberately injected to test UI recovery; real-mode enforcement is independently backend-tested."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PRIVACY-001",
+      "title": "Purpose-specific consent",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "A real purpose publication and separately evidenced subject permission were independent writes, with no grant preselected.",
+        "The public start request bound the exact displayed notice fingerprint. A real mid-flow policy change returned 409, refreshed the notice, cleared consent and caused no automatic retry."
+      ],
+      "implemented_and_inspected": [
+        "Standard and purpose-specific disclosures are shown together; missing current notice blocks startup while contact information remains visible."
+      ],
+      "evidence": [
+        "frontend/src/pages/PrivacyGovernance.tsx",
+        "frontend/src/pages/Talk.tsx",
+        "frontend/src/Evidence.tsx",
+        "frontend/src/types.ts",
+        "docs/validation/v2-browser-companion.json",
+        "docs/validation/v2-browser-privacy-notice.json"
+      ],
+      "acceptance_limits": [
+        "Server processing-purpose revocation and consent persistence are backend tests; UI evidence does not provide legal approval."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PRIVACY-003",
+      "title": "Ephemeral media handling",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Before and during conversation the exact server notice distinguished transient raw audio from encrypted necessary recovery text, stated configured retention and scheduled cleanup, and exposed deletion/contact choices.",
+        "Fresh explicit consent started a real session with recording and training false and did not request the microphone."
+      ],
+      "implemented_and_inspected": [],
+      "evidence": [
+        "frontend/src/pages/Talk.tsx",
+        "frontend/src/types.ts",
+        "docs/validation/v2-browser-privacy-notice.json"
+      ],
+      "acceptance_limits": [
+        "Disclosure accuracy is tested here; actual buffer disposal, storage encryption and deletion execution belong to backend/worker evidence. No exact automatic deletion date is promised."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PRIVACY-006",
+      "title": "Data-use revocation",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Purpose-specific outreach revocation preserved active appointment records in the synthetic workflow."
+      ],
+      "implemented_and_inspected": [
+        "Independent purpose permission/denial controls retain source/version and explicit confirmation; contact preferences are not treated as universal permission."
+      ],
+      "evidence": [
+        "frontend/src/pages/ConsentRevocation.tsx",
+        "frontend/src/pages/PrivacyGovernance.tsx",
+        "frontend/src/pages/Outreach.tsx",
+        "docs/validation/v2-browser-outreach.json",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "Queued/in-flight enforcement, dataset exclusions and stopping open processing sessions are independently backend-verified."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PRIVACY-010",
+      "title": "Processor registry",
+      "ui_assessment": "implemented_inspected",
+      "observed_browser_behavior": [],
+      "implemented_and_inspected": [
+        "Processor records show purposes, permitted regions, terms source, document hash, approval/expiry and configured versus observed state.",
+        "Editing processor approval requires the privacy and integration permissions; a saved attestation is not a claim of provider reachability."
+      ],
+      "evidence": [
+        "frontend/src/pages/ServiceConnections.tsx",
+        "frontend/src/Evidence.tsx",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "Page state was exercised; processor publication and actual cross-border supplier due diligence were not fully browser-qualified."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PARTNER-001",
+      "title": "Calendar adapter contract",
+      "ui_assessment": "observed_local_with_contract_fixture",
+      "observed_browser_behavior": [
+        "Cached external inventory was visibly unverified; UNKNOWN readback withheld changes, and a verified record enabled actions even when it still carried an operation reference."
+      ],
+      "implemented_and_inspected": [
+        "Calendar authority, pending operations and reconcile controls use persisted operation status and explicit authoritative readback; no blind write retry is offered."
+      ],
+      "evidence": [
+        "frontend/src/pages/CalendarControl.tsx",
+        "frontend/src/pages/Appointments.tsx",
+        "frontend/src/types.ts",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "The browser test is an explicitly injected response-contract fixture. No selected external calendar vendor, credential, create/cancel/reconcile operation or live provider UAT was qualified."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PARTNER-002",
+      "title": "Partner scopes and dashboard",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "An owner granted/revoked a real synthetic partner membership; partner mobile UI showed aggregate information without patient navigation."
+      ],
+      "implemented_and_inspected": [],
+      "evidence": [
+        "frontend/src/pages/Partner.tsx",
+        "frontend/src/pages/Management.tsx",
+        "frontend/src/App.tsx",
+        "docs/validation/v2-browser-extensions.json"
+      ],
+      "acceptance_limits": [
+        "Backend scope enforcement and actual partner agreements remain separate."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PARTNER-003",
+      "title": "White-label branding",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Reviewed clinic branding published safe public identity and was restored through the same authorized workflow."
+      ],
+      "implemented_and_inspected": [
+        "Public display uses only approved safe brand fields; pronunciation inputs retain their documented administrative limits."
+      ],
+      "evidence": [
+        "frontend/src/pages/Management.tsx",
+        "frontend/src/pages/Talk.tsx",
+        "docs/validation/v2-browser-extensions.json"
+      ],
+      "acceptance_limits": [
+        "Actual voice persona/acoustic quality and legal brand authorization were not qualified."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PARTNER-004",
+      "title": "Provider/API exports",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "A bounded scoped partner key was shown once, absent from later listings and explicitly revoked."
+      ],
+      "implemented_and_inspected": [
+        "Usage exports are permissioned and API keys are not reused as staff navigation credentials."
+      ],
+      "evidence": [
+        "frontend/src/pages/Management.tsx",
+        "frontend/src/pages/Reports.tsx",
+        "docs/validation/v2-browser-extensions.json"
+      ],
+      "acceptance_limits": [
+        "API version sunset/deprecation and actual external partner conformance belong to backend/integration evidence."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PARTNER-006",
+      "title": "Owner digest channel abstraction",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Digest destination creation required recipient consent reference; disabling it persisted; automatic scheduling stayed off and no report was sent."
+      ],
+      "implemented_and_inspected": [
+        "Delivery status distinguishes accepted submission from delivery."
+      ],
+      "evidence": [
+        "frontend/src/pages/DigestDestinations.tsx",
+        "docs/validation/v2-browser-extensions.json"
+      ],
+      "acceptance_limits": [
+        "No platform account, webhook permission, live recipient transmission or delivery qualification."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PARTNER-007",
+      "title": "Messaging suppression across channels",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Purpose-bound outreach revocation was exercised without canceling the underlying appointment."
+      ],
+      "implemented_and_inspected": [
+        "Channel forms are implemented and inspected; UI choices remain scoped to the selected purpose/channel rather than granting unrelated permissions."
+      ],
+      "evidence": [
+        "frontend/src/pages/Outreach.tsx",
+        "frontend/src/pages/ConsentRevocation.tsx",
+        "docs/validation/v2-browser-outreach.json"
+      ],
+      "acceptance_limits": [
+        "Native social-channel delivery and every dispatch boundary remain adapter/backend and external UAT scope."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PARTNER-008",
+      "title": "Multilingual routing extension",
+      "ui_assessment": "implemented_inspected",
+      "observed_browser_behavior": [],
+      "implemented_and_inspected": [
+        "Paused-only routing forms require documented language scripts, expiry, qualified-human attestation and an allowed queue/transfer target for English/Arabic routes.",
+        "The interface does not present these routes as tested multilingual AI."
+      ],
+      "evidence": [
+        "frontend/src/pages/Routing.tsx",
+        "docs/validation/v2-browser-companion.json"
+      ],
+      "acceptance_limits": [
+        "Routing publication was source-inspected; actual language recognition, staff pickup capacity, carrier routing and script quality remain unqualified."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "PARTNER-009",
+      "title": "External connector fail-closed",
+      "ui_assessment": "observed_local",
+      "observed_browser_behavior": [
+        "Unavailable integrations remained clearly unconfigured/unobserved; a controlled service error produced retry and no fabricated summary.",
+        "Non-demo runtime metadata did not expose the sample-account shortcut; unavailable public media controls stayed capability-bound."
+      ],
+      "implemented_and_inspected": [
+        "Configured, attested and observed states are separate throughout connection and call surfaces."
+      ],
+      "evidence": [
+        "frontend/src/pages/ServiceConnections.tsx",
+        "frontend/src/pages/Login.tsx",
+        "frontend/src/pages/Talk.tsx",
+        "frontend/src/pages/Connection.tsx",
+        "docs/validation/v2-browser-companion.json",
+        "docs/validation/v2-browser-audit.json",
+        "docs/validation/v2-browser-conversation.json"
+      ],
+      "acceptance_limits": [
+        "Metadata and external-calendar fixtures test UI contracts, not actual vendor availability."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "MEDIA-008",
+      "title": "Browser audio lifecycle",
+      "ui_assessment": "partial_event_contract_only",
+      "observed_browser_behavior": [
+        "Twelve caller/staff event-contract checks exercised reconnecting/reconnected/disconnected UI, current-room ownership, canceled/deferred operation cleanup and controls."
+      ],
+      "implemented_and_inspected": [
+        "The shared observer subscribes to lifecycle events and removes listeners; stale operations cannot claim a new room or release another session."
+      ],
+      "evidence": [
+        "frontend/src/rtcLifecycle.ts",
+        "frontend/src/pages/Talk.tsx",
+        "frontend/src/LiveCalls.tsx",
+        "docs/validation/v2-browser-rtc-lifecycle.json"
+      ],
+      "acceptance_limits": [
+        "Full reconnect acceptance remains partial. This matrix does not establish actual-network recovery, uninterrupted PCM, device background/lock behavior, microphone routes or carrier continuity. Historical actual transport evidence is not rerun or counted here."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    },
+    {
+      "id": "MEDIA-UAT-004",
+      "title": "Mobile browser matrix",
+      "ui_assessment": "external_qualification_not_performed",
+      "observed_browser_behavior": [
+        "Chromium viewport checks covered 390px and 320px composition and focus clearance."
+      ],
+      "implemented_and_inspected": [],
+      "evidence": [
+        "frontend/src/pages/Talk.tsx",
+        "frontend/src/Workspace.tsx",
+        "docs/validation/v2-browser-audit.json",
+        "docs/validation/v2-browser-companion.json",
+        "docs/validation/v2-browser-privacy-notice.json"
+      ],
+      "acceptance_limits": [
+        "No physical iPhone/Android, Bluetooth, microphone permission panel, incoming-call interruption, background/lock, native WebView or installed-app acceptance was performed by this frontend matrix. Parent platform/native evidence is assessed separately."
+      ],
+      "scope": "Frontend contribution only; this does not replace the main requirement assessment or backend, provider and physical-device evidence."
+    }
+  ],
+  "previous_frozen_bundle": {
+    "entry": "/assets/index-5GKqz5J0.js",
+    "entry_sha256": "d01c1f6cf9027782d0ae4364f12e0825e410bca7a6436616b6160144126070e3",
+    "css": "/assets/index-DVYiIkCe.css",
+    "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+    "source_tree_sha256": "563cb1db1b3f0123e93ca6a47e37fbc459502a92857991abd0b069279a9a4b98",
+    "captured_at": "2026-10-23T16:44:31.080735+00:00",
+    "app_version": "0.2.0"
+  },
+  "final_latency_label_correction_and_source_equivalence": "docs/validation/v2-ui-latency-labels-source-equivalence.json",
+  "replaced_release_history": "docs/validation/v2-ui-release-before-latency-labels.json"
+}

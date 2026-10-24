@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "synthetic_assumptions": true,
+  "inputs": {
+    "calls_per_hour": 40,
+    "handoff_fraction": 0.2,
+    "handling_mean_minutes": 6,
+    "handling_coefficient_of_variation": 0.8,
+    "scheduled_staff": 3,
+    "shrinkage_fraction": 0.2,
+    "peak_multiplier": 1.5,
+    "duration_hours": 8,
+    "target_wait_seconds": 20,
+    "abandon_after_seconds": 180,
+    "trials": 100,
+    "seed": 2026
+  },
+  "effective_staff_floor": 2,
+  "expected_handoffs_per_hour": 12.0,
+  "mean_arrivals": 95.72,
+  "mean_handled": 83.6,
+  "mean_abandoned": 12.12,
+  "mean_trial_p95_wait_seconds": 129.3835810858623,
+  "mean_service_level_of_all_arrivals": 0.6954085407698057,
+  "service_level_simulation_5th_95th_percentile": [
+    0.5765765765765766,
+    0.8051948051948052
+  ],
+  "mean_utilization_during_window": 0.5165150379595752,
+  "notes": [
+    "Intervals summarize modeled trial variation, not empirical confidence intervals or a guarantee.",
+    "Shrinkage conservatively floors available staff for the entire modeled window.",
+    "All arrivals, including abandonment, remain in the service-level denominator.",
+    "No actual clinic arrivals, pickup outcomes or employee performance were observed."
+  ],
+  "workload": {
+    "gross_released_minutes": 240.0,
+    "supervision_minutes": 45.0,
+    "rework_minutes": 25.0,
+    "net_released_minutes": 170.0,
+    "avoidable_paid_minutes": 0.0,
+    "reassigned_capacity_minutes": 170.0,
+    "avoidable_cost_toman": 0.0,
+    "cash_saving_claim_supported": false
+  }
+}

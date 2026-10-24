@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">هم‌آوا</string>
+    <string name="title_activity_main">هم‌آوا</string>
+    <string name="package_name">ir.hamava.reception</string>
+    <string name="custom_url_scheme">ir.hamava.reception</string>
+</resources>

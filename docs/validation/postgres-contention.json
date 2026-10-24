@@ -1,0 +1,94 @@
+{
+  "synthetic_only": true,
+  "database": "PostgreSQL 16.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit",
+  "contenders": 100,
+  "started_at": "2026-10-23T12:02:50.070765+00:00",
+  "cases": [
+    {
+      "name": "one_slot_many_distinct_requests",
+      "attempts": 100,
+      "success_responses": 1,
+      "distinct_committed_ids": 1,
+      "rejected": 99,
+      "expected_success_responses": 1,
+      "elapsed_seconds": 2.869,
+      "median_ms": 1378.93,
+      "p95_ms": 2405.13,
+      "rejection_codes": [
+        "SLOT_TAKEN"
+      ],
+      "passed": true
+    },
+    {
+      "name": "same_idempotency_key_replay",
+      "attempts": 100,
+      "success_responses": 100,
+      "distinct_committed_ids": 1,
+      "rejected": 0,
+      "expected_success_responses": 100,
+      "elapsed_seconds": 2.986,
+      "median_ms": 1445.59,
+      "p95_ms": 2475.83,
+      "rejection_codes": [],
+      "passed": true
+    },
+    {
+      "name": "different_doctors_overlapping_shared_resource",
+      "attempts": 100,
+      "success_responses": 1,
+      "distinct_committed_ids": 1,
+      "rejected": 99,
+      "expected_success_responses": 1,
+      "elapsed_seconds": 3.013,
+      "median_ms": 1486.15,
+      "p95_ms": 2704.35,
+      "rejection_codes": [
+        "SLOT_TAKEN"
+      ],
+      "passed": true
+    },
+    {
+      "name": "exclusive_hold_claim",
+      "attempts": 100,
+      "success_responses": 1,
+      "distinct_committed_ids": 1,
+      "rejected": 99,
+      "expected_success_responses": 1,
+      "elapsed_seconds": 2.956,
+      "median_ms": 1387.21,
+      "p95_ms": 2482.83,
+      "rejection_codes": [
+        "SLOT_TAKEN"
+      ],
+      "passed": true
+    },
+    {
+      "name": "same_booking_two_simultaneous_reschedules",
+      "attempts": 2,
+      "success_responses": 1,
+      "distinct_committed_ids": 1,
+      "rejected": 1,
+      "expected_success_responses": 1,
+      "elapsed_seconds": 0.06,
+      "median_ms": 54.29,
+      "p95_ms": 56.63,
+      "rejection_codes": [
+        "STALE_VERSION"
+      ],
+      "passed": true
+    }
+  ],
+  "integrity": {
+    "duplicate_resource_minutes": 0,
+    "replay_records": 1,
+    "replay_notifications": 1,
+    "passed": true
+  },
+  "tenant_isolation": {
+    "status": 404,
+    "passed": true
+  },
+  "total_appointments_including_seed": 8,
+  "passed": true,
+  "notes": "One isolated local PostgreSQL host; a contention regression, not a production capacity or voice latency benchmark."
+}

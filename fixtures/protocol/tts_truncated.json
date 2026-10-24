@@ -1,0 +1,8 @@
+{
+  "id": "tts_truncated",
+  "family": "tts",
+  "chunks": [
+    641
+  ],
+  "expect_error": "TTS_STREAM_TRUNCATED"
+}

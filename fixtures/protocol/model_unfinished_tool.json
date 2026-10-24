@@ -1,0 +1,20 @@
+{
+  "id": "model_unfinished_tool",
+  "family": "model",
+  "events": [
+    {
+      "type": "response.output_item.added",
+      "item": {
+        "id": "tool-1",
+        "type": "function_call",
+        "name": "slots"
+      }
+    },
+    {
+      "type": "response.function_call_arguments.delta",
+      "item_id": "tool-1",
+      "delta": "{\"provider_id\":\"p\""
+    }
+  ],
+  "expect_error": "MODEL_STREAM_INCOMPLETE"
+}

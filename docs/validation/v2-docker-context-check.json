@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "docker_executed": false,
+  "check": "Docker frontend COPY layout supplies prebuild generator and upstream license inputs",
+  "notices_sha256": "26a4246a9989175c9afb85ff8785600e1513c2bb75660e450bc0c5d0ce3ee822",
+  "generator_output": "Retained license notices for 21 locked web runtime packages.",
+  "limits": "Actual generator exercised in staged COPY layout using already installed locked dependencies; Docker engine/image execution remains unverified."
+}

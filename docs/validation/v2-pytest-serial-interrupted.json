@@ -1,0 +1,29 @@
+{
+  "status": "interrupted_incomplete",
+  "superseded_session": 90844,
+  "stopped_by": "parent SIGINT; exit 1",
+  "complete_suite_claim": false,
+  "log": "docs/validation/v2-pytest-serial-interrupted.log",
+  "log_sha256": "4700fcd8226e778f2f067003f8d6501c10f88ed29262bdb8655d98405f12af5d",
+  "xml": {
+    "path": "docs/validation/v2-pytest-serial-interrupted.xml",
+    "sha256": "81f90bf2cd595a9eebf33b9100cecd4f64ae400a4ae020b6b0f2c2c2630c1daa",
+    "root": "testsuites",
+    "attributes": {
+      "name": "pytest tests"
+    },
+    "suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "124",
+        "time": "411.354",
+        "timestamp": "2026-10-23T19:44:47.921500+03:00",
+        "hostname": "1511347037b0"
+      }
+    ],
+    "complete_suite_claim": false
+  }
+}

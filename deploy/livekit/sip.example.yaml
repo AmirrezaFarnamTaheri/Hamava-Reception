@@ -1,0 +1,12 @@
+# Alternative carrier media ingress. This file does NOT register tenant routing
+# into the Hamava worker by itself; use the dispatch integration/UAT in runbook.
+api_key: REPLACE_API_KEY
+api_secret: REPLACE_WITH_A_UNIQUE_SECRET_AT_LEAST_32_CHARACTERS
+ws_url: ws://127.0.0.1:7880
+redis:
+  address: 127.0.0.1:6379
+  password: REPLACE_PRIVATE_REDIS_PASSWORD
+sip_port: 5060
+rtp_port: 10000-20000
+use_external_ip: true
+log_level: info

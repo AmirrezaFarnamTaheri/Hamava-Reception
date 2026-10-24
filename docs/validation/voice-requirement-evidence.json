@@ -1,0 +1,1733 @@
+{
+  "schema_version": "1.0",
+  "title": "Voice/media requirement evidence proposal",
+  "generated_at": "2026-10-23T11:56:37.550021+00:00",
+  "source_register": "docs/requirements.json",
+  "source_register_sha256": "14567546f15be3afca87cec1da3b77c4262b23ad96d9392f764f3d7d2d845b07",
+  "source_blueprint_sha256": "d056b2893f32f81d6076f3be6d76ce0ca707284d8b8984d968ef8f47270943ef",
+  "updates_main_register": false,
+  "interpretation": "verified_local means the stated local behavior has a named regression or code inspection. Remaining full acceptance is explicitly listed; synthetic transport/control-plane evidence is never live carrier, native-listener quality, production capacity or commercial evidence.",
+  "test_trace_files": [
+    "docs/validation/voice-audit-test-trace.json",
+    "docs/validation/voice-followup-tests.json",
+    "docs/validation/voice-final-tests.json",
+    "docs/validation/media-admission-load.json",
+    "docs/validation/voice-payment-repeat-tests.json",
+    "docs/validation/privacy-notice-test.xml"
+  ],
+  "verified_live_supplier_claims": false,
+  "requirements": [
+    {
+      "id": "AUTH-003",
+      "title": "Public session capability",
+      "acceptance": "Visitor token is short-lived and limited to one clinic/conversation; cannot list staff or patient records.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Opaque expiring caller token is scoped to a persisted clinic/call; staff JWT routes reject it.",
+      "evidence": [
+        "backend/receptionist/voice.py::authenticated_call",
+        "backend/tests/test_voice.py::test_session_scope_recording_disabled_and_replay_mismatch"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "AUTH-005",
+      "title": "Server-derived tenant",
+      "acceptance": "Model or browser request fields cannot set tenant authority, verified identity or arbitrary outbound targets.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Caller schemas reject tenant, proof and routing-authority injection; backend derives tenant and subject proof.",
+      "evidence": [
+        "backend/receptionist/voice.py::StartSession",
+        "backend/receptionist/voice.py::authenticated_call",
+        "backend/tests/test_voice_integrity.py::test_browser_cannot_assert_overflow_authority"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "AUTH-007",
+      "title": "Contact verification",
+      "acceptance": "OTP or an approved equivalent is required before sensitive existing-booking disclosure and changes.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Existing-booking read/change requires a reference plus session/tenant-bound proof of the stored phone.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.verify",
+        "backend/receptionist/voice.py::Conversation.commit",
+        "backend/tests/test_voice.py::test_real_caller_booking_flow_idempotency_and_opt_in"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "AUTH-008",
+      "title": "OTP abuse resistance",
+      "acceptance": "Challenges expire, are attempt/rate limited, session/tenant scoped and not exposed in production responses/logs.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Five-minute OTP challenges remain session/tenant scoped, attempt limited and encrypted. A clinic+phone three-per-ten-minute allowance and global phone hourly allowance survive concurrent new sessions. Counter/challenge/outbox/receipt roll back atomically on receipt failure; real-mode responses do not expose the code.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.otp",
+        "backend/receptionist/voice.py::Conversation.verify",
+        "backend/tests/test_voice.py::test_otp_attempt_limit_and_no_raw_identifier",
+        "backend/tests/test_voice_followup.py::test_otp_limit_survives_concurrent_new_sessions_and_is_tenant_scoped",
+        "backend/tests/test_voice_followup.py::test_otp_budget_and_outbox_roll_back_with_failed_turn_receipt",
+        "backend/tests/test_voice_followup.py::test_real_deposit_terms_are_read_before_yes_and_changed_terms_require_new_yes",
+        "docs/validation/voice-final-tests.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "AUTH-009",
+      "title": "Caller ID limitations",
+      "acceptance": "Withheld, spoofed, recycled and family phone numbers do not imply patient identity.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "PBX DID selects tenant only; caller-ID never grants patient authority. A provided phone must pass explicit proof.",
+      "evidence": [
+        "backend/receptionist/media_api.py::register_pbx",
+        "backend/receptionist/voice.py::Conversation.verify"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "AUTH-011",
+      "title": "Prompt injection boundary",
+      "acceptance": "Injected instructions cannot change scope, policy, SQL, calendar authority, price or webhook destination.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "The implemented conversation is a bounded server state machine; caller text cannot execute SQL, choose arbitrary tenants or overwrite price/verification facts.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.answer",
+        "backend/receptionist/core.py",
+        "backend/tests/test_voice.py::test_no_commit_without_explicit_confirmation",
+        "backend/tests/test_voice.py::test_session_scope_recording_disabled_and_replay_mismatch"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "AUTH-014",
+      "title": "Abuse quotas",
+      "acceptance": "SMS flooding, repeated holds/calls and expensive outbound routes are limited without biometric profiling.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Real all-channel call admission, per-call duration reservations, per-clinic+phone and global-phone OTP limits, turn/hold limits and worker capacity are bounded and tested, including independent PostgreSQL connections up to 80 admitted sessions.",
+      "evidence": [
+        "backend/receptionist/voice.py::rate_limit",
+        "backend/receptionist/voice.py::new_session",
+        "backend/receptionist/core.py::hold",
+        "backend/tests/test_voice_integrity.py::test_all_channel_admission_is_serialized_and_budget_reserves_inflight_calls",
+        "backend/tests/test_voice_followup.py::test_otp_limit_survives_concurrent_new_sessions_and_is_tenant_scoped",
+        "scripts/media_admission_stress.py",
+        "docs/validation/media-admission-load.json"
+      ],
+      "remaining_acceptance": [
+        "Actual supplier currency spend ceilings and approved outbound-route budgets remain deployment/operator acceptance. Duration reservation alone is not a provider cost ceiling."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "TENANT-004",
+      "title": "Working hours and shifts",
+      "acceptance": "Hours, breaks, overnight boundaries, holidays and physician absence constrain all offers and commits.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Clinic/provider shifts, holiday, lead-time, horizon and duration/buffer checks constrain calendar writes; narrowing practitioner shifts cannot strand active appointments.",
+      "evidence": [
+        "backend/receptionist/core.py::_valid_start",
+        "backend/receptionist/schemas.py::PractitionerInput",
+        "backend/receptionist/api.py::update_practitioner",
+        "backend/tests/test_core.py::test_practitioner_shifts_validate_preserve_and_protect_existing_bookings"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "TENANT-007",
+      "title": "Call policy snapshot",
+      "acceptance": "Each call pins a valid approved policy; urgent security/safety revocation supersedes the snapshot.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Each call pins policy and published identity; live paused/inactive tenant, expired call, human connection and revoked partner authority override continued automation.",
+      "evidence": [
+        "backend/receptionist/voice.py::new_session",
+        "backend/receptionist/voice.py::ensure_ai_allowed",
+        "backend/tests/test_voice_integrity.py::test_modes_have_explicit_behavior_and_supervised_booking_needs_approval",
+        "backend/tests/test_voice_integrity.py::test_human_connect_during_transcription_prevents_late_ai_turn"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "TENANT-008",
+      "title": "Approved knowledge facts",
+      "acceptance": "Hours/address/parking/price/insurance/preparation entries require source, approval and effective/expiry bounds.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "FAQ publish supplies owner approval/source/effective/expiry metadata and voice reads its pinned snapshot.",
+      "evidence": [
+        "backend/receptionist/core.py::update_settings",
+        "backend/receptionist/voice.py::Conversation.answer",
+        "backend/tests/test_core.py::test_onboarding_catalog_scopes_inactive_restoration_and_faq_approval"
+      ],
+      "remaining_acceptance": [
+        "Clinic-specific fact accuracy and approval must be supplied by the authorized clinic; direct address configuration remains a separate approved-settings field rather than a complete fact-source record."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "TENANT-009",
+      "title": "Expired knowledge fallback",
+      "acceptance": "Expired, conflicting or unapproved facts cannot be answered as current; create staff follow-up.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Expired, malformed, future-effective and unapproved matched FAQ entries route to staff.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.answer"
+      ],
+      "remaining_acceptance": [
+        "Conflicting multiple matching facts are not comprehensively reconciled; a dedicated conflict/freshness acceptance matrix remains necessary."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "TENANT-011",
+      "title": "Automation modes",
+      "acceptance": "Human-primary, after-hours, overflow, supervised and paused modes have explicit behavior and staff control.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "human_primary, after_hours, overflow, supervised, ai_primary and paused have distinct behavior. Only trusted PBX busy/no-answer events authorize overflow.",
+      "evidence": [
+        "backend/receptionist/voice.py::_automation_allowed",
+        "backend/receptionist/voice.py::new_session",
+        "backend/receptionist/voice.py::Conversation.review_change",
+        "backend/tests/test_voice_integrity.py::test_modes_have_explicit_behavior_and_supervised_booking_needs_approval",
+        "backend/tests/test_voice_integrity.py::test_browser_cannot_assert_overflow_authority"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "TENANT-012",
+      "title": "Budgets and channel caps",
+      "acceptance": "Tenant limits cover concurrency, hold creation, call duration, spend and message attempts.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "All-channel admission reserves bounded active-call durations against monthly canonical call usage; worker capacity and hold/message attempt limits are separate.",
+      "evidence": [
+        "backend/receptionist/voice.py::new_session",
+        "backend/receptionist/media_api.py::media_rooms",
+        "backend/tests/test_voice_integrity.py::test_all_channel_admission_is_serialized_and_budget_reserves_inflight_calls",
+        "backend/tests/test_voice_integrity.py::test_worker_capacity_and_lease_generation_fence_stale_worker"
+      ],
+      "remaining_acceptance": [
+        "Configured minute and attempt caps do not yet establish a measured monetary spend ceiling across every external provider."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "TENANT-013",
+      "title": "Recording and retention settings",
+      "acceptance": "Per-purpose retention, recording off default and human alternatives are visible in understandable Persian.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Persian public notice explicitly distinguishes discarded raw audio and disabled training from encrypted necessary conversation text/results. It displays the current clinic retention period after call end, scheduled cleanup, deletion/human alternatives and separate necessary booking records. Processing consent is required and the call policy snapshot records retention_days.",
+      "evidence": [
+        "backend/receptionist/voice.py::public_clinic",
+        "backend/receptionist/voice.py::start_session",
+        "backend/tests/test_voice.py::test_session_scope_recording_disabled_and_replay_mismatch",
+        "docs/validation/privacy-notice-test.xml"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately.",
+      "acceptance_boundary": "Scheduled retention follows the configured clinic policy; no exact deletion instant or deployed legal/staffing approval is asserted. Independent purpose-specific retention administration is assessed with privacy operations evidence."
+    },
+    {
+      "id": "LOCALE-001",
+      "title": "Tehran frozen call clock",
+      "acceptance": "A timezone-aware call reference persists across retries and local midnight; naive datetimes are rejected.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Aware started_at is persisted and reused for date parsing; naive reference times fail.",
+      "evidence": [
+        "backend/receptionist/locale.py::resolve_persian_datetime",
+        "backend/receptionist/voice.py::Conversation.find_slots",
+        "backend/tests/test_locale.py::test_frozen_reference_before_midnight_is_used"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-002",
+      "title": "Jalali conversion",
+      "acceptance": "Tested conversion handles year boundary, leap Esfand and weekday checks using explicit weekday conventions.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Known Tehran/Jalali references, leap Esfand, Nowruz and weekday labeling pass.",
+      "evidence": [
+        "backend/tests/test_locale.py::test_tehran_jalali_known_reference",
+        "backend/tests/test_locale.py::test_leap_esfand_and_nowruz_conversion"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-003",
+      "title": "Persian digit normalization",
+      "acceptance": "ASCII/Persian/Arabic digits and character variants normalize without losing leading zeros.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Persian/Arabic/ASCII digits and letter variants normalize without dropping phone leading zeros.",
+      "evidence": [
+        "backend/receptionist/locale.py::normalize_text",
+        "backend/receptionist/locale.py::normalize_digits",
+        "backend/tests/test_locale.py::test_phone_numeral_variants",
+        "backend/tests/test_locale.py::test_context_weekday_alignment_and_unicode"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-004",
+      "title": "Mobile canonicalization",
+      "acceptance": "Iranian mobile input is canonicalized and validated, including country prefixes and invalid lengths.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Iranian mobile forms including +98/0098 normalize; malformed length and surrounding prose reject.",
+      "evidence": [
+        "backend/receptionist/locale.py::normalize_phone",
+        "backend/tests/test_locale.py::test_phone_numeral_variants",
+        "backend/tests/test_locale.py::test_spoken_digit_phone_and_bad_phone"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-005",
+      "title": "Optional national ID syntax",
+      "acceptance": "Checksum/length validation is optional and never treated as proof of identity.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Optional national-ID checksum is a syntax helper and is not used as patient proof.",
+      "evidence": [
+        "backend/receptionist/locale.py::valid_national_id",
+        "backend/tests/test_locale.py::test_national_id_is_syntax_only_and_rejects_repeated_digits",
+        "backend/receptionist/voice.py::Conversation.verify"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-006",
+      "title": "Tomorrow and day-after",
+      "acceptance": "فردا and پس‌فردا resolve from frozen Tehran date rather than host timezone.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Tomorrow/day-after derive from the frozen Tehran call date.",
+      "evidence": [
+        "backend/tests/test_locale.py::test_tomorrow_and_ambiguous_time",
+        "backend/tests/test_locale.py::test_shift_context_does_not_invent_clock",
+        "backend/tests/test_locale.py::test_frozen_reference_before_midnight_is_used"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-007",
+      "title": "Next weekday ambiguity",
+      "acceptance": "سه‌شنبه هفته دیگه and شنبه‌ی هفته‌ی بعد return exact candidates and clarification when convention is ambiguous.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Different next-week conventions yield exact date alternatives and explicit clarification.",
+      "evidence": [
+        "backend/receptionist/locale.py::resolve_persian_datetime",
+        "backend/tests/test_locale.py::test_week_convention_returns_alternatives_when_distinct"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-008",
+      "title": "Named Jalali dates",
+      "acceptance": "بیستم آبان resolves only within configured year/horizon; past or ambiguous year is not silently accepted.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Named Jalali dates have inferred-year confirmation and invalid/out-of-horizon rejection.",
+      "evidence": [
+        "backend/tests/test_locale.py::test_explicit_and_inferred_jalali_year",
+        "backend/tests/test_locale.py::test_invalid_or_out_of_horizon_date_is_never_bookable"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-009",
+      "title": "Approximate time windows",
+      "acceptance": "غروب، آخر وقت، صبح، بعدازظهر map to configured ranges or clarification, never invented exact instants.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Morning/evening/afternoon map to ranges, never a fabricated exact instant; actual offers are filtered by live availability.",
+      "evidence": [
+        "backend/receptionist/locale.py::_clock",
+        "backend/receptionist/voice.py::Conversation.find_slots",
+        "backend/tests/test_locale.py::test_shift_context_does_not_invent_clock"
+      ],
+      "remaining_acceptance": [
+        "Time-window ranges are currently code-defined rather than configurable per clinic; آخر وقت does not have a specialized last-slot interpretation."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-010",
+      "title": "Colloquial clock time",
+      "acceptance": "چهار و ربع، شیش و نیم and AM/PM ambiguity resolve with permitted shifts and explicit readback.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Colloquial half/quarter-hour candidates remain ambiguous until period/shift disambiguation; final slot readback is explicit.",
+      "evidence": [
+        "backend/receptionist/locale.py::_clock",
+        "backend/tests/test_locale.py::test_tomorrow_and_ambiguous_time",
+        "backend/tests/test_locale.py::test_shift_context_does_not_invent_clock"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-011",
+      "title": "Relative month and short offset",
+      "acceptance": "اول ماه بعد and نیم ساعت دیگه are handled deterministically or returned as unsupported clarification.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Unsupported relative-month/short-offset phrases return date_required and clarification instead of silently choosing a date.",
+      "evidence": [
+        "backend/receptionist/locale.py::resolve_persian_datetime",
+        "backend/receptionist/voice.py::Conversation.find_slots"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-012",
+      "title": "Horizon and availability policy",
+      "acceptance": "Lead time, booking horizon, holiday, shift, duration and buffer constrain resolved candidates.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Parsed dates do not bypass the calendar horizon, holidays, shifts, lead time, service duration or buffer.",
+      "evidence": [
+        "backend/receptionist/core.py::_valid_start",
+        "backend/receptionist/core.py::slots",
+        "backend/tests/test_locale.py::test_invalid_or_out_of_horizon_date_is_never_bookable",
+        "backend/tests/test_core.py::test_practitioner_shifts_validate_preserve_and_protect_existing_bookings"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-013",
+      "title": "Persian spoken readback",
+      "acceptance": "Canonical times/dates/prices/identifiers receive deterministic natural Persian labels separate from slot IDs.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Canonical slot IDs stay separate from Persian Jalali date/time labels and verified booking references.",
+      "evidence": [
+        "backend/receptionist/locale.py::jalali_label",
+        "backend/receptionist/core.py::appointment_dict",
+        "backend/receptionist/voice.py::Conversation.confirmation"
+      ],
+      "remaining_acceptance": [
+        "Fully lexical spoken prices and digit-by-digit identifiers have not been separately demonstrated across TTS providers."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-014",
+      "title": "Pronunciation dictionary",
+      "acceptance": "Versioned provider/street/insurance vocabulary and phonetic alternatives feed supported ASR/TTS adapters.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Published pronunciation version is pinned per call; written/alias hints feed STT and only meaning-preserving vowel marks feed TTS. Hidden controls reject.",
+      "evidence": [
+        "backend/receptionist/partners.py::Pronunciation",
+        "backend/receptionist/partners.py::pronounce",
+        "backend/receptionist/voice.py::audio_turn",
+        "backend/receptionist/voice.py::speech",
+        "backend/tests/test_partner_integrity.py::test_unicode_controls_cannot_enter_pronunciation_or_asr_hints",
+        "backend/tests/test_partner_integrity.py::test_pronunciation_only_preserves_letters_and_deliberate_spacing"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-015",
+      "title": "Accessibility alternatives",
+      "acceptance": "Repeat, slower speech, DTMF, SMS and human fallback are reachable after critical-field uncertainty.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Repeat, slow speech, textual input, AudioSocket DTMF, OTP and human task/direct-phone alternatives exist.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.answer",
+        "backend/receptionist/media/audiosocket.py",
+        "backend/tests/test_voice.py::test_human_request_works_during_phone_verification",
+        "backend/tests/test_media_providers.py::test_fragmented_audiosocket_frames_and_dtmf"
+      ],
+      "remaining_acceptance": [
+        "Real accessibility/user testing and an interactive SMS fallback channel are not established by the current OTP/notification flow."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "LOCALE-016",
+      "title": "Fourteen-day context",
+      "acceptance": "Dynamic Shamsi context is an advisory display aid; it cannot authorize dates or calendar writes.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Fourteen-day Shamsi helper returns labels only; all writes require signed scoped slots and fresh policy checks.",
+      "evidence": [
+        "backend/receptionist/locale.py::generate_shamsi_context",
+        "backend/tests/test_locale.py::test_context_weekday_alignment_and_unicode",
+        "backend/receptionist/core.py::_decode_slot"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "BOOKING-003",
+      "title": "Bounded slot offers",
+      "acceptance": "Conversation presents at most two actual current choices and expires stale offers.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Each conversation offer batch contains at most two real slots; stale slot/policy tokens cannot be committed.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.offer",
+        "backend/receptionist/voice.py::execute_turn",
+        "backend/receptionist/core.py::_decode_slot"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "BOOKING-006",
+      "title": "Temporary slot holds",
+      "acceptance": "Holds have owner, expiry, resource interval and policy; expiration/release/limits are enforced at commit.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Call-owned holds expire, release on correction/end/handoff and atomically consume only matching ownership.",
+      "evidence": [
+        "backend/receptionist/core.py::hold",
+        "backend/receptionist/voice.py::release_holds",
+        "backend/tests/test_core.py::test_hold_ownership_expiry_and_consumption",
+        "backend/tests/test_voice_integrity.py::test_caller_can_correct_doctor_contact_and_name_before_reconfirmation"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "BOOKING-007",
+      "title": "Explicit caller confirmation",
+      "acceptance": "Create requires current chosen slot and patient confirmation bound to the authenticated conversation.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Confirmation requires a selected slot plus verified phone and explicit yes; correction prompts reconfirmation.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.confirmation",
+        "backend/receptionist/voice.py::Conversation.commit",
+        "backend/tests/test_voice.py::test_no_commit_without_explicit_confirmation",
+        "backend/tests/test_voice_integrity.py::test_caller_can_correct_doctor_contact_and_name_before_reconfirmation"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "BOOKING-008",
+      "title": "Idempotent booking",
+      "acceptance": "Same tenant/operation/key and fingerprint returns one result; conflicting payload reuse is rejected.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Turn and booking fingerprints reject mismatched request reuse; receipt replay refreshes current appointment state.",
+      "evidence": [
+        "backend/tests/test_voice_integrity.py::test_audio_retry_is_payload_bound_and_skips_duplicate_transcription",
+        "backend/tests/test_voice_integrity.py::test_voice_retry_reports_current_canceled_booking",
+        "backend/tests/test_core.py::test_idempotency_replay_and_mismatched_body"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "BOOKING-010",
+      "title": "Write and read-back verification",
+      "acceptance": "Confirmed state matches patient, provider, service, interval, source and durable external/internal ID.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Internal calendar receipt/context commit together; booking status is re-read on replay and after TTS preparation.",
+      "evidence": [
+        "backend/tests/test_voice_integrity.py::test_booking_context_and_turn_receipt_roll_back_together",
+        "backend/tests/test_voice_integrity.py::test_voice_retry_reports_current_canceled_booking",
+        "backend/tests/test_voice_integrity.py::test_booking_canceled_during_synthesis_never_returns_stale_confirmation_audio"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "BOOKING-014",
+      "title": "Authorized cancellation",
+      "acceptance": "Verified subject/staff authority and cancellation policy are checked before changing source state.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Caller cancellation binds reference and verified phone; staff authorization and cancellation policy are checked by the same service.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.verify",
+        "backend/receptionist/voice.py::Conversation.answer",
+        "backend/receptionist/core.py::cancel_appointment"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "BOOKING-015",
+      "title": "Safe rescheduling",
+      "acceptance": "Original appointment survives destination failure; atomic replace or documented compensated pending saga is used.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Destination failure preserves original booking; supervised caller moves remain staff-review requests.",
+      "evidence": [
+        "backend/receptionist/core.py::reschedule_appointment",
+        "backend/receptionist/voice.py::Conversation.commit",
+        "backend/receptionist/voice.py::Conversation.review_change",
+        "backend/tests/test_core.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "BOOKING-016",
+      "title": "Family subjects",
+      "acceptance": "Two relatives have distinct patient subjects, holds and confirmations; partial success is reported accurately.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "A two-relative conversation obtains separate patient names, proofs, holds and confirmations. Losing/replaying the first response and reconnecting does not duplicate it; expiration of the second hold leaves the first booking authoritative and explicitly reports partial success. Subsequent second confirmation creates exactly one independent appointment.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.commit",
+        "backend/receptionist/voice.py::Conversation.answer",
+        "backend/tests/test_voice_followup.py::test_two_relatives_partial_success_reconnect_and_independent_confirmation",
+        "backend/receptionist/voice.py::_bookings_readback",
+        "backend/receptionist/voice.py::session_state",
+        "docs/validation/voice-final-tests.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "BOOKING-017",
+      "title": "Doctor change mid-call",
+      "acceptance": "Changing physician invalidates incompatible service/date/offer state without leaking prior tenant data.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Explicit physician change clears incompatible slots/holds/date choices and reselects compatible service inside the same tenant.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.change_provider",
+        "backend/receptionist/voice.py::Conversation.clear_slot_selection",
+        "backend/tests/test_voice_integrity.py::test_caller_can_correct_doctor_contact_and_name_before_reconfirmation"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-001",
+      "title": "Administrative role boundary",
+      "acceptance": "Agent handles reception only and does not diagnose, prescribe, rank severity or invent insurance/preparation claims.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Only fixed administrative state transitions and approved fact output exist; diagnosis/prescription requests route to staff.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.answer",
+        "backend/tests/test_voice.py::test_urgency_never_enters_booking_or_claims_triage"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-002",
+      "title": "AI notice and choices",
+      "acceptance": "Opening accurately discloses AI, active recording policy and available human alternative.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Greeting discloses AI; pre-start notice gives disabled recording/training and an actual human alternative.",
+      "evidence": [
+        "backend/receptionist/voice.py::GREETING",
+        "backend/receptionist/voice.py::public_clinic",
+        "backend/receptionist/voice.py::start_session",
+        "backend/tests/test_voice.py::test_session_scope_recording_disabled_and_replay_mismatch"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-003",
+      "title": "Persistent conversation state",
+      "acceptance": "Intent, verified fields, policy, offers, pending operation and retries survive reconnect/restart appropriately.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Encrypted call context, proof, offers, pinned policy/code versions and receipts persist in SQL. Booking and context share one transaction. Authenticated reconnect exposes current offers and authoritative family booking readback; repeated confirm IDs remain single-effect.",
+      "evidence": [
+        "backend/receptionist/models_voice.py",
+        "backend/receptionist/voice.py::_TurnTransaction",
+        "backend/tests/test_voice_integrity.py::test_booking_context_and_turn_receipt_roll_back_together",
+        "backend/tests/test_voice_followup.py::test_two_relatives_partial_success_reconnect_and_independent_confirmation",
+        "backend/tests/test_voice_followup.py::test_pinned_versions_survive_configuration_change_and_reconnect",
+        "docs/validation/voice-final-tests.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-004",
+      "title": "Turn replay protection",
+      "acceptance": "Turn sequence/request IDs prevent duplicate side effects on retry or double-click.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Request-hash-bound turn receipts and fenced leases prevent duplicate side effects and stale-worker writes.",
+      "evidence": [
+        "backend/tests/test_voice_integrity.py::test_audio_retry_is_payload_bound_and_skips_duplicate_transcription",
+        "backend/tests/test_voice_integrity.py::test_expired_turn_lease_cannot_overwrite_its_successor",
+        "backend/tests/test_voice.py::test_real_caller_booking_flow_idempotency_and_opt_in"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-005",
+      "title": "One question per turn",
+      "acceptance": "Responses use concise natural Persian without hidden JSON, Markdown or stack traces in speech.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Fixed Persian prompts request one next field/choice; speech only synthesizes trusted stored replies, not raw JSON or exception output.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation",
+        "backend/receptionist/voice.py::speech",
+        "backend/tests/test_voice.py::test_real_caller_booking_flow_idempotency_and_opt_in"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-006",
+      "title": "Human request priority",
+      "acceptance": "Human request is honored from any state before continuing ordinary slot filling.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Human intent precedes ordinary slot-filling and is available during verification; connected humans stop all AI routes.",
+      "evidence": [
+        "backend/tests/test_voice.py::test_human_request_works_during_phone_verification",
+        "backend/tests/test_voice_integrity.py::test_human_connected_stops_text_audio_speech_and_cannot_be_downgraded"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-007",
+      "title": "Urgent phrase route",
+      "acceptance": "Approved potentially urgent phrases interrupt ordinary booking and invoke approved human/emergency guidance without diagnosis.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Urgent phrase handling precedes booking, avoids diagnosis and queues urgent staff assistance.",
+      "evidence": [
+        "backend/tests/test_voice.py::test_urgency_never_enters_booking_or_claims_triage",
+        "backend/receptionist/voice.py::Conversation.answer"
+      ],
+      "remaining_acceptance": [
+        "Clinical/clinic approval of the final production emergency wording and actual staffed emergency route remains external."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-008",
+      "title": "Low-confidence fallback",
+      "acceptance": "After two failed critical-number/date attempts, use a permitted alternative or staff task.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Two failed critical-field clarifications route to staff; OTP has its separately bounded challenge attempts.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.unclear",
+        "backend/receptionist/voice.py::Conversation.verify",
+        "backend/tests/test_voice.py::test_otp_attempt_limit_and_no_raw_identifier"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-009",
+      "title": "Typed tool gateway",
+      "acceptance": "Strict schemas, ownership, authorization, policy, timeout and idempotency checks wrap all model-proposed tools.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Pydantic tool inputs, server ownership/policy checks and idempotency fence the deterministic calendar path.",
+      "evidence": [
+        "backend/receptionist/voice.py::TurnInput",
+        "backend/receptionist/core.py",
+        "backend/receptionist/schemas.py"
+      ],
+      "remaining_acceptance": [
+        "No arbitrary model-proposed tool orchestrator is enabled; a future LLM tool gateway needs its own schema/timeout conformance run."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-010",
+      "title": "Trusted outcome metadata",
+      "acceptance": "Response metadata tracks intent, signals, policy, verified fields, pending tool and actual outcome outside speech.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Structured result has state, offers, booking, handoff, capabilities and turn ID; encrypted context stores intent/proof/policy.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.set_reply",
+        "backend/receptionist/models_voice.py::VoiceTurn"
+      ],
+      "remaining_acceptance": [
+        "A complete standardized signals/pending-tool metadata trace is not yet exposed for every provider stage."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-011",
+      "title": "No invented FAQ facts",
+      "acceptance": "Only current approved tenant knowledge is answerable; unknowns use honest follow-up.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Answers require nonempty approved-by/source and timezone-aware effective/expiry evidence pinned to the call. Conflicting valid matches hand off; expired entries cannot override a valid current answer; equivalent answers are deduplicated. An address field without approved fact provenance is never spoken as the answer.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.answer",
+        "backend/receptionist/voice.py::_approved_fact",
+        "backend/tests/test_voice_followup.py::test_conflicting_current_facts_handoff_without_selecting_first",
+        "backend/tests/test_voice_followup.py::test_duplicate_equivalent_and_expired_facts_do_not_override_current_answer",
+        "backend/tests/test_voice_followup.py::test_address_never_falls_back_to_unapproved_tenant_field",
+        "docs/validation/voice-final-tests.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-012",
+      "title": "Bounded fallback speech",
+      "acceptance": "One truthful progress acknowledgement, bounded retries and a safe exit replace endless filler.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Provider calls have bounded timeouts; no speculative success, blind write retry or endless filler loop is generated.",
+      "evidence": [
+        "backend/receptionist/providers.py::provider_request",
+        "backend/receptionist/voice.py::execute_turn",
+        "backend/receptionist/media/livekit_worker.py::RoomAgent.failure_handoff",
+        "backend/tests/test_media_providers.py::test_non_idempotent_timeout_is_unknown_and_not_retryable"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-013",
+      "title": "Interruption integrity",
+      "acceptance": "Barge-in clears queued speech/speculation while durable booking/payment facts remain correct.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Barge-in invalidates playback generations while preserving and publishing already committed outcomes.",
+      "evidence": [
+        "backend/tests/test_media_integrity.py::test_barge_in_keeps_committed_result_but_never_plays_stale_generations",
+        "backend/receptionist/media/audiosocket.py",
+        "backend/receptionist/media/livekit_worker.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-014",
+      "title": "Disconnect recovery",
+      "acceptance": "Dropped calls cancel providers, end usage, release unused holds and reconcile started writes.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Call end meters once and releases holds; transport cleanup/watchdogs stop orphan processing and bound already-submitted writes.",
+      "evidence": [
+        "backend/tests/test_voice.py::test_call_end_metered_once_releases_holds",
+        "backend/tests/test_media_integrity.py::test_media_watchdog_stops_a_worker_when_poll_renewal_is_lost",
+        "backend/receptionist/media/audiosocket.py",
+        "backend/receptionist/media/livekit_worker.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-015",
+      "title": "Language fallback",
+      "acceptance": "Unsupported English/Arabic/code-switching routes to an approved language path rather than fabricated fluency.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Explicit English, Arabic and mixed-language requests for those languages queue a human task, record the requested language, release uncommitted holds and truthfully state that the assistant supports Persian and staff language capability still needs checking.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.answer",
+        "backend/receptionist/voice.py::_requested_language",
+        "backend/tests/test_voice_followup.py::test_explicit_unsupported_language_gets_truthful_human_route",
+        "backend/tests/test_voice_followup.py::test_language_switch_releases_uncommitted_slot",
+        "docs/validation/voice-final-tests.json"
+      ],
+      "remaining_acceptance": [
+        "Unannounced language/code-switch classification is not a comprehensively validated language detector. Actual language-qualified staff availability and pickup capacity require clinic staffing evidence."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-016",
+      "title": "Caller memory consent",
+      "acceptance": "Cross-call memory and next-visit personalization require explicit opt-in and deletion support.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Cross-call personalization is disabled: every call gets a fresh encrypted context; phone proof does not load historical conversational memory.",
+      "evidence": [
+        "backend/receptionist/voice.py::new_session",
+        "backend/receptionist/voice.py::Conversation.verify"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONVERSATION-017",
+      "title": "Prompt/config versioning",
+      "acceptance": "Model, prompt, locale, policy and adapter versions attach to reproducible redacted traces.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Each new call pins the application version and SHA-256 identifiers of FSM, locale, authoritative calendar and provider-adapter code. Explicit configured ASR/TTS version labels are recorded, otherwise not_recorded. Results, encrypted turn receipts and authenticated reconnect carry the same immutable tuple. There is no generative-model/prompt stage to invent.",
+      "evidence": [
+        "backend/receptionist/models_voice.py",
+        "backend/receptionist/voice.py::new_session",
+        "backend/receptionist/providers.py::SpeechGateway.synthesize",
+        "backend/receptionist/voice.py::configured_versions",
+        "backend/tests/test_voice_followup.py::test_pinned_versions_survive_configuration_change_and_reconnect",
+        "docs/validation/voice-final-tests.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-001",
+      "title": "Transport contract",
+      "acceptance": "start_call/send_audio/interrupt/transfer/hangup and events have typed capability-based interfaces.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Typed call/turn/registration/worker APIs and bounded transport implementations exist.",
+      "evidence": [
+        "backend/receptionist/media_api.py",
+        "backend/receptionist/voice.py",
+        "backend/receptionist/media/audiosocket.py",
+        "backend/receptionist/media/livekit_worker.py"
+      ],
+      "remaining_acceptance": [
+        "A single formal start/send/interrupt/transfer/hangup adapter interface with a shared capability-conformance suite has not been completed."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-002",
+      "title": "AudioSocket framing",
+      "acceptance": "Three-byte headers handle fragmented/coalesced TCP input, UUID, DTMF, hangup and valid PCM frame types.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Fragmented TCP header/payload, UUID, DTMF, hangup and malformed/truncated frame handling pass.",
+      "evidence": [
+        "backend/tests/test_media_providers.py::test_fragmented_audiosocket_frames_and_dtmf",
+        "backend/tests/test_media_providers.py::test_bad_media_frames_fail_closed",
+        "backend/tests/test_media_providers.py::test_truncated_media_frame_closes",
+        "backend/tests/test_media_integrity.py::test_empty_audiosocket_pcm_is_rejected_instead_of_spin",
+        "docs/validation/audiosocket-loopback.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-003",
+      "title": "PCM format correctness",
+      "acceptance": "8-kHz mono signed 16-bit little-endian audio is not confused with G.711 bytes; sample rates are validated.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Only explicit 16-bit aligned PCM/rates are decoded; resampling preserves duration and malformed WAV expansion rejects.",
+      "evidence": [
+        "backend/receptionist/media/audio.py",
+        "backend/receptionist/media/audiosocket.py",
+        "backend/tests/test_media_providers.py::test_pcm_wav_resampling_preserves_duration",
+        "backend/tests/test_media_integrity.py::test_wav_decoder_rejects_expansion_and_truncation",
+        "docs/validation/audiosocket-loopback.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-004",
+      "title": "Audio pacing and buffers",
+      "acceptance": "20-ms playback pacing, bounded queues, backpressure and cancellation avoid overrun and unbounded memory.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "AudioSocket uses paced frames; WebRTC capture queue and pending-turn queue are bounded; stale generations cancel output.",
+      "evidence": [
+        "backend/receptionist/media/audiosocket.py",
+        "backend/receptionist/media/livekit_worker.py",
+        "backend/tests/test_media_integrity.py::test_high_rate_turns_are_downsampled_before_bounded_upload",
+        "backend/tests/test_media_integrity.py::test_barge_in_keeps_committed_result_but_never_plays_stale_generations"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-005",
+      "title": "Speech provider abstraction",
+      "acceptance": "STT partial/final/keyterms, structured model tools and TTS audio/chunks have comparable contracts.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Final-transcript STT/keyterms and complete WAV TTS adapters share guarded contracts.",
+      "evidence": [
+        "backend/receptionist/providers.py::SpeechGateway",
+        "services/local_speech/app.py"
+      ],
+      "remaining_acceptance": [
+        "Partial-transcript streaming, chunked TTS and structured model tool-stream parity are not implemented as a common realtime provider contract."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-006",
+      "title": "Provider timeouts and breaker",
+      "acceptance": "Timeouts, rate limits, circuit-breaker states and permitted fallback are measured and logged.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Provider timeouts/breaker cooldown and unknown non-idempotent outcome behavior have local regression evidence.",
+      "evidence": [
+        "backend/receptionist/providers.py::provider_request",
+        "backend/tests/test_media_providers.py::test_circuit_breaker_recovers_after_cooldown",
+        "backend/tests/test_media_providers.py::test_non_idempotent_timeout_is_unknown_and_not_retryable"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-007",
+      "title": "Fallback eligibility",
+      "acceptance": "Fallback cannot silently transmit data to a region/provider lacking tenant approval.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Provider approval/host allowlist is mandatory; there is no automatic alternate-processor fallback that bypasses approval.",
+      "evidence": [
+        "backend/receptionist/providers.py::approved_url",
+        "backend/tests/test_media_providers.py::test_processor_approval_and_allowlist"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-008",
+      "title": "Browser audio lifecycle",
+      "acceptance": "User-initiated microphone permission, connected state, stop, reconnect and cleanup are accurately represented.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Backend expiry, safe stop and actual loopback audio path are verified.",
+      "evidence": [
+        "backend/receptionist/voice.py::end_session",
+        "backend/tests/test_voice_integrity.py::test_provider_waits_release_database_connections_and_allow_unrelated_writes",
+        "docs/validation/livekit-loopback.json"
+      ],
+      "remaining_acceptance": [
+        "Merge frontend microphone/stop/reconnect test evidence; mobile OS/background behavior is a separate external matrix."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-009",
+      "title": "WebRTC session isolation",
+      "acceptance": "Production WebRTC route has scoped room tokens, HTTPS/TURN configuration and per-session privacy.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Scoped room tokens, one registration per call, worker lease fencing and signed staff join are verified locally.",
+      "evidence": [
+        "backend/receptionist/media_api.py",
+        "backend/tests/test_voice_integrity.py::test_worker_capacity_and_lease_generation_fence_stale_worker",
+        "backend/tests/test_voice_integrity.py::test_verified_human_webhook_requires_live_tenant_membership_and_is_idempotent",
+        "docs/validation/livekit-loopback.json"
+      ],
+      "remaining_acceptance": [
+        "Production public HTTPS, ICE/TURN/NAT and cross-device isolation need deployment acceptance; one loopback call is insufficient."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-010",
+      "title": "Voice activity and endpointing",
+      "acceptance": "Turn endpointing permits slow digits/hesitant speakers and handles silence/noise without hallucinated actions.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Energy endpointing avoids transcribing pure silence, supports pre-roll/barge-in and bounds long utterances.",
+      "evidence": [
+        "backend/receptionist/media/audio.py::TurnBuffer",
+        "backend/tests/test_media_providers.py::test_endpointing_supports_barge_in_and_does_not_transcribe_silence"
+      ],
+      "remaining_acceptance": [
+        "Real hesitant/slow-digit/noisy Persian caller slices need blinded acoustic validation."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-011",
+      "title": "Cached licensed phrases",
+      "acceptance": "Stable audio cache is versioned by voice/policy/text; cache-hit telemetry and interruption work.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Only exact static greeting is cacheable by tenant/policy/voice/text/slow key; hits avoid provider-character billing and dynamic readbacks are uncached.",
+      "evidence": [
+        "backend/receptionist/voice.py::speech",
+        "backend/receptionist/providers.py::SpeechGateway.synthesize",
+        "backend/tests/test_voice_integrity.py::test_only_static_greeting_uses_cache_and_hits_are_not_provider_characters",
+        "backend/tests/test_deployment_boundaries.py::test_static_tts_cache_scoped_versioned_and_revocable"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-012",
+      "title": "Latency telemetry",
+      "acceptance": "Measure end-of-turn to first audible output and STT/model/tool/TTS/transfer subspans separately.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "VoiceTurn.latency_ms measures the synchronous conversation/tool transaction. Root added durable STT/TTS provider and verified-human-join spans. The recorded native RTC smoke proves one synthetic audio path, while the control-plane load report intentionally excludes acoustic latency.",
+      "evidence": [
+        "backend/receptionist/models_voice.py::VoiceTurn",
+        "backend/receptionist/telemetry.py",
+        "docs/validation/livekit-loopback.json",
+        "docs/validation/speech-smoke.json",
+        "backend/receptionist/voice.py::audio_turn",
+        "backend/receptionist/voice.py::speech",
+        "backend/receptionist/media_api.py"
+      ],
+      "remaining_acceptance": [
+        "Root latency API/first-received-PCM evidence should be merged separately. No acoustic P50/P95/P99 or actual paid-network end-of-turn-to-first-audible SLO is inferred from handler timing."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-013",
+      "title": "Call quotas and admission",
+      "acceptance": "Concurrent sessions, per-call time/spend, tenant budgets and overload fallback are enforced.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Serialized mixed-channel admission, maximum 30-minute call reservations, one-minute budget contention, absolute media deadlines and eight-room worker assignment are locally verified, including six isolated PostgreSQL load levels.",
+      "evidence": [
+        "backend/tests/test_voice_integrity.py::test_all_channel_admission_is_serialized_and_budget_reserves_inflight_calls",
+        "backend/tests/test_voice_integrity.py::test_worker_capacity_and_lease_generation_fence_stale_worker",
+        "backend/tests/test_media_integrity.py::test_call_budget_deadline_stops_media_even_with_a_live_worker_lease",
+        "scripts/media_admission_stress.py",
+        "docs/validation/media-admission-load.json"
+      ],
+      "remaining_acceptance": [
+        "Actual supplier currency spend enforcement is not established by minute reservations or this synthetic benchmark. Paid provider budgets and approved financial caps remain deployment acceptance."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-014",
+      "title": "DID and physician routing",
+      "acceptance": "DID-first routing and explicit physician/name/specialty disambiguation never cross tenant permissions.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Trusted DID map selects tenant and doctor selection is limited to that tenant; browser overflow claims reject.",
+      "evidence": [
+        "backend/receptionist/media_api.py::register_pbx",
+        "backend/receptionist/voice.py::Conversation.ask_provider",
+        "backend/receptionist/voice.py::Conversation.change_provider",
+        "backend/tests/test_voice_integrity.py::test_pbx_duplicate_registration_is_atomic_and_human_primary_falls_back",
+        "backend/tests/test_voice_integrity.py::test_caller_can_correct_doctor_contact_and_name_before_reconfirmation"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-015",
+      "title": "Handoff transport truth",
+      "acceptance": "Requested/ringing/accepted/connected/failed states follow real transport events; a task is not a connected call.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Task/QUEUED is distinct from CONNECTED; only verified authorized participant events establish connection, and AI then stops.",
+      "evidence": [
+        "backend/tests/test_voice_integrity.py::test_verified_human_webhook_requires_live_tenant_membership_and_is_idempotent",
+        "backend/tests/test_voice_integrity.py::test_human_connected_stops_text_audio_speech_and_cannot_be_downgraded",
+        "docs/validation/livekit-loopback.json"
+      ],
+      "remaining_acceptance": [
+        "Full PSTN requested/ringing/accepted/failed warm-transfer state and real carrier fallback require external tests."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-016",
+      "title": "No orphan provider session",
+      "acceptance": "Teardown/cancellation releases audio/model handles and finalizes usage exactly once.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "End is idempotent, unused holds release and stale media workers cannot terminate a successor; local watchdog cleanup is bounded.",
+      "evidence": [
+        "backend/tests/test_voice.py::test_call_end_metered_once_releases_holds",
+        "backend/tests/test_voice_integrity.py::test_worker_capacity_and_lease_generation_fence_stale_worker",
+        "backend/tests/test_media_integrity.py::test_media_watchdog_stops_a_worker_when_poll_renewal_is_lost",
+        "backend/receptionist/media/audiosocket.py",
+        "backend/receptionist/media/livekit_worker.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-017",
+      "title": "SIP deploy configuration",
+      "acceptance": "Carrier templates avoid real credentials/public unsafe defaults and document ACL/codecs/ports/DTMF/TLS options.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Example PBX/carrier templates contain placeholders and document codec/ACL/fallback requirements; no real trunk is asserted.",
+      "evidence": [
+        "deploy/asterisk/pjsip_carrier.example.conf",
+        "deploy/asterisk/extensions_hamava.conf",
+        "docs/launch-playbook.md"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-018",
+      "title": "LiveKit alternative recipe",
+      "acceptance": "Optional LiveKit SIP/Agents deployment has isolated room dispatch and documented support boundaries.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Optional LiveKit server/SIP recipes and per-call room/worker dispatch exist; local native RTC received agent audio and verified human join.",
+      "evidence": [
+        "deploy/livekit/server.example.yaml",
+        "deploy/livekit/sip.example.yaml",
+        "backend/receptionist/media_api.py",
+        "backend/receptionist/media/livekit_worker.py",
+        "docs/validation/livekit-loopback.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-019",
+      "title": "Asterisk retrofit recipe",
+      "acceptance": "Optional AudioSocket/PBX recipe documents modules, notice, fallback, call UUID and transfer integration.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Asterisk recipe registers a DID-scoped one-use UUID after notice and documented busy/no-answer fallback.",
+      "evidence": [
+        "deploy/asterisk/extensions_hamava.conf",
+        "deploy/asterisk/hamava_register.py",
+        "backend/receptionist/media/audiosocket.py",
+        "backend/tests/test_voice_integrity.py::test_pbx_duplicate_registration_is_atomic_and_human_primary_falls_back"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-020",
+      "title": "Synthetic capacity harness",
+      "acceptance": "Load tooling exercises 4/8 then 10/20/50/80 sessions and reports limits without claiming real carrier capacity.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "The reproducible explicitly acknowledged harness exercises real new_session/media_rooms/end_session handlers over independent PostgreSQL connections at 4/8/10/20/50/80 admitted sessions. Each level rejects two excess calls, enforces duration reservations and an eight-room worker bound under competing polls, verifies one-minute budget contention and idempotent finalization. Both actual runs passed; the latest records component hashes and verifies temporary schema removal.",
+      "evidence": [
+        "backend/tests/test_voice_integrity.py::test_all_channel_admission_is_serialized_and_budget_reserves_inflight_calls",
+        "backend/tests/test_voice_integrity.py::test_worker_capacity_and_lease_generation_fence_stale_worker",
+        "scripts/media_admission_stress.py",
+        "docs/validation/media-admission-load.json"
+      ],
+      "remaining_acceptance": [
+        "Scope boundary: direct typed control handlers, not HTTP transport, audio/GPU throughput, carrier channels, mobile devices, public network/TLS/TURN or a paid-capacity SLO."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-UAT-001",
+      "title": "Carrier provisioning and line control",
+      "acceptance": "Approved domestic DID/trunk/forwarding is provisioned by its authorized owner.",
+      "status": "blocked_external",
+      "verification_level": "external_evidence_required",
+      "verified_behavior": "Local code/tests and one synthetic native RTC call do not establish this external acceptance.",
+      "evidence": [
+        "docs/validation/livekit-loopback.json",
+        "docs/validation/speech-smoke.json",
+        "docs/launch-playbook.md"
+      ],
+      "remaining_acceptance": [
+        "Authorized domestic DID/trunk/forwarding account and owner-controlled provisioning."
+      ],
+      "external_dependencies": [
+        "Carrier account, DID ownership, contract, static IP/interconnect specification"
+      ],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-UAT-002",
+      "title": "PSTN codec and DTMF matrix",
+      "acceptance": "Real target networks pass A-law/u-law, DTMF, one-way audio, NAT, jitter, hold and teardown tests.",
+      "status": "blocked_external",
+      "verification_level": "external_evidence_required",
+      "verified_behavior": "Local code/tests and one synthetic native RTC call do not establish this external acceptance.",
+      "evidence": [
+        "docs/validation/livekit-loopback.json",
+        "docs/validation/speech-smoke.json",
+        "docs/launch-playbook.md"
+      ],
+      "remaining_acceptance": [
+        "Real target-carrier A-law/u-law/DTMF/NAT/jitter/one-way-audio/hold/teardown matrix."
+      ],
+      "external_dependencies": [
+        "Domestic SIP/PBX endpoint and target mobile/fixed networks"
+      ],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-UAT-003",
+      "title": "Warm transfer and fallback",
+      "acceptance": "Staff actually accepts and receives media/context; busy/no-answer/call-drop preserves original/human/callback route.",
+      "status": "blocked_external",
+      "verification_level": "external_evidence_required",
+      "verified_behavior": "Local code/tests and one synthetic native RTC call do not establish this external acceptance.",
+      "evidence": [
+        "docs/validation/livekit-loopback.json",
+        "docs/validation/speech-smoke.json",
+        "docs/launch-playbook.md"
+      ],
+      "remaining_acceptance": [
+        "Real staffed warm transfer and busy/no-answer/call-drop fallback over the target PSTN path."
+      ],
+      "external_dependencies": [
+        "Staffed queue, PBX/carrier transfer capability"
+      ],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-UAT-004",
+      "title": "Mobile browser matrix",
+      "acceptance": "iOS Safari, Android Chrome and in-app browsers pass mic, background/lock/reconnect/accessibility checks.",
+      "status": "blocked_external",
+      "verification_level": "external_evidence_required",
+      "verified_behavior": "Local code/tests and one synthetic native RTC call do not establish this external acceptance.",
+      "evidence": [
+        "docs/validation/livekit-loopback.json",
+        "docs/validation/speech-smoke.json",
+        "docs/launch-playbook.md"
+      ],
+      "remaining_acceptance": [
+        "Authorized iOS Safari/Android/in-app browser device and background/reconnect matrix."
+      ],
+      "external_dependencies": [
+        "Representative phones/devices, real HTTPS/TURN and approved audio provider"
+      ],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-UAT-005",
+      "title": "Measured speech quality",
+      "acceptance": "Authorized telephone-grade Persian audio is blindly reviewed by native speakers across defined slices.",
+      "status": "blocked_external",
+      "verification_level": "external_evidence_required",
+      "verified_behavior": "Local code/tests and one synthetic native RTC call do not establish this external acceptance.",
+      "evidence": [
+        "docs/validation/livekit-loopback.json",
+        "docs/validation/speech-smoke.json",
+        "docs/launch-playbook.md"
+      ],
+      "remaining_acceptance": [
+        "Permissioned telephone-grade corpus and independent native-speaker blind review."
+      ],
+      "external_dependencies": [
+        "Permissioned corpus, native reviewers, selected provider accounts"
+      ],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "MEDIA-UAT-006",
+      "title": "Latency and peak channels",
+      "acceptance": "Measured P50/P95/P99 and successful peak load establish paid limits under actual network conditions.",
+      "status": "blocked_external",
+      "verification_level": "external_evidence_required",
+      "verified_behavior": "Local code/tests and one synthetic native RTC call do not establish this external acceptance.",
+      "evidence": [
+        "docs/validation/livekit-loopback.json",
+        "docs/validation/speech-smoke.json",
+        "docs/launch-playbook.md"
+      ],
+      "remaining_acceptance": [
+        "Actual network/load sample with sufficient P50/P95/P99 and peak-channel denominators."
+      ],
+      "external_dependencies": [
+        "Provisioned channels and representative hosting/carrier load fixture"
+      ],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONSOLE-003",
+      "title": "Call cards",
+      "acceptance": "Cards show masked contact, correct clinic, intent/state/duration and only authorized minimal context.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Staff calls endpoint is tenant-scoped and reports masked phone, clinic, state, intent, duration and pinned policy.",
+      "evidence": [
+        "backend/receptionist/media_api.py::calls"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONSOLE-006",
+      "title": "Honest handoff controls",
+      "acceptance": "Join/takeover is enabled only for supported media; otherwise staff request/callback status is explicit.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Takeover returns ROOM_READY only when room support is configured; actual connection requires the signed participant event.",
+      "evidence": [
+        "backend/receptionist/media_api.py::takeover",
+        "backend/tests/test_voice_integrity.py::test_verified_human_webhook_requires_live_tenant_membership_and_is_idempotent",
+        "docs/validation/livekit-loopback.json"
+      ],
+      "remaining_acceptance": [
+        "Merge frontend controls/device coverage; callback/task state alone is not a carrier transfer."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONSOLE-010",
+      "title": "Browser conversation UI",
+      "acceptance": "Start/stop, permission/error, repeat/slow/text alternative and human request have clear feedback.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Server offers start/end, text/voice, slow/repeat and explicit human fallback.",
+      "evidence": [
+        "backend/receptionist/voice.py",
+        "backend/receptionist/media/audiosocket.py",
+        "backend/receptionist/media/livekit_worker.py"
+      ],
+      "remaining_acceptance": [
+        "Frontend browser lifecycle/accessibility evidence is owned separately; do not infer it from these API tests."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONSOLE-015",
+      "title": "Simple automation controls",
+      "acceptance": "Pause and human-primary/after-hours/overflow modes are clear, reversible and audited.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Server mode updates validate enum and policy version; pause is a live kill switch, other modes are pinned per call.",
+      "evidence": [
+        "backend/receptionist/voice.py::_automation_allowed",
+        "backend/receptionist/voice.py::ensure_ai_allowed",
+        "backend/receptionist/schemas.py::SettingsInput",
+        "backend/tests/test_voice_integrity.py::test_modes_have_explicit_behavior_and_supervised_booking_needs_approval"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "CONSOLE-016",
+      "title": "Patient correction workflow",
+      "acceptance": "Caller/staff can correct name, contact, service and date before final explicit confirmation.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Precommit caller correction clears incompatible state/old phone proof and reconfirms; postcommit changes route to the audited staff workflow.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.correction",
+        "backend/tests/test_voice_integrity.py::test_caller_can_correct_doctor_contact_and_name_before_reconfirmation"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "PARTNER-003",
+      "title": "White-label branding",
+      "acceptance": "Approved clinic/agency name/colors/voice identity are configurable without changing business invariants.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Published branding and pronunciation are versioned and pinned without allowing status/number replacement or hidden controls.",
+      "evidence": [
+        "backend/receptionist/partners.py::publish_profile",
+        "backend/receptionist/partners.py::safe_pronunciation",
+        "backend/receptionist/voice.py::new_session",
+        "backend/tests/test_partner_integrity.py::test_profile_http_rejects_control_dictionary_without_publication"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "PARTNER-005",
+      "title": "Async voice-note pipeline",
+      "acceptance": "Authorized voice notes use consent/ASR policy and same booking backend, separate from live calls.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Scoped expiring partner voice-note threads enter the same consent/calendar engine and are reauthorized after provider latency.",
+      "evidence": [
+        "backend/receptionist/partners.py::voice_note_session",
+        "backend/receptionist/partners.py::authorized_voice_thread",
+        "backend/receptionist/voice.py::authenticated_call",
+        "backend/receptionist/voice.py::ensure_ai_allowed",
+        "backend/tests/test_partners_and_tools.py::test_partner_voice_thread_idempotency_and_revocation"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "PARTNER-008",
+      "title": "Multilingual routing extension",
+      "acceptance": "English/Arabic routes are enabled only with tested provider/scripts and authorized staff fallback.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Untested multilingual models are not enabled or advertised.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.answer"
+      ],
+      "remaining_acceptance": [
+        "Approved English/Arabic scripts, explicit language detection and staffed route still need implementation/acceptance; see CONVERSATION-015."
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "PARTNER-009",
+      "title": "External connector fail-closed",
+      "acceptance": "Unconfigured/uncontracted vendor operations return unsupported/pending, never simulated success labelled live.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Unapproved/unconfigured processors fail closed; demo behavior is labelled and production OTP cannot simulate a send.",
+      "evidence": [
+        "backend/receptionist/providers.py::approved_url",
+        "backend/receptionist/voice.py::Conversation.otp",
+        "backend/receptionist/media_api.py::register_pbx",
+        "backend/tests/test_media_providers.py::test_processor_approval_and_allowlist"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Voice/media assessment; merge overlapping frontend, operations, deployment and commercial evidence separately."
+    },
+    {
+      "id": "PAYMENT-001",
+      "title": "Published deposit policy",
+      "acceptance": "Deposits are disabled until amount, currency, expiry, cancellation and refund terms are published.",
+      "external_dependencies": [],
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "For voice deposit bookings the clinic-published amount, TOMAN currency, hold limit and deposit/cancellation/refund terms are spoken before explicit yes. Changed policy/version/amount triggers fresh confirmation with no appointment. Core receives the exact accepted version and pins it. Long terms hand off rather than silently truncate speech. Synthetic tests use real-mode enforcement with an approved synthetic merchant and never call a provider. CONFIRM repeat responses also expose the same pinned terms; the final two-case rerun verifies this response contract.",
+      "evidence": [
+        "backend/receptionist/voice.py::Conversation.confirmation",
+        "backend/receptionist/voice.py::Conversation.commit",
+        "backend/tests/test_voice_followup.py::test_real_deposit_terms_are_read_before_yes_and_changed_terms_require_new_yes",
+        "backend/tests/test_voice_followup.py::test_long_deposit_terms_handoff_without_silent_speech_truncation",
+        "docs/validation/voice-final-tests.json",
+        "docs/validation/voice-payment-repeat-tests.json"
+      ],
+      "remaining_acceptance": [],
+      "assessor": "backend_core",
+      "scope": "Voice consent evidence only; merge payment-policy publication, merchant/account ownership and supplier verification evidence from the payments owner."
+    }
+  ],
+  "counts": {
+    "verified_local": 64,
+    "implemented_unverified": 22,
+    "blocked_external": 6
+  },
+  "updated_at": "2026-10-23T12:09:07.178143+00:00",
+  "latest_transport_evidence": {
+    "livekit": {
+      "artifact": "docs/validation/livekit-loopback.json",
+      "passed_checks": 8,
+      "total_checks": 8,
+      "first_reply_pcm_observation_ms": 2920.938,
+      "boundary": "Last nonzero synthetic input SDK frame to first nonzero reply PCM received; single loopback observation, not physical speaker latency or an SLO distribution."
+    },
+    "audiosocket": {
+      "artifact": "docs/validation/audiosocket-loopback.json",
+      "passed_checks": 7,
+      "total_checks": 7,
+      "boundary": "Real loopback TCP/PCM plus durable turn and cleanup; no carrier, physical PBX, NAT or acoustic capacity claim."
+    },
+    "known_warning": {
+      "component": "LiveKit native caller test SDK",
+      "stage": "cleanup",
+      "message": "Attempted to drop unknown FFI handle",
+      "interpretation": "No functional assertion failed; assess SDK/room lifecycle before deployment. No evidence establishes a resource leak or absence of one."
+    }
+  }
+}

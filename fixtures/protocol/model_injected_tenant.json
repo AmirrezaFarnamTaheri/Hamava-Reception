@@ -1,0 +1,26 @@
+{
+  "id": "model_injected_tenant",
+  "family": "model",
+  "events": [
+    {
+      "type": "response.output_item.added",
+      "item": {
+        "id": "tool-1",
+        "type": "function_call",
+        "name": "slots"
+      }
+    },
+    {
+      "type": "response.function_call_arguments.done",
+      "item_id": "tool-1",
+      "arguments": "{\"provider_id\":\"p\",\"service_id\":\"s\",\"date\":\"2026-10-24\",\"tenant_id\":\"stolen\"}"
+    },
+    {
+      "type": "response.completed",
+      "response": {
+        "status": "completed"
+      }
+    }
+  ],
+  "expect_error": "MODEL_TOOL_REJECTED"
+}

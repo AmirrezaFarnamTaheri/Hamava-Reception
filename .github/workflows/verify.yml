@@ -1,0 +1,130 @@
+name: Verify
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+permissions:
+  contents: read
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+jobs:
+  backend:
+    name: Server, migration and PostgreSQL invariants
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: hamava_test
+          POSTGRES_PASSWORD: test-only-ephemeral-password
+          POSTGRES_DB: hamava_test
+        ports: [5432:5432]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 3s --health-retries 20
+          --shm-size 256m
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://hamava_test:test-only-ephemeral-password@127.0.0.1:5432/hamava_test
+      TOOL_TIMEOUT_MS: '30000' # Functional regressions; dedicated timeout tests set their own smaller deadlines.
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.lock.txt
+      - run: python -m pip install --upgrade -r requirements-bootstrap.txt
+      - run: python -m pip install -c requirements.lock.txt '.[test,media]'
+      - run: ruff check backend scripts services
+      - run: pytest -q --junitxml=artifacts/backend/pytest.xml
+      - name: Replay synthetic streaming and PBX protocol contracts
+        run: python scripts/protocol_conformance.py --output artifacts/backend/protocol-conformance.json
+      - run: python scripts/postgres_stress.py --acknowledge-isolated-test-database --contenders 40 --output artifacts/backend/postgres.json
+      - run: python scripts/production_smoke.py --acknowledge-isolated-test-database --output artifacts/backend/production.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: backend-evidence
+          path: artifacts/backend/
+          retention-days: 14
+  web:
+    name: Shared interface and browser journeys
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.lock.txt
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: python -m pip install --upgrade -r requirements-bootstrap.txt
+      - run: python -m pip install -c requirements.lock.txt '.[test,media]'
+      - run: npm ci --ignore-scripts
+        working-directory: frontend
+      - run: node scripts/check-versions.mjs
+      - run: npm run build
+        working-directory: frontend
+      - name: Exercise every isolated browser suite
+        run: >-
+          python scripts/ci_ui.py test:ui test:workflows test:conversation
+          test:extensions test:release test:outreach test:waitlist-deposit
+          test:privacy-notice test:rtc-lifecycle test:companion test:platform
+          test:latency-labels
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: browser-evidence
+          path: artifacts/ui/
+          retention-days: 14
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: web-bundle
+          path: frontend/dist/
+          if-no-files-found: error
+          retention-days: 14
+  desktop-contracts:
+    name: Desktop bridge security
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+      - run: npm --prefix apps/desktop test
+  container:
+    name: Deployable server image
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: docker build --tag hamava-receptionist:ci .
+      - name: Verify image startup as the unprivileged application user
+        shell: bash
+        run: |
+          docker run --detach --name hamava-ci -p 127.0.0.1:8140:8000 -e DEMO_MODE=true -e DATABASE_URL=sqlite:////tmp/hamava-demo.db hamava-receptionist:ci
+          trap 'docker logs hamava-ci; docker rm -f hamava-ci' EXIT
+          for attempt in $(seq 1 40); do
+            if curl --fail --silent http://127.0.0.1:8140/api/v1/client-info > /tmp/client-info.json; then
+              python -c 'import json; d=json.load(open("/tmp/client-info.json")); assert d["product"] == "hamava" and d["api_version"] == 1'
+              exit 0
+            fi
+            sleep 1
+          done
+          exit 1

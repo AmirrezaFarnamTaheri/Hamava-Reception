@@ -1,0 +1,47 @@
+{
+  "name": "hamaava-reception-console",
+  "version": "0.2.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "prebuild": "node ../scripts/generate-notices.mjs",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --pretty false",
+    "preview": "vite preview --host 0.0.0.0",
+    "format:check": "prettier --check src scripts",
+    "test:ui": "node scripts/check-ui.mjs",
+    "test:workflows": "node scripts/exercise-workflows.mjs",
+    "test:conversation": "node scripts/exercise-conversation.mjs",
+    "test:extensions": "node scripts/exercise-extensions.mjs",
+    "test:outreach": "node scripts/exercise-outreach.mjs",
+    "test:audio": "node scripts/exercise-audio.mjs",
+    "test:live": "node scripts/exercise-live-ui.mjs",
+    "test:release": "node scripts/exercise-release.mjs",
+    "test:latency-labels": "node scripts/exercise-latency-labels.mjs",
+    "test:waitlist-deposit": "node scripts/exercise-waitlist-deposit.mjs",
+    "test:privacy-notice": "node scripts/exercise-privacy-notice.mjs",
+    "test:rtc-lifecycle": "node scripts/exercise-rtc-lifecycle.mjs",
+    "test:platform": "node scripts/exercise-platform.mjs",
+    "test:companion": "node scripts/exercise-companion.mjs"
+  },
+  "dependencies": {
+    "@capacitor/core": "8.5.3",
+    "@fontsource/vazirmatn": "^5.2.0",
+    "livekit-client": "^2.23.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@sparticuz/chromium": "^131.0.1",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.4.1",
+    "axe-core": "^4.14.0",
+    "playwright": "^1.64.1",
+    "prettier": "^3.9.10",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
+}

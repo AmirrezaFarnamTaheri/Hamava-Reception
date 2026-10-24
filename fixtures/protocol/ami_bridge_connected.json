@@ -1,0 +1,50 @@
+{
+  "id": "ami_bridge_connected",
+  "family": "ami",
+  "events": [
+    {
+      "Event": "UserEvent",
+      "UserEvent": "HamavaRegistered",
+      "CallUUID": "00000000-0000-4000-8000-000000000001",
+      "Linkedid": "1740.10"
+    },
+    {
+      "Event": "DialBegin",
+      "Linkedid": "1740.10",
+      "DestChannel": "PJSIP/reception-00000a",
+      "DestUniqueid": "1740.22"
+    },
+    {
+      "Event": "DialEnd",
+      "Linkedid": "1740.10",
+      "DestChannel": "PJSIP/reception-00000a",
+      "DestUniqueid": "1740.22",
+      "DialStatus": "ANSWER"
+    },
+    {
+      "Event": "BridgeEnter",
+      "Linkedid": "1740.10",
+      "BridgeUniqueid": "bridge-1",
+      "BridgeTechnology": "simple_bridge",
+      "Channel": "PJSIP/reception-00000a",
+      "Uniqueid": "1740.22"
+    },
+    {
+      "Event": "BridgeEnter",
+      "Linkedid": "1740.10",
+      "BridgeUniqueid": "bridge-1",
+      "BridgeTechnology": "simple_bridge",
+      "Channel": "PJSIP/line-000001",
+      "Uniqueid": "1740.10"
+    }
+  ],
+  "expect": {
+    "stages": [
+      "RINGING",
+      "ACCEPTED",
+      "BRIDGE_STAFF",
+      "BRIDGE_CALLER"
+    ],
+    "connected_candidate": false
+  }
+}

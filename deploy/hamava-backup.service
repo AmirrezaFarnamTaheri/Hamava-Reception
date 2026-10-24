@@ -1,0 +1,20 @@
+[Unit]
+Description=Encrypted Hamava database backup
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=hamava-backup
+Group=hamava-backup
+WorkingDirectory=/opt/hamava
+EnvironmentFile=/etc/hamava/backup.env
+ExecStart=/opt/hamava/.venv/bin/python /opt/hamava/scripts/backup_daily.py
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/backups/hamava
+
+[Install]
+WantedBy=multi-user.target

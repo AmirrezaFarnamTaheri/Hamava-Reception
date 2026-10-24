@@ -1,0 +1,84 @@
+{
+  "name": "hamava-reception-desktop",
+  "version": "0.2.2",
+  "private": true,
+  "description": "Hamava reception workspace and secure clinic companion",
+  "author": "Hamava",
+  "license": "UNLICENSED",
+  "main": "src/main.cjs",
+  "scripts": {
+    "prepare:web": "node scripts/prepare-web.mjs",
+    "start": "npm run prepare:web && electron .",
+    "build": "npm run prepare:web && electron-builder --publish never",
+    "build:win": "npm run prepare:web && electron-builder --win nsis portable --x64 --publish never",
+    "build:linux": "npm run prepare:web && electron-builder --linux AppImage tar.gz --x64 --publish never",
+    "test": "node --test test/*.test.cjs",
+    "test:launch": "node scripts/smoke-electron.mjs"
+  },
+  "devDependencies": {
+    "electron": "45.0.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "ir.hamava.reception",
+    "productName": "Hamava Reception",
+    "copyright": "Copyright © 2026 Hamava",
+    "asar": true,
+    "compression": "normal",
+    "directories": {
+      "output": "../../artifacts/desktop",
+      "buildResources": "assets"
+    },
+    "files": [
+      "src/**",
+      "dist/**",
+      "package.json",
+      "assets/icon.png"
+    ],
+    "artifactName": "Hamava-Reception-${version}-${os}-${arch}.${ext}",
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "artifactName": "Hamava-Reception-${version}-windows-${arch}-setup.${ext}",
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "portable": {
+      "artifactName": "Hamava-Reception-${version}-windows-${arch}-portable.${ext}"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.productivity",
+      "hardenedRuntime": true,
+      "entitlements": "assets/entitlements.mac.plist",
+      "entitlementsInherit": "assets/entitlements.mac.plist",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "Use the microphone only when you join a reception call."
+      }
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "tar.gz"
+      ],
+      "icon": "assets/icon.png",
+      "category": "Office"
+    },
+    "toolsets": {
+      "wine": "1.0.1"
+    }
+  }
+}

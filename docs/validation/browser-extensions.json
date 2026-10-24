@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "suite": "extensions",
+  "captured_at": "2026-10-23T12:03:18.774Z",
+  "source_script": "frontend/scripts/exercise-extensions.mjs",
+  "current_source_script_sha256": "c0fd119f21b2a80a3fd3b92aa25333bbd37806249e83bb11fc3121eb529697cf",
+  "report_sha256": "49c2cf01dc434e9c6cf69152f5f633b30d9358448f63d7de6b3a4404b5dbe24a",
+  "validation_environment": "Local headless Chromium against isolated synthetic demo API",
+  "scope": "Observed browser behavior only. No iOS/Android device, carrier, real vendor settlement/delivery, native-listener quality or production capacity qualification.",
+  "checks": [
+    "Demo-only gate for extended synthetic workflows",
+    "Audited patient correction updates the real record and resets reminder consent on phone change",
+    "Private public RSVP removes fragment, requires review, and does not mark actual attendance",
+    "Disruption preview performs no write; confirmed change preserves original appointment time",
+    "Task ownership, callback time, resolution, and reopening persist with versioned actions",
+    "Explicit patient disruption decision resolves its staff case; block resolution remains separate",
+    "Policy history restores an explicitly reviewed snapshot with a new current version",
+    "Reviewed clinic identity publishes safe public branding and can be restored",
+    "Scoped partner key is shown once, absent from listings, and revocable",
+    "Owner grants and revokes a partner account; partner sees only aggregate mobile UI",
+    "Digest destination consent and disable work; automatic delivery remains off and no report was sent",
+    "Authorized building contract yields balanced draft allocation without a charge",
+    "Daily digest exposes explicit current-backlog and attendance definitions"
+  ],
+  "errors": [],
+  "audits": [
+    {
+      "label": "appointment-correction-dialog",
+      "findings": []
+    },
+    {
+      "label": "public-response-mobile",
+      "findings": []
+    },
+    {
+      "label": "disruption-preview-dialog",
+      "findings": []
+    },
+    {
+      "label": "partner-readonly-mobile",
+      "findings": []
+    },
+    {
+      "label": "building-allocation-dialog",
+      "findings": []
+    }
+  ],
+  "synthetic_data": true,
+  "external_messages_sent": false
+}

@@ -1,0 +1,23 @@
+# Replace placeholders in a secret-managed config. Run on a dedicated reviewed
+# media host; put 7880 behind HTTPS/WSS and expose only documented RTC ports.
+port: 7880
+log_level: info
+rtc:
+  tcp_port: 7881
+  port_range_start: 50000
+  port_range_end: 60000
+  use_external_ip: true
+keys:
+  REPLACE_API_KEY: REPLACE_WITH_A_UNIQUE_SECRET_AT_LEAST_32_CHARACTERS
+redis:
+  address: 127.0.0.1:6379
+  password: REPLACE_PRIVATE_REDIS_PASSWORD
+webhook:
+  api_key: REPLACE_API_KEY
+  urls:
+    - https://YOUR_RECEPTION_HOST/api/v1/webhooks/livekit
+# Configure TURN/TLS on the reviewed deployment. For a direct non-load-balanced
+# TURN endpoint, official docs require port 443 and a dedicated TURN hostname/IP.
+# Do not blindly bind the app HTTPS and TURN TLS servers to the same socket.
+turn:
+  enabled: false

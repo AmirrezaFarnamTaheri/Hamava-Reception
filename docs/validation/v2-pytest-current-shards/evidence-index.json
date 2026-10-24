@@ -1,0 +1,170 @@
+{
+  "format": "hamava-curated-pytest-evidence-v1",
+  "result": "passed_recovered_supervisor",
+  "completion_mode": "same_original_three_workers_after_exec_transport_loss",
+  "planned_nodes": 444,
+  "planned_files": 33,
+  "outcomes": {
+    "passed": 444
+  },
+  "coverage": {
+    "full_collection_matches_in_every_process": true,
+    "selected_exactly_once": true,
+    "started_exactly_once": true,
+    "finished_exactly_once": true,
+    "source_unchanged": true
+  },
+  "source_records_preserved_verbatim": true,
+  "original_absolute_artifact_paths_retained_in_records": true,
+  "reference_policy": "Only files[].path is a retained evidence reference. It is relative to the delivered project root. Absolute paths inside verbatim source records describe the historical execution environment, not additional delivered files.",
+  "log_policy": "Controller redacts the supplied PostgreSQL URL/password from its shard logs and JUnit before final hashing; only explicit logs and JSON/XML are copied.",
+  "excluded": [
+    "pytest-tmp",
+    "pytest-cache",
+    "os-tmp",
+    "SQLite databases",
+    "generated cryptographic keys",
+    "audio/data fixtures"
+  ],
+  "interrupted_serial_record": "docs/validation/v2-pytest-serial-interrupted.json",
+  "files": [
+    {
+      "path": "docs/validation/v2-pytest-current-shards/plan.json",
+      "sha256": "801b919a18a76bee22c0aa2a896c487ad6aa2f7c6c761a72fb68f6488e596816",
+      "bytes": 181708
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/aggregate.json",
+      "sha256": "217d673ff124431bb92d1ddb9b19137302df0749ccdc977ba12d52c669e31c44",
+      "bytes": 19006
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/serial-interrupted.json",
+      "sha256": "75025a5cecd54a8f1ed635191a9f7648b59290bf9878a6ad5959ce46ce71878e",
+      "bytes": 462
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/serial-interrupted.log",
+      "sha256": "4700fcd8226e778f2f067003f8d6501c10f88ed29262bdb8655d98405f12af5d",
+      "bytes": 5438
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/supervisor-interruption.json",
+      "sha256": "7315ef842ea986d0f1d429d1f0dac5794734783a576a2cd7e07ae0445361fff2",
+      "bytes": 1401
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/independent-recovery-check.json",
+      "sha256": "666ede961c21068e26bf533e5431e892e5057b73a2db0e1e821f813419f2a438",
+      "bytes": 1182
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/shard-1/junit.xml",
+      "sha256": "4386e9d7dca286134964e2e1140e023421847680d2ead9eff55088aeb192e40d",
+      "bytes": 37826
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/shard-1/observation.json",
+      "sha256": "d72d9718fcc8c29951cb08bd74ea7f2f98facb11acfcd5176ddc1de0da7de74e",
+      "bytes": 322269
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/shard-1/pytest.log",
+      "sha256": "e32711583474497b51315e07f42128b1714bcb62e8e1e1013a8491c75204a473",
+      "bytes": 288
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/shard-2/junit.xml",
+      "sha256": "e942a81e00e7d61acdcc173ef1f9328e275d3cab6e1c5e59d1b06b25a3c0362b",
+      "bytes": 19316
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/shard-2/observation.json",
+      "sha256": "b1f3c173ac28b6cc5c5d127f512baf6496e2336369c407510e8dbf0219d63dc2",
+      "bytes": 214360
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/shard-2/pytest.log",
+      "sha256": "f7a2133bd9600b7a592fdfb8c6eb6f53a8fbf74ef32317f23171f268f3329372",
+      "bytes": 208
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/shard-3/junit.xml",
+      "sha256": "46a4f1b3e6d2b0ead8ca20e8aad861c3b9dd40a834636042f9b6786e82ab5930",
+      "bytes": 19478
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/shard-3/observation.json",
+      "sha256": "9c5bdd1b975aa8f6d7db68474ef160d372121f6ee08ddde7fffc2ba7b6d45b62",
+      "bytes": 213935
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/shard-3/pytest.log",
+      "sha256": "a8efc6ad1fe7863d3a31df77b25e33fe857d965acc1b459f3521da0797b7c2f5",
+      "bytes": 208
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/collection-observation.json",
+      "sha256": "c5650f0962bcde857b5300cea9ee391666a4eb505e5a3f91fb56111fa36d26d9",
+      "bytes": 162601
+    },
+    {
+      "path": "docs/validation/v2-pytest-current-shards/collection.log",
+      "sha256": "4b22e667703b619a44464e6884fbf0d4dcdd28923e9dba780d1c254a0d8d3e96",
+      "bytes": 57679
+    },
+    {
+      "path": "docs/validation/build-support/hamava-final-pytest-controller.py",
+      "sha256": "a464cea627f3bf54a620861569f8c73e8fefd7db816251b1e51f6ab3e3601e52",
+      "bytes": 16541
+    },
+    {
+      "path": "docs/validation/build-support/hamava_final_shard_plugin.py",
+      "sha256": "3ee71c6cd74d8282ff4191655a41b5aaaa199c9adb7728f8cf3ebf94a6f47c78",
+      "bytes": 2540
+    },
+    {
+      "path": "docs/validation/build-support/pytest-shards.md",
+      "sha256": "5ae4f440910cc4a4b1c2ab607da16d27f4ad0aec0641fd40b9f771ea4194417d",
+      "bytes": 6253
+    },
+    {
+      "path": "docs/validation/build-support/pytest-shard-recovery.py",
+      "sha256": "ba8417d6c2adc0d8e889b7a0e962c5cbbe099bfb6c63e5b9dddfb83d517bfee3",
+      "bytes": 10062
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/evidence-index.json",
+      "sha256": "f7d9e54ca350b34d23df8d2df78e637ac2ec00012e1afabed211a4ca08685ead",
+      "bytes": 6127
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/fixture-correction.json",
+      "sha256": "91c9c36234878ef4ec7c37b7c7e8ced51a2b9bf37d4f46cd4ee2e6e037ae9b17",
+      "bytes": 2530
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/fixture-correction.patch",
+      "sha256": "ffc68b900c6519c304b9f33aff8f3a9ca092d9297b3a8bd8b5391596fc1fc43a",
+      "bytes": 1161
+    },
+    {
+      "path": "docs/validation/v2-deposit-notice-fixture.xml",
+      "sha256": "25a7f823248e8fb41a51b5e7b9ef2a665635ab26a3287900c9747600313aa5f2",
+      "bytes": 879
+    }
+  ],
+  "boundary": "A passing full-suite claim requires a passing aggregate and every exact-coverage/source check. A passed_recovered_supervisor result additionally requires agreement of the original phase, JUnit and pytest_sessionfinish records; it does not imply observed OS wait statuses. Exact execution coverage can also hold for a complete failed run. No acoustic, physical-device, or external-provider certification is implied.",
+  "previous_complete_failed_run": "docs/validation/v2-pytest-before-consent-fixture-fix/evidence-index.json",
+  "fixture_correction_provenance": "docs/validation/v2-pytest-before-consent-fixture-fix/fixture-correction.json",
+  "reproduction_guide": "docs/validation/build-support/pytest-shards.md",
+  "comparison_with_previous_run": {
+    "changed_sources": [
+      "backend/tests/test_voice_followup.py"
+    ],
+    "runtime_unchanged": true,
+    "same_nodes_and_file_partitions": true,
+    "same_controller_and_plugin": true,
+    "full_run_is_not_a_composition_of_prior_and_focused_passes": true
+  }
+}

@@ -1,0 +1,284 @@
+{
+  "schema_version": "2.0",
+  "suite": "companion",
+  "captured_at": "2026-10-23T17:03:49.029728+00:00",
+  "source_script": "frontend/scripts/exercise-companion.mjs",
+  "source_script_sha256": "a05ae71fac8387fd7495f3c558a0656793f8523150766cffb871f26a1714c485",
+  "raw_report_sha256": "da85d9ba0355cf1bc88e3ed48f3a5950afc2999e1a223c56042346ea1a53c07b",
+  "frontend_bundle": {
+    "entry": "/assets/index-5GKqz5J0.js",
+    "entry_sha256": "d01c1f6cf9027782d0ae4364f12e0825e410bca7a6436616b6160144126070e3",
+    "css": "/assets/index-DVYiIkCe.css",
+    "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+    "source_tree_sha256": "563cb1db1b3f0123e93ca6a47e37fbc459502a92857991abd0b069279a9a4b98",
+    "captured_at": "2026-10-23T16:44:31.080735+00:00",
+    "app_version": "0.2.0"
+  },
+  "validation_environment": {
+    "interface": "built production frontend",
+    "browser": "packaged headless Chromium",
+    "api": "fresh isolated SQLite synthetic demo API per suite; RTC lifecycle uses an explicitly synthetic Room/API fixture",
+    "provider_transmission": "disabled; no external messaging, carrier, calendar or settlement qualification",
+    "functional_tool_timeout_ms": 30000,
+    "latency_slo_claim": false,
+    "accessibility": "axe WCAG2A/AA and WCAG2.1AA tags on named states; audit contexts bypass CSP only for checker injection",
+    "physical_device_qualification": false
+  },
+  "passed": true,
+  "checks": [
+    {
+      "name": "Sign-in starts empty; explicit demo selection and accessible password visibility work",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "Command shortcut searches authorized actions and opens the real booking flow without accidental submission",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "At 390px the schedule leads, appointment cards are chronological and the last action clears bottom navigation",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "At 390px companion tabs navigate real task and call screens with meaningful empty states",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "At 320px the schedule leads, appointment cards are chronological and the last action clears bottom navigation",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "At 320px companion tabs navigate real task and call screens with meaningful empty states",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "Cost budget persists through the real API and editing values clears the prior confirmation",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "Fractional tariff is stored as an exact decimal string with a locally hashed synthetic evidence document",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "Purpose publication and independently evidenced subject permission are separate real writes; no consent is preselected",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "Connections distinguish configuration, operator approval and absent observations without invented healthy results",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "On-call owner and order persist while external notification channels remain unclaimed and opt-in stays off",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "Service rules publish through the real API with source, future expiry and explicit review",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "Cached and unknown external-calendar records cannot be changed; fresh verified readback enables actions even when an operation reference is present",
+      "kind": "external-calendar-response-contract-fixture"
+    },
+    {
+      "name": "A controlled service failure shows retry and no invented cost summary, then recovers from the real API",
+      "kind": "controlled-failure-then-real-api"
+    },
+    {
+      "name": "Network loss and recovery update the persistent visible connection notice",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "billing navigation and direct routes respect actual server permissions without inappropriate patient or finance reads",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "technical navigation and direct routes respect actual server permissions without inappropriate patient or finance reads",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "coordinator navigation and direct routes respect actual server permissions without inappropriate patient or finance reads",
+      "kind": "actual-ui-and-local-api"
+    },
+    {
+      "name": "Non-demo runtime metadata never displays the sample account shortcut",
+      "kind": "runtime-metadata-fixture"
+    }
+  ],
+  "audits": [
+    {
+      "name": "companion-login-desktop",
+      "width": 1440,
+      "scroll": 1440,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-command-keyboard",
+      "width": 1440,
+      "scroll": 1440,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-today-390",
+      "width": 390,
+      "scroll": 390,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-more-390",
+      "width": 390,
+      "scroll": 390,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-appointments-390",
+      "width": 390,
+      "scroll": 390,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-task-empty-390",
+      "width": 390,
+      "scroll": 390,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-calls-390",
+      "width": 390,
+      "scroll": 390,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-today-320",
+      "width": 320,
+      "scroll": 320,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-more-320",
+      "width": 320,
+      "scroll": 320,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-appointments-320",
+      "width": 320,
+      "scroll": 320,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-task-empty-320",
+      "width": 320,
+      "scroll": 320,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-calls-320",
+      "width": 320,
+      "scroll": 320,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-costs-desktop",
+      "width": 1440,
+      "scroll": 1440,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-privacy-desktop",
+      "width": 1440,
+      "scroll": 1440,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-connections-desktop",
+      "width": 1440,
+      "scroll": 1440,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-health-desktop",
+      "width": 1440,
+      "scroll": 1440,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-external-readback-contract",
+      "width": 1440,
+      "scroll": 1440,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-costs-320",
+      "width": 320,
+      "scroll": 320,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-privacy-320",
+      "width": 320,
+      "scroll": 320,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-connections-320",
+      "width": 320,
+      "scroll": 320,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-health-320",
+      "width": 320,
+      "scroll": 320,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-role-billing",
+      "width": 1280,
+      "scroll": 1280,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-role-technical",
+      "width": 1280,
+      "scroll": 1280,
+      "direction": "rtl",
+      "violations": []
+    },
+    {
+      "name": "companion-role-coordinator",
+      "width": 1280,
+      "scroll": 1280,
+      "direction": "rtl",
+      "violations": []
+    }
+  ],
+  "runtime_errors": [],
+  "unexpected_api_failures": [],
+  "boundaries": [
+    "Actual production bundle and isolated synthetic local API unless a check explicitly names a controlled fixture.",
+    "Chromium viewports at 1440/390/320 pixels; not physical Android/iOS, OS vault, microphone, carrier or vendor qualification.",
+    "Automated axe checks are scoped to the recorded rendered states and do not establish full accessibility conformance.",
+    "Uploaded evidence is synthetic and hashed locally; no real person, agreement, approval, financial transfer or external message is asserted."
+  ]
+}

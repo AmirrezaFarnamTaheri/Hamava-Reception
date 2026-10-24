@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "synthetic_only": true,
+  "started_at": "2026-10-23T11:44:06.770448+00:00",
+  "finished_at": "2026-10-23T11:44:32.524411+00:00",
+  "command": [
+    "python",
+    "-m",
+    "pytest",
+    "-q",
+    "backend/tests/test_voice.py",
+    "backend/tests/test_voice_integrity.py",
+    "backend/tests/test_media_integrity.py",
+    "backend/tests/test_locale.py",
+    "backend/tests/test_partner_integrity.py"
+  ],
+  "environment_note": "Local synthetic HTTP tests require sandbox approval for event-loop sockets; no outbound messages or charges.",
+  "exit_code": 0,
+  "stdout": "..................................................................       [100%]\n66 passed in 24.84s\n",
+  "stderr": "",
+  "passed": true
+}

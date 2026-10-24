@@ -1,0 +1,23 @@
+{
+  "accepted": 6,
+  "rejected": 0,
+  "rejections": [],
+  "split_counts": {
+    "train": 4,
+    "validation": 1,
+    "test": 1
+  },
+  "synthetic_only": true,
+  "manifest_sha256": "531a2655f39f69b43fc911271056c0dcf6ab39547c55505fd4407414f95b97a0",
+  "limitations": [
+    "Group-disjoint splits may differ substantially from target ratios on small corpora.",
+    "Metadata checks do not prove legal consent, voice anonymity or transcription correctness.",
+    "Manifest checksum detects accidental changes; it is not a cryptographic signer identity."
+  ],
+  "verification": "CLI freeze and revalidate succeeded; synthetic non-speech fixtures only",
+  "tests": {
+    "command": "python -m pytest backend/tests/test_research_tools.py -q",
+    "passed": 42,
+    "failed": 0
+  }
+}

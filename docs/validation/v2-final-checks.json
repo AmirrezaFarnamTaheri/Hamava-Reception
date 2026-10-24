@@ -1,0 +1,293 @@
+{
+  "schema_version": "2.0",
+  "edition": "0.2.0",
+  "recorded_at": "2026-10-23T17:37:58.531620+00:00",
+  "passed_local_verification": true,
+  "scope": "Final local software/package verification. Source ZIP assembly, CRC and payload inventory are recorded separately in v2-package-hygiene.json, v2-package-inventory.json and the delivered source-archive-validation.json.",
+  "backend": {
+    "planned_files": 33,
+    "planned_nodes": 444,
+    "executed_nodes": 444,
+    "outcomes": {
+      "passed": 444
+    },
+    "coverage": {
+      "full_collection_matches_in_every_process": true,
+      "selected_exactly_once": true,
+      "started_exactly_once": true,
+      "finished_exactly_once": true,
+      "source_unchanged": true
+    },
+    "recovery_checks": {
+      "same_original_plan_and_workers": true,
+      "no_focused_or_other_run_substitution": true,
+      "complete_junit_identity_matches_planned_nodes": true,
+      "all_setup_call_teardown_phases_passed": true,
+      "all_pytest_sessionfinish_exit_statuses_zero": true,
+      "original_controller_and_plugin_hashes_match": true,
+      "source_start_current_equality": true,
+      "complete_worker_summaries_without_internal_errors": true
+    },
+    "wall_seconds": null,
+    "max_worker_elapsed_seconds": 762.8916945339988,
+    "source_files": 113,
+    "evidence": "docs/validation/v2-pytest-current-shards/aggregate.json",
+    "execution_status": "passed_recovered_supervisor",
+    "supervisor_recovered": true,
+    "completion_mode": "same_original_three_workers_after_exec_transport_loss",
+    "operating_system_exit_observations": [
+      null,
+      null,
+      null
+    ],
+    "execution_note": "The execution service lost the supervising process during the run. The same three original pytest workers continued and completed all planned tests. Recovery independently verified their complete collections, exact node identities, all 1,332 passing setup/call/teardown records, JUnit results, durable pytest session-finish exit statuses and unchanged source/controller/plugin hashes. No new or focused test results were substituted. The aggregate is explicitly labeled `passed_recovered_supervisor`; missing operating-system exit observations remain `null`, and an uninterrupted supervisor completion is not claimed."
+  },
+  "browser": {
+    "named_checks": 102,
+    "non_rtc_checks": 90,
+    "rtc_event_contract_checks": 12,
+    "audit_executions": 99,
+    "axe_violations": 0,
+    "document_overflow_in_named_audits": 0,
+    "direct_final_bundle_checks": 11,
+    "direct_final_bundle_audits": 5,
+    "source_equivalent_named_checks": 91,
+    "remaining_audit_executions_with_prior_provenance": 94,
+    "qualification": "Named steps are not unique requirements; RTC and native-bridge fixtures do not prove physical transport or OS-vault behavior. Prior runs keep their original provenance."
+  },
+  "frontend_bundle": {
+    "entry": "/assets/index-DnPskxcg.js",
+    "entry_sha256": "804e49f0653e9d64320676a0a9d9caf308d39955b3cb80823caa870a787efebd",
+    "css": "/assets/index-DVYiIkCe.css",
+    "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+    "source_tree_sha256": "5132a4fd75fca3d9515df28dd3a901e821c25b4913c573d44f7bde01bc620874",
+    "captured_at": "2026-10-23T17:13:37.643135+00:00",
+    "app_version": "0.2.0"
+  },
+  "web_asset_count": 61,
+  "server_wheel": {
+    "sha256": "a225332c9e145c173b2adfb565c4e68a916c86a3674986003fde49d87ae05512",
+    "smoke_checks": 15,
+    "current_runtime_modules": 53,
+    "synthetic_operations_sent": 0
+  },
+  "native_packages": [
+    {
+      "name": "Hamava-Companion-0.2.0-android-debug.apk",
+      "kind": "package",
+      "bytes": 4970272,
+      "sha256": "be4be3e0f4812fa6aab0ad64fcebee943d14b67a40f73362ff76b4e66da53c75",
+      "signing": "debug"
+    },
+    {
+      "name": "Hamava-Companion-0.2.0-android-release-unsigned.aab",
+      "kind": "package",
+      "bytes": 1995574,
+      "sha256": "0536f6e58ce9e18511fc9cabf0f321d089fa300beaff7e909c9f16d625b87eb0",
+      "signing": "unsigned"
+    },
+    {
+      "name": "Hamava-Companion-0.2.0-android-release-unsigned.apk",
+      "kind": "package",
+      "bytes": 1536976,
+      "sha256": "74048d892d6a5fa17bd8d9dc286d2202b433e1cf789ccaf7937b53fa080efcf8",
+      "signing": "unsigned"
+    },
+    {
+      "name": "Hamava-Reception-0.2.0-windows-x64-portable.exe",
+      "kind": "package",
+      "bytes": 121209590,
+      "sha256": "6bf3a836a4218266b645b4332b29d446114c200c91324cc9e60b71f85e7ead5b",
+      "signing": "unsigned"
+    },
+    {
+      "name": "Hamava-Reception-0.2.0-windows-x64-setup.exe",
+      "kind": "package",
+      "bytes": 121434127,
+      "sha256": "38755a520a1d684b10c6ee67a8f61fda2c011d1d0d7117fb8e634f88fa35bec8",
+      "signing": "unsigned"
+    }
+  ],
+  "dependency_inventories": [
+    {
+      "name": "android-sbom.cdx.json",
+      "kind": "verification_metadata",
+      "bytes": 120904,
+      "sha256": "6a7530493bf254865ec908dac2cfedd9271230899aeba89ce9861806ac3a0201"
+    },
+    {
+      "name": "desktop-sbom.cdx.json",
+      "kind": "verification_metadata",
+      "bytes": 338357,
+      "sha256": "b3f42e188dd05d2e09d5c8387f2c5523615490eb1bf8cbf2178c5fd3d7ecc59e"
+    },
+    {
+      "name": "frontend-sbom.cdx.json",
+      "kind": "verification_metadata",
+      "bytes": 143027,
+      "sha256": "30111238469486fd5b4a5cfd9711e158db3e6bb9a7552a310017eaf051b241d1"
+    }
+  ],
+  "focused_suites": [
+    {
+      "path": "docs/validation/v2-migration-worker.xml",
+      "sha256": "f30a9c447a24896ef99e56310d93985f888c93e6f88a324359da499684a3d0e3",
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "docs/validation/v2-postgres-retention.xml",
+      "sha256": "2f01bcba17156cd931f4f02ff72ea4bc7c5886421a119c8a76cacbdb2882e2e5",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "docs/validation/v2-tool-spans.xml",
+      "sha256": "f700fea4f4b66d5e3c972f85f1a01612f9bd00bb9be2f42355b1182f5d7700e0",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "docs/validation/v2-teacher-adjudication.xml",
+      "sha256": "8a166c1b1a8c07281bc7d3c5f1a3c55c91b56ce269118e5e4113d7e1bbbc7e4d",
+      "tests": 25,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "docs/validation/v2-deposit-notice-fixture.xml",
+      "sha256": "25a7f823248e8fb41a51b5e7b9ef2a665635ab26a3287900c9747600313aa5f2",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "docs/validation/v2-android-policy-junit.xml",
+      "sha256": "f42cb87b67a89212fe17b81087c614cdcf0a849c5d866874d0cab7a6a52fe3c2",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "docs/validation/v2-android-template-junit.xml",
+      "sha256": "98e9f1faaa0f6bbdd5f4fb8f101fca362b497ac80f83a13462e6a263e4733447",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "post_records": {
+    "production_startup_checks": 10,
+    "contention_operations": 402,
+    "maximum_contenders": 100,
+    "restored_tables": 89,
+    "duplicate_or_orphan_claims": 0
+  },
+  "original_requirements": {
+    "total": 263,
+    "counts": {
+      "verified_local": 212,
+      "implemented_unverified": 26,
+      "blocked_external": 22,
+      "deferred_by_product_gate": 3
+    },
+    "phase_counts": {
+      "0": {
+        "verified_local": 28,
+        "implemented_unverified": 9,
+        "blocked_external": 7
+      },
+      "1": {
+        "verified_local": 81,
+        "implemented_unverified": 3
+      },
+      "2": {
+        "verified_local": 23,
+        "implemented_unverified": 9,
+        "blocked_external": 6
+      },
+      "3": {
+        "verified_local": 30,
+        "implemented_unverified": 3,
+        "blocked_external": 1
+      },
+      "4": {
+        "verified_local": 29
+      },
+      "5": {
+        "verified_local": 8,
+        "implemented_unverified": 1,
+        "blocked_external": 5
+      },
+      "6": {
+        "verified_local": 13,
+        "implemented_unverified": 1,
+        "deferred_by_product_gate": 3,
+        "blocked_external": 3
+      }
+    }
+  },
+  "additional_native_criteria": {
+    "verified_local": 6,
+    "implemented_unverified": 2,
+    "blocked_external": 2
+  },
+  "history": {
+    "completed_pre_fixture_fix": {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/aggregate.json",
+      "outcomes": {
+        "passed": 442,
+        "failed": 2
+      }
+    },
+    "earlier_388_case_failure": "docs/validation/v2-pytest-final.xml",
+    "interrupted_serial": "docs/validation/v2-pytest-serial-interrupted.json",
+    "interpretation": "Historical failures and interrupted runs are not included as passing final executions."
+  },
+  "evidence_sha256": {
+    "docs/validation/v2-pytest-current-shards/aggregate.json": "217d673ff124431bb92d1ddb9b19137302df0749ccdc977ba12d52c669e31c44",
+    "docs/validation/v2-pytest-current-shards/evidence-index.json": "abf802dc36be1ea3f643768ac7be345874973f6d1b9c88076f083e21bb55d70f",
+    "docs/validation/build-support/pytest-shard-recovery.py": "ba8417d6c2adc0d8e889b7a0e962c5cbbe099bfb6c63e5b9dddfb83d517bfee3",
+    "docs/validation/v2-backend-current-source.json": "e96fb5aa9cdcfb870d73e48799aa219a49fcd71999c89b2c9ac44dc3bd8925a0",
+    "docs/validation/v2-frontend-requirement-evidence.json": "e633431dc88e0b25fea75bffe1a207040954f5e876e99beb0985a8ded7488556",
+    "docs/validation/v2-ui-latency-labels-source-equivalence.json": "9e0c43ed9c719df3b984e7edba7c1d206095a43fde99a9918947c0c052dfc41a",
+    "docs/validation/v2-ui-source-equivalence.json": "9410e7cb09954d18f29d93b9c5d79f99b1fc95373fbcabf902c823fc88c288fd",
+    "docs/validation/v2-browser-platform.json": "de1e60763eb6266b659e748876e2a12c47cba79368d788eb8022396e911be2d3",
+    "docs/validation/v2-desktop-launch.json": "ac0c1077a14a0aabad10576b060520639f4bba09506a75eb280b132e36c3bac6",
+    "docs/validation/v2-native-release-evidence.json": "04b9ee8f4f3eff13040e991f06673dd4aaf5a646180808ec9998785ccbcdda84",
+    "docs/validation/v2-windows-package-evidence.json": "fd3861acb6e68f7a088058469b3c1e97753aee710bf70683e0cd7e20029ee1c9",
+    "docs/validation/v2-windows-build-inputs.json": "3322998dbc9f1a7ad304ee91e036cff8d191c7783c1d47510bc5f2bf98f34fbf",
+    "docs/validation/v2-android-package-evidence.json": "e60e48f03f90d99a553fc34d59892e924acd0e67207cdce4fef06c64211c7dd0",
+    "docs/validation/v2-android-lint-review.json": "bbfe2bee9abd6daeac7bf701ff9d18b1574f82b9a23e36519eb56fe795f03acf",
+    "docs/validation/v2-installed-package-smoke.json": "b9137d1d0d287eb85b60acd381f7b874f2fcc87260b054acdad76860cee366d4",
+    "docs/validation/v2-production-startup.json": "837b98ce1b62de332948ed0e833e6d7c3a60dd4dd4242e74a24c7c153604dcad",
+    "docs/validation/v2-postgres-contention.json": "518641a00afc2a1bbf79015786d92f1c9a85768397adc87eaac50382835a6256",
+    "docs/validation/v2-restore-drill.json": "3f7935f195d9ae001ae89da9e496d225d0851acfa3e85755529c956e63f4eaaf",
+    "docs/validation/v2-release-collector.json": "06d8a01e7d7dc934657406a564f57b36fb15a475ee956f04ce218093bff069c5",
+    "docs/validation/v2-tooling-checks.json": "6d85bab5f0f337523360af25073aa41227e56b00d9c3df29b34ca2eff06bad1e",
+    "docs/requirements.json": "d98f9cb7af9d5f6d8644a01dfa39a2df11be448cc70ef7731c7e60472e05b28d",
+    "docs/requirements.csv": "500501229dd1f4ab3fc518bc4cc351f9563fe2c33cb089c65df25fe4e3d3b0c8",
+    "docs/requirements-summary.md": "5b58dbd45b5241b5e92a91dedbe0d54bc1f37d1325e0d87d7e86348ea78f34f4",
+    "docs/blueprint-revision.md": "bb022e8b0369886e1f51c0957e44987275449115b702017ef048aefd88adbfc9",
+    "IMPLEMENTATION_REPORT.md": "a82ba67065d95b95785452b8aba4a09b512e703855626465ddf80465e0f47cd4"
+  },
+  "limits": [
+    "No production publisher signing, actual Windows/Android physical-device qualification, remote GitHub Actions run, Docker runtime execution, public deployment or live clinic/provider acceptance.",
+    "Functional tests use a 30000ms tool budget on the shared host; production defaults to 3000ms. No latency/capacity/acoustic SLO is inferred.",
+    "Native partial STT, native streaming TTS and generative tool-stream provider adapters remain unimplemented and disabled pending selected-provider integration and conformance work.",
+    "The full requested/ringing/accepted/failed carrier-event adapter and PBX warm-transfer integration remain unimplemented pending the selected transport contract; queued tasks and Asterisk cold-transfer fallthrough are not claimed as connected calls.",
+    "Rights-cleared real research data, actual model training/target-hardware measurements, qualified review and commercial/clinical outcomes are not supplied by synthetic fixtures.",
+    "Android retains documented lint warnings and upstream baseline suppressions; no universal clean-lint, accessibility or security certification is claimed.",
+    "The original test workers finished after their supervisor transport was lost; their passing pytest records were independently reconciled, while missing OS exit observations remain unknown."
+  ]
+}

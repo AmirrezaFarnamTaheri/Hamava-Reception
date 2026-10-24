@@ -1,0 +1,38 @@
+{
+  "id": "model_complete_tool",
+  "family": "model",
+  "events": [
+    {
+      "type": "response.output_item.added",
+      "item": {
+        "id": "tool-1",
+        "type": "function_call",
+        "name": "slots"
+      }
+    },
+    {
+      "type": "response.function_call_arguments.delta",
+      "item_id": "tool-1",
+      "delta": "{\"provider_id\":\"p\","
+    },
+    {
+      "type": "response.function_call_arguments.done",
+      "item_id": "tool-1",
+      "arguments": "{\"provider_id\":\"p\",\"service_id\":\"s\",\"date\":\"2026-10-24\"}"
+    },
+    {
+      "type": "response.completed",
+      "response": {
+        "status": "completed"
+      }
+    }
+  ],
+  "expect": {
+    "event": "completed",
+    "proposals": 1,
+    "tools": [
+      "slots"
+    ],
+    "all_nonexecutable": true
+  }
+}

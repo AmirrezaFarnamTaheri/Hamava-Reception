@@ -1,0 +1,9 @@
+{$PUBLIC_HOST} {
+    encode zstd gzip
+    request_body {
+        max_size 5100KB
+    }
+    @internal path /api/v1/internal/* /metrics
+    respond @internal 404
+    reverse_proxy api:8000
+}

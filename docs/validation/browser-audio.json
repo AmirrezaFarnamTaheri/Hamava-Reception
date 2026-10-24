@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "suite": "audio",
+  "captured_at": "2026-10-23T12:00:43.190Z",
+  "source_script": "frontend/scripts/exercise-audio.mjs",
+  "current_source_script_sha256": "9e655ee05e161f108720e2d5f121fb492440a63b33137eeb095720bc8a4db460",
+  "report_sha256": "8e80bd3210f12f944d28ae3e9249c943c2baa72bf0f7268b253cd112963dd9b8",
+  "validation_environment": "Local headless Chromium against isolated synthetic demo API",
+  "scope": "Observed browser behavior only. No iOS/Android device, carrier, real vendor settlement/delivery, native-listener quality or production capacity qualification.",
+  "checks": [
+    "No microphone stream exists before explicit record action",
+    "Real MediaRecorder webm reaches local ASR and an authoritative conversation turn",
+    "Trusted persisted reply is synthesized to a real WAV response",
+    "Microphone tracks are stopped after sending the message",
+    "Audio conversation ends cleanly"
+  ],
+  "errors": [],
+  "synthetic_input": true,
+  "transcript": "سلا برای فردا بخ دندان پزشی میخواهن سلا",
+  "turn_state": "INTENT",
+  "synthetic_reply": "می‌تونم برای ثبت، جابه‌جایی یا لغو نوبت و پرسش‌های پذیرش کمک کنم. چه کاری می‌خواهید؟",
+  "synthesis": {
+    "status": 200,
+    "content_type": "audio/wav",
+    "content_length": "192120",
+    "byte_length": 192120,
+    "signature": [
+      82,
+      73,
+      70,
+      70
+    ]
+  },
+  "accuracy_claim": "Transport/processing verified; no recognition accuracy claim."
+}

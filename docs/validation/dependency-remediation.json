@@ -1,0 +1,44 @@
+{
+  "source": "pip-audit public advisory database query",
+  "date": "2026-10-23",
+  "changes": [
+    {
+      "package": "cryptography",
+      "before": "46.0.7",
+      "after": "50.0.2",
+      "advisories": [
+        "GHSA-537c-gmf6-5ccf",
+        "PYSEC-2026-3552",
+        "PYSEC-2026-3553",
+        "PYSEC-2026-3554"
+      ]
+    },
+    {
+      "package": "pip",
+      "before": "25.0.1",
+      "after": "26.2.2",
+      "advisories": [
+        "PYSEC-2026-1795",
+        "PYSEC-2026-1796",
+        "PYSEC-2026-196",
+        "PYSEC-2026-2875",
+        "PYSEC-2026-2876",
+        "PYSEC-2026-3721"
+      ]
+    }
+  ],
+  "limits": "Known dependency advisories only; does not audit custom application logic, system packages, deployed images, model weights or provider services.",
+  "primary_release_sources": [
+    "https://cryptography.io/en/50.0.2/changelog/",
+    "https://pip.pypa.io/en/stable/news/"
+  ],
+  "after_audit": {
+    "report": "docs/validation/python-dependency-audit.json",
+    "scanned_dependencies": 81,
+    "known_vulnerabilities": 0,
+    "skipped": [
+      "hamava-receptionist 0.1.0: local project is not published on PyPI"
+    ],
+    "scope": "Installed local backend/test/media/speech environment. Advisory lookup at execution time; not a guarantee against unknown vulnerabilities."
+  }
+}

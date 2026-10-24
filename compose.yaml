@@ -1,0 +1,113 @@
+name: hamava
+x-app: &app
+  image: hamava-receptionist:0.2.2
+  build: .
+  env_file: .env.production
+  environment: &app-environment
+    ENVIRONMENT: production
+    DEMO_MODE: "false"
+    DATABASE_URL: ${DATABASE_URL:?Set the PostgreSQL application URL}
+    RUN_WORKER: "false"
+    FORWARDED_ALLOW_IPS: 127.0.0.1,::1,172.30.240.2
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  networks: [private]
+  restart: unless-stopped
+services:
+  db:
+    image: postgres:16-bookworm
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-hamava}
+      POSTGRES_USER: ${POSTGRES_USER:-hamava}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Generate a database password}
+    volumes: [postgres-data:/var/lib/postgresql/data]
+    networks: [private]
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  migrate:
+    <<: *app
+    command: [python, scripts/migrate.py]
+    restart: "no"
+    depends_on:
+      db: {condition: service_healthy}
+  api:
+    <<: *app
+    ports: [127.0.0.1:8000:8000]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+  jobs:
+    <<: *app
+    command: [python, -m, receptionist.worker]
+    depends_on:
+      api: {condition: service_healthy}
+  livekit-worker:
+    <<: *app
+    profiles: [webrtc]
+    command: [python, -m, receptionist.media.livekit_worker]
+    environment:
+      <<: *app-environment
+      RECEPTION_API_URL: http://api:8000
+    depends_on:
+      api: {condition: service_healthy}
+  audiosocket:
+    <<: *app
+    profiles: [pbx]
+    command: [python, -m, receptionist.media.audiosocket]
+    environment:
+      <<: *app-environment
+      RECEPTION_API_URL: http://api:8000
+      AUDIOSOCKET_BIND: 0.0.0.0
+    # Bind only to a private interface/SSH tunnel. Asterisk must be in the
+    # explicit allowed CIDR list; AudioSocket itself has no transport TLS.
+    ports: [127.0.0.1:9092:9092]
+    depends_on:
+      api: {condition: service_healthy}
+  speech:
+    profiles: [speech]
+    build:
+      context: .
+      dockerfile: services/local_speech/Dockerfile
+    env_file: .env.production
+    volumes: ['${SPEECH_MODELS_DIR:-./models}:/models:ro']
+    networks: [private]
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+  edge:
+    profiles: [https]
+    image: caddy:2-alpine
+    environment:
+      PUBLIC_HOST: ${PUBLIC_HOST:?Set your reviewed public hostname}
+    ports: [80:80, 443:443, 443:443/udp]
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    networks:
+      private:
+        ipv4_address: 172.30.240.2
+    depends_on:
+      api: {condition: service_healthy}
+    restart: unless-stopped
+networks:
+  private:
+    ipam:
+      config:
+        - subnet: 172.30.240.0/24
+volumes:
+  postgres-data:
+  caddy-data:
+  caddy-config:

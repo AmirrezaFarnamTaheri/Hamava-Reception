@@ -1,0 +1,22 @@
+{
+  "id": "ami_prefix_injection",
+  "family": "ami",
+  "events": [
+    {
+      "Event": "UserEvent",
+      "UserEvent": "HamavaRegistered",
+      "CallUUID": "00000000-0000-4000-8000-000000000001",
+      "Linkedid": "1740.10"
+    },
+    {
+      "Event": "DialBegin",
+      "Linkedid": "1740.10",
+      "DestChannel": "PJSIP/reception-malicious",
+      "DestUniqueid": "1740.22"
+    }
+  ],
+  "expect": {
+    "stages": [],
+    "connected_candidate": false
+  }
+}

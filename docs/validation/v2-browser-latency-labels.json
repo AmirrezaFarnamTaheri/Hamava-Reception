@@ -1,0 +1,123 @@
+{
+  "schema_version": "2.1",
+  "suite": "latency-labels",
+  "captured_at": "2026-10-23T17:15:23.024615+00:00",
+  "source_script": "frontend/scripts/exercise-latency-labels.mjs",
+  "source_script_sha256": "d9237941a6c5bbfd5b45df999dda81dab846f4df7e50e5b104cf14851a1efb62",
+  "raw_report_sha256": "2c635b3676cdcf06cb96973cc86d68301dc50035fd803fa2699f6dbec1ab5848",
+  "frontend_bundle": {
+    "entry": "/assets/index-DnPskxcg.js",
+    "entry_sha256": "804e49f0653e9d64320676a0a9d9caf308d39955b3cb80823caa870a787efebd",
+    "css": "/assets/index-DVYiIkCe.css",
+    "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+    "source_tree_sha256": "5132a4fd75fca3d9515df28dd3a901e821c25b4913c573d44f7bde01bc620874",
+    "captured_at": "2026-10-23T17:13:37.643135+00:00",
+    "app_version": "0.2.0"
+  },
+  "validation_environment": {
+    "interface": "built production frontend from verified immutable capture",
+    "browser": "packaged headless Chromium",
+    "api": "fresh isolated SQLite synthetic demo API per suite",
+    "provider_transmission": "disabled; no live messaging, carrier, calendar or settlement qualification",
+    "functional_tool_timeout_ms": 30000,
+    "latency_slo_claim": false,
+    "accessibility": "axe WCAG2A/AA and WCAG2.1AA tags; CSP bypass only for checker injection",
+    "physical_device_qualification": false,
+    "immutable_frontend_snapshot_at_run": "/tmp/hamava-latency-final-dist-ufiyuxtp/web",
+    "immutable_file_manifest": "docs/validation/v2-ui-latency-labels-source-equivalence.json",
+    "runner_override": "Unchanged ci_ui.py main(); only each synthetic API child FRONTEND_DIST was pinned to the verified immutable capture."
+  },
+  "passed": true,
+  "checks": [
+    "A real synthetic conversation records a successful slots tool span; the actual latency API exposes the five exact tool stages and the four existing stages",
+    "At 1440px all five tool rows have distinct Persian labels, actual counts and honest empty timing cells; accessibility and document overflow checks are clean",
+    "At 390px all five tool rows have distinct Persian labels, actual counts and honest empty timing cells; accessibility and document overflow checks are clean",
+    "At 320px all five tool rows have distinct Persian labels, actual counts and honest empty timing cells; accessibility and document overflow checks are clean"
+  ],
+  "audits": [
+    {
+      "name": "latency-labels-1440",
+      "viewport": 1440,
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "name": "latency-labels-390",
+      "viewport": 390,
+      "width": 390,
+      "violations": []
+    },
+    {
+      "name": "latency-labels-320",
+      "viewport": 320,
+      "width": 320,
+      "violations": []
+    }
+  ],
+  "errors": [],
+  "unexpected_api_failures": [],
+  "stages": {
+    "stt_provider": {
+      "count": 0,
+      "p50_ms": null,
+      "p95_ms": null,
+      "p99_ms": null
+    },
+    "tts_or_static_cache": {
+      "count": 0,
+      "p50_ms": null,
+      "p95_ms": null,
+      "p99_ms": null
+    },
+    "staff_task_to_verified_room_join": {
+      "count": 0,
+      "p50_ms": null,
+      "p95_ms": null,
+      "p99_ms": null
+    },
+    "conversation_and_calendar": {
+      "count": 4,
+      "p50_ms": 38,
+      "p95_ms": 363,
+      "p99_ms": 363
+    },
+    "tool_slots": {
+      "count": 1,
+      "p50_ms": 320,
+      "p95_ms": 320,
+      "p99_ms": 320
+    },
+    "tool_hold": {
+      "count": 0,
+      "p50_ms": null,
+      "p95_ms": null,
+      "p99_ms": null
+    },
+    "tool_book": {
+      "count": 0,
+      "p50_ms": null,
+      "p95_ms": null,
+      "p99_ms": null
+    },
+    "tool_cancel": {
+      "count": 0,
+      "p50_ms": null,
+      "p95_ms": null,
+      "p99_ms": null
+    },
+    "tool_reschedule": {
+      "count": 0,
+      "p50_ms": null,
+      "p95_ms": null,
+      "p99_ms": null
+    }
+  },
+  "tool_labels": {
+    "tool_slots": "جست‌وجوی نوبت‌های آزاد",
+    "tool_hold": "نگهداری موقت نوبت",
+    "tool_book": "ثبت نوبت",
+    "tool_cancel": "لغو نوبت",
+    "tool_reschedule": "تغییر زمان نوبت"
+  },
+  "scope": "Actual local synthetic API and rendered production UI; one successful slots dispatch is observed. Zero-sample tool rows retain empty percentiles. No provider, physical-device, first-audible or latency-SLO qualification is claimed."
+}

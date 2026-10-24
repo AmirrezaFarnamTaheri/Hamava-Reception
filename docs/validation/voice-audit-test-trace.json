@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "synthetic_only": true,
+  "observed_date": "2026-10-23",
+  "evidence_origin": "Captured subprocess completion from the actual tool run; this is the observed result, not an inferred test count.",
+  "runs": [
+    {
+      "id": "voice-core-media-audit-68",
+      "command": "PYTHONPATH=backend ../.venv/bin/pytest -q backend/tests/test_voice_integrity.py backend/tests/test_voice.py backend/tests/test_media_providers.py backend/tests/test_media_integrity.py backend/tests/test_core.py",
+      "tool_process_session": 83421,
+      "exit_code": 0,
+      "observed_summary": "68 passed in 25.02s",
+      "tests_passed": 68,
+      "duration_seconds": 25.02
+    },
+    {
+      "id": "partner-integrity-followup-24",
+      "command": "PYTHONPATH=backend ../.venv/bin/pytest -q backend/tests/test_partner_integrity.py backend/tests/test_partners_and_tools.py",
+      "tool_process_session": 42948,
+      "exit_code": 0,
+      "observed_summary": "24 passed in 10.01s",
+      "tests_passed": 24,
+      "duration_seconds": 10.01
+    }
+  ],
+  "limits": [
+    "Local synthetic fixtures and mocked providers; no carrier, patient, real recipient or payment validation.",
+    "The separate voice-followup-tests.json records stdout for the final locale/voice/partner run."
+  ]
+}

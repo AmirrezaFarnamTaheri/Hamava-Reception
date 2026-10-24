@@ -1,0 +1,40 @@
+{
+  "synthetic_only": true,
+  "transport": "actual LiveKit RTC SDK over loopback",
+  "checks": {
+    "audible_agent_pcm_received": true,
+    "audio_to_asr_to_conversation_to_data": true,
+    "nonzero_reply_audio_after_conversation": true,
+    "no_unverified_booking_claim": true,
+    "takeover_requires_room_join": true,
+    "not_connected_before_human_join": true,
+    "signed_real_participant_handoff": true,
+    "ai_blocked_after_human_join": true
+  },
+  "limits": "One synthetic call; no public carrier, TLS/TURN, browser/device matrix or quality/SLO claim.",
+  "utterance_send_to_turn_seconds": 6.238,
+  "last_input_speech_frame_to_first_reply_pcm_received_ms": 2920.938,
+  "latency_boundary": "Last nonzero synthetic input frame submitted to SDK -> first nonzero reply PCM received after trusted turn event; includes endpointing and buffering, excludes physical speaker output. One observation, not an SLO distribution.",
+  "turns": [
+    {
+      "reply": "می‌تونم برای ثبت، جابه‌جایی یا لغو نوبت و پرسش‌های پذیرش کمک کنم. چه کاری می‌خواهید؟",
+      "state": "INTENT",
+      "transcript": "سلا برای فردا بخ دندان پزشی مخواهن"
+    }
+  ],
+  "received_audio": {
+    "frames": 690,
+    "nonzero_frames": 628,
+    "samples": 110400
+  },
+  "passed": true,
+  "observed_warnings": [
+    {
+      "component": "LiveKit native caller test SDK",
+      "stage": "cleanup",
+      "message": "Attempted to drop unknown FFI handle",
+      "functional_assertions_failed": false,
+      "interpretation": "Review SDK/room lifetime handling before deployment; this observation alone does not establish a resource leak or its absence."
+    }
+  ]
+}

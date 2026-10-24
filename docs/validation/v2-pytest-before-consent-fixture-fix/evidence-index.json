@@ -1,0 +1,138 @@
+{
+  "format": "hamava-curated-pytest-evidence-v1",
+  "result": "failed_or_incomplete",
+  "planned_nodes": 444,
+  "planned_files": 33,
+  "outcomes": {
+    "passed": 442,
+    "failed": 2
+  },
+  "coverage": {
+    "full_collection_matches_in_every_process": true,
+    "selected_exactly_once": true,
+    "started_exactly_once": true,
+    "finished_exactly_once": true,
+    "source_unchanged": true
+  },
+  "source_records_preserved_verbatim": true,
+  "original_absolute_artifact_paths_retained_in_records": true,
+  "reference_policy": "Only files[].path is a retained evidence reference. It is relative to the delivered project root. Absolute paths inside verbatim source records describe the historical execution environment, not additional delivered files.",
+  "log_policy": "Controller redacts the supplied PostgreSQL URL/password from its shard logs and JUnit before final hashing; only explicit logs and JSON/XML are copied.",
+  "excluded": [
+    "pytest-tmp",
+    "pytest-cache",
+    "os-tmp",
+    "SQLite databases",
+    "generated cryptographic keys",
+    "audio/data fixtures"
+  ],
+  "interrupted_serial_record": "docs/validation/v2-pytest-serial-interrupted.json",
+  "files": [
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/plan.json",
+      "sha256": "3287bef2f07b7bfa1ad145c7d0e4fa06497e8bf15e24c34a0597501b77b9e2d3",
+      "bytes": 181708
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/aggregate.json",
+      "sha256": "00dfb6caec72675c25b7cbcec3eec50648c62d57fe1193ca4c007d486069f2ce",
+      "bytes": 15951
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/serial-interrupted.json",
+      "sha256": "8d917ac7866452860f9ecb06a6bd317b8f25f46d9cf12112931166d905327b33",
+      "bytes": 452
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/serial-interrupted.log",
+      "sha256": "4700fcd8226e778f2f067003f8d6501c10f88ed29262bdb8655d98405f12af5d",
+      "bytes": 5438
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/shard-1/junit.xml",
+      "sha256": "89d5a46129514d8c58f88e8f96b8202376993a409be40e165d4daf26e3fdff2a",
+      "bytes": 42101
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/shard-1/observation.json",
+      "sha256": "b2600e30f63556dc056d6527aa7346be03e64f246590414b75f26e29695461e4",
+      "bytes": 322226
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/shard-1/pytest.log",
+      "sha256": "447515344c844830f6d5ad74aa0c8a6e62cdde412d056b3b7245708882a92152",
+      "bytes": 4243
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/shard-2/junit.xml",
+      "sha256": "69032d5a3d75bda1f02b043c256675f0b476754dcf9f1066ad9ae08fa431019b",
+      "bytes": 19315
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/shard-2/observation.json",
+      "sha256": "a89bca946cc20381853b530044643da3cee3299219ed8a2bddd694ec543f80f9",
+      "bytes": 214336
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/shard-2/pytest.log",
+      "sha256": "5792c8cc5a4c2d02f73de75e4010bc7b0c50783d3058797419ef70bb976ebf5d",
+      "bytes": 208
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/shard-3/junit.xml",
+      "sha256": "5e1af2eb670aac1d963316021b6ad53a4b8c3dc7c6bd0662afcd65d7636668df",
+      "bytes": 19485
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/shard-3/observation.json",
+      "sha256": "e42f7bbf7844e580fce5d2f968827c48090592bf40c348d9acf9eedab68a477f",
+      "bytes": 213912
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/shard-3/pytest.log",
+      "sha256": "c64fe0c16eb97faa1ffd193455652bd9b4352ec3973064d36673aba999dc9c37",
+      "bytes": 208
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/collection-observation.json",
+      "sha256": "ca9e95eeae37e370abb719840ab5d2281627f119eb2671d4ac47d165d1a6e429",
+      "bytes": 162601
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/collection.log",
+      "sha256": "09a71c12c709d55ba1ffb4d64eca4225450b0864f882e91634472cee64d5ad58",
+      "bytes": 57680
+    },
+    {
+      "path": "docs/validation/build-support/hamava-final-pytest-controller.py",
+      "sha256": "a464cea627f3bf54a620861569f8c73e8fefd7db816251b1e51f6ab3e3601e52",
+      "bytes": 16541
+    },
+    {
+      "path": "docs/validation/build-support/hamava_final_shard_plugin.py",
+      "sha256": "3ee71c6cd74d8282ff4191655a41b5aaaa199c9adb7728f8cf3ebf94a6f47c78",
+      "bytes": 2540
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/fixture-correction.patch",
+      "sha256": "ffc68b900c6519c304b9f33aff8f3a9ca092d9297b3a8bd8b5391596fc1fc43a",
+      "bytes": 1161
+    },
+    {
+      "path": "docs/validation/v2-pytest-before-consent-fixture-fix/fixture-correction.json",
+      "sha256": "91c9c36234878ef4ec7c37b7c7e8ced51a2b9bf37d4f46cd4ee2e6e037ae9b17",
+      "bytes": 2530
+    },
+    {
+      "path": "docs/validation/v2-deposit-notice-fixture.xml",
+      "sha256": "25a7f823248e8fb41a51b5e7b9ef2a665635ab26a3287900c9747600313aa5f2",
+      "bytes": 879
+    }
+  ],
+  "boundary": "A passing full-suite claim requires aggregate status passed and all coverage checks true. Exact execution coverage is reported separately and can also hold for a complete failed run. No acoustic, physical-device, or external-provider certification is implied.",
+  "fixture_correction_provenance": "docs/validation/v2-pytest-before-consent-fixture-fix/fixture-correction.json",
+  "independent_review": {
+    "scope": "Read-only retained-file/hash/count/privacy inventory review by the operations agent; no tests or edits performed.",
+    "result": "All 20 indexed files matched size and SHA; 444 executed, 442 passed, 2 failed, no errors or skips; no unindexed files or symlinks; no credential, private-key or token pattern matches found. The executed-versus-passed wording was clarified in this index only."
+  }
+}

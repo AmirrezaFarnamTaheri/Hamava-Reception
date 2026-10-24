@@ -1,0 +1,3090 @@
+{
+  "schema_version": "1.0",
+  "title": "Operations, research and launch-playbook requirement evidence proposal",
+  "generated_at": "2026-10-23T12:08:22.095989+00:00",
+  "source_register": "docs/requirements.json",
+  "source_register_sha256": "14567546f15be3afca87cec1da3b77c4262b23ad96d9392f764f3d7d2d845b07",
+  "source_blueprint_sha256": "d056b2893f32f81d6076f3be6d76ce0ca707284d8b8984d968ef8f47270943ef",
+  "updates_main_register": false,
+  "verified_live_supplier_claims": false,
+  "status_policy": {
+    "implemented": "Named local tests/inspection support the stated software or document behavior; external facts remain explicitly listed.",
+    "partial": "Some concrete behavior exists with remaining software/operational acceptance stated.",
+    "external_gate": "Requires specifically missing real accounts, rights, counterparties, people, observations or live environment.",
+    "research_gate": "Optional research/product gate lacks eligible data, licensing, experiments or independent demand."
+  },
+  "test_trace_files": [
+    "docs/validation/operations-acceptance.json"
+  ],
+  "counts": {
+    "external_gate": 8,
+    "implemented": 53,
+    "partial": 30,
+    "research_gate": 7
+  },
+  "requirements": [
+    {
+      "id": "FOUNDATION-015",
+      "title": "Requirement traceability",
+      "phase": 0,
+      "source_sections": [
+        "6",
+        "11",
+        "20",
+        "21.5",
+        "25.2",
+        "25.10",
+        "F1"
+      ],
+      "acceptance": "All source areas and unique later-phase directions map to status and evidence; unverified external gates remain explicit.",
+      "status": "implemented",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Revised standalone blueprint and original 263-ID register preserve all unique source headings, phases and appendices; separate evidence keeps unverified gates visible.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md",
+        "docs/validation/operations-acceptance.json"
+      ],
+      "remaining_acceptance": [
+        "Root must merge all assessor proposals into the final status register; no pending row implies completion."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "TENANT-006",
+      "title": "Policy rollback",
+      "phase": 0,
+      "source_sections": [
+        "4.1",
+        "10.4",
+        "11",
+        "14",
+        "21.1",
+        "25.4",
+        "F2"
+      ],
+      "acceptance": "Authorized staff can compare and restore a prior policy without losing intervening audit history.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Immutable reception-policy snapshots support compare and authorized restore as a new version with reason; stale versions and cross-tenant access reject.",
+      "evidence": [
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_operations_extensions.py"
+      ],
+      "remaining_acceptance": [
+        "Catalog and calendar records have separate histories and are not rolled back by reception-policy restore."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "TENANT-014",
+      "title": "Clinic policy UAT",
+      "phase": 0,
+      "source_sections": [
+        "4.1",
+        "10.4",
+        "11",
+        "14",
+        "21.1",
+        "25.4",
+        "F2"
+      ],
+      "acceptance": "Publishing production configuration requires completed clinic-specific synthetic booking/error/transfer checks.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Production publication and AI admission require current-clinic/current-mode UAT fingerprint, five checks, five references, active owner/admin reviewer and 30-day expiry. Drift invalidates approval.",
+      "evidence": [
+        "backend/receptionist/operations_uat.py",
+        "backend/tests/test_clinic_uat.py",
+        "backend/receptionist/payment_policy.py",
+        "backend/tests/test_payment_policy.py",
+        "docs/api-contract.md"
+      ],
+      "remaining_acceptance": [
+        "The gate enforces a named attestation; it does not automatically prove referenced checks ran."
+      ],
+      "external_dependencies": [
+        "Actual clinic reviewer, truthful test execution, carrier/clinical/legal approvals remain separate."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BOOKING-018",
+      "title": "Disruption handling",
+      "phase": 1,
+      "source_sections": [
+        "5",
+        "9",
+        "10",
+        "11",
+        "12",
+        "21.3",
+        "A2",
+        "A3",
+        "D2",
+        "G1",
+        "25.3",
+        "25.5"
+      ],
+      "acceptance": "Late arrival, provider postponement and emergency closure create explicit revised states and notices.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Late-arrival/provider-delay/closure records preserve actual appointments, block new affected capacity, release unused holds and create explicit impacts, tasks and notices.",
+      "evidence": [
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_operations_extensions.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [
+        "Replacement time requires explicit staff decision and a valid current slot."
+      ],
+      "external_dependencies": [
+        "Real staff must contact affected patients and verify arrangements."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BOOKING-021",
+      "title": "Manual correction",
+      "phase": 1,
+      "source_sections": [
+        "5",
+        "9",
+        "10",
+        "11",
+        "12",
+        "21.3",
+        "A2",
+        "A3",
+        "D2",
+        "G1",
+        "25.3",
+        "25.5"
+      ],
+      "acceptance": "Authorized staff can correct patient/service/time with conflict checks and an audit reason.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Staff name/contact/service/time corrections are scoped, versioned, idempotent and atomic; conflict preserves originals, history is encrypted and price change requires acceptance.",
+      "evidence": [
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_operations_extensions.py"
+      ],
+      "remaining_acceptance": [
+        "Changed deposits and pending-payment moves require separate reviewed financial/rebooking handling."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BOOKING-023",
+      "title": "Recurrence and bundles",
+      "phase": 1,
+      "source_sections": [
+        "5",
+        "9",
+        "10",
+        "11",
+        "12",
+        "21.3",
+        "A2",
+        "A3",
+        "D2",
+        "G1",
+        "25.3",
+        "25.5"
+      ],
+      "acceptance": "Recurring/session-series and multi-resource bundles have explicit supported limits and per-instance outcomes.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Single appointments support configured durations, buffers and named single-capacity resource bundles with conflict checks.",
+      "evidence": [
+        "backend/receptionist/core.py",
+        "backend/tests/test_core.py",
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "Arbitrary recurring/session-series scheduling and per-instance multi-booking saga outcomes are not implemented."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-001",
+      "title": "Durable outbox leasing",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Workers atomically claim jobs, recover expired leases and retain capped attempts/backoff/dead letters.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Durable claims, capped retry/backoff and expired-dispatch reconciliation preserve unknown outcomes without blind resends.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py"
+      ],
+      "remaining_acceptance": [
+        "A crashed in-flight submission becomes UNKNOWN and needs reconciliation."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-002",
+      "title": "Logical notice deduplication",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Appointment revision/template/purpose forms one logical dispatch; external uncertainty is reconciled rather than blindly resent.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Durable dedupe keys and appointment revision checks prevent duplicate logical notices; unknown sends cannot be retried as if unsent.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-003",
+      "title": "SMS adapter",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Configured domestic gateway accepts approved templates, handles structured errors and returns provider receipt identity.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Approved Kavenegar client supports structured requests/errors, OTP template and receipt identity; demo worker never transmits.",
+      "evidence": [
+        "backend/receptionist/providers.py",
+        "backend/tests/test_media_providers.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py"
+      ],
+      "remaining_acceptance": [
+        "Native live account/template/receipt behavior has not been verified."
+      ],
+      "external_dependencies": [
+        "Approved SMS account, actual contract and delivery tests."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-004",
+      "title": "Delivery receipt states",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Queued/accepted/delivered/failed/unknown remain distinct; replay/out-of-order receipts are safe.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Queued/in-flight/submitted/delivered/failed/unknown/simulated remain distinct; receipt dedupe and delivered-terminal precedence are tested.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py"
+      ],
+      "remaining_acceptance": [
+        "Real delivery truth depends on authenticated provider evidence."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-005",
+      "title": "Receipt authentication",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Webhook authentication follows provider capabilities, or trusted server polling verifies status.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Timestamped HMAC adapter webhook and server-side provider status client exist; generic signature is explicitly not claimed as native vendor format.",
+      "evidence": [
+        "backend/receptionist/providers.py",
+        "backend/tests/test_media_providers.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "docs/api-contract.md"
+      ],
+      "remaining_acceptance": [
+        "Actual vendor translation/polling schedule and credentials need an approved integration."
+      ],
+      "external_dependencies": [
+        "Provider-specific receipt/authentication contract."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-006",
+      "title": "Suppression and preference check",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Consent, channel preference and opt-out are checked at send time; withdrawals stop queued outreach.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Purpose/privacy tombstones override grants and explicit SMS channel denial blocks enrollment, scheduling and dispatch. Revocation suppresses eligible unsent work.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [
+        "Already in-flight external messages cannot truthfully be recalled."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-007",
+      "title": "Quiet hours",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Configured Tehran windows including overnight ranges defer messages/calls appropriately.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Configured Tehran quiet windows including overnight ranges defer supported SMS and capacity offers.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [
+        "Outbound voice reminders are disabled, so their quiet-hour behavior is not implemented."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-008",
+      "title": "Reminder scheduling",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Tenant-configured offsets such as 24 hours generate notices only for current eligible appointments.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Validated published offsets schedule the latest due reminder once without bursting all missed offsets.",
+      "evidence": [
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-009",
+      "title": "Stale reminder invalidation",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Cancel/reschedule/revision changes invalidate old reminder messages before dispatch.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Dispatch rechecks current booking status/revision/start, offset, opt-in and suppression; stale reminders are suppressed.",
+      "evidence": [
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-010",
+      "title": "Confirmation response",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Signed/authorized patient confirmation or decline updates the right booking and obeys cancellation policy.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Opaque capability/hash authorizes one appointment revision; confirmation records intent only, eligible decline cancels, late decline opens review. Replay/expiry/erasure/disruption checks apply.",
+      "evidence": [
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [
+        "Intent to attend is never actual attendance."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-011",
+      "title": "Attempt caps",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Repeated delivery failure/non-response cannot create endless SMS or outbound voice attempts.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "SMS retry caps, bounded outbox attempts and waitlist daily/lifetime/per-run limits bound supported work.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [
+        "Selective outbound voice attempts remain disabled."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-012",
+      "title": "Selective voice reminders",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Opt-in outbound reminders such as 6-hour follow-up honor routes, quiet hours, budget and cap.",
+      "status": "external_gate",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Selective outbound voice dialing is explicitly disabled and policy reports outbound_voice_enabled=false.",
+      "evidence": [
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py",
+        "docs/api-contract.md"
+      ],
+      "remaining_acceptance": [
+        "No invented carrier API or fake dial result is shipped."
+      ],
+      "external_dependencies": [
+        "Approved outbound carrier capability, routes/consent/billing and real outcome tests."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-013",
+      "title": "Sensitive notice minimization",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Shared-phone and voicemail messages avoid sensitive specialty/procedure details by default.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Default templates contain minimal administrative wording; followup avoids individualized aftercare and disruption notices invent no new times.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [
+        "No voicemail delivery path or universal shared-phone/sensitivity classifier exists."
+      ],
+      "external_dependencies": [
+        "Clinic-approved wording and recipient suitability review."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-014",
+      "title": "Follow-up cadence",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Clinician-approved recurring/post-visit outreach is tenant-published, purpose-specific and revocable.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Published followup cadence needs a separately authorized current clinician, attended visit and explicit enrollment consent; dispatch rechecks version/membership/channel/withdrawal.",
+      "evidence": [
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [
+        "Template is administrative, not individualized medical advice."
+      ],
+      "external_dependencies": [
+        "Real staff qualifications and actual clinic clinical approval."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "MESSAGING-015",
+      "title": "Human retry workflow",
+      "phase": 3,
+      "source_sections": [
+        "12",
+        "13",
+        "17",
+        "21.4",
+        "25.7"
+      ],
+      "acceptance": "Staff see failed notices separately from booking status and can retry with audit and duplicate safeguards.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Known FAILED messages below caps can be explicitly retried with audit; UNKNOWN/in-flight/submitted/delivered/simulated messages cannot be blindly requeued.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "docs/api-contract.md"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "WAITLIST-001",
+      "title": "Opt-in enrollment",
+      "phase": 3,
+      "source_sections": [
+        "13.2",
+        "21.4",
+        "D2",
+        "25.7"
+      ],
+      "acceptance": "Members specify provider/service/date/time windows, travel lead time and contact permission.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Opt-in enrollment validates scoped provider/service, date/local-minute windows, travel lead and contact permission.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "WAITLIST-002",
+      "title": "Fair candidate selection",
+      "phase": 3,
+      "source_sections": [
+        "13.2",
+        "21.4",
+        "D2",
+        "25.7"
+      ],
+      "acceptance": "Eligible candidates follow transparent configured priority/first-come rules without sensitive discriminatory ranking.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Oldest eligible first is transparent, filtered by date/time/travel/consent/contact caps; sensitive ranking is absent.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py"
+      ],
+      "remaining_acceptance": [
+        "Supported priority is first-come eligibility; arbitrary custom ranking is not advertised."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "WAITLIST-003",
+      "title": "Genuine capacity event",
+      "phase": 3,
+      "source_sections": [
+        "13.2",
+        "21.4",
+        "D2",
+        "25.7"
+      ],
+      "acceptance": "Waitlist begins only after an authoritative cancellation/release creates available capacity.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Opt-in automatic offers consume durable release events, recheck current calendar and acquire a real hold; an intervening booking defeats the offer.",
+      "evidence": [
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [
+        "Manual staff offers may use another genuinely available interval; only automatic offers require a release event."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "WAITLIST-004",
+      "title": "Time-limited offer",
+      "phase": 3,
+      "source_sections": [
+        "13.2",
+        "21.4",
+        "D2",
+        "25.7"
+      ],
+      "acceptance": "Offer ownership, expiry and optional supported hold are durable and visible.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Owner, encrypted/hash capability, expiry and actual hold persist; staff resumes saved offers and reads current safe deposit terms.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/tests/test_waitlist_payment_terms.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "WAITLIST-005",
+      "title": "Atomic acceptance",
+      "phase": 3,
+      "source_sections": [
+        "13.2",
+        "21.4",
+        "D2",
+        "25.7"
+      ],
+      "acceptance": "Two simultaneous acceptances create at most one reservation; patient and offer authorization are checked.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Acceptance validates capability/staff scope and current eligibility under tenant serialization; unique booking key and held capacity prevent duplicate reservation. Actual deposits require explicit current terms.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/tests/test_waitlist_payment_terms.py",
+        "backend/receptionist/core.py",
+        "backend/tests/test_core.py"
+      ],
+      "remaining_acceptance": [
+        "Direct duplicate acceptance, exclusive holds and calendar contention are separately tested; success may be PENDING_PAYMENT rather than confirmed."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "WAITLIST-006",
+      "title": "Offer expiry/release",
+      "phase": 3,
+      "source_sections": [
+        "13.2",
+        "21.4",
+        "D2",
+        "25.7"
+      ],
+      "acceptance": "Expired/canceled offers release capacity and cannot be revived by a late click.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Expiry/rejection/withdrawal revokes eligibility and releases occupancy; late clicks and stale texts cannot revive offers.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "WAITLIST-007",
+      "title": "Stop after fulfillment",
+      "phase": 3,
+      "source_sections": [
+        "13.2",
+        "21.4",
+        "D2",
+        "25.7"
+      ],
+      "acceptance": "Filling a slot or opt-out cancels remaining outreach and pending candidates.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Acceptance marks fulfillment; purpose withdrawal cancels eligible candidates/offers and queued notices without silently canceling appointments.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "WAITLIST-008",
+      "title": "Complete offer audit",
+      "phase": 3,
+      "source_sections": [
+        "13.2",
+        "21.4",
+        "D2",
+        "25.7"
+      ],
+      "acceptance": "Selection, contact attempt, expiry, acceptance, rejection and final booking remain traceable.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Offer/contact attempts/acceptance/expiry/rejection/withdrawal have durable records and audit links to final booking.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PAYMENT-001",
+      "title": "Published deposit policy",
+      "phase": 3,
+      "source_sections": [
+        "10.5",
+        "12",
+        "13.3",
+        "21.3",
+        "25.3",
+        "25.7"
+      ],
+      "acceptance": "Deposits are disabled until amount, currency, expiry, cancellation and refund terms are published.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Actual deposits require enabled published per-clinic terms, currency and hold limit plus explicit current acceptance before booking; demo version zero is labeled synthetic.",
+      "evidence": [
+        "backend/receptionist/payment_policy.py",
+        "backend/tests/test_payment_policy.py",
+        "backend/tests/test_waitlist_payment_terms.py"
+      ],
+      "remaining_acceptance": [
+        "Published operator text is not a legal determination."
+      ],
+      "external_dependencies": [
+        "Actual clinic terms and consumer/payment obligations require authorized review."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PAYMENT-002",
+      "title": "Integer money and units",
+      "phase": 3,
+      "source_sections": [
+        "10.5",
+        "12",
+        "13.3",
+        "21.3",
+        "25.3",
+        "25.7"
+      ],
+      "acceptance": "Amounts use explicit integer IRR/Toman units and exact gateway conversion.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Integer Toman amounts convert exactly to IRR by ten and the provider payload explicitly identifies IRR.",
+      "evidence": [
+        "backend/receptionist/payment_policy.py",
+        "backend/tests/test_payment_policy.py",
+        "backend/receptionist/providers.py",
+        "backend/tests/test_media_providers.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PAYMENT-003",
+      "title": "Payment intent linkage",
+      "phase": 3,
+      "source_sections": [
+        "10.5",
+        "12",
+        "13.3",
+        "21.3",
+        "25.3",
+        "25.7"
+      ],
+      "acceptance": "Intent is tied to tenant, merchant, booking/hold, amount, currency and expiry with unique operation identity.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Explicit tenant mapping and intent snapshot pin provider/merchant identity hash, alias, sandbox, booking, amount/currencies, terms and expiry; changed/missing bindings fail before verification.",
+      "evidence": [
+        "backend/receptionist/payment_policy.py",
+        "backend/tests/test_payment_policy.py"
+      ],
+      "remaining_acceptance": [
+        "Keep old aliases unchanged while their intents are pending."
+      ],
+      "external_dependencies": [
+        "Real merchant authorization/ownership and gateway readiness remain unverified."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PAYMENT-004",
+      "title": "Hosted gateway link",
+      "phase": 3,
+      "source_sections": [
+        "10.5",
+        "12",
+        "13.3",
+        "21.3",
+        "25.3",
+        "25.7"
+      ],
+      "acceptance": "Provider-approved link is returned without collecting card secrets in app/call.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Approved configured gateway returns a hosted link without collecting card secrets; synthetic demo returns no real payment URL.",
+      "evidence": [
+        "backend/receptionist/payment_policy.py",
+        "backend/tests/test_payment_policy.py",
+        "backend/receptionist/providers.py",
+        "backend/tests/test_media_providers.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py"
+      ],
+      "remaining_acceptance": [
+        "No real merchant payment was executed."
+      ],
+      "external_dependencies": [
+        "Provider approval/account and actual hosted-link contract tests."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PAYMENT-005",
+      "title": "Server settlement verification",
+      "phase": 3,
+      "source_sections": [
+        "10.5",
+        "12",
+        "13.3",
+        "21.3",
+        "25.3",
+        "25.7"
+      ],
+      "acceptance": "Native signature/verification checks merchant, amount, currency, booking and trusted settlement status.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Callbacks verify server-side using pinned merchant, exact amount/currency and current locked payment/calendar state; changed binding fails before provider construction.",
+      "evidence": [
+        "backend/receptionist/payment_policy.py",
+        "backend/tests/test_payment_policy.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py"
+      ],
+      "remaining_acceptance": [
+        "Provider responses were exercised through mock transport and synthetic boundaries."
+      ],
+      "external_dependencies": [
+        "Live gateway account/API verification remains a launch gate."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PAYMENT-006",
+      "title": "Replay and forgery defense",
+      "phase": 3,
+      "source_sections": [
+        "10.5",
+        "12",
+        "13.3",
+        "21.3",
+        "25.3",
+        "25.7"
+      ],
+      "acceptance": "Forged/replayed callbacks cannot confirm unpaid or duplicated appointments.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Unverified callbacks cannot settle, and replay preserves terminal post-refund state and unique booking identity.",
+      "evidence": [
+        "backend/receptionist/payment_policy.py",
+        "backend/tests/test_payment_policy.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PAYMENT-007",
+      "title": "Expiry and late payment",
+      "phase": 3,
+      "source_sections": [
+        "10.5",
+        "12",
+        "13.3",
+        "21.3",
+        "25.3",
+        "25.7"
+      ],
+      "acceptance": "Unpaid holds expire; late settlement creates reconciliation/refund or a newly verified slot, never conflicting confirmation.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Unpaid capacity expires and late verification becomes refund review without resurrecting canceled/expired/started appointments.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/payment_policy.py",
+        "backend/tests/test_payment_policy.py"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PAYMENT-008",
+      "title": "Refund ledger",
+      "phase": 3,
+      "source_sections": [
+        "10.5",
+        "12",
+        "13.3",
+        "21.3",
+        "25.3",
+        "25.7"
+      ],
+      "acceptance": "Full/partial/refused/pending/settled refund states are idempotent and reconcile with provider truth.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Bounded full/partial reservation, refusal, pending reconciliation, evidenced failure/completion and unique transfer reference checks are idempotent; reasons are encrypted.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [
+        "Code records authorized evidence but does not execute refunds or authenticate an entered bank reference independently."
+      ],
+      "external_dependencies": [
+        "Actual transfer execution, receipts and reconciliation responsibility."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PAYMENT-009",
+      "title": "Payment/reschedule race",
+      "phase": 3,
+      "source_sections": [
+        "10.5",
+        "12",
+        "13.3",
+        "21.3",
+        "25.3",
+        "25.7"
+      ],
+      "acceptance": "Concurrent cancellation/reschedule/settlement preserves resource and financial invariants.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Tenant-first serialization/current locked state and expiry checks preserve calendar/payment transitions; concurrent refund reservation/completion cannot overreserve or lose partials.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/core.py",
+        "backend/tests/test_core.py",
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_operations_extensions.py"
+      ],
+      "remaining_acceptance": [
+        "Root PostgreSQL evidence supplies separate engine validation beyond these local transactional tests."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PAYMENT-010",
+      "title": "Dispute and chargeback",
+      "phase": 3,
+      "source_sections": [
+        "10.5",
+        "12",
+        "13.3",
+        "21.3",
+        "25.3",
+        "25.7"
+      ],
+      "acceptance": "Staff can track disputes and corrective ledger entries without rewriting original financial facts.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Validated scoped dispute lifecycle appends one negative principal adjustment for a loss and never rewrites original settlement; refund budget accounts for known loss.",
+      "evidence": [
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_operations_extensions.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py"
+      ],
+      "remaining_acceptance": [
+        "Actual dispute adjudication/reference validity remains external staff work."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PAYMENT-011",
+      "title": "Optional installment/price extensions",
+      "phase": 3,
+      "source_sections": [
+        "10.5",
+        "12",
+        "13.3",
+        "21.3",
+        "25.3",
+        "25.7"
+      ],
+      "acceptance": "Installment/dynamic-price behavior remains disabled until terms and complete supported gateway workflows exist.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Installment and automatic dynamic-price gateway behavior is disabled; fixed tenant prices/deposits and explicit correction acceptance are supported.",
+      "evidence": [
+        "backend/receptionist/payment_policy.py",
+        "backend/tests/test_payment_policy.py",
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "Introducing either option requires approved terms, product decision and complete provider workflow."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "CONSOLE-004",
+      "title": "Task atomic ownership",
+      "phase": 4,
+      "source_sections": [
+        "4",
+        "5.2",
+        "14",
+        "21.4",
+        "H1",
+        "25.6"
+      ],
+      "acceptance": "Accept/claim prevents accidental competing handlers; reassignment requires permission and audit.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Serialized/versioned case claims yield one owner; scoped active members may be assigned and legacy resolution obeys the same ownership policy.",
+      "evidence": [
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_operations_extensions.py"
+      ],
+      "remaining_acceptance": [
+        "Actual staffing coverage is not established."
+      ],
+      "external_dependencies": [
+        "Named staff and measured pickup capacity."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "CONSOLE-005",
+      "title": "Task lifecycle",
+      "phase": 4,
+      "source_sections": [
+        "4",
+        "5.2",
+        "14",
+        "21.4",
+        "H1",
+        "25.6"
+      ],
+      "acceptance": "Accept, reject/redirect, callback, resolve, reopen and pending status have validated transitions.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Claim/reassign/pending/callback/resolve/reopen/reject/redirect validate state, owner, version and receipts; callback time is aware, future and bounded.",
+      "evidence": [
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_operations_extensions.py"
+      ],
+      "remaining_acceptance": [
+        "Frontend interaction evidence is assessed separately."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "CONSOLE-012",
+      "title": "Owner daily digest",
+      "phase": 4,
+      "source_sections": [
+        "4",
+        "5.2",
+        "14",
+        "21.4",
+        "H1",
+        "25.6"
+      ],
+      "acceptance": "Digest counts verified bookings, attendance, cancellations, waitlist fills, open cases and actual usage.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Owner digest separates verified booking state, scheduled attendance/unknown, cancellation, waitlist fills, all active cases and actual call-duration/cost events.",
+      "evidence": [
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_operations_extensions.py"
+      ],
+      "remaining_acceptance": [
+        "Historical backlog is not reconstructed; scheduled destination dispatch is separately assessed."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BILLING-006",
+      "title": "Economics sensitivity",
+      "phase": 4,
+      "source_sections": [
+        "17.3",
+        "18",
+        "19",
+        "21.4",
+        "D1",
+        "J",
+        "25.8"
+      ],
+      "acceptance": "Calculator includes AI/carrier/SMS/infrastructure/humans/support/FX/taxes with explicit assumptions.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Decimal calculator supports AI/carrier/SMS/infra/human/support cost categories, units, Toman/IRR/USD, FX/quantity/outcome scenarios and separate invoice tax.",
+      "evidence": [
+        "scripts/economics.py",
+        "scripts/pilot_analysis.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/economics-synthetic.json",
+        "docs/evidence/pilot-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "Example figures are assumptions, not supplier prices or observed results."
+      ],
+      "external_dependencies": [
+        "Actual invoices, FX convention, staff costs and contract terms."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BILLING-007",
+      "title": "Booked versus kept value",
+      "phase": 4,
+      "source_sections": [
+        "17.3",
+        "18",
+        "19",
+        "21.4",
+        "D1",
+        "J",
+        "25.8"
+      ],
+      "acceptance": "Report separates gross booked value, kept contribution and estimated causal increment.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Booked potential, observed kept contribution, baseline difference and justified incremental contribution remain separate; negative outcomes stay visible.",
+      "evidence": [
+        "scripts/economics.py",
+        "scripts/pilot_analysis.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/economics-synthetic.json",
+        "docs/evidence/pilot-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "Causal increment is an explicitly supplied basis, never inferred from booking count."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BILLING-008",
+      "title": "Baseline and uncertainty",
+      "phase": 4,
+      "source_sections": [
+        "17.3",
+        "18",
+        "19",
+        "21.4",
+        "D1",
+        "J",
+        "25.8"
+      ],
+      "acceptance": "No ROI is invented when baseline, attendance or cost missing; denominators and uncertainty accompany estimates.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Missing positive cost/justified increment leaves ROI absent; pilot excludes incomplete/unmatched cohorts and reports intervals plus independence/confounding limitations.",
+      "evidence": [
+        "scripts/economics.py",
+        "scripts/pilot_analysis.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/economics-synthetic.json",
+        "docs/evidence/pilot-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "Approximate intervals do not account for repeated-patient/day clustering or prove causality."
+      ],
+      "external_dependencies": [
+        "Observed baseline/attendance/cost and defensible study design."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BILLING-009",
+      "title": "Deduplicated attribution",
+      "phase": 4,
+      "source_sections": [
+        "17.3",
+        "18",
+        "19",
+        "21.4",
+        "D1",
+        "J",
+        "25.8"
+      ],
+      "acceptance": "Repeat callers, displaced bookings and waitlist replacements are not double-counted as recovered demand.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Tools never label raw bookings/waitlist fills/baseline differences as recovered demand automatically; playbook requires repeat-caller/displacement accounting.",
+      "evidence": [
+        "scripts/economics.py",
+        "scripts/pilot_analysis.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/economics-synthetic.json",
+        "docs/evidence/pilot-synthetic.json",
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "No automated patient-level causal attribution or cross-channel deduplication study is implemented."
+      ],
+      "external_dependencies": [
+        "Authorized inquiry/attendance identities and displacement observations."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BILLING-010",
+      "title": "Staff workload accounting",
+      "phase": 4,
+      "source_sections": [
+        "17.3",
+        "18",
+        "19",
+        "21.4",
+        "D1",
+        "J",
+        "25.8"
+      ],
+      "acceptance": "Time released distinguishes avoidable labor cost from reassigned work and deducts supervision/rework.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Economics separately accepts observed avoidable staff value and extra supervision/rework; templates distinguish reassigned time from savings.",
+      "evidence": [
+        "scripts/economics.py",
+        "scripts/pilot_analysis.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/economics-synthetic.json",
+        "docs/evidence/pilot-synthetic.json",
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "Tools do not measure actual work or automatically classify avoidability/reassignment."
+      ],
+      "external_dependencies": [
+        "Observed time study, payroll/shift decisions and supervision cost."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PRIVACY-001",
+      "title": "Purpose-specific consent",
+      "phase": 1,
+      "source_sections": [
+        "11",
+        "15",
+        "16",
+        "17",
+        "21.5",
+        "25.3",
+        "25.9"
+      ],
+      "acceptance": "Processing, recording, QA, marketing, training and cross-border permissions have independent evidence/version.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Processing/recording/training configuration and purpose/channel grants are separated; supported outreach withdrawal is independent of erasure and dataset training has rights gates.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py",
+        "scripts/dataset_curate.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/curation-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "Complete independent QA/marketing/cross-border permission workflows are not all implemented."
+      ],
+      "external_dependencies": [
+        "Actual controller/purpose/region decisions and permission evidence."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PRIVACY-004",
+      "title": "Retention scheduler",
+      "phase": 1,
+      "source_sections": [
+        "11",
+        "15",
+        "16",
+        "17",
+        "21.5",
+        "25.3",
+        "25.9"
+      ],
+      "acceptance": "Per-purpose expiry acts on records/audio/exports and records deletion evidence and backup-expiry obligations.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Jobs expire supported operational records/grants/holds and dataset rights/withdrawals are revalidated; templates address backup expiry obligations.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "scripts/dataset_curate.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/curation-synthetic.json",
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "Universal per-purpose audio/export/backup retention is not fully proven in this owned scope; merge root retention evidence."
+      ],
+      "external_dependencies": [
+        "Approved actual schedules and recovery/backup-expiry procedure."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PRIVACY-005",
+      "title": "Subject export/correction/deletion",
+      "phase": 1,
+      "source_sections": [
+        "11",
+        "15",
+        "16",
+        "17",
+        "21.5",
+        "25.3",
+        "25.9"
+      ],
+      "acceptance": "Authorized requests produce scoped results and tombstones without destroying necessary lawful audit.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Scoped export/delete/correction covers identities, conversation/challenges, linked staff notes and prior-contact history. Tombstones suppress outreach while active business records enter explicit review.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_operations_extensions.py"
+      ],
+      "remaining_acceptance": [
+        "Financial/lawfully retained records need case-specific retention decisions, not universal compliance claims."
+      ],
+      "external_dependencies": [
+        "Authorized request and actual lawful-retention determination."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PRIVACY-006",
+      "title": "Data-use revocation",
+      "phase": 1,
+      "source_sections": [
+        "11",
+        "15",
+        "16",
+        "17",
+        "21.5",
+        "25.3",
+        "25.9"
+      ],
+      "acceptance": "Withdrawal blocks queued outreach/dataset work and new processing for revoked purpose.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Purpose tombstones stop queued/new supported outreach; erasure revokes capabilities and holds; current withdrawal invalidates frozen manifests before dataset work.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_outreach_workflows.py",
+        "scripts/dataset_curate.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/curation-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "In-flight messages cannot be recalled; previously trained weights need separate withdrawal impact review."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PRIVACY-007",
+      "title": "Text redaction",
+      "phase": 1,
+      "source_sections": [
+        "11",
+        "15",
+        "16",
+        "17",
+        "21.5",
+        "25.3",
+        "25.9"
+      ],
+      "acceptance": "Logs/traces remove mobile/national IDs and governed names/health/address/payment fields.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Controlled templates and IDs minimize logs; new staff/correction/refund free text is encrypted and subject cleanup redacts linked notes.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_operations_extensions.py",
+        "docs/research-workflow.md",
+        "backend/tests/test_research_tools.py"
+      ],
+      "remaining_acceptance": [
+        "No complete universal governed-name/health/address/payment text redactor or PII detector is implemented."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PRIVACY-008",
+      "title": "Audio redaction separation",
+      "phase": 1,
+      "source_sections": [
+        "11",
+        "15",
+        "16",
+        "17",
+        "21.5",
+        "25.3",
+        "25.9"
+      ],
+      "acceptance": "Audio segment masking/exclusion is distinct from transcript redaction and requires review evidence.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "PCM span muting is separate from transcript normalization. Tests prove unchanged bytes outside selected frames, reject invalid spans/metadata and require review/provenance.",
+      "evidence": [
+        "scripts/dataset_curate.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/curation-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "Metadata presence does not prove all sensitive speech was identified."
+      ],
+      "external_dependencies": [
+        "Qualified human audio/text privacy review and approved corpus rights."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PRIVACY-010",
+      "title": "Processor registry",
+      "phase": 1,
+      "source_sections": [
+        "11",
+        "15",
+        "16",
+        "17",
+        "21.5",
+        "25.3",
+        "25.9"
+      ],
+      "acceptance": "Configured suppliers carry approved regions/purposes/retention and failover eligibility.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Configured processors expose purposes/unverified region status; approved-host/processor flags restrict gateways and unapproved fallback.",
+      "evidence": [
+        "backend/receptionist/providers.py",
+        "backend/tests/test_media_providers.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "A complete verified contract/region/retention register is not populated by code."
+      ],
+      "external_dependencies": [
+        "Current supplier agreements and region/purpose/retention/fallback decisions."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PRIVACY-011",
+      "title": "No covert monitoring",
+      "phase": 1,
+      "source_sections": [
+        "11",
+        "15",
+        "16",
+        "17",
+        "21.5",
+        "25.3",
+        "25.9"
+      ],
+      "acceptance": "No passive staff interception or biometric voiceprint feature is enabled by default.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "No passive staff interception or biometric voiceprint feature is implemented/enabled; optional memory/training are separate gates.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md",
+        "docs/research-workflow.md",
+        "backend/tests/test_research_tools.py"
+      ],
+      "remaining_acceptance": [
+        "Real deployments must preserve this boundary when adding integrations."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "PRIVACY-012",
+      "title": "Incident audit minimization",
+      "phase": 1,
+      "source_sections": [
+        "11",
+        "15",
+        "16",
+        "17",
+        "21.5",
+        "25.3",
+        "25.9"
+      ],
+      "acceptance": "Investigators can reconstruct state/events via IDs without unrestricted clinical recordings.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "State/event IDs support investigations while sensitive correction/task/refund notes are encrypted and authorized views scoped; cleanup retains categorical history without linked free text.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py",
+        "backend/tests/test_ops_review.py",
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_operations_extensions.py"
+      ],
+      "remaining_acceptance": [
+        "Actual investigators require assigned authority and minimal evidence access."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-001",
+      "title": "Eligibility manifest",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "Curator rejects samples missing clinic/caller/training/license/retention/region rights.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Manifest admission rejects missing clinic/caller/training/license/retention/region/provenance/review evidence and inconsistent hashes.",
+      "evidence": [
+        "scripts/dataset_curate.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/curation-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "Presence/type validation cannot prove external legal sufficiency."
+      ],
+      "external_dependencies": [
+        "Real eligible corpus and permission documents."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-002",
+      "title": "Track and acoustic metadata",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "Caller/agent tracks, sample rate, codec, timing and source hash are retained for eligible samples.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Eligible PCM manifests retain sample rate/channels/duration/codec/source hashes and supplied caller-track metadata.",
+      "evidence": [
+        "scripts/dataset_curate.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/curation-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "No live dual-track capture/diarization pipeline or independent source-channel verification is implemented."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-003",
+      "title": "Segmentation quality",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "Candidate 3–15-second caller segments flag overlap/noise and do not imply restored narrowband information.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "3–15-second candidate bounds and PCM/redaction layout validation are implemented; narrowband information limits are explicit.",
+      "evidence": [
+        "scripts/dataset_curate.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/curation-synthetic.json",
+        "docs/research-workflow.md"
+      ],
+      "remaining_acceptance": [
+        "Automatic VAD/overlap/diarization/noise scoring is not implemented."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-004",
+      "title": "PII review provenance",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "Text/audio redaction and human privacy-review status are mandatory before training eligibility.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Text/audio review flags, reviewer/time/provenance and reviewed hashes gate admission; changed post-review bytes refuse publication.",
+      "evidence": [
+        "scripts/dataset_curate.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/curation-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "Reviewer fields are not independent proof of actual review quality."
+      ],
+      "external_dependencies": [
+        "Qualified privacy reviewers and complete span decisions."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-005",
+      "title": "Teacher label QA",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "Independent teacher outputs and human adjudication distinguish agreement from actual ground truth.",
+      "status": "research_gate",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Teacher labeling and human adjudication are explicit separate release gates; fictional transcripts are not ground truth.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md",
+        "docs/research-workflow.md",
+        "backend/tests/test_research_tools.py"
+      ],
+      "remaining_acceptance": [
+        "No multi-teacher/adjudication pipeline was implemented or run."
+      ],
+      "external_dependencies": [
+        "Licensed teachers, eligible audio and independent adjudicators."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-006",
+      "title": "Duplicate protection",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "Exact source/segment hashes and split-overlap checks reject duplicates and leakage.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Exact source/output hashes reject duplicate audio and split overlap checks reject leaked speaker/tenant/audio groups.",
+      "evidence": [
+        "scripts/dataset_curate.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/curation-synthetic.json",
+        "scripts/evaluate_speech.py",
+        "docs/evidence/speech-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "Acoustic near-duplicate recognition is outside exact-hash protection."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-007",
+      "title": "Speaker/tenant splits",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "Configured train/validation/test grouping prevents speaker and tenant leakage.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Joint speaker-plus-tenant connected groups stay in one partition; at least three independent groups and disjoint train/validation/test are required.",
+      "evidence": [
+        "scripts/dataset_curate.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/curation-synthetic.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-008",
+      "title": "Frozen dataset and tombstones",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "Versioned manifests are reproducible; deleted/withdrawn samples are excluded at build and job start.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Frozen manifest hashes/no-overwrite publication and current withdrawal/rights/audio revalidation prevent changed/revoked samples at build/job start and optional training steps.",
+      "evidence": [
+        "scripts/dataset_curate.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/curation-synthetic.json",
+        "scripts/train_asr.py",
+        "scripts/requirements-training.txt"
+      ],
+      "remaining_acceptance": [
+        "Checksums are not signer identity; trained-weight withdrawal impact requires separate review."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-009",
+      "title": "ASR metrics",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "WER/CER with documented normalization and exact-digit/date/critical-entity metrics report counts.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Raw/normalized micro WER/CER, leading-zero-aware exact number sequences, critical supplied entity/date equality, silence hallucinations and counts are reported.",
+      "evidence": [
+        "scripts/evaluate_speech.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/speech-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "Fictional predictions are not telephone quality evidence."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-010",
+      "title": "Workflow metrics",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "False confirmations, task completion, handoffs, retries and authoritative outcome are evaluated separately from ASR.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Task completion, requested/connected handoff, false confirmation and unknown authoritative outcome are separate from ASR; unknown never becomes success or false silently.",
+      "evidence": [
+        "scripts/evaluate_speech.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/speech-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "Dedicated retry aggregates and a complete annotated real workflow corpus are absent."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-011",
+      "title": "Latency distributions",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "P50/P95/P99 and stage spans are computed with denominators and no claims from synthetic text as acoustic evidence.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Supplied total-latency P50/P95/P99 include counts and synthetic disclaimers.",
+      "evidence": [
+        "scripts/evaluate_speech.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/speech-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "Standalone evaluator lacks full stage-span aggregation; merge root runtime telemetry evidence."
+      ],
+      "external_dependencies": [
+        "Representative actual latency data for any SLO."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-012",
+      "title": "Slice and uncertainty reports",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "Authorized accent/channel/noise/age-condition slices and valid confidence intervals are reported transparently.",
+      "status": "implemented",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Supplied slices include counts and Wilson intervals; seeded speaker-cluster WER bootstrap is reproducible with explicit independence/sampling limits.",
+      "evidence": [
+        "scripts/evaluate_speech.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/speech-synthetic.json",
+        "docs/research-workflow.md"
+      ],
+      "remaining_acceptance": [
+        "Actual accent/condition coverage and representative groups are not demonstrated."
+      ],
+      "external_dependencies": [
+        "Authorized representative labels and reviewed real audio."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-013",
+      "title": "Training experiment specification",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "Pinned data/model/code/license/hyperparameters/budget/baseline/rollback form reproducible experiment config.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Optional HF recipe pins model revision, Transformers version, eligible frozen manifest, bounded hyperparameters/recipe hash, baseline and validation/test-once output; hub/download are opt-in.",
+      "evidence": [
+        "scripts/train_asr.py",
+        "scripts/requirements-training.txt",
+        "backend/tests/test_research_tools.py",
+        "docs/research-workflow.md"
+      ],
+      "remaining_acceptance": [
+        "No actual training/checkpoint run; completed code-release/rollback approval record remains absent."
+      ],
+      "external_dependencies": [
+        "Reviewed weights/licenses, eligible data, compute and experiment owner."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-014",
+      "title": "Local serving experiment",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "Local ASR/TTS/model worker deployment exposes bounded queues, concurrency/cold-start and actual cost metrics.",
+      "status": "partial",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Optional authenticated local CPU speech service has approved local model paths, bounded admission/uploads, no in-call download and one supplied-wall-time synthetic smoke observation.",
+      "evidence": [
+        "services/local_speech/app.py",
+        "services/local_speech/Dockerfile",
+        "docs/validation/speech-smoke.json"
+      ],
+      "remaining_acceptance": [
+        "No held-out quality/cost study or complete cold-start/concurrency curve or production-capacity claim."
+      ],
+      "external_dependencies": [
+        "Reviewed rights, representative authorized audio and measured target hardware economics."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-015",
+      "title": "Realtime protocol evaluation",
+      "phase": 6,
+      "source_sections": [
+        "8",
+        "16",
+        "21.5",
+        "B2",
+        "B3",
+        "D2",
+        "G1",
+        "25.9"
+      ],
+      "acceptance": "Any compatibility claim requires event/auth/tool/error/client conformance, not an endpoint name alone.",
+      "status": "research_gate",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "The delivered adapter contract is scoped and no general realtime API compatibility is claimed from an endpoint name.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md",
+        "docs/research-workflow.md",
+        "backend/tests/test_research_tools.py"
+      ],
+      "remaining_acceptance": [
+        "No enterprise realtime event/auth/tool/error/client conformance suite is implemented."
+      ],
+      "external_dependencies": [
+        "Selected protocol/version and independent product demand."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-GATE-001",
+      "title": "Consented telephone corpus",
+      "phase": 6,
+      "source_sections": [
+        "15",
+        "16",
+        "22",
+        "B3",
+        "25.9"
+      ],
+      "acceptance": "Representative authorized Persian telephone audio and validated labels exist with auditable provenance.",
+      "status": "research_gate",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Only six synthetic non-speech tones and fictional records are provided as dataset fixtures.",
+      "evidence": [
+        "scripts/dataset_curate.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/curation-synthetic.json",
+        "docs/research-workflow.md"
+      ],
+      "remaining_acceptance": [
+        "No representative authorized Persian telephone corpus/validated real labels exists."
+      ],
+      "external_dependencies": [
+        "Clinic/caller rights, approved collection and independent labels."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-GATE-002",
+      "title": "Model and voice licensing",
+      "phase": 6,
+      "source_sections": [
+        "15",
+        "16",
+        "22",
+        "B3",
+        "25.9"
+      ],
+      "acceptance": "Selected code/weights/datasets and any cloned voice have valid commercial and derivative rights.",
+      "status": "research_gate",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Manifest/trainer require supplied rights-review references and distinguish code/weights/data/voice permissions.",
+      "evidence": [
+        "scripts/train_asr.py",
+        "scripts/requirements-training.txt",
+        "backend/tests/test_research_tools.py",
+        "docs/research-workflow.md"
+      ],
+      "remaining_acceptance": [
+        "Metadata validation does not verify legal sufficiency or authorize cloned voices."
+      ],
+      "external_dependencies": [
+        "Current licenses and explicit voice-owner permissions where relevant."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-GATE-003",
+      "title": "Real fine-tuning run",
+      "phase": 6,
+      "source_sections": [
+        "15",
+        "16",
+        "22",
+        "B3",
+        "25.9"
+      ],
+      "acceptance": "A training run completes on eligible data with reproducible checkpoints and logged compute.",
+      "status": "research_gate",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Optional trainer exists and rejects synthetic tones as a real corpus by default.",
+      "evidence": [
+        "scripts/train_asr.py",
+        "scripts/requirements-training.txt",
+        "backend/tests/test_research_tools.py"
+      ],
+      "remaining_acceptance": [
+        "No real fine-tuning/checkpoint/compute log was produced."
+      ],
+      "external_dependencies": [
+        "Real eligible data, reviewed weights, approved compute and execution."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-GATE-004",
+      "title": "Held-out superiority",
+      "phase": 6,
+      "source_sections": [
+        "15",
+        "16",
+        "22",
+        "B3",
+        "25.9"
+      ],
+      "acceptance": "Specialized model passes blind held-out quality/cost/non-regression against baselines and accents.",
+      "status": "research_gate",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Evaluation tools and held-out release criteria are supplied.",
+      "evidence": [
+        "scripts/evaluate_speech.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/speech-synthetic.json",
+        "docs/research-workflow.md"
+      ],
+      "remaining_acceptance": [
+        "No specialized trained model or blind superiority result exists."
+      ],
+      "external_dependencies": [
+        "Native-listener held-out quality/cost/non-regression study."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "RESEARCH-GATE-005",
+      "title": "Enterprise infrastructure demand",
+      "phase": 6,
+      "source_sections": [
+        "15",
+        "16",
+        "22",
+        "B3",
+        "25.9"
+      ],
+      "acceptance": "Independent customers and support/rights/economics justify a domestic/on-prem voice API product.",
+      "status": "research_gate",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Domestic/on-prem voice API remains a separate evidence-gated product direction.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md",
+        "docs/research-workflow.md",
+        "backend/tests/test_research_tools.py"
+      ],
+      "remaining_acceptance": [
+        "No independent enterprise demand/supportable infrastructure business was established."
+      ],
+      "external_dependencies": [
+        "Actual customer demand, rights, support and measured economics."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "OPERATIONS-006",
+      "title": "Outage runbooks",
+      "phase": 2,
+      "source_sections": [
+        "17",
+        "19",
+        "21.5",
+        "23",
+        "D3",
+        "H",
+        "25.10"
+      ],
+      "acceptance": "Carrier, media, model, calendar, DB, SMS and network outages map to caller-safe behavior and recovery.",
+      "status": "implemented",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Outage runbooks cover unknown calendar writes, carrier/media/model/network/SMS/payment/DB failures and caller-safe fallback/recovery.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "Environment-specific contacts and provider actions must be populated."
+      ],
+      "external_dependencies": [
+        "Named operators and actual provisioned dependencies."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "OPERATIONS-007",
+      "title": "Clinical incident runbook",
+      "phase": 2,
+      "source_sections": [
+        "17",
+        "19",
+        "21.5",
+        "23",
+        "D3",
+        "H",
+        "25.10"
+      ],
+      "acceptance": "Urgent phrase/unsafe advice incidents stop affected flow and reach named clinical operations review.",
+      "status": "partial",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Urgent/unsafe-language incident steps stop affected automation and route to clinical operations without diagnosis.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "No real qualified clinical owner has signed/staffed the procedure."
+      ],
+      "external_dependencies": [
+        "Named qualified reviewer and real emergency/handoff arrangements."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "OPERATIONS-008",
+      "title": "Privacy incident runbook",
+      "phase": 2,
+      "source_sections": [
+        "17",
+        "19",
+        "21.5",
+        "23",
+        "D3",
+        "H",
+        "25.10"
+      ],
+      "acceptance": "Wrong-tenant/recipient/export/audio incidents contain exposure and preserve minimal evidence.",
+      "status": "partial",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Wrong-tenant/recipient/export/audio procedure contains exposure and preserves minimal evidence with authorized remediation.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "Actual notification/legal obligations and accountable people need local review."
+      ],
+      "external_dependencies": [
+        "Qualified privacy/legal owner and real incident contacts."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "OPERATIONS-009",
+      "title": "Rollback and stop-ship",
+      "phase": 2,
+      "source_sections": [
+        "17",
+        "19",
+        "21.5",
+        "23",
+        "D3",
+        "H",
+        "25.10"
+      ],
+      "acceptance": "Known false bookings, data exposure, fake settlement or unconsented recording block launch and trigger rollback.",
+      "status": "implemented",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "False booking, exposure, fake settlement and unconsented recording are explicit stop-ship/pause/fallback/review triggers.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "A real production incident drill is not implied."
+      ],
+      "external_dependencies": [
+        "Actual release authority and staffed fallback execution."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "OPERATIONS-011",
+      "title": "Operator handover",
+      "phase": 2,
+      "source_sections": [
+        "17",
+        "19",
+        "21.5",
+        "23",
+        "D3",
+        "H",
+        "25.10"
+      ],
+      "acceptance": "Deployment/configuration, provider registry, support contacts and unresolved risk list are complete.",
+      "status": "partial",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Deployment/operating worksheets enumerate provider readiness, contacts, risks, purpose/retention and accountable roles.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "Actual accounts, contacts and operator acceptance are not filled with fictional defaults."
+      ],
+      "external_dependencies": [
+        "Real technical/clinic/commercial/privacy/clinical/support owners."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "OPERATIONS-012",
+      "title": "Meaningful verification report",
+      "phase": 2,
+      "source_sections": [
+        "17",
+        "19",
+        "21.5",
+        "23",
+        "D3",
+        "H",
+        "25.10"
+      ],
+      "acceptance": "Report names exact commands, environment, counts and uncovered external gates; no guessed pass claims.",
+      "status": "implemented",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Verification reports name actual commands/counts/versions and uncovered external gates; overlapping counts are not added.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md",
+        "docs/validation/operations-acceptance.json"
+      ],
+      "remaining_acceptance": [
+        "Root full-project JUnit/browser/PG/media/deployment evidence supplies broader coverage."
+      ],
+      "external_dependencies": [],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-001",
+      "title": "Discovery worksheet",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Capture observed demand, missed calls, capacity, contribution, staff load, decision-maker and willingness-to-pay.",
+      "status": "partial",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Discovery worksheet covers demand, missed calls, capacity, contribution, staff load, authority and willingness-to-pay.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "No real interview or observed demand was collected."
+      ],
+      "external_dependencies": [
+        "Authorized clinic interviews and operating data."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-002",
+      "title": "Pilot segment scorecard",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Score low-complexity dental/aesthetic/salon sites and buildings on measurable fit, access and change readiness.",
+      "status": "partial",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Site scorecard covers low-complexity clinic/salon/building fit, access and change readiness.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "No sites were actually scored from verified observations."
+      ],
+      "external_dependencies": [
+        "Observed site data and authorized decision makers."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-003",
+      "title": "Vendor due-diligence registry",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Carrier/host/STT/TTS/LLM/calendar/SMS/payment candidates retain terms, availability, price dates and proof gaps.",
+      "status": "partial",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Supplier registry separates dated claims, contracts, regions/rights and verification gaps.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "No vendor account/contract/due-diligence conclusion is fabricated."
+      ],
+      "external_dependencies": [
+        "Current primary documentation, rights and account tests."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-004",
+      "title": "Clinical script sign-off",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Approved administrative/emergency/aftercare scripts have named qualified clinical owner before medical launch.",
+      "status": "external_gate",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Clinical script/urgent-language/admin/aftercare boundaries are explicit release gates.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "No qualified real clinical owner has signed."
+      ],
+      "external_dependencies": [
+        "Actual clinical sign-off and clinic-specific guidance."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-005",
+      "title": "Privacy and contract review",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Actual controller/processor, recording, retention, cross-border, medical secrecy and training purposes have local counsel review.",
+      "status": "external_gate",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Controller/processor, recording, retention, cross-border, confidentiality and training questions are prepared for local counsel.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "No legal opinion/compliance conclusion is claimed."
+      ],
+      "external_dependencies": [
+        "Qualified actual legal review and executed agreements."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-006",
+      "title": "Pilot agreement",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "A 7/14/30-day or agreed overflow trial specifies traffic cap, baseline, scope, fallback, privacy, support and success metrics.",
+      "status": "external_gate",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Pilot template covers duration, traffic cap, baseline, scope, fallback, privacy, support and measurable promotion gates.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "No pilot agreement was signed or counterparty contacted."
+      ],
+      "external_dependencies": [
+        "Authorized counterparties and executed terms."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-007",
+      "title": "Staffed operating coverage",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Each shift/holiday/language route has authorized people and measured pickup capacity.",
+      "status": "external_gate",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Shift/language/holiday coverage matrix distinguishes staffed pickup from a queued task.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "No actual roster or pickup capacity was measured."
+      ],
+      "external_dependencies": [
+        "Real staff, availability, training and answered-handoff tests."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-008",
+      "title": "Comparable baseline design",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Matched hours/control route accounts for campaigns, holidays, capacity, displaced demand and seasonality.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Matched time/stratum/cohort design and executable descriptive intervals separate maturation, exclusions and confounding.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md",
+        "scripts/economics.py",
+        "scripts/pilot_analysis.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/economics-synthetic.json",
+        "docs/evidence/pilot-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "No observed comparable baseline/control cohort was collected."
+      ],
+      "external_dependencies": [
+        "Authorized baseline/pilot/attendance data and confounder coverage."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-009",
+      "title": "Pilot attendance reconciliation",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Confirmed appointments are reconciled to clinic-verified attendance and failure/correction records.",
+      "status": "external_gate",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Attendance reconciliation distinguishes confirmed/matured/kept/no-show/unknown and rejects incompatible counts.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md",
+        "scripts/economics.py",
+        "scripts/pilot_analysis.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/economics-synthetic.json",
+        "docs/evidence/pilot-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "No clinic-verified attendance/correction log was reconciled."
+      ],
+      "external_dependencies": [
+        "Actual clinic appointment/attendance/failure records and review."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-010",
+      "title": "Honest pricing offer",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Setup/platform/allowance/overage/SMS/outbound/human service/tax/unit/FX terms are explicit and cost-tested.",
+      "status": "partial",
+      "verification_level": "local_test_and_source_inspection",
+      "verified_behavior": "Pricing worksheets and Decimal scenarios expose setup/platform/allowance/overage/SMS/voice/human/tax/unit/FX assumptions.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md",
+        "scripts/economics.py",
+        "scripts/pilot_analysis.py",
+        "backend/tests/test_research_tools.py",
+        "docs/evidence/economics-synthetic.json",
+        "docs/evidence/pilot-synthetic.json"
+      ],
+      "remaining_acceptance": [
+        "No actual contract/current verified tariff is implied by examples."
+      ],
+      "external_dependencies": [
+        "Dated actual costs, tax/unit terms and commercial approval."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-011",
+      "title": "Sales material",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Persian offer describes verified outcomes and limitations without unsupported percentages/unlimited promises.",
+      "status": "partial",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Persian offer templates state administrative scope and evidence-based limitations without unsupported unlimited/percentage claims.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "Actual brand/contact/offer facts still require approval before publication."
+      ],
+      "external_dependencies": [
+        "Commercial approval and evidence for advertised claims."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-012",
+      "title": "Renewal evidence",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "At least two pilot customers independently demonstrate value and willingness to pay before scaling.",
+      "status": "external_gate",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Scaling requires independent paying customer value and renewal evidence.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "No two paid pilots, renewal decisions or willingness-to-pay evidence exists."
+      ],
+      "external_dependencies": [
+        "Actual independent customer outcomes and paid renewals."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-013",
+      "title": "Building authority",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Each independent clinic authorizes phone/data participation; building management alone cannot grant access.",
+      "status": "external_gate",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Each independent clinic authorization is separate from building management authority.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "No clinic phone/data participation agreements were signed."
+      ],
+      "external_dependencies": [
+        "Real clinic controller/phone owners and executed rights."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-014",
+      "title": "Founder and escalation ownership",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Commercial, technical, clinical/privacy, finance/support and stop-ship decisions have named owners.",
+      "status": "partial",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Responsibility matrix covers commercial/technical/clinical/privacy/finance/support and stop-ship roles.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "No real accountable people were supplied by the user."
+      ],
+      "external_dependencies": [
+        "Actual operators accepting ownership and escalation duties."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    },
+    {
+      "id": "BUSINESS-015",
+      "title": "Source verification discipline",
+      "phase": 0,
+      "source_sections": [
+        "1",
+        "2",
+        "3",
+        "18",
+        "19",
+        "20",
+        "24",
+        "B",
+        "D",
+        "I2",
+        "J"
+      ],
+      "acceptance": "Historical competitor prices and supplier capabilities are refreshed before claims/contracts; uncertain law is not asserted as settled.",
+      "status": "implemented",
+      "verification_level": "document_or_source_inspection",
+      "verified_behavior": "Historical vendor/price/source assertions are labeled dated/unverified and require refresh before external claims.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "docs/operations-review.md"
+      ],
+      "remaining_acceptance": [
+        "Historical estimates are not current prices or settled legal conclusions."
+      ],
+      "external_dependencies": [
+        "Primary source refresh and qualified review before real claims/contracts."
+      ],
+      "assessor": "blueprint_review",
+      "scope": "Owned operations/research/documentation evidence; merge deployment/voice/frontend evidence separately."
+    }
+  ]
+}

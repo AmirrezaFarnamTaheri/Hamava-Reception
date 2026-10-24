@@ -1,0 +1,37 @@
+{
+  "id": "ami_cold_transfer",
+  "family": "ami",
+  "events": [
+    {
+      "Event": "UserEvent",
+      "UserEvent": "HamavaRegistered",
+      "CallUUID": "00000000-0000-4000-8000-000000000001",
+      "Linkedid": "1740.10"
+    },
+    {
+      "Event": "DialBegin",
+      "Linkedid": "1740.10",
+      "DestChannel": "PJSIP/reception-00000a",
+      "DestUniqueid": "1740.22"
+    },
+    {
+      "Event": "DialEnd",
+      "Linkedid": "1740.10",
+      "DestChannel": "PJSIP/reception-00000a",
+      "DestUniqueid": "1740.22",
+      "DialStatus": "ANSWER"
+    },
+    {
+      "Event": "BlindTransfer",
+      "Linkedid": "1740.10",
+      "Result": "Success"
+    }
+  ],
+  "expect": {
+    "stages": [
+      "RINGING",
+      "ACCEPTED"
+    ],
+    "connected_candidate": false
+  }
+}

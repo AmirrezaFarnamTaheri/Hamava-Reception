@@ -1,0 +1,47 @@
+{
+  "id": "deepgram_partial_and_final",
+  "family": "deepgram",
+  "events": [
+    {
+      "type": "Results",
+      "is_final": false,
+      "speech_final": false,
+      "channel": {
+        "alternatives": [
+          {
+            "transcript": "salam"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Results",
+      "is_final": true,
+      "speech_final": false,
+      "channel": {
+        "alternatives": [
+          {
+            "transcript": "سلام"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Results",
+      "is_final": true,
+      "speech_final": true,
+      "channel": {
+        "alternatives": [
+          {
+            "transcript": "سلام خانم"
+          }
+        ]
+      }
+    }
+  ],
+  "expect": {
+    "event": "final",
+    "text": "سلام سلام خانم",
+    "partial_count": 1
+  }
+}

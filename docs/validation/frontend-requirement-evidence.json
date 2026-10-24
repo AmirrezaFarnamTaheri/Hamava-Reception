@@ -1,0 +1,640 @@
+{
+  "schema_version": "1.0",
+  "title": "Frontend requirement evidence proposal",
+  "generated_at": "2026-10-23T12:24:28.893Z",
+  "source_register": "docs/requirements.json",
+  "source_register_sha256": "fb7ab2b29704e582d5a7baa9309be08e4f4c03a311c558036d108ab4d959fd66",
+  "source_blueprint_sha256": "d056b2893f32f81d6076f3be6d76ce0ca707284d8b8984d968ef8f47270943ef",
+  "updates_main_register": false,
+  "verified_live_supplier_claims": false,
+  "interpretation": "verified_local applies to the explicitly observed browser behavior and named source inspection. Remaining acceptance and external qualification are not inferred from UI implementation or synthetic transport tests.",
+  "test_trace_files": [
+    "docs/validation/browser-audit.json",
+    "docs/validation/browser-workflows.json",
+    "docs/validation/browser-conversation.json",
+    "docs/validation/browser-audio.json",
+    "docs/validation/browser-extensions.json",
+    "docs/validation/browser-outreach.json",
+    "docs/validation/browser-live-ui.json",
+    "docs/validation/browser-release.json",
+    "docs/validation/browser-waitlist-deposit.json",
+    "docs/validation/browser-privacy-notice.json",
+    "docs/validation/browser-rtc-lifecycle.json"
+  ],
+  "requirements": [
+    {
+      "id": "CONSOLE-001",
+      "title": "RTL responsive console",
+      "acceptance": "Persian layout works at mobile/desktop widths with readable mixed Latin identifiers.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Persian RTL and mixed-direction fields render without document overflow at desktop, 390px and 320px widths.",
+      "evidence": [
+        "frontend/src/style.css",
+        "docs/validation/browser-audit.json"
+      ],
+      "remaining_acceptance": [
+        "Physical mobile browser and native assistive-technology qualification is tracked separately."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-002",
+      "title": "Immediate work overview",
+      "acceptance": "Active calls, waiting tasks, today appointments/conflicts, failed notices and service health are prioritized.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Overview prioritizes today's appointments, active call controls, open tasks, failed notices and honest configured-service statuses.",
+      "evidence": [
+        "frontend/src/pages/Overview.tsx",
+        "docs/validation/browser-audit.json"
+      ],
+      "remaining_acceptance": [
+        "Configured readiness is not a claim of live provider health or carrier availability."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-003",
+      "title": "Call cards",
+      "acceptance": "Cards show masked contact, correct clinic, intent/state/duration and only authorized minimal context.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Scoped live-call cards render masked contact, clinic, intent, state and observed duration; no raw transcript/context dump.",
+      "evidence": [
+        "frontend/src/LiveCalls.tsx",
+        "docs/validation/browser-extensions.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-004",
+      "title": "Task atomic ownership",
+      "acceptance": "Accept/claim prevents accidental competing handlers; reassignment requires permission and audit.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Claim uses the authoritative versioned task action; UI merges the returned version before another action and disables concurrent local actions.",
+      "evidence": [
+        "frontend/src/pages/TaskQueue.tsx",
+        "docs/validation/browser-extensions.json"
+      ],
+      "remaining_acceptance": [
+        "Cross-process atomic ownership is established by the backend task-concurrency tests, not inferred from one browser."
+      ],
+      "external_dependencies": [
+        "Named staff and measured pickup capacity."
+      ],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-005",
+      "title": "Task lifecycle",
+      "acceptance": "Accept, reject/redirect, callback, resolve, reopen and pending status have validated transitions.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Task UI supports claim, reassign/redirect, pending, callback, resolve, reject and reopen with reasons and permission-aware controls; callback/resolve/reopen were exercised.",
+      "evidence": [
+        "frontend/src/pages/TaskQueue.tsx",
+        "docs/validation/browser-extensions.json"
+      ],
+      "remaining_acceptance": [
+        "All server transition/concurrency permutations belong to backend regression evidence."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-006",
+      "title": "Honest handoff controls",
+      "acceptance": "Join/takeover is enabled only for supported media; otherwise staff request/callback status is explicit.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Takeover displays callback/requested versus room-ready; actual browser RTC needs explicit microphone action and connected state follows a successful room connection.",
+      "evidence": [
+        "frontend/src/LiveCalls.tsx",
+        "docs/validation/browser-live-ui.json",
+        "docs/validation/livekit-loopback.json",
+        "docs/validation/browser-rtc-lifecycle.json"
+      ],
+      "remaining_acceptance": [
+        "Real carrier warm transfer and staff/device acceptance remain external UAT."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-007",
+      "title": "Clear appointment statuses",
+      "acceptance": "Confirmed, staff review, deposit pending, canceled, expired and failed are visually/textually distinct.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Statuses distinguish confirmed, review, deposit pending, canceled, expired and failed; pending payment includes the authoritative expiry.",
+      "evidence": [
+        "frontend/src/components.tsx",
+        "frontend/src/pages/Appointments.tsx",
+        "docs/validation/browser-workflows.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-008",
+      "title": "Staff schedule actions",
+      "acceptance": "Authorized booking/move/cancel use same invariant-enforcing API as voice and public channels.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Staff booking, move and cancellation use signed offers and version/idempotency protected authoritative APIs; real synthetic workflow passed.",
+      "evidence": [
+        "frontend/src/pages/Appointments.tsx",
+        "docs/validation/browser-workflows.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-009",
+      "title": "Accessible keyboard UI",
+      "acceptance": "Forms have labels, focus, contrast, keyboard navigation, useful errors and screen-reader status.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Labeled forms, native dialog focus, keyboard settings tabs, mobile menu focus trap/Escape restoration, live statuses and axe WCAG checks are implemented and exercised.",
+      "evidence": [
+        "frontend/src/components.tsx",
+        "frontend/src/App.tsx",
+        "docs/validation/browser-audit.json",
+        "docs/validation/browser-extensions.json"
+      ],
+      "remaining_acceptance": [
+        "Automated axe and keyboard checks are not a full screen-reader usability certification."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-010",
+      "title": "Browser conversation UI",
+      "acceptance": "Start/stop, permission/error, repeat/slow/text alternative and human request have clear feedback.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Public consent, start/end, text fallback, correction/repeat/slow controls, real recording and trusted audio, live mute/disconnect and human request are implemented.",
+      "evidence": [
+        "frontend/src/pages/Talk.tsx",
+        "docs/validation/browser-conversation.json",
+        "docs/validation/browser-rtc-lifecycle.json",
+        "docs/validation/browser-audio.json",
+        "docs/validation/browser-live-ui.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-011",
+      "title": "Stale/disconnected indication",
+      "acceptance": "Live/polled state displays lost connection, stale data and retry without fabricating current availability.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Offline notice, polled error/retry, stale overview labeling and media disconnection states avoid claiming fresh availability; reconnect refreshes remote data.",
+      "evidence": [
+        "frontend/src/hooks.ts",
+        "frontend/src/components.tsx",
+        "frontend/src/LiveCalls.tsx",
+        "docs/validation/browser-audit.json",
+        "docs/validation/browser-conversation.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-012",
+      "title": "Owner daily digest",
+      "acceptance": "Digest counts verified bookings, attendance, cancellations, waitlist fills, open cases and actual usage.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Daily digest renders verified bookings, attendance, cancellations, waitlist fills, current open-case backlog and actual usage with definitions.",
+      "evidence": [
+        "frontend/src/pages/DailyDigest.tsx",
+        "docs/validation/browser-extensions.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-013",
+      "title": "Building aggregate scope",
+      "acceptance": "Supervisors view authorized aggregate counts; patient details remain restricted per clinic membership.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Building UI renders only server-scoped aggregate counts and authorized contract allocations, with no patient listing in aggregate views.",
+      "evidence": [
+        "frontend/src/pages/Reports.tsx",
+        "frontend/src/pages/BuildingContracts.tsx",
+        "docs/validation/browser-extensions.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-014",
+      "title": "Tenant switch context",
+      "acceptance": "Switching clinic clears incompatible state and cannot reuse another tenant session/records.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Clinic switching replaces the scoped credential and remounts patient/task/settings state; switches and separate partner scope were exercised.",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "docs/validation/browser-workflows.json",
+        "docs/validation/browser-extensions.json",
+        "docs/validation/browser-release.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-015",
+      "title": "Simple automation controls",
+      "acceptance": "Pause and human-primary/after-hours/overflow modes are clear, reversible and audited.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "All six automation modes have understandable Persian controls and descriptions; production readiness is explicit and no mode selection silently provisions telephony.",
+      "evidence": [
+        "frontend/src/pages/Settings.tsx",
+        "frontend/src/pages/LaunchReadiness.tsx",
+        "docs/validation/browser-audit.json",
+        "docs/validation/browser-release.json"
+      ],
+      "remaining_acceptance": [
+        "Actual mode routing behavior is covered by backend voice/UAT tests."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-016",
+      "title": "Patient correction workflow",
+      "acceptance": "Caller/staff can correct name, contact, service and date before final explicit confirmation.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Staff corrections require reason and explicit confirmation; contact correction resets outreach consent. Caller correction uses trusted conversational turns before a fresh final confirmation.",
+      "evidence": [
+        "frontend/src/pages/Appointments.tsx",
+        "frontend/src/pages/Talk.tsx",
+        "docs/validation/browser-extensions.json",
+        "docs/validation/browser-conversation.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "CONSOLE-017",
+      "title": "PWA/offline behavior",
+      "acceptance": "Installability or cache scope is explicit; offline UI never pretends a booking was committed.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Application manifest and local fonts are provided; there is no service worker or patient-record offline cache, and offline UI never fabricates committed bookings.",
+      "evidence": [
+        "frontend/public/manifest.webmanifest",
+        "frontend/README.md",
+        "docs/validation/browser-audit.json",
+        "docs/validation/browser-conversation.json"
+      ],
+      "remaining_acceptance": [
+        "Installability and behavior on actual target mobile OS/browser versions require the device matrix."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "TENANT-001",
+      "title": "Resumable onboarding",
+      "acceptance": "Staff can create and configure a clinic without editing YAML; incomplete setup is visibly draft.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Owner creates a scoped clinic through UI; persisted hours/catalog forms and an incomplete draft checklist allow returning after reload without YAML edits.",
+      "evidence": [
+        "frontend/src/pages/Catalog.tsx",
+        "frontend/src/pages/Settings.tsx",
+        "docs/validation/browser-release.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "TENANT-006",
+      "title": "Policy rollback",
+      "acceptance": "Authorized staff can compare and restore a prior policy without losing intervening audit history.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Policy UI shows prior versions and requires an explicit reason/confirmation to restore a reviewed snapshot as a new version.",
+      "evidence": [
+        "frontend/src/pages/Policies.tsx",
+        "docs/validation/browser-extensions.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "TENANT-011",
+      "title": "Automation modes",
+      "acceptance": "Human-primary, after-hours, overflow, supervised and paused modes have explicit behavior and staff control.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Human-first, after-hours, overflow, supervised, AI-first and paused settings are exposed with their true behavior descriptions.",
+      "evidence": [
+        "frontend/src/pages/Settings.tsx",
+        "docs/validation/browser-audit.json"
+      ],
+      "remaining_acceptance": [
+        "Production activation and actual call routing are backend/deployment responsibilities."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "TENANT-014",
+      "title": "Clinic policy UAT",
+      "acceptance": "Publishing production configuration requires completed clinic-specific synthetic booking/error/transfer checks.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Clinic launch review requires five independently identified evidence references, unchecked confirmations, target mode and configuration binding. Browser test verifies incomplete forms do not attest.",
+      "evidence": [
+        "frontend/src/pages/LaunchReadiness.tsx",
+        "docs/validation/browser-release.json"
+      ],
+      "remaining_acceptance": [
+        "No real clinic, carrier, clinical or legal approval was created by the browser tests; backend exact-binding tests provide enforcement evidence."
+      ],
+      "external_dependencies": [
+        "Actual clinic reviewer, truthful test execution, carrier/clinical/legal approvals remain separate."
+      ],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "PARTNER-002",
+      "title": "Partner scopes and dashboard",
+      "acceptance": "Partner/agency access is explicit per tenant and cannot bypass clinic authority.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Owner grants/revokes scoped partner access; partner login has a separate aggregate-only dashboard and clinic switch.",
+      "evidence": [
+        "frontend/src/pages/Management.tsx",
+        "frontend/src/pages/Partner.tsx",
+        "docs/validation/browser-extensions.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "PARTNER-003",
+      "title": "White-label branding",
+      "acceptance": "Approved clinic/agency name/colors/voice identity are configurable without changing business invariants.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Published identity, brand name/color and bounded pronunciation are configured in owner settings; safe public identity is consumed by the caller page.",
+      "evidence": [
+        "frontend/src/pages/Management.tsx",
+        "frontend/src/pages/Talk.tsx",
+        "docs/validation/browser-extensions.json"
+      ],
+      "remaining_acceptance": [
+        "Vendor voice selection/rights and representative audible brand quality require separate provider evidence."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "PARTNER-004",
+      "title": "Provider/API exports",
+      "acceptance": "Permissioned API/export contracts are versioned and support deprecation and audit.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Owner creates bounded scoped API keys, sees a key once, and can revoke it; list responses never redisclose credentials. Permissioned usage CSV export is implemented.",
+      "evidence": [
+        "frontend/src/pages/Management.tsx",
+        "frontend/src/pages/Reports.tsx",
+        "docs/validation/browser-extensions.json"
+      ],
+      "remaining_acceptance": [
+        "External connector versioning/deprecation and partner API conformance are assessed in backend/provider evidence."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "PARTNER-006",
+      "title": "Owner digest channel abstraction",
+      "acceptance": "Telegram/Bale/Eitaa or email-style digests can be configured only with platform permission and recipient scope.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Digest destination form requires recipient consent reference and explicit enable/automatic-daily choices; queue and delivery status distinguish provider acceptance from delivery. Create/disable was exercised without sending reports.",
+      "evidence": [
+        "frontend/src/pages/DigestDestinations.tsx",
+        "docs/validation/browser-extensions.json"
+      ],
+      "remaining_acceptance": [
+        "No platform message was transmitted; platform rights, account provisioning and final delivery remain external gates."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "PARTNER-007",
+      "title": "Messaging suppression across channels",
+      "acceptance": "WhatsApp/Telegram/SMS/social permissions and opt-outs remain purpose/channel specific.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Purpose-specific revocation and channel-specific permission forms preserve explicit consent boundaries; the synthetic opt-out flow preserved appointment records.",
+      "evidence": [
+        "frontend/src/pages/ConsentRevocation.tsx",
+        "frontend/src/pages/Outreach.tsx",
+        "docs/validation/browser-outreach.json"
+      ],
+      "remaining_acceptance": [
+        "Actual multi-platform delivery/suppression is enforced and tested by server adapters and external platform UAT."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "PARTNER-009",
+      "title": "External connector fail-closed",
+      "acceptance": "Unconfigured/uncontracted vendor operations return unsupported/pending, never simulated success labelled live.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Unconfigured providers are visibly unconfigured; demo/configured status is not labeled live, retries preserve errors, and public mic/RTC is capability-gated.",
+      "evidence": [
+        "frontend/src/pages/Settings.tsx",
+        "frontend/src/pages/Talk.tsx",
+        "docs/validation/browser-audit.json",
+        "docs/validation/browser-live-ui.json"
+      ],
+      "remaining_acceptance": [],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "MEDIA-008",
+      "title": "Browser audio lifecycle",
+      "acceptance": "User-initiated microphone permission, connected state, stop, reconnect and cleanup are accurately represented.",
+      "status": "implemented_unverified",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Real MediaRecorder and LiveKit JS connection, mute, end, track release and typed fallback were observed against local speech/RTC. Caller and staff reconnect states, initial microphone readiness, preserved mute, terminal disconnect, stale-room ownership and delayed-operation cleanup now have separately labeled browser SDK-event-contract coverage.",
+      "evidence": [
+        "frontend/src/pages/Talk.tsx",
+        "frontend/src/LiveCalls.tsx",
+        "frontend/src/rtcLifecycle.ts",
+        "docs/validation/browser-audio.json",
+        "docs/validation/browser-live-ui.json",
+        "docs/validation/browser-rtc-lifecycle.json"
+      ],
+      "remaining_acceptance": [
+        "Full MEDIA-008 acceptance remains partial: the new reconnect test injects API/SDK events and does not establish actual-network reconnection, media continuity, or mobile background/lock recovery. Those require actual transport and device UAT."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "MEDIA-UAT-004",
+      "title": "Mobile browser matrix",
+      "acceptance": "iOS Safari, Android Chrome and in-app browsers pass mic, background/lock/reconnect/accessibility checks.",
+      "status": "blocked_external",
+      "verification_level": "local_evidence_insufficient_for_external_acceptance",
+      "verified_behavior": "Desktop Chromium with mobile-sized viewports was tested, including microphone lifecycle and local RTC. This does not satisfy the physical mobile browser matrix.",
+      "evidence": [
+        "docs/validation/browser-audit.json",
+        "docs/validation/browser-audio.json",
+        "docs/validation/browser-live-ui.json"
+      ],
+      "remaining_acceptance": [
+        "iOS Safari, Android Chrome hardware, in-app browsers, real lock/background/reconnect, Bluetooth and native assistive technology have not been qualified."
+      ],
+      "external_dependencies": [
+        "Representative phones/devices, real HTTPS/TURN and approved audio provider"
+      ],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "BILLING-004",
+      "title": "Pooled building allowance",
+      "acceptance": "Included minutes and overages allocate by contract and authorized clinic usage.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Owner creates an authorized draft building pool and reviews balanced usage allocation; UI explicitly states no charge or settlement is performed.",
+      "evidence": [
+        "frontend/src/pages/BuildingContracts.tsx",
+        "docs/validation/browser-extensions.json"
+      ],
+      "remaining_acceptance": [
+        "Signed building/clinic commercial terms and live invoicing approval remain external."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "PAYMENT-001",
+      "title": "Published deposit policy",
+      "acceptance": "Deposits are disabled until amount, currency, expiry, cancellation and refund terms are published.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Owner publishes versioned deposit/cancellation/refund terms with explicit confirmation; public safe terms omit merchant identity; staff booking and both waitlist acceptance paths send separately accepted current terms. Waitlist deposit results remain pending payment with a capped expiry.",
+      "evidence": [
+        "frontend/src/pages/PaymentPolicy.tsx",
+        "frontend/src/pages/Appointments.tsx",
+        "frontend/src/pages/Talk.tsx",
+        "frontend/src/pages/Waitlist.tsx",
+        "docs/validation/browser-release.json",
+        "docs/validation/browser-waitlist-deposit.json"
+      ],
+      "remaining_acceptance": [
+        "The browser exercise used synthetic policy publication. Actual merchant/provider and legal validation remain external; backend tests enforce actual-mode acceptance."
+      ],
+      "external_dependencies": [
+        "Actual clinic terms and consumer/payment obligations require authorized review."
+      ],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "WAITLIST-005",
+      "title": "Atomic acceptance",
+      "acceptance": "Two simultaneous acceptances create at most one reservation; patient and offer authorization are checked.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Authenticated staff accepts only after explicit patient time confirmation and, for a deposit, separate acceptance of freshly loaded versioned terms. Reload and stale-terms failure clear financial acceptance. Immediate and resumed real demo API acceptance were exercised.",
+      "evidence": [
+        "frontend/src/pages/Waitlist.tsx",
+        "docs/validation/browser-workflows.json",
+        "docs/validation/browser-waitlist-deposit.json"
+      ],
+      "remaining_acceptance": [
+        "The browser suite verifies the UI contribution and injects one stale-terms response for recovery coverage. Actual stale-policy rejection, offer authorization and concurrent atomic acceptance are established independently by backend tests."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    },
+    {
+      "id": "PRIVACY-003",
+      "title": "Ephemeral media handling",
+      "acceptance": "Default media buffers are bounded and discarded; traces do not silently retain full patient audio/transcript.",
+      "status": "verified_local",
+      "verification_level": "local_browser_test_or_code_inspection",
+      "verified_behavior": "Public consent renders the exact server notice and configured retention days, distinguishing unretained raw audio from encrypted necessary conversation text and request-recovery results. It describes scheduled cleanup, deletion requests and separate necessary appointment records. The same notice is keyboard accessible during conversation; consent sends recording and training disabled.",
+      "evidence": [
+        "frontend/src/pages/Talk.tsx",
+        "frontend/src/types.ts",
+        "docs/validation/browser-privacy-notice.json"
+      ],
+      "remaining_acceptance": [
+        "This verifies truthful disclosure and UI consent behavior. Actual retention/deletion processing, provider policy and legal review are independently validated by server tests and deployment approval."
+      ],
+      "external_dependencies": [],
+      "assessor": "frontend",
+      "scope": "UI contribution only; merge server enforcement and external readiness evidence independently."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "queue": {
+    "calls_per_hour": 40,
+    "handoff_fraction": 0.2,
+    "handling_mean_minutes": 6,
+    "handling_coefficient_of_variation": 0.8,
+    "scheduled_staff": 3,
+    "shrinkage_fraction": 0.2,
+    "peak_multiplier": 1.5,
+    "duration_hours": 8,
+    "target_wait_seconds": 20,
+    "abandon_after_seconds": 180,
+    "trials": 100,
+    "seed": 2026
+  },
+  "workload": {
+    "baseline_reception_minutes": 300,
+    "comparable_automated_minutes": 240,
+    "supervision_minutes": 45,
+    "rework_minutes": 25,
+    "documented_avoidable_paid_minutes": 0,
+    "loaded_toman_per_minute": 0
+  },
+  "notice": "All values are invented modeling inputs, not observed clinic results."
+}

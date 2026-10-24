@@ -1,0 +1,36 @@
+{
+  "format": "hamava-supervisor-interruption-provenance-v1",
+  "recorded_at": "2026-10-23T17:34:00.961379+00:00",
+  "supervisor_tool_session": "68316",
+  "status": "exec_server_transport_lost",
+  "supervisor_os_exit_code": null,
+  "errors_observed_in_tool_history": [
+    "exec-server transport disconnected; failed to resume exec-server session: recovery timed out after25s",
+    "Unknown process id68316"
+  ],
+  "last_progress_observed_before_transport_loss": {
+    "elapsed_seconds": 546.7,
+    "shard_finished_counts": [
+      190,
+      103,
+      120
+    ],
+    "shard3_exit_code_observed_in_progress": 0
+  },
+  "post_recovery_observation": {
+    "original_last_worker_pid": 120214,
+    "parent_pid": 1,
+    "parent_name": "supervisord",
+    "continued_after_transport_loss": true,
+    "last_worker_eventually_exited": true,
+    "all_original_workers_pytest_sessionfinish_exit_statuses": [
+      0,
+      0,
+      0
+    ]
+  },
+  "worker_restart_or_test_substitution": false,
+  "os_wait_status_boundary": "No complete supervisor wait record survived. Canonical per-worker OS exit codes remain null; pytest session exit statuses come separately from the original pinned observer records.",
+  "raw_execution_directory": "artifacts/backend-final-shards-corrected",
+  "recovery_authorized_by_parent": "Validate the same original planned workers; do not rerun or compose a pass from focused runs."
+}

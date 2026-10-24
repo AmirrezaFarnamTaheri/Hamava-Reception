@@ -1,0 +1,13 @@
+{
+  "id": "tts_incremental",
+  "family": "tts",
+  "chunks": [
+    800,
+    480
+  ],
+  "expect": {
+    "event": "end",
+    "audio_frames": 2,
+    "buffered": false
+  }
+}

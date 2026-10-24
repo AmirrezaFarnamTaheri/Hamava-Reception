@@ -1,0 +1,41 @@
+groups:
+  - name: hamava-reception
+    rules:
+      - alert: HamavaReportedSafetyIncident
+        expr: hamava_reported_safety_incidents_24h > 0
+        labels: {severity: critical}
+        annotations:
+          summary: Reported false confirmation or tenant exposure
+          action: Pause affected automation and use the incident runbook; preserve minimal evidence.
+      - alert: HamavaOutboxDelayed
+        expr: hamava_due_outbox_oldest_seconds > 180
+        for: 2m
+        labels: {severity: warning}
+        annotations:
+          summary: Due notification backlog exceeds three minutes
+          action: Check jobs worker and provider health; do not retry UNKNOWN sends.
+      - alert: HamavaDeliveryUnknown
+        expr: hamava_outbox_records{status="UNKNOWN"} > 0
+        for: 2m
+        labels: {severity: warning}
+        annotations:
+          summary: Provider outcomes need reconciliation
+      - alert: HamavaStaffQueueDelayed
+        expr: hamava_open_task_oldest_seconds > 900
+        for: 2m
+        labels: {severity: warning}
+        annotations:
+          summary: Staff task is waiting more than fifteen minutes
+          action: Add authorized staff coverage or pause intake.
+      - alert: HamavaHTTPFailures
+        expr: sum(rate(hamava_http_requests_total{class="5xx"}[5m])) / clamp_min(sum(rate(hamava_http_requests_total[5m])), 0.001) > 0.02
+        for: 5m
+        labels: {severity: warning}
+        annotations:
+          summary: Application server failures exceed two percent
+      - alert: HamavaUnavailable
+        expr: up{job="hamava"} == 0
+        for: 1m
+        labels: {severity: critical}
+        annotations:
+          summary: Reception service scrape is unavailable

@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "suite": "rtc-lifecycle",
+  "captured_at": "2026-10-23T12:23:58.550Z",
+  "source_script": "frontend/scripts/exercise-rtc-lifecycle.mjs",
+  "current_source_script_sha256": "a604a9d22eb649b585aed4e5ab471e3058f82e930636eb8eb56b47069c239ec7",
+  "report_sha256": "ddfbcdb0c934d7ef97ca9bff29fee4a403c2f58fb70140fa99a87da7d845571a",
+  "validation_environment": "Actual production frontend build in local Chromium; explicit API fixtures and LiveKit Room event double; no live API or RTC services",
+  "scope": "Observed browser behavior only. No iOS/Android device, carrier, real vendor settlement/delivery, native-listener quality or production capacity qualification.",
+  "checks": [
+    "Caller stays connecting until microphone readiness; recovery during that await remains visibly reconnecting",
+    "Caller named media reconnect/reconnected events disable unsafe controls, retain exit and preserve mute without enabling the microphone again",
+    "Caller signaling recovery and restoration respond to both state-change and named SDK events",
+    "Caller terminal disconnect removes the connected claim and restores typed fallback and explicit rejoin",
+    "Caller exits invalidate pending microphone work and stale data/track/status callbacks; replacement room controls do not inherit retired busy state",
+    "Caller failure alert survives SDK disconnect-before-rejection ordering and the session remains endable",
+    "Staff setup and recovery remain accurate when the initial microphone operation is delayed",
+    "Staff media recovery disables mic changes, preserves exit and restores the existing muted state",
+    "Staff signaling recovery handles both named events and ConnectionStateChanged",
+    "Staff terminal disconnect permits explicit rejoin; fresh mute state and room ownership ignore retired callbacks",
+    "Staff exit remains effective during recovery or pending microphone setup; retired operations cannot disable or disconnect a replacement room",
+    "Staff failure alert survives SDK terminal-event ordering; all event-contract checks have no runtime errors or unexpected API requests"
+  ],
+  "errors": [],
+  "audits": [
+    {
+      "label": "Caller media recovery at 390px",
+      "findings": [],
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "label": "Staff media recovery dialog",
+      "findings": [],
+      "viewport": 1440,
+      "width": 1440
+    },
+    {
+      "label": "Staff recoverable connection failure dialog",
+      "findings": [],
+      "viewport": 1440,
+      "width": 1440
+    }
+  ],
+  "unexpectedRequests": [],
+  "verification_kind": "browser_component_event_contract",
+  "qualification": "Verifies caller/staff event-to-UI wiring, current-room ownership and deferred-operation cleanup. No actual network reconnect, media continuity, physical mobile background/lock, carrier or production qualification. Existing real-transport evidence remains separate; full MEDIA-008 reconnect acceptance remains partial."
+}

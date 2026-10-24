@@ -1,0 +1,18 @@
+{
+  "synthetic_only": true,
+  "passed": true,
+  "database": "isolated local PostgreSQL16",
+  "schema_version": "0002",
+  "tables": 89,
+  "all_table_counts_match": true,
+  "duplicate_claims": 0,
+  "orphan_claims": 0,
+  "appointment_key_verified": true,
+  "v2_protected_fields_roundtripped": 4,
+  "encrypted_archive_bytes": 47270,
+  "encrypted_archive_sha256": "53c69bfbd9ce92254734109ec98233c9ad093c575f6b1222730a67fdf98afc98",
+  "archive_permissions_octal": "0o600",
+  "backup_seconds": 1.442,
+  "restore_seconds": 20.937,
+  "limits": "Real encrypted local database restore with synthetic records; no production data, offsite transport, key-custodian or recovery-time objective acceptance."
+}

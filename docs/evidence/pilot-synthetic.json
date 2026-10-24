@@ -1,0 +1,240 @@
+{
+  "schema_version": "1.0",
+  "data_kind": "synthetic",
+  "analysis": "descriptive_matched_stratum_comparison",
+  "cohorts": 12,
+  "excluded_incomplete_cohorts_from_kept_comparison": 0,
+  "unmatched_strata": [],
+  "period_overview": {
+    "baseline": {
+      "all_cohort_counts": {
+        "attempts": 300,
+        "eligible_requests": 180,
+        "confirmed_bookings": 72,
+        "matured_bookings": 72,
+        "kept": 48,
+        "answered": 210,
+        "severe_incidents": 0,
+        "handoff_requested": 30,
+        "handoff_connected": 24
+      },
+      "observed_cohorts_per_field": {
+        "attempts": 6,
+        "eligible_requests": 6,
+        "confirmed_bookings": 6,
+        "matured_bookings": 6,
+        "kept": 6,
+        "answered": 6,
+        "severe_incidents": 6,
+        "handoff_requested": 6,
+        "handoff_connected": 6
+      },
+      "answer_rate": {
+        "numerator": 210,
+        "denominator": 300,
+        "rate": 0.7,
+        "wilson_95": [
+          0.6458824752950584,
+          0.749060336215123
+        ]
+      },
+      "incident_call_rate": {
+        "numerator": 0,
+        "denominator": 300,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.012642971224546034
+        ]
+      },
+      "handoff_connection": {
+        "numerator": 24,
+        "denominator": 30,
+        "rate": 0.8,
+        "wilson_95": [
+          0.6269430358685175,
+          0.9049489282271013
+        ]
+      }
+    },
+    "pilot": {
+      "all_cohort_counts": {
+        "attempts": 300,
+        "eligible_requests": 180,
+        "confirmed_bookings": 90,
+        "matured_bookings": 90,
+        "kept": 60,
+        "answered": 276,
+        "severe_incidents": 0,
+        "handoff_requested": 30,
+        "handoff_connected": 24
+      },
+      "observed_cohorts_per_field": {
+        "attempts": 6,
+        "eligible_requests": 6,
+        "confirmed_bookings": 6,
+        "matured_bookings": 6,
+        "kept": 6,
+        "answered": 6,
+        "severe_incidents": 6,
+        "handoff_requested": 6,
+        "handoff_connected": 6
+      },
+      "answer_rate": {
+        "numerator": 276,
+        "denominator": 300,
+        "rate": 0.92,
+        "wilson_95": [
+          0.8837267595665261,
+          0.9456531446048553
+        ]
+      },
+      "incident_call_rate": {
+        "numerator": 0,
+        "denominator": 300,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.012642971224546034
+        ]
+      },
+      "handoff_connection": {
+        "numerator": 24,
+        "denominator": 30,
+        "rate": 0.8,
+        "wilson_95": [
+          0.6269430358685175,
+          0.9049489282271013
+        ]
+      }
+    }
+  },
+  "matched_strata": [
+    {
+      "stratum": "weekday_after_hours",
+      "baseline_counts": {
+        "attempts": 150,
+        "eligible_requests": 90,
+        "confirmed_bookings": 36,
+        "matured_bookings": 36,
+        "kept": 24,
+        "answered": 105,
+        "severe_incidents": 0,
+        "handoff_requested": 15,
+        "handoff_connected": 12
+      },
+      "pilot_counts": {
+        "attempts": 150,
+        "eligible_requests": 90,
+        "confirmed_bookings": 45,
+        "matured_bookings": 45,
+        "kept": 30,
+        "answered": 138,
+        "severe_incidents": 0,
+        "handoff_requested": 15,
+        "handoff_connected": 12
+      },
+      "baseline_kept_per_eligible": {
+        "numerator": 24,
+        "denominator": 90,
+        "rate": 0.26666666666666666,
+        "wilson_95": [
+          0.18623818738233572,
+          0.36619843788101675
+        ]
+      },
+      "pilot_kept_per_eligible": {
+        "numerator": 30,
+        "denominator": 90,
+        "rate": 0.3333333333333333,
+        "wilson_95": [
+          0.24453505279444637,
+          0.4357768223936625
+        ]
+      },
+      "rate_difference": 0.06666666666666665,
+      "approximate_95_difference_interval": [
+        -0.06671889517466831,
+        0.19691031806988799
+      ],
+      "baseline_cohorts": 3,
+      "pilot_cohorts": 3,
+      "weight": 0.5
+    },
+    {
+      "stratum": "weekend_overflow",
+      "baseline_counts": {
+        "attempts": 150,
+        "eligible_requests": 90,
+        "confirmed_bookings": 36,
+        "matured_bookings": 36,
+        "kept": 24,
+        "answered": 105,
+        "severe_incidents": 0,
+        "handoff_requested": 15,
+        "handoff_connected": 12
+      },
+      "pilot_counts": {
+        "attempts": 150,
+        "eligible_requests": 90,
+        "confirmed_bookings": 45,
+        "matured_bookings": 45,
+        "kept": 30,
+        "answered": 138,
+        "severe_incidents": 0,
+        "handoff_requested": 15,
+        "handoff_connected": 12
+      },
+      "baseline_kept_per_eligible": {
+        "numerator": 24,
+        "denominator": 90,
+        "rate": 0.26666666666666666,
+        "wilson_95": [
+          0.18623818738233572,
+          0.36619843788101675
+        ]
+      },
+      "pilot_kept_per_eligible": {
+        "numerator": 30,
+        "denominator": 90,
+        "rate": 0.3333333333333333,
+        "wilson_95": [
+          0.24453505279444637,
+          0.4357768223936625
+        ]
+      },
+      "rate_difference": 0.06666666666666665,
+      "approximate_95_difference_interval": [
+        -0.06671889517466831,
+        0.19691031806988799
+      ],
+      "baseline_cohorts": 3,
+      "pilot_cohorts": 3,
+      "weight": 0.5
+    }
+  ],
+  "standardized_comparison": {
+    "difference_in_kept_per_eligible": 0.06666666666666665,
+    "percentage_point_difference": 6.666666666666665,
+    "approximate_95_interval": [
+      -0.027651168623718886,
+      0.15876283578038125
+    ],
+    "weights": "baseline eligible inquiries across matched completed cohorts",
+    "interval_method": "weighted Wilson component MOVER approximation",
+    "assumptions": "Independent Bernoulli inquiry outcomes and independent strata; no adjustment for repeated patients or correlated days.",
+    "causal_effect_established": false,
+    "attributed_incremental_kept": null,
+    "matched_strata": 2,
+    "baseline_eligible": 180,
+    "pilot_eligible": 180
+  },
+  "limitations": [
+    "This is observational standardization, not proof that the receptionist caused additional visits.",
+    "Campaigns, holidays, capacity, seasonality, repeated callers and channel displacement still require design/analysis.",
+    "Kept comparisons use completed inbound cohorts; mixing today's attendance with today's new inquiries is invalid.",
+    "Intervals are approximate and assume independent inquiries; use cluster-aware design for repeated patient/day correlations.",
+    "Safety/answer/handoff counts include incomplete cohorts; zero observed severe incidents does not prove zero risk.",
+    "No ROI or recovered-revenue amount is inferred automatically."
+  ]
+}

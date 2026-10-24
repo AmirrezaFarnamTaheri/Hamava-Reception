@@ -1,0 +1,299 @@
+{
+  "schema_version": "1.0",
+  "sample_count": 12,
+  "data_kind": "synthetic",
+  "release_evidence": "metrics_only; acoustic_quality_not_verified_by_text_predictions",
+  "normalization": "NFC, Persian/Arabic digits, Arabic yeh/kaf, diacritics, punctuation and whitespace; no number-word inference; CER excludes whitespace",
+  "overall": {
+    "counts": {
+      "samples": 12,
+      "raw_word_errors": 11,
+      "raw_words": 35,
+      "raw_character_errors": 23,
+      "raw_characters": 139,
+      "normalized_word_errors": 6,
+      "normalized_words": 36,
+      "normalized_character_errors": 16,
+      "normalized_characters": 137,
+      "number_samples": 2,
+      "number_exact": 1,
+      "empty_reference_samples": 2,
+      "silence_hallucinations": 1,
+      "eligible": 12,
+      "completed": 8,
+      "confirmation_claims": 1,
+      "false_confirmations": 1,
+      "unverified_confirmations": 0,
+      "handoffs_requested": 0,
+      "handoffs_connected": 0,
+      "entity_total": 0,
+      "entity_exact": 0
+    },
+    "raw_wer": 0.3142857142857143,
+    "raw_cer": 0.16546762589928057,
+    "normalized_wer": 0.16666666666666666,
+    "normalized_cer": 0.11678832116788321,
+    "exact_number_accuracy": {
+      "rate": 0.5,
+      "numerator": 1,
+      "denominator": 2,
+      "wilson_95": [
+        0.09453120573423074,
+        0.9054687942657693
+      ]
+    },
+    "critical_entity_accuracy": {
+      "rate": null,
+      "numerator": 0,
+      "denominator": 0,
+      "wilson_95": null
+    },
+    "task_completion": {
+      "rate": 0.6666666666666666,
+      "numerator": 8,
+      "denominator": 12,
+      "wilson_95": [
+        0.39062208887279953,
+        0.8618799089087867
+      ]
+    },
+    "handoff_connection": {
+      "rate": null,
+      "numerator": 0,
+      "denominator": 0,
+      "wilson_95": null
+    },
+    "latency_ms": {
+      "n": 12,
+      "p50": 437.5,
+      "p95": 561.25,
+      "p99": 572.25
+    }
+  },
+  "normalized_wer_bootstrap_95": {
+    "interval": [
+      0.03578009828009831,
+      0.4642857142857143
+    ],
+    "method": "percentile_cluster_bootstrap",
+    "cluster_unit": "speaker",
+    "clusters": 4,
+    "repetitions": 500,
+    "seed": 42,
+    "assumption": "Clusters are independent and representative; repeated tenants/households may still correlate."
+  },
+  "slices": {
+    "case:dialogue": {
+      "counts": {
+        "samples": 10,
+        "raw_word_errors": 9,
+        "raw_words": 29,
+        "raw_character_errors": 18,
+        "raw_characters": 118,
+        "normalized_word_errors": 5,
+        "normalized_words": 30,
+        "normalized_character_errors": 15,
+        "normalized_characters": 116,
+        "number_samples": 0,
+        "number_exact": 0,
+        "empty_reference_samples": 2,
+        "silence_hallucinations": 1,
+        "eligible": 10,
+        "completed": 7,
+        "confirmation_claims": 1,
+        "false_confirmations": 1,
+        "unverified_confirmations": 0,
+        "handoffs_requested": 0,
+        "handoffs_connected": 0,
+        "entity_total": 0,
+        "entity_exact": 0
+      },
+      "raw_wer": 0.3103448275862069,
+      "raw_cer": 0.15254237288135594,
+      "normalized_wer": 0.16666666666666666,
+      "normalized_cer": 0.12931034482758622,
+      "exact_number_accuracy": {
+        "rate": null,
+        "numerator": 0,
+        "denominator": 0,
+        "wilson_95": null
+      },
+      "critical_entity_accuracy": {
+        "rate": null,
+        "numerator": 0,
+        "denominator": 0,
+        "wilson_95": null
+      },
+      "task_completion": {
+        "rate": 0.7,
+        "numerator": 7,
+        "denominator": 10,
+        "wilson_95": [
+          0.39677814746114537,
+          0.8922087325936989
+        ]
+      },
+      "handoff_connection": {
+        "rate": null,
+        "numerator": 0,
+        "denominator": 0,
+        "wilson_95": null
+      },
+      "latency_ms": {
+        "n": 10,
+        "p50": 462.5,
+        "p95": 563.75,
+        "p99": 572.75
+      }
+    },
+    "case:number": {
+      "counts": {
+        "samples": 2,
+        "raw_word_errors": 2,
+        "raw_words": 6,
+        "raw_character_errors": 5,
+        "raw_characters": 21,
+        "normalized_word_errors": 1,
+        "normalized_words": 6,
+        "normalized_character_errors": 1,
+        "normalized_characters": 21,
+        "number_samples": 2,
+        "number_exact": 1,
+        "empty_reference_samples": 0,
+        "silence_hallucinations": 0,
+        "eligible": 2,
+        "completed": 1,
+        "confirmation_claims": 0,
+        "false_confirmations": 0,
+        "unverified_confirmations": 0,
+        "handoffs_requested": 0,
+        "handoffs_connected": 0,
+        "entity_total": 0,
+        "entity_exact": 0
+      },
+      "raw_wer": 0.3333333333333333,
+      "raw_cer": 0.23809523809523808,
+      "normalized_wer": 0.16666666666666666,
+      "normalized_cer": 0.047619047619047616,
+      "exact_number_accuracy": {
+        "rate": 0.5,
+        "numerator": 1,
+        "denominator": 2,
+        "wilson_95": [
+          0.09453120573423074,
+          0.9054687942657693
+        ]
+      },
+      "critical_entity_accuracy": {
+        "rate": null,
+        "numerator": 0,
+        "denominator": 0,
+        "wilson_95": null
+      },
+      "task_completion": {
+        "rate": 0.5,
+        "numerator": 1,
+        "denominator": 2,
+        "wilson_95": [
+          0.09453120573423074,
+          0.9054687942657693
+        ]
+      },
+      "handoff_connection": {
+        "rate": null,
+        "numerator": 0,
+        "denominator": 0,
+        "wilson_95": null
+      },
+      "latency_ms": {
+        "n": 2,
+        "p50": 362.5,
+        "p95": 373.75,
+        "p99": 374.75
+      }
+    },
+    "channel:synthetic_text": {
+      "counts": {
+        "samples": 12,
+        "raw_word_errors": 11,
+        "raw_words": 35,
+        "raw_character_errors": 23,
+        "raw_characters": 139,
+        "normalized_word_errors": 6,
+        "normalized_words": 36,
+        "normalized_character_errors": 16,
+        "normalized_characters": 137,
+        "number_samples": 2,
+        "number_exact": 1,
+        "empty_reference_samples": 2,
+        "silence_hallucinations": 1,
+        "eligible": 12,
+        "completed": 8,
+        "confirmation_claims": 1,
+        "false_confirmations": 1,
+        "unverified_confirmations": 0,
+        "handoffs_requested": 0,
+        "handoffs_connected": 0,
+        "entity_total": 0,
+        "entity_exact": 0
+      },
+      "raw_wer": 0.3142857142857143,
+      "raw_cer": 0.16546762589928057,
+      "normalized_wer": 0.16666666666666666,
+      "normalized_cer": 0.11678832116788321,
+      "exact_number_accuracy": {
+        "rate": 0.5,
+        "numerator": 1,
+        "denominator": 2,
+        "wilson_95": [
+          0.09453120573423074,
+          0.9054687942657693
+        ]
+      },
+      "critical_entity_accuracy": {
+        "rate": null,
+        "numerator": 0,
+        "denominator": 0,
+        "wilson_95": null
+      },
+      "task_completion": {
+        "rate": 0.6666666666666666,
+        "numerator": 8,
+        "denominator": 12,
+        "wilson_95": [
+          0.39062208887279953,
+          0.8618799089087867
+        ]
+      },
+      "handoff_connection": {
+        "rate": null,
+        "numerator": 0,
+        "denominator": 0,
+        "wilson_95": null
+      },
+      "latency_ms": {
+        "n": 12,
+        "p50": 437.5,
+        "p95": 561.25,
+        "p99": 572.25
+      }
+    }
+  },
+  "split_audit": {
+    "has_split_metadata": true,
+    "speaker_groups": 0,
+    "tenant_groups": 0,
+    "audio_hashes": 0,
+    "verified": true,
+    "partitions_present": [
+      "test"
+    ],
+    "complete_partition_inventory": false,
+    "scope": "Only supplied rows are audited; unseen model training data is not verified."
+  },
+  "cautions": [
+    "Wilson intervals assume independent Bernoulli observations; entity/number observations may be clustered.",
+    "Missing authoritative confirmation is unverified, not a successful confirmation.",
+    "No raw transcript or patient identifier is included in this report. Slice labels must be approved nonidentifying categories."
+  ]
+}

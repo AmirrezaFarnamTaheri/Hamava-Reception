@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+  <item name="colorPrimary">#173c43</item><item name="colorPrimaryDark">#173c43</item><item name="colorAccent">#287268</item>
+  <item name="android:fontFamily">sans</item><item name="android:windowLightStatusBar">true</item>
+ </style>
+ <style name="AppTheme.NoActionBar" parent="AppTheme"><item name="windowActionBar">false</item><item name="windowNoTitle">true</item><item name="android:background">@null</item></style>
+ <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
+  <item name="windowSplashScreenBackground">#173c43</item><item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item><item name="postSplashScreenTheme">@style/AppTheme.NoActionBar</item>
+ </style>
+</resources>

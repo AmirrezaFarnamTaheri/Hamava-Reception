@@ -1,0 +1,330 @@
+{
+  "schema_version": "2.0",
+  "title": "Interrupted frontend verification runs retained without credentials",
+  "frontend_bundle": {
+    "entry": "/assets/index-Ckub5VW6.js",
+    "entry_sha256": "3123db40444ad5246b56a360c5ffdb082054c322781d9e3f5cb51caf5188bdbc",
+    "css": "/assets/index-s66hjDZo.css",
+    "css_sha256": "563441bd41212ca3605d0a25c969f92efb4ed309b85ccc7add49c5f700ca7ebf",
+    "source_tree_sha256": "1f89d1da8540334073689a3213182e18f9ce343d91bde4a7596a372d997512ae",
+    "captured_at": "2026-10-23T16:18:56.647867+00:00",
+    "app_version": "0.2.0"
+  },
+  "runs": [
+    {
+      "suite": "test:extensions",
+      "completed_checks": 6,
+      "passed": false,
+      "observed_failure": "Read-only API fixture request GET /api/v1/operations/policies failed with ECONNRESET.",
+      "browser_runtime_errors": [],
+      "service_log": "Server started normally; no application traceback or error appeared; helper performed normal shutdown after the suite failed.",
+      "cause": "Undetermined local transport reset. Concurrent native packaging and backend tests were loading the shared host; resource pressure is a possibility, not a proven cause.",
+      "handling": "Retain failure; redact fixture credential in failure traces; rerun failed suite from a fresh synthetic database after host pressure subsides. No application retry, API behavior or workflow assertions were changed.",
+      "successful_retry_report": "docs/validation/v2-browser-extensions.json (only valid after a completed rerun)",
+      "credential_policy": "Authorization values are not retained; a test-only trace-redaction gap was corrected before retry.",
+      "completed_check_names": [
+        "Demo-only gate for extended synthetic workflows",
+        "Audited patient correction updates the real record and resets reminder consent on phone change",
+        "Private public RSVP removes fragment, requires review, and does not mark actual attendance",
+        "Disruption preview performs no write; confirmed change preserves original appointment time",
+        "Task ownership, callback time, resolution, and reopening persist with versioned actions",
+        "Explicit patient disruption decision resolves its staff case; block resolution remains separate"
+      ],
+      "captured_at": "2026-10-23T16:30:48.238393+00:00",
+      "sanitized_raw_report_sha256": "28aa3f86b538f96da90c931a0004bd643ec885d87e6130332dfcc9b0f5d52451",
+      "preceding_suite_results": [
+        {
+          "suite": "test:ui",
+          "exit_code": 0,
+          "fresh_synthetic_database": true,
+          "tool_timeout_ms": 30000
+        },
+        {
+          "suite": "test:workflows",
+          "exit_code": 0,
+          "fresh_synthetic_database": true,
+          "tool_timeout_ms": 30000
+        },
+        {
+          "suite": "test:conversation",
+          "exit_code": 0,
+          "fresh_synthetic_database": true,
+          "tool_timeout_ms": 30000
+        },
+        {
+          "suite": "test:extensions",
+          "exit_code": 1,
+          "fresh_synthetic_database": true,
+          "tool_timeout_ms": 30000
+        }
+      ],
+      "resolution": {
+        "retry_checks_passed": 13,
+        "report": "docs/validation/v2-browser-extensions.json",
+        "report_sha256": "73647b0b5dc25a52f3a5178113b7616838da38945c26afd66ba15e6428f4bc58",
+        "same_bundle": true,
+        "retry_changes": "Test failure redaction only; no app/source/HTTP retry behavior or assertion change",
+        "interpretation": "The read and full 13-check workflow passed on a fresh synthetic database. The original reset cause remains undetermined."
+      }
+    },
+    {
+      "suite": "test:release",
+      "passed": false,
+      "completed_checks": 6,
+      "completed_check_names": [
+        "Release control mutations require an explicit isolated demo",
+        "Five independent evidence references and explicit reviewer confirmation are required; changing mode clears the draft; no readiness is fabricated",
+        "Explicit owner confirmation publishes a versioned synthetic policy and does not claim live merchant settlement",
+        "Public mobile reception shows published safe terms, with no merchant identity or staff credential disclosure",
+        "Original policy values are restored through a new audited version",
+        "Latency panel shows actual bounded stage distributions and distinguishes them from first-audible caller latency"
+      ],
+      "captured_at": "2026-10-23T16:36:51.051525+00:00",
+      "observed_failure": "Legacy test waited for the old settings draft heading and three setup cards after successful clinic creation.",
+      "diagnosis": "The implemented companion UX navigates to /setup with heading مرکز را آماده کنید and four saved-state steps. Screenshot, successful create response and App.tsx/Setup.tsx confirm intended new behavior; no application error was recorded.",
+      "browser_runtime_errors": [],
+      "sanitized_raw_report_sha256": "0a08e62221bdb4db74a039da86e0616ef1eaac44f795dff1abafe3043bab76c9",
+      "handling": "Update the test to assert the new guide route, four incomplete steps, selected clinic, saved settings and unchanged inactive mode across reload; add desktop/320px audit of this changed guide. No app source or bundle changes.",
+      "successful_retry_report": "docs/validation/v2-ui-release-before-latency-labels.json (only valid after a completed rerun)",
+      "resolution": {
+        "passed": true,
+        "checks": 7,
+        "audits": 2,
+        "report": "docs/validation/v2-ui-release-before-latency-labels.json",
+        "sha256": "a3c9fff3c5ed57dae6d826faa901f602f343fad17b7f3735e1303f7bcbfc5a64",
+        "tested_bundle": {
+          "entry": "/assets/index-5GKqz5J0.js",
+          "entry_sha256": "d01c1f6cf9027782d0ae4364f12e0825e410bca7a6436616b6160144126070e3",
+          "css": "/assets/index-DVYiIkCe.css",
+          "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+          "source_tree_sha256": "563cb1db1b3f0123e93ca6a47e37fbc459502a92857991abd0b069279a9a4b98",
+          "captured_at": "2026-10-23T16:44:31.080735+00:00",
+          "app_version": "0.2.0"
+        },
+        "interpretation": "Complete release workflow passed on the final three-color corrected bundle, including saved four-step setup across reload and desktop/320px audits."
+      }
+    },
+    {
+      "suite": "test:release",
+      "passed": false,
+      "completed_checks": 6,
+      "captured_at": "2026-10-23T16:38:46.274067+00:00",
+      "observed_failure": "The newly added onboarding audit detected two serious color-contrast nodes on the setup summary surface.",
+      "audits": [
+        {
+          "label": "New clinic setup guide at desktop width",
+          "findings": [
+            {
+              "id": "color-contrast",
+              "impact": "serious",
+              "count": 2
+            }
+          ],
+          "viewport": 1440,
+          "width": 1440
+        }
+      ],
+      "browser_runtime_errors": [],
+      "sanitized_raw_report_sha256": "1a3b63c98a83bb55c4cf0b495598d89ad585729d6d470a728ac33d602df21bad",
+      "handling": "Identify exact nodes at all three viewport widths, correct only setup-scoped text colors, rebuild and rerun the affected guide plus remaining release/waitlist/RTC workflows; preserve prior bundle provenance for source-equivalent unaffected routes.",
+      "diagnostic_audits": [
+        {
+          "kind": "configured",
+          "width": 1440,
+          "scroll": 1440,
+          "violations": [
+            {
+              "id": "color-contrast",
+              "impact": "serious",
+              "nodes": [
+                {
+                  "target": [
+                    ".setup-overview > div:nth-child(1) > .eyebrow"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.16 (foreground color: #60784e, background color: #e9efdf, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    ".setup-overview > div:nth-child(1) > p"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.42 (foreground color: #62724f, background color: #e9efdf, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "configured",
+          "width": 390,
+          "scroll": 390,
+          "violations": [
+            {
+              "id": "color-contrast",
+              "impact": "serious",
+              "nodes": [
+                {
+                  "target": [
+                    ".setup-overview > div:nth-child(1) > .eyebrow"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.16 (foreground color: #60784e, background color: #e9efdf, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    ".setup-overview > div:nth-child(1) > p"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.42 (foreground color: #62724f, background color: #e9efdf, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "configured",
+          "width": 320,
+          "scroll": 320,
+          "violations": [
+            {
+              "id": "color-contrast",
+              "impact": "serious",
+              "nodes": [
+                {
+                  "target": [
+                    ".setup-overview > div:nth-child(1) > .eyebrow"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.16 (foreground color: #60784e, background color: #e9efdf, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    ".setup-overview > div:nth-child(1) > p"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.42 (foreground color: #62724f, background color: #e9efdf, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "incomplete",
+          "width": 1440,
+          "scroll": 1440,
+          "violations": [
+            {
+              "id": "color-contrast",
+              "impact": "serious",
+              "nodes": [
+                {
+                  "target": [
+                    ".setup-overview > div:nth-child(1) > .eyebrow"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.16 (foreground color: #60784e, background color: #e9efdf, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    ".setup-overview > div:nth-child(1) > p"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.42 (foreground color: #62724f, background color: #e9efdf, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "incomplete",
+          "width": 390,
+          "scroll": 390,
+          "violations": [
+            {
+              "id": "color-contrast",
+              "impact": "serious",
+              "nodes": [
+                {
+                  "target": [
+                    ".workspace-context > span"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.18 (foreground color: #6e7e63, background color: #fafbf7, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    ".setup-overview > div:nth-child(1) > .eyebrow"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.16 (foreground color: #60784e, background color: #e9efdf, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    ".setup-overview > div:nth-child(1) > p"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.42 (foreground color: #62724f, background color: #e9efdf, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "incomplete",
+          "width": 320,
+          "scroll": 320,
+          "violations": [
+            {
+              "id": "color-contrast",
+              "impact": "serious",
+              "nodes": [
+                {
+                  "target": [
+                    ".workspace-context > span"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.18 (foreground color: #6e7e63, background color: #fafbf7, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    ".setup-overview > div:nth-child(1) > .eyebrow"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.16 (foreground color: #60784e, background color: #e9efdf, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+                },
+                {
+                  "target": [
+                    ".setup-overview > div:nth-child(1) > p"
+                  ],
+                  "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.42 (foreground color: #62724f, background color: #e9efdf, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "diagnosis": "Six named setup audits reproduced both summary-text failures. A long new clinic name also exposed one shared workspace-context label failure at390px and320px. No overflow or runtime errors were recorded.",
+      "contrast_resolution": {
+        "passed": true,
+        "post_correction_audits": 6,
+        "report": "docs/validation/v2-ui-setup-contrast.json",
+        "final_bundle": {
+          "entry": "/assets/index-5GKqz5J0.js",
+          "entry_sha256": "d01c1f6cf9027782d0ae4364f12e0825e410bca7a6436616b6160144126070e3",
+          "css": "/assets/index-DVYiIkCe.css",
+          "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+          "source_tree_sha256": "563cb1db1b3f0123e93ca6a47e37fbc459502a92857991abd0b069279a9a4b98",
+          "captured_at": "2026-10-23T16:44:31.080735+00:00",
+          "app_version": "0.2.0"
+        }
+      },
+      "resolution": {
+        "passed": true,
+        "checks": 7,
+        "audits": 2,
+        "report": "docs/validation/v2-ui-release-before-latency-labels.json",
+        "sha256": "a3c9fff3c5ed57dae6d826faa901f602f343fad17b7f3735e1303f7bcbfc5a64",
+        "tested_bundle": {
+          "entry": "/assets/index-5GKqz5J0.js",
+          "entry_sha256": "d01c1f6cf9027782d0ae4364f12e0825e410bca7a6436616b6160144126070e3",
+          "css": "/assets/index-DVYiIkCe.css",
+          "css_sha256": "2121010f0b0a53a0450039adfb99b5f999a99efc337202ec29f892e88c445a5a",
+          "source_tree_sha256": "563cb1db1b3f0123e93ca6a47e37fbc459502a92857991abd0b069279a9a4b98",
+          "captured_at": "2026-10-23T16:44:31.080735+00:00",
+          "app_version": "0.2.0"
+        },
+        "interpretation": "Complete release workflow passed on the final three-color corrected bundle, including saved four-step setup across reload and desktop/320px audits."
+      }
+    }
+  ],
+  "not_counted_as_passing_checks": true,
+  "generated_at": "2026-10-23T16:31:58.731446+00:00"
+}

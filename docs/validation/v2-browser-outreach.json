@@ -1,0 +1,54 @@
+{
+  "schema_version": "2.0",
+  "suite": "outreach",
+  "captured_at": "2026-10-23T16:35:44.928361+00:00",
+  "source_script": "frontend/scripts/exercise-outreach.mjs",
+  "source_script_sha256": "bc1131c2284896ba8e2457a0be658c3b8d4a1a72b1dde46669d49caa66e046b4",
+  "raw_report_sha256": "9b5f67e401666804f77b80c88af6e418bb14577d3664334d59e2040567079e26",
+  "frontend_bundle": {
+    "entry": "/assets/index-Ckub5VW6.js",
+    "entry_sha256": "3123db40444ad5246b56a360c5ffdb082054c322781d9e3f5cb51caf5188bdbc",
+    "css": "/assets/index-s66hjDZo.css",
+    "css_sha256": "563441bd41212ca3605d0a25c969f92efb4ed309b85ccc7add49c5f700ca7ebf",
+    "source_tree_sha256": "1f89d1da8540334073689a3213182e18f9ce343d91bde4a7596a372d997512ae",
+    "captured_at": "2026-10-23T16:18:56.647867+00:00",
+    "app_version": "0.2.0"
+  },
+  "validation_environment": {
+    "interface": "built production frontend",
+    "browser": "packaged headless Chromium",
+    "api": "fresh isolated SQLite synthetic demo API per suite; RTC lifecycle uses an explicitly synthetic Room/API fixture",
+    "provider_transmission": "disabled; no external messaging, carrier, calendar or settlement qualification",
+    "functional_tool_timeout_ms": 30000,
+    "latency_slo_claim": false,
+    "accessibility": "axe WCAG2A/AA and WCAG2.1AA tags on named states; audit contexts bypass CSP only for checker injection",
+    "physical_device_qualification": false
+  },
+  "checks": [
+    "Demo-only gate for consent and finance controls",
+    "Publishing followup cadence requires a new independent clinical approval",
+    "Separate tenant clinician account can explicitly approve the current cadence",
+    "Attended-patient enrollment requires separate consent; resetting policy removes approval",
+    "No-code practitioner shifts save actual ordered local-time intervals",
+    "Purpose-bound opt-out records revocation and preserves appointment records",
+    "Refund refusal is audited without a transfer; dispute evidence is required and no fictional case is recorded",
+    "Temporary synthetic clinician membership is revoked"
+  ],
+  "errors": [],
+  "audits": [
+    {
+      "label": "outreach-owner-policy",
+      "findings": []
+    },
+    {
+      "label": "practitioner-shifts-dialog",
+      "findings": []
+    },
+    {
+      "label": "financial-evidence-dialog",
+      "findings": []
+    }
+  ],
+  "synthetic_data": true,
+  "financial_transfers_performed": false
+}

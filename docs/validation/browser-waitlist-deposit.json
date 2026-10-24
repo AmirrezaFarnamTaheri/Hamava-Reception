@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "suite": "waitlist-deposit",
+  "captured_at": "2026-10-23T12:07:32.637Z",
+  "source_script": "frontend/scripts/exercise-waitlist-deposit.mjs",
+  "current_source_script_sha256": "9b15d2a7871e0ebfa14103d639813899de3e3430aaeb912f78dd5ec45f1fa233",
+  "report_sha256": "68c68d587c8cc8bac71b255aae9332837904653ce3c04a8c1e061386037b08b8",
+  "validation_environment": "Local headless Chromium against isolated synthetic demo API",
+  "scope": "Observed browser behavior only. No iOS/Android device, carrier, real vendor settlement/delivery, native-listener quality or production capacity qualification.",
+  "checks": [
+    "Explicit demo gate, selected tenant and real deposit service",
+    "Immediate offer displays safe current terms and separately requires patient time and financial acceptance",
+    "Injected stale-terms rejection performs a real terms refresh, clears financial acceptance and creates no reservation",
+    "Immediate acceptance sends the reviewed version and returns pending payment with authoritative deadline, without settlement",
+    "Reloaded offer remains available; mobile resumed acceptance reloads current terms and does not remember earlier checkboxes",
+    "Resumed offer submits versioned acceptance and preserves pending-payment semantics",
+    "No-deposit offers still require explicit patient confirmation and do not send unnecessary financial acceptance",
+    "Both deposit paths and the no-deposit regression have no browser errors, accessibility findings, overflow or payment-provider requests"
+  ],
+  "errors": [],
+  "audits": [
+    {
+      "label": "Desktop immediate deposit offer with expanded current terms",
+      "findings": [],
+      "viewport": 1440,
+      "width": 1440
+    },
+    {
+      "label": "Immediate acceptance remains pending payment",
+      "findings": [],
+      "viewport": 1440,
+      "width": 1440
+    },
+    {
+      "label": "Mobile resumed offer with expanded terms and cleared consent",
+      "findings": [],
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "label": "Mobile resumed pending-payment result",
+      "findings": [],
+      "viewport": 390,
+      "width": 390
+    }
+  ],
+  "observations": [
+    {
+      "flow": "deposit",
+      "status": "PENDING_PAYMENT",
+      "payment_status": "PENDING",
+      "terms_version": 0,
+      "terms_sent_and_accepted": true,
+      "expiry_capped_at_visit": true
+    },
+    {
+      "flow": "deposit",
+      "status": "PENDING_PAYMENT",
+      "payment_status": "PENDING",
+      "terms_version": 0,
+      "terms_sent_and_accepted": true,
+      "expiry_capped_at_visit": true
+    },
+    {
+      "flow": "no_deposit",
+      "status": "CONFIRMED",
+      "payment_status": "NOT_REQUIRED",
+      "terms_version": null,
+      "terms_sent_and_accepted": false,
+      "expiry_capped_at_visit": true
+    }
+  ],
+  "synthetic_data": true,
+  "payment_provider_requests": 0,
+  "injected_stale_terms_failures": 1,
+  "qualification": "The 409 is deliberately injected to test UI recovery; actual-mode stale-policy enforcement is independently covered by backend tests. All successful bookings use the real demo API. No real merchant, transfer or settlement qualification."
+}

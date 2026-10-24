@@ -1,0 +1,8 @@
+{
+  "appId": "ir.hamava.reception",
+  "appName": "Hamava",
+  "webDir": "../../frontend/dist",
+  "server": { "androidScheme": "https", "hostname": "localhost", "cleartext": false },
+  "android": { "allowMixedContent": false, "webContentsDebuggingEnabled": false, "captureInput": true },
+  "plugins": { "SystemBars": { "style": "LIGHT", "hidden": false } }
+}

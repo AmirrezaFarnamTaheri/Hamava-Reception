@@ -1,0 +1,18 @@
+{
+  "model_id": "REPLACE_WITH_APPROVED_WHISPER_MODEL",
+  "model_revision": "REPLACE_WITH_40_CHARACTER_COMMIT_HASH",
+  "model_license_reviewed": false,
+  "model_license_evidence": "",
+  "transformers_version": "4.57.3",
+  "max_steps": 100,
+  "batch_size": 1,
+  "gradient_accumulation": 4,
+  "learning_rate": "0.00001",
+  "seed": 42,
+  "training_code_sha256": "REPLACE_WITH_REVIEWED_TRAIN_ASR_PY_SHA256",
+  "max_wall_seconds": 3600,
+  "compute_toman_per_hour": "REPLACE_WITH_DOCUMENTED_RATE",
+  "max_compute_toman": "REPLACE_WITH_APPROVED_LIMIT",
+  "compute_rate_evidence_reference": "",
+  "rollback": {"model_id": "", "model_revision": "", "artifact_sha256": "", "owner": "", "evidence_reference": ""}
+}

@@ -1,0 +1,11 @@
+{
+  "id": "deepgram_failed_provider",
+  "family": "deepgram",
+  "events": [
+    {
+      "type": "Error",
+      "message": "synthetic"
+    }
+  ],
+  "expect_error": "STT_PROVIDER_REJECTED"
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-10-23T12:05:17.796539+00:00",
+  "scope": "Operations, UAT, payment policy, outreach, privacy review and research tools; local synthetic verification only.",
+  "source_blueprint_sha256": "d056b2893f32f81d6076f3be6d76ce0ca707284d8b8984d968ef8f47270943ef",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Linux",
+    "database": "Disposable per-test SQLite files with actual transactions; PostgreSQL evidence is separate.",
+    "http": "FastAPI ASGI/TestClient local transports; permitted local AnyIO sockets.",
+    "cryptography": "50.0.2",
+    "pytest": "9.1.1"
+  },
+  "runs": [
+    {
+      "command": "python -m pytest backend/tests/test_ops_review.py -q -o faulthandler_timeout=30",
+      "result": "passed",
+      "passed": 16,
+      "failed": 0,
+      "seconds": 8.97,
+      "scope": "Final isolated review after encrypted refund notes, integration semantics and explicit channel-model registration."
+    },
+    {
+      "command": "python -m pytest backend/tests/test_clinic_uat.py backend/tests/test_payment_policy.py backend/tests/test_outreach_workflows.py backend/tests/test_operations_extensions.py backend/tests/test_ops_review.py backend/tests/test_ops.py backend/tests/test_core.py backend/tests/test_research_tools.py -q -o faulthandler_timeout=30",
+      "result": "passed",
+      "passed": 151,
+      "failed": 0,
+      "seconds": 85.5,
+      "scope": "Completed owned combined suite before the final waitlist terms integration extension."
+    },
+    {
+      "command": "python -m pytest backend/tests/test_waitlist_payment_terms.py backend/tests/test_ops.py backend/tests/test_ops_review.py -q -o faulthandler_timeout=30",
+      "result": "passed",
+      "passed": 34,
+      "failed": 0,
+      "seconds": 20.81,
+      "scope": "Final waitlist terms extension: five new non-demo/capability/stale-policy cases plus 29 existing operational regressions."
+    }
+  ],
+  "test_count_note": "Run counts overlap and must not be added as unique tests. Root final all-backend JUnit provides the combined project count.",
+  "lint": {
+    "result": "passed",
+    "command": "ruff check backend/receptionist/operations.py backend/receptionist/operations_extensions.py backend/receptionist/operations_outreach.py backend/receptionist/operations_uat.py backend/receptionist/payment_policy.py backend/receptionist/models_ext.py backend/receptionist/models_outreach.py backend/tests/test_clinic_uat.py backend/tests/test_payment_policy.py backend/tests/test_outreach_workflows.py backend/tests/test_operations_extensions.py backend/tests/test_ops_review.py backend/tests/test_waitlist_payment_terms.py backend/tests/test_research_tools.py scripts/research_common.py scripts/evaluate_speech.py scripts/dataset_curate.py scripts/economics.py scripts/pilot_analysis.py scripts/train_asr.py scripts/make_synthetic_fixtures.py",
+    "scope": "Owned files; final waitlist source/test also rechecked after the extension."
+  },
+  "source_sha256": {
+    "backend/receptionist/operations.py": "d821a727810c27d6a8c08a9a5ba8681493a08d50103364b32e9085f5ee8778ca",
+    "backend/receptionist/operations_extensions.py": "3dd67b55d15414f5b90f110a28af0a4529275a940019747bb8a61e98a85e80f2",
+    "backend/receptionist/operations_outreach.py": "e728cf811879c6d58b4fbda656ba57fd881e996a631fac99a21349ce4413ce36",
+    "backend/receptionist/operations_uat.py": "3b1b284aaa86daedd6e37c87179a28e29dec42bb9e26ffca96e6a82468511737",
+    "backend/receptionist/payment_policy.py": "ab17e996f99726494475784af3c2d3125cccda07eb01380f8b48390d51819a7f",
+    "backend/receptionist/models_ext.py": "04cf5aefd26f92204eca6c0ffad428ef89bdcd616fe7c62447a272570a3b0ac9",
+    "backend/receptionist/models_outreach.py": "3bc32357c72362351fcc7bc0daf23ba5adcf068344402b933fc2596811b95018",
+    "backend/tests/test_clinic_uat.py": "20b6a271b69fbe878e148e46b3c10c73e7a9fef616f3b9a63fad8f3ed828ad48",
+    "backend/tests/test_payment_policy.py": "4eaa1c52cd89e3bd7a01e8a932d89cdf62d2c6d7f54c7e3dca39d2d1882183f8",
+    "backend/tests/test_outreach_workflows.py": "a1012d3893a8bb004de1bd6e63579848ede6b2dd9312d2e4f60ea41f1c54bde5",
+    "backend/tests/test_operations_extensions.py": "cf6c4f4a286891d8686b1bf68b6a059fc9a4a26e96a0da1750ce7001a004753d",
+    "backend/tests/test_ops_review.py": "276fa535a7f794d9240a21761294fdcd05603118f328feb3a16c68ec7e20b257",
+    "backend/tests/test_waitlist_payment_terms.py": "bcb381d497815529e42a66bf92f658622b0a9fea98b5ca81cd1fcbb2213002fa",
+    "backend/tests/test_research_tools.py": "9c5012a005c5d1d2ee67e17c3c39d1faa77187c3330cc6df7523d273ac327f1f",
+    "scripts/research_common.py": "b4884679547b62a8299f6212b1b66872d3ae2d9ebe8da2084c6cabed75920382",
+    "scripts/evaluate_speech.py": "3a7393b12949b2e59622e053d0e4fdbd4ed3e7bc9632133475ef76440266c56b",
+    "scripts/dataset_curate.py": "c76eee541cd3894f050fcb8d2032a2d848cd64577b87800be4c2f9ecdd4f5720",
+    "scripts/economics.py": "59e5c3ca237daf1af0e559da25af67fcd846333cb4e9e3e7c25e8eb6445e2e30",
+    "scripts/pilot_analysis.py": "fa7fed5427502e289815d5f126a6f45b6d88d535549e2e9b5b31c118b99046ca",
+    "scripts/train_asr.py": "21652dc6c2f68932b81abde70a955e4d5a8d02f065004ac13cb2047c8b789025",
+    "scripts/make_synthetic_fixtures.py": "7fb01a3551da11a9a2e9948ba3cc5fc1d13c15091640d813c009475d80b1fa32"
+  },
+  "external_actions": {
+    "real_sms_sent": false,
+    "real_payment_or_refund_executed": false,
+    "live_carrier_called": false,
+    "real_patient_data_processed": false,
+    "model_trained": false
+  },
+  "limitations": [
+    "Configuration and operator attestation are not live provider, legal, clinical or carrier certification.",
+    "Synthetic dataset fixtures are non-speech tones and fictional records; reported numeric examples are not clinic outcomes.",
+    "Actual data eligibility, consent, licenses and privacy-review truth remain outside metadata-only validation.",
+    "External refunds/disputes are recorded with authorized staff evidence, not executed by an invented gateway API.",
+    "Refer to separate PostgreSQL, browser, media, deployment and restore evidence before interpreting project-wide readiness."
+  ]
+}

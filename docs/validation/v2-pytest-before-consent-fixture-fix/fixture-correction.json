@@ -1,0 +1,44 @@
+{
+  "format": "hamava-consent-fixture-correction-v1",
+  "created_at": "2026-10-23T17:20:10.346946+00:00",
+  "previous_run": {
+    "aggregate": "docs/validation/v2-pytest-before-consent-fixture-fix/aggregate.json",
+    "status": "failed_or_incomplete",
+    "passed": 442,
+    "failed": 2,
+    "planned_nodes": 444,
+    "coverage": {
+      "full_collection_matches_in_every_process": true,
+      "selected_exactly_once": true,
+      "started_exactly_once": true,
+      "finished_exactly_once": true,
+      "source_unchanged": true
+    },
+    "sha256": "00dfb6caec72675c25b7cbcec3eec50648c62d57fe1193ca4c007d486069f2ce"
+  },
+  "failed_nodes": [
+    "backend/tests/test_voice_followup.py::test_real_deposit_terms_are_read_before_yes_and_changed_terms_require_new_yes",
+    "backend/tests/test_voice_followup.py::test_long_deposit_terms_handoff_without_silent_speech_truncation"
+  ],
+  "cause": "The non-demo deposit_confirmation fixture omitted the exact displayed processing_notice_fingerprint required by final intake. The real guard correctly returned409 PROCESSING_NOTICE_CHANGED before any original payment assertions ran.",
+  "authorized_correction": {
+    "path": "backend/tests/test_voice_followup.py",
+    "scope": "Only deposit_confirmation now GETs the public clinic disclosure and POSTs its exact fingerprint. Original payment, explicit-consent, long-speech and appointment assertions are preserved. The shared demo start helper remains unchanged.",
+    "before_sha256": "7cfefcb62f50a8d6a77101dbfa244b8ddc77905bc6cfd7502cf18fd3c85bbeb9",
+    "after_sha256": "4f18bdc6ae973558ec5b34547123ff5e95eacdb9a58d5586eda1d2f13edbe991",
+    "diff": "docs/validation/v2-pytest-before-consent-fixture-fix/fixture-correction.patch"
+  },
+  "runtime_changed": false,
+  "all_other_frozen_sources_unchanged": true,
+  "focused_verification": {
+    "path": "docs/validation/v2-deposit-notice-fixture.xml",
+    "sha256": "25a7f823248e8fb41a51b5e7b9ef2a665635ab26a3287900c9747600313aa5f2",
+    "tests": 4,
+    "passed": 4,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 44.98,
+    "scope": "The two affected deposit cases and both final consent-boundary cases. TOOL_TIMEOUT_MS=30000; actual local API/TestClient, synthetic provider configuration, no supplier send."
+  },
+  "full_suite_boundary": "Focused passes do not replace or alter the completed failed run. A separate complete three-shard444 run is required against the corrected frozen tree; its canonical evidence will be docs/validation/v2-pytest-current-shards/aggregate.json."
+}

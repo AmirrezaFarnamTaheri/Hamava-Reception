@@ -1,0 +1,10 @@
+; REVIEW-ONLY snippet for the chosen Asterisk version and PBX operator.
+; Install on private AMI interface with a unique secret generated OUTSIDE git.
+; Do not enable publicly or grant write privileges.
+; The actual listen address, ACL and TLS must be reviewed with the operator.
+[hamava-observer]
+secret = REPLACE_WITH_VAULT_MANAGED_SECRET
+read = call,user,system
+write =
+displayconnects = no
+permit = 127.0.0.1/255.0.0.0

@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "suite": "release",
+  "captured_at": "2026-10-23T12:00:41.366Z",
+  "source_script": "frontend/scripts/exercise-release.mjs",
+  "current_source_script_sha256": "361bc39860471c331cbe2b6f163d57aaa53e331f149c25f9901a380a163e9851",
+  "report_sha256": "9d7dd772cf3bcd8f93efa786fac7e3cc2b0a24b2296306d8fa52094289debfc4",
+  "validation_environment": "Local headless Chromium against isolated synthetic demo API",
+  "scope": "Observed browser behavior only. No iOS/Android device, carrier, real vendor settlement/delivery, native-listener quality or production capacity qualification.",
+  "checks": [
+    "Release control mutations require an explicit isolated demo",
+    "Five independent evidence references and explicit reviewer confirmation are required; changing mode clears the draft; no readiness is fabricated",
+    "Explicit owner confirmation publishes a versioned synthetic policy and does not claim live merchant settlement",
+    "Public mobile reception shows published safe terms, with no merchant identity or staff credential disclosure",
+    "Original policy values are restored through a new audited version",
+    "Latency panel shows actual bounded stage distributions and distinguishes them from first-audible caller latency",
+    "Owner creates a scoped clinic without configuration files; incomplete setup survives reload and is visibly a draft"
+  ],
+  "errors": [],
+  "synthetic_data": true,
+  "uat_attestation_created": false,
+  "live_payment_or_external_messages": false
+}

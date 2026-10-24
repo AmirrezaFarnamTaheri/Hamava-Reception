@@ -1,0 +1,19 @@
+{
+  "id": "deepgram_incomplete",
+  "family": "deepgram",
+  "events": [
+    {
+      "type": "Results",
+      "is_final": false,
+      "speech_final": false,
+      "channel": {
+        "alternatives": [
+          {
+            "transcript": "سلام"
+          }
+        ]
+      }
+    }
+  ],
+  "expect_error": "STT_STREAM_INCOMPLETE"
+}

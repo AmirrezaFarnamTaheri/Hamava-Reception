@@ -1,0 +1,55 @@
+{
+  "package": "@capacitor/android",
+  "version": "8.5.3",
+  "method": "Read-only inspection of retained lint/baseline, installed pinned source and shipped native configuration; no rebuild or device execution.",
+  "suppressed_findings": [
+    {
+      "id": "DefaultLocale",
+      "count": 1,
+      "path": "BridgeWebChromeClient.java",
+      "scope": "Console source-line diagnostic formatting; locale-dependent output remains."
+    },
+    {
+      "id": "DefaultLocale",
+      "count": 2,
+      "path": "util/HostMask.java",
+      "scope": "Locale-sensitive host-mask comparison; no remote allowNavigation/server.url is configured, local host is fixed localhost; application ServerPolicy uses Locale.ROOT."
+    },
+    {
+      "id": "DefaultLocale",
+      "count": 1,
+      "path": "WebViewLocalServer.java",
+      "scope": "Remote-proxy Accept-header case conversion; current companion serves local assets and does not use remote HTML loading."
+    },
+    {
+      "id": "SimpleDateFormat",
+      "count": 1,
+      "path": "BridgeWebChromeClient.java",
+      "scope": "Camera temporary filename prefix; current HTML file inputs do not request capture; file uniqueness uses createTempFile."
+    },
+    {
+      "id": "SimpleDateFormat",
+      "count": 1,
+      "path": "PluginResult.java",
+      "scope": "Native Date overload can produce locale/calendar-dependent output; current HamavaDevice plugin returns strings/booleans/JSON and does not use that overload."
+    }
+  ],
+  "filtered_errors": 6,
+  "unmatched_baseline_entries": 6,
+  "unsuppressed_clean_lint": false,
+  "demonstrated_current_flow_security_or_booking_failure": false,
+  "limits": [
+    "This is not a general dependency security audit or device/locale qualification.",
+    "HTTPS and minSDK24 do not repair locale-sensitive formatting.",
+    "Remote navigation, remote server loading, camera capture or native Date serialization require reassessment if introduced.",
+    "Six unmatched old baseline entries are not six additional active suppressions and do not by themselves prove historical fixes."
+  ],
+  "installed_source_sha256": {
+    "capacitor/src/main/java/com/getcapacitor/BridgeWebChromeClient.java": "355072033da08bcb76427bb4401a531d4f381f1051533fbfd63c37baa8a61c89",
+    "capacitor/src/main/java/com/getcapacitor/util/HostMask.java": "84039a74ac831fe348972b30925bcd69ea58b8b54c6bd4e06cc9c8efa9a40163",
+    "capacitor/src/main/java/com/getcapacitor/WebViewLocalServer.java": "3b7fb9b16fd96dc0ef18050120c06b6bf0b72c4b6690a2967219a21b3e65c3ab",
+    "capacitor/src/main/java/com/getcapacitor/PluginResult.java": "810eac5f10dc7f83946f820025ed734485229f120df4e34a974170e91b7efbdc",
+    "capacitor/build.gradle": "2b03df6b575178a8de490b4db114cc84647c06a580342046a2e5f9f797920717",
+    "package.json": "8e9f15b7d7af7314428fc03046ac17a942ebca9f2893c60aae954f091f0db298"
+  }
+}

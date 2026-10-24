@@ -1,0 +1,14 @@
+{
+  "name": "hamava-workspace",
+  "version": "0.2.2",
+  "private": true,
+  "engines": { "node": ">=24 <25" },
+  "scripts": {
+    "build:web": "npm --prefix frontend run build",
+    "build:desktop": "npm --prefix apps/desktop run build",
+    "build:windows": "npm --prefix apps/desktop run build:win",
+    "build:android": "npm --prefix apps/mobile run build:debug",
+    "test:desktop": "npm --prefix apps/desktop test",
+    "check:versions": "node scripts/check-versions.mjs"
+  }
+}

@@ -1,0 +1,1665 @@
+{
+  "schema_version": "1.0",
+  "title": "Independent platform requirement evidence proposal",
+  "generated_at": "2026-10-23T12:09:07.172324+00:00",
+  "source_register": "docs/requirements.json",
+  "source_register_sha256": "14567546f15be3afca87cec1da3b77c4262b23ad96d9392f764f3d7d2d845b07",
+  "source_blueprint_sha256": "d056b2893f32f81d6076f3be6d76ce0ca707284d8b8984d968ef8f47270943ef",
+  "updates_main_register": false,
+  "assessor": "backend_core",
+  "method": "Read exact acceptance criteria, inspect relevant source and named tests, inspect actual retained PostgreSQL/startup/restore/browser/test artifacts, and separate incomplete software from external authorization. The only audit-time application change was the expressly authorized public transcript-retention disclosure correction, which passed its focused regression.",
+  "status_policy": {
+    "pending": "Not yet inspected and evidenced.",
+    "implemented_unverified": "Code exists; stated acceptance has not been demonstrated.",
+    "verified_local": "Stated behavior passed a named local test or inspection; no live supplier inference.",
+    "verified_external": "Real deployed/provider/customer evidence supports the stated acceptance.",
+    "blocked_external": "Work depends on a specifically missing external account, rights, infrastructure, person or observation.",
+    "deferred_by_product_gate": "Original blueprint explicitly places feature behind an unmet product/evidence gate; retain exact rationale.",
+    "not_applicable_with_reason": "Explicit controlling decision removes applicability; never a silent omission."
+  },
+  "interpretation": "verified_local covers only the explicitly stated tested/inspected behavior and acceptance boundary. implemented_unverified means that full acceptance remains incomplete even where sub-behavior passed tests. blocked_external identifies a specific missing outside authorization or observation; it does not hide local implementation gaps.",
+  "verified_live_supplier_claims": false,
+  "observed_test_suite": {
+    "tests": 284,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "timestamp": "2026-10-23T13:59:20.545733+02:00",
+    "artifact": "docs/validation/pytest-final.xml",
+    "sha256": "c9aa3be776591475f8ca29da32183b9ab6357de53653ffc1a2c562da0646a5bf",
+    "note": "Observed retained artifact at assessment time; not a new test execution by this audit. Parent may replace it after the final waitlist-payment regression; this snapshot does not predict later test counts."
+  },
+  "counts": {
+    "verified_local": 34,
+    "implemented_unverified": 25,
+    "blocked_external": 5
+  },
+  "coverage": {
+    "assessed_ids": 64,
+    "main_register_ids": 263,
+    "excludes": [
+      "Voice/media-owned entries in voice-requirement-evidence.json except supporting evidence",
+      "Operations/research/commercial entries assigned to blueprint_review",
+      "Frontend-only workflows; overlapping platform API checks are intentional"
+    ],
+    "overlap_policy": "Merge evidence and retain the strictest still-unmet full acceptance; a passing UI or prototype test does not erase an incomplete backend/provider requirement."
+  },
+  "incomplete_local_implementation_ids": [
+    "FOUNDATION-006",
+    "FOUNDATION-008",
+    "FOUNDATION-013",
+    "TENANT-003",
+    "TENANT-010",
+    "AUTH-002",
+    "AUTH-012",
+    "BOOKING-001",
+    "BOOKING-011",
+    "BOOKING-012",
+    "BOOKING-013",
+    "BOOKING-022",
+    "BOOKING-024",
+    "BILLING-001",
+    "BILLING-002",
+    "BILLING-003",
+    "BILLING-005",
+    "PARTNER-001",
+    "PARTNER-004",
+    "OPERATIONS-001",
+    "OPERATIONS-002",
+    "OPERATIONS-003"
+  ],
+  "validation_only_partial_ids": [
+    "FOUNDATION-009",
+    "FOUNDATION-011",
+    "FOUNDATION-012"
+  ],
+  "external_only_blocked_ids": [
+    "PARTNER-GATE-001",
+    "PARTNER-GATE-002",
+    "PARTNER-GATE-003",
+    "PARTNER-GATE-004",
+    "PARTNER-GATE-005"
+  ],
+  "evidence_file_sha256": {
+    ".dockerignore": "c5ae994ee9649ac8863a33fe05d1b62be703676469db06ca3de3ea91994d4a7b",
+    ".env.example": "6c8391983492229751964354f5d7dab6ac184d80ff3c97645364cd38336cfd3d",
+    ".github/workflows/verify.yml": "0a426bf4bcbeee6f31825a01d7e981a39d56939773d05b75dd5e75c01e693682",
+    ".gitignore": "c419ede74c28adc0d48af19a1f4240fcb0fc24c0261bcf69b9902538dbd9bb3e",
+    "README.md": "7dd7a7a6d9b8362f3e81ce794bd6daad906f0b2c3969110f362fa4f871b85390",
+    "backend/receptionist/api.py": "8f3d697a499348cdbed5d6f06ff2a0ef78df79fb3f3349b98076f80c978cb80b",
+    "backend/receptionist/config.py": "2c287fc04852edc8fae0f979e6f8ec5aa934df06127fb89b9ffb45a15424e84c",
+    "backend/receptionist/core.py": "06eec47f933336501b1a5d411d1d6263dd5a243276da37ac8510242278d9e485",
+    "backend/receptionist/db.py": "25d9d003986c15f5033fa06c4dc8e8c7a3b07744c6dbf995f09ef913152372b4",
+    "backend/receptionist/locale.py": "e16f5ba2dcbb2ea90ba9e3d5ce75b81646dc82570f1aeb055457c521738205d5",
+    "backend/receptionist/main.py": "0960daf715c32e5f23d905736ecaab69d7d3b8ff448451a37e699ff7cf698725",
+    "backend/receptionist/media/audio.py": "b612fcf948aa018081e07d7e0abb43c310170d47771104b0cc7ec4780919d813",
+    "backend/receptionist/media/audiosocket.py": "cfce97edf5b4a2cbdf8d75dccc51f8ae9197b5ce8b68b9f1abc0cece60ec9820",
+    "backend/receptionist/media/livekit_worker.py": "9ccd08a9ddab4d95e024c5844843c26f99902d82f20ca84e9836beefcc2b4e25",
+    "backend/receptionist/media_api.py": "f02253c1f4b9b8542da288bbb376a0afa4ed0e65ca20f6f4c17a84191268ae1b",
+    "backend/receptionist/models.py": "85a20ce592f6010c1af2410be714e2242c4b49db989cdb7e7cd88e1926a7fc4e",
+    "backend/receptionist/models_ext.py": "04cf5aefd26f92204eca6c0ffad428ef89bdcd616fe7c62447a272570a3b0ac9",
+    "backend/receptionist/models_ops.py": "4647977a9698c354e3707037d1fc6f50ff0f32d30dff5b745db33b12658832e1",
+    "backend/receptionist/models_partner.py": "fd5df4101cde432f6e840156ea0ab7b4f1af620bff6d466bcbf482d86ef42504",
+    "backend/receptionist/models_voice.py": "9aad3922ae419fafbff5d896a4f8bb3b9471a640f09b6c6b5d9423a2c9c9bf35",
+    "backend/receptionist/operations.py": "d821a727810c27d6a8c08a9a5ba8681493a08d50103364b32e9085f5ee8778ca",
+    "backend/receptionist/operations_extensions.py": "3dd67b55d15414f5b90f110a28af0a4529275a940019747bb8a61e98a85e80f2",
+    "backend/receptionist/operations_outreach.py": "e728cf811879c6d58b4fbda656ba57fd881e996a631fac99a21349ce4413ce36",
+    "backend/receptionist/operations_uat.py": "3b1b284aaa86daedd6e37c87179a28e29dec42bb9e26ffca96e6a82468511737",
+    "backend/receptionist/partners.py": "be7f084f94bb33ffe7d48bd1c8557d082dd33d0a09eea8c74adab52d98bd0343",
+    "backend/receptionist/providers.py": "fb16fe77e3e6863e1efe1841b36156794862bf5bc63a03d2100f0ed0b2895fb7",
+    "backend/receptionist/schemas.py": "0c090bb24409b624f168157bcbc2ea2da05d13ae14a583f795b9b166b859cc44",
+    "backend/receptionist/security.py": "89ccdfd142a8f0f6b11fb99103e9ad3f637d5d186b47f0b58ccefeaf1bf33348",
+    "backend/receptionist/seed.py": "2dffe2f71bb676e5b6b447e84826e14a472fceba1ba02904403f9a7944a7925d",
+    "backend/receptionist/telemetry.py": "ce85de0078f8bd15d95ebc993e936719f455125353debc90b14234ca65001e3d",
+    "backend/receptionist/voice.py": "3643108aaeeaf39674be14995edf07b57ef36823d5d87607242e6851d5becf36",
+    "backend/receptionist/worker.py": "d52cba0c4d715eebad68f366fa517ca03c3935cc59f37c10c8d5dc9d6a1b1684",
+    "backend/tests/test_clinic_uat.py": "20b6a271b69fbe878e148e46b3c10c73e7a9fef616f3b9a63fad8f3ed828ad48",
+    "backend/tests/test_core.py": "bd6ceddb086d714b177101262493e6ed3865e93fd9d06088c946bf500fadcd7a",
+    "backend/tests/test_deployment_boundaries.py": "b660da71b8f176352d6921a1da237ce0f41df746aeb903e1c3c7b5e90d655882",
+    "backend/tests/test_media_integrity.py": "83a572c73e950ab12dfb65777c17b634f2fcab0b0a5ff8aae8ecac8d7e6d0b39",
+    "backend/tests/test_media_providers.py": "d4abee05f54886b78a6e71bae13f54fba9f25ab3e7a93ae220b40265d7237f59",
+    "backend/tests/test_operations_extensions.py": "cf6c4f4a286891d8686b1bf68b6a059fc9a4a26e96a0da1750ce7001a004753d",
+    "backend/tests/test_ops.py": "79f1ba0de138bf22a8623a48a1eda2f3c7b9bd5d304358d749eb22eae39d04c9",
+    "backend/tests/test_ops_review.py": "276fa535a7f794d9240a21761294fdcd05603118f328feb3a16c68ec7e20b257",
+    "backend/tests/test_partner_integrity.py": "f448151aac12771b2a0ec0de48d14b0ee64a4f8b97c6980842b73b5d4bfd10cf",
+    "backend/tests/test_partners_and_tools.py": "ccbf0e3d61104f30a88ed3ef070ea04511396c7216de7cbdc27657fea3d2517a",
+    "backend/tests/test_voice.py": "aae91c49aca5f3c9312d4c47185cdef16ddd20103335d581990155cf6b0b655a",
+    "backend/tests/test_voice_followup.py": "7cfefcb62f50a8d6a77101dbfa244b8ddc77905bc6cfd7502cf18fd3c85bbeb9",
+    "backend/tests/test_voice_integrity.py": "3032397bda8951a87644efbe397799981faba6f2cc425992a0e17d7bec730d15",
+    "compose.yaml": "7b882988d499c59913cc5bde97b6a455131dd5b134695ee8c4ed4697635bab86",
+    "deploy/Caddyfile": "ead3175200cc55926aa4720bfcd75164e6cad5d5339984fb79c8555f08b4d699",
+    "deploy/asterisk/extensions_hamava.conf": "42c36bd3decf3401df64269de56df2eeeaa0c0d498a2ad0d7bc33c66ad433c8f",
+    "deploy/asterisk/hamava_register.py": "95c5f2617f963fe365fb3185b60ef17be9a7e10f1a948ccd168d07d7329651e3",
+    "deploy/hamava-backup.service": "6f73d5b5cb5719ac6462911012c3266206e0f43e7c9993c0a476a8512109df95",
+    "deploy/hamava-backup.timer": "b6b005c444e21905ad8e948b5227350ab4e23b40b5ff25c5709486fc7037a55b",
+    "deploy/prometheus-alerts.yml": "b9f5dbd725a9b1b1cdbba8e23a8487a7edf7ae3791d7d150e651049b7d583622",
+    "deploy/prometheus.example.yml": "f26feab07d1e3d632b294f11cf8864da2dbf89dc8714fcc84efbd2b4a0be8f6a",
+    "docs/api-contract.md": "8b132a07c737b7c0e32ee17b718872ce3ae4cc617f126ab7cc9d7492a89ffd45",
+    "docs/blueprint-revision.md": "04a150b74066b0c9ecd646dd09a15dc0aac4e0c4886832c853b535572812a6a6",
+    "docs/deployment-runbook.md": "7a4a8f7b2f498b32671bbadf367cd000dd05dc41785d8afe965b49c5898c61f5",
+    "docs/evidence/capacity-synthetic.json": "ce115ddef798b2318354da84223b50a9f98d296748a855e9ad0671457b5fe65c",
+    "docs/launch-playbook.md": "ecf62c72290159a383e663b098baad24fb450c0dbeb1145c7eb067fcfac420d5",
+    "docs/validation/audiosocket-loopback.json": "db091988437b25289164aaef88702cb5ff589533f8cb94c2885186446a19a560",
+    "docs/validation/browser-release.json": "b18aa040516c4a38b407acd920e30199674ba5073012e49fb4d80cac9b4cb6be",
+    "docs/validation/dependency-remediation.json": "bd1afbd1b1ea9a87ac4b22cd9c5418fac69311c5c04aa84bfe32d25a90b73526",
+    "docs/validation/installed-package-smoke.json": "6fed025d52bb2a3846eb7e6caae8b191975a8ea82f70837e4432407b53bc2313",
+    "docs/validation/livekit-loopback.json": "1af16cc89395c4898ba3ff14cb52b2d50d1ab5f09687e23e21c6ae21390705e3",
+    "docs/validation/media-admission-load.json": "6ebd8f33f1616321c7e4753a76eda17c1647d43826c5879453443114cc75e106",
+    "docs/validation/postgres-contention.json": "bf275b423e65ed30df300744089a58d8c476be5a3cdcf9acf61012cd933b12da",
+    "docs/validation/privacy-notice-test.xml": "d3851c43a7f729a1266b3d78b8f63987e732f78b700a5ebee8183ec321a95283",
+    "docs/validation/production-startup.json": "837b98ce1b62de332948ed0e833e6d7c3a60dd4dd4242e74a24c7c153604dcad",
+    "docs/validation/pytest-final.xml": "c9aa3be776591475f8ca29da32183b9ab6357de53653ffc1a2c562da0646a5bf",
+    "docs/validation/restore-drill.json": "d8088bb85955528d3a124ba094450c821f6b228f9536469bc39efbf9e4798802",
+    "frontend/package-lock.json": "f0f41d5a9e42b1d65b5be45155a582b81d7b9f027b69602ee9ae7b32397ca6eb",
+    "frontend/package.json": "a8bc0bdea0aa4df76ff8c2c0d46104da33de009b1d701e68e76c3d7bd03fb1eb",
+    "pyproject.toml": "b6e2e21d658dba2bb3f1e7af61d28f13fd1d6576f800645ae60d4a72f2d9aada",
+    "requirements-bootstrap.txt": "29274da1e4ea9d8f91d74073142ec3da3f358c20e5731750238f94341dab4089",
+    "requirements.lock.txt": "7f61d048cf05bee9914f35cf2219de69a093b0ac384deb4fba306199732bfa48",
+    "scripts/admin.py": "b65ecb740f11771a646cf8e7b43f2202f9edbe4e0d42c049aa4411cc3a284c8d",
+    "scripts/backup.py": "aa4941e65fcbb608b902521f382a495c693ccee2b1be24e1f69737fa4e779c95",
+    "scripts/backup_daily.py": "5b3ba4ff9a23afe534fcffc85bde3240c184a050c7b62d29a0038d6ddc0bc380",
+    "scripts/capacity.py": "3b36df36bd643483ad8a64ce6ef08301f7ed30d71cabe688906caf9b20df852b",
+    "scripts/generate_env.py": "0e0b0345b42b8355fc858d1d98fbe62d4478afd59bd676d17ef325279113d316",
+    "scripts/make_synthetic_fixtures.py": "7fb01a3551da11a9a2e9948ba3cc5fc1d13c15091640d813c009475d80b1fa32",
+    "scripts/migrate.py": "25ec26d7eff92855ee34e898b00bbfa78fd9c6ba232a14e173dc11877df69455",
+    "scripts/postgres_stress.py": "0b9345cba764c1766a17c81d568b43f6668ea211a1c1b65551e78814d671a232",
+    "scripts/rotate_encryption.py": "9872e9728ef417789352f6d4400003bc4ac0815c3f14339b286816efe0b26015",
+    "services/local_speech/app.py": "916621db7e544dda75d930178cf42d32552bc77b3d805182efdf948521fa7abc"
+  },
+  "requirements": [
+    {
+      "id": "FOUNDATION-001",
+      "title": "Reproducible startup",
+      "acceptance": "A clean checkout starts API, worker and UI with documented commands and seeded fictional tenants.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Documented host entry points and a clean built-wheel extraction/import with fresh SQLite were exercised: application health, root UI, caller route, fictional demo login, operations job tick and exclusion of test modules from the wheel all passed (7/7). Backend/frontend lock files and documented commands support reproducing the development startup.",
+      "evidence": [
+        "README.md",
+        "backend/receptionist/main.py",
+        "backend/receptionist/worker.py",
+        "backend/receptionist/seed.py",
+        "compose.yaml",
+        "docs/validation/browser-release.json",
+        "docs/validation/installed-package-smoke.json",
+        "pyproject.toml",
+        ".env.example"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Actual clean built-wheel and fresh development database startup using the current built frontend and installed locked dependencies. Not a fresh operating system, executed Docker build, production deployment, or standalone worker process-signal drill; those separate gates remain explicit."
+    },
+    {
+      "id": "FOUNDATION-002",
+      "title": "Durable relational state",
+      "acceptance": "Appointments, holds, sessions, consent, tasks, messages, usage and payment state survive process restart.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Business state is mapped to durable relational tables rather than process globals. Independent PostgreSQL connections observe committed booking/outbox state; the encrypted restore drill preserved all 51 table counts and restored decryptable appointment identity.",
+      "evidence": [
+        "backend/receptionist/models.py",
+        "backend/receptionist/models_ops.py",
+        "backend/receptionist/models_voice.py",
+        "backend/receptionist/models_ext.py",
+        "backend/receptionist/db.py",
+        "docs/validation/restore-drill.json",
+        "docs/validation/postgres-contention.json"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Proves durable database records and restoration in the isolated synthetic database; not a production failover or every-process crash drill."
+    },
+    {
+      "id": "FOUNDATION-003",
+      "title": "PostgreSQL deployment",
+      "acceptance": "Deployment uses PostgreSQL with validated schema/migrations and independent-connection contention tests.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Production rejects SQLite and requires migration baseline 0001 plus mapped schema/constraint validation. Actual PostgreSQL 16.2 tests used independent connections for 402 operations, including 100 contenders each for slots, holds, a shared resource, and idempotency replay.",
+      "evidence": [
+        "backend/receptionist/config.py",
+        "scripts/migrate.py",
+        "backend/receptionist/db.py",
+        "docs/validation/production-startup.json",
+        "docs/validation/postgres-contention.json"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Isolated local PostgreSQL validation; not customer-database load or production throughput certification."
+    },
+    {
+      "id": "FOUNDATION-004",
+      "title": "SQLite development profile",
+      "acceptance": "Development profile is explicitly limited and cannot be confused with multi-instance production validation.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "SQLite is explicitly a local development profile with foreign keys, WAL and bounded busy timeout. Production validation refuses it, and documentation separates SQLite tests from PostgreSQL contention evidence.",
+      "evidence": [
+        "backend/receptionist/db.py",
+        "backend/receptionist/config.py",
+        "README.md",
+        "docs/deployment-runbook.md",
+        "backend/tests/test_deployment_boundaries.py::test_production_rejects_unsafe_startup"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "FOUNDATION-005",
+      "title": "Dependency reproducibility",
+      "acceptance": "Backend and frontend dependencies are pinned/locked; installation and build are repeatable.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Backend dependency versions and the tested transitive graph are pinned; frontend npm lockfile and build script exist. Dependency remediation records the installed cryptography/pip updates and audit result, and the final test artifact records the actual installed test run.",
+      "evidence": [
+        "pyproject.toml",
+        "requirements.lock.txt",
+        "requirements-bootstrap.txt",
+        "frontend/package-lock.json",
+        "frontend/package.json",
+        "docs/validation/dependency-remediation.json",
+        "docs/validation/pytest-final.xml"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Dependency and build reproducibility controls are verified locally; no claim of hermetic model-weight or container reproducibility on every operating system."
+    },
+    {
+      "id": "FOUNDATION-006",
+      "title": "Configuration validation",
+      "acceptance": "Invalid origins, missing secrets, provider setup and illegal limits fail with actionable startup errors.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Production startup rejects demo mode, unsafe default/weak signing and encryption keys, missing independent lookup key, SQLite and insecure/wildcard origins. Schema mismatch also blocks startup; all ten isolated startup checks passed.",
+      "evidence": [
+        "backend/receptionist/config.py",
+        "backend/receptionist/main.py",
+        "docs/validation/production-startup.json",
+        "backend/tests/test_deployment_boundaries.py::test_production_rejects_unsafe_startup"
+      ],
+      "remaining_acceptance": [
+        "Validate every enabled optional provider configuration and runtime numeric limit at startup. Current validation does not comprehensively reject invalid token lifetimes, media concurrency environment limits, or incomplete enabled provider/version/region settings before serving requests."
+      ],
+      "gap_classification": [
+        "local_implementation"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "FOUNDATION-007",
+      "title": "Demo and production separation",
+      "acceptance": "Synthetic practices, SMS/payment simulation and debug verification codes are labelled; production rejects test shortcuts.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Demo seeds and fixed synthetic OTP/payment/delivery shortcuts are explicitly identified. Production refuses DEMO_MODE and default secrets; demo delivery never calls a real provider, and real payment verification uses server-verified amount and published clinic terms.",
+      "evidence": [
+        "backend/receptionist/config.py",
+        "backend/receptionist/seed.py",
+        "backend/receptionist/voice.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py::test_demo_worker_never_calls_provider",
+        "backend/tests/test_deployment_boundaries.py::test_production_rejects_unsafe_startup",
+        "docs/validation/production-startup.json"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "FOUNDATION-008",
+      "title": "Health and readiness",
+      "acceptance": "API reports its own readiness and degraded dependency state accurately without disclosing secrets.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "The public health route accurately reports application/database reachability and mode, returning 503 for database failure. Scoped operations health exposes queue ages, worker heartbeat freshness, minute-budget exposure and recorded incidents; provider configuration is labelled unverified.",
+      "evidence": [
+        "backend/receptionist/main.py",
+        "backend/receptionist/telemetry.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_partners_and_tools.py::test_metrics_require_separate_secret_and_logs_drop_patient_text"
+      ],
+      "remaining_acceptance": [
+        "Add bounded readiness/degradation observations for the enabled speech, messaging, payment and media dependencies. Configuration presence is not live dependency health, and /health currently checks only the database."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "external_integration"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "FOUNDATION-009",
+      "title": "Graceful shutdown",
+      "acceptance": "API/worker/media processes end in-flight work safely, close handles and preserve recoverable jobs.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "API lifespan cancels and awaits its optional worker. Media workers use bounded leases and cleanup, and abandoned non-idempotent sends become UNKNOWN rather than being replayed. Durable outbox state supports later reconciliation.",
+      "evidence": [
+        "backend/receptionist/main.py",
+        "backend/receptionist/worker.py",
+        "backend/receptionist/media/livekit_worker.py",
+        "backend/receptionist/media/audiosocket.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py::test_stalled_dispatch_becomes_unknown",
+        "docs/validation/media-admission-load.json",
+        "docs/validation/livekit-loopback.json",
+        "docs/validation/audiosocket-loopback.json"
+      ],
+      "remaining_acceptance": [
+        "Execute SIGTERM/forced-stop tests during in-flight API, standalone job and media operations, asserting handle closure and subsequent recovery. Standalone worker termination is not covered by a complete retained process-signal drill.",
+        "The latest real RTC SDK smoke passed 8/8 functional checks but emitted one native caller cleanup warning: Attempted to drop unknown FFI handle. Review the SDK/room lifecycle before deployment; the warning alone proves neither a resource leak nor its absence."
+      ],
+      "gap_classification": [
+        "local_validation"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "FOUNDATION-010",
+      "title": "Schema migration and rollback",
+      "acceptance": "Versioned migrations have tested upgrade and documented rollback/recovery procedures.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "The initial release uses versioned baseline 0001, PostgreSQL advisory migration serialization, idempotent repeat execution, rejection of unversioned populated databases and drift detection. Recovery documentation requires a compatible prior image or a verified isolated pre-change restore, with intervening activity reconciliation.",
+      "evidence": [
+        "scripts/migrate.py",
+        "backend/receptionist/db.py",
+        "docs/deployment-runbook.md",
+        "docs/validation/production-startup.json",
+        "docs/validation/restore-drill.json",
+        "backend/tests/test_deployment_boundaries.py::test_schema_drift_is_detected_without_mutation"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Verified new-database to initial-baseline migration and restore procedure only. There is no historical migration chain or destructive downgrade; future schema changes need their own forward migration and recovery tests."
+    },
+    {
+      "id": "FOUNDATION-011",
+      "title": "Automated CI",
+      "acceptance": "CI runs necessary backend, frontend, type/build, contract and integration gates without live customer credentials.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "CI configuration installs locked dependencies, runs Ruff and pytest, exercises isolated PostgreSQL contention, builds/typechecks the frontend, builds a Docker image, and uploads evidence using synthetic credentials.",
+      "evidence": [
+        ".github/workflows/verify.yml",
+        "frontend/package.json",
+        "docs/validation/pytest-final.xml"
+      ],
+      "remaining_acceptance": [
+        "Execute the configured workflow on the actual repository/build runner and retain its result. Browser workflow/contract acceptance is currently separate local evidence, not an invoked CI browser gate; the Docker build step has not run here."
+      ],
+      "gap_classification": [
+        "local_validation",
+        "deployment_execution"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "FOUNDATION-012",
+      "title": "Source and secret hygiene",
+      "acceptance": "Source package excludes real PII/audio, generated databases, tokens and dependency directories.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Git and Docker exclusions cover environment files, databases, caches, dependency directories, audio/model files and private key material. The only permitted checked-in WAV fixture location is explicitly synthetic research audio.",
+      "evidence": [
+        ".gitignore",
+        ".dockerignore",
+        "scripts/make_synthetic_fixtures.py",
+        "docs/deployment-runbook.md"
+      ],
+      "remaining_acceptance": [
+        "Inspect the final distributable archive manifest and secret scan after packaging. Exclusion rules and source inspection alone do not prove that an arbitrary export/archive actually omits generated databases, tokens and dependency directories."
+      ],
+      "gap_classification": [
+        "local_validation"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "FOUNDATION-013",
+      "title": "Provider capability registry",
+      "acceptance": "Each integration advertises actual operations, model/endpoint/version, region, data terms and verification state.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Integration status distinguishes active internal calendar, configured_unverified external services, demo-disabled sending and missing configuration. Call snapshots pin application/FSM/locale/calendar/adapter and configured speech versions, using not_recorded for unavailable values; privacy reporting lists processing regions as requiring review when unknown.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/receptionist/voice.py",
+        "backend/receptionist/providers.py",
+        "backend/tests/test_ops_review.py::test_integration_configuration_distinguishes_demo_sends_from_working_media",
+        "backend/tests/test_voice_followup.py"
+      ],
+      "remaining_acceptance": [
+        "Extend the integration registry to persist and expose each operation capability, actual endpoint/model revision, processing region, data terms and dated verification evidence. Environment booleans and call version tuples are not a complete approved per-integration registry."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "operator_evidence"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "FOUNDATION-014",
+      "title": "Layered architecture",
+      "acceptance": "Media remains separate from transactional booking; async workflow tooling cannot become calendar authority.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "AudioSocket/LiveKit process media separately and invoke the same authenticated application service. Calendar occupancy, read-back, idempotency, audit and logical outbox changes are governed by the transactional service; background messaging does not confirm appointments.",
+      "evidence": [
+        "backend/receptionist/core.py",
+        "backend/receptionist/voice.py",
+        "backend/receptionist/media_api.py",
+        "backend/receptionist/media/livekit_worker.py",
+        "backend/receptionist/media/audiosocket.py",
+        "backend/tests/test_core.py::test_booking_atomic_outbox_and_encrypted_pii",
+        "backend/tests/test_voice_integrity.py"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "TENANT-002",
+      "title": "Legal operator and locations",
+      "acceptance": "Tenant record distinguishes legal clinic operator, building membership and independent location ownership.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Tenant building membership is distinct from the versioned clinic profile, which records legal operator, location label and ownership reference. Profile publication is owner/admin authorized and audited; public branding excludes legal ownership fields.",
+      "evidence": [
+        "backend/receptionist/models.py",
+        "backend/receptionist/models_partner.py",
+        "backend/receptionist/partners.py",
+        "backend/tests/test_partners_and_tools.py::test_profile_publication_version_and_pronunciation_cannot_change_truth"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Validates the software distinction and authorization, not the truth of a submitted ownership declaration or a signed legal agreement."
+    },
+    {
+      "id": "TENANT-003",
+      "title": "Provider and service catalog",
+      "acceptance": "Providers/services carry duration, buffers, price, prep, insurance notes, resource needs and active status.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Owner/admin catalog CRUD validates tenant-scoped providers/resources, arbitrary bounded duration, buffers, price, deposit, approval, activity and practitioner shifts. Inactive catalog entries can be restored without silently dropping resource needs.",
+      "evidence": [
+        "backend/receptionist/models.py",
+        "backend/receptionist/schemas.py",
+        "backend/receptionist/api.py",
+        "backend/tests/test_core.py::test_onboarding_catalog_scopes_inactive_restoration_and_faq_approval",
+        "backend/tests/test_core.py::test_practitioner_shifts_validate_preserve_and_protect_existing_bookings"
+      ],
+      "remaining_acceptance": [
+        "Preparation and insurance facts are clinic-level approved FAQ/description content, not explicit per-service, versioned preparation and insurance-policy fields. Demonstrate correct service-specific selection before treating the full catalog acceptance as complete."
+      ],
+      "gap_classification": [
+        "local_implementation"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "TENANT-005",
+      "title": "Policy publication",
+      "acceptance": "Approved configuration has version, author/reviewer, effective time and audit trail.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Settings publication is owner/admin authorized, optimistic-version checked, tenant serialized, audited and appended to immutable policy revisions with actor and publication time. FAQ facts carry approver, source and effective/expiry times; production activation additionally requires a current reviewer-bound policy/catalog UAT attestation.",
+      "evidence": [
+        "backend/receptionist/core.py",
+        "backend/receptionist/models_ext.py",
+        "backend/receptionist/operations_extensions.py",
+        "backend/receptionist/operations_uat.py",
+        "backend/tests/test_operations_extensions.py::test_policy_restore_appends_history_and_rejects_stale_version",
+        "backend/tests/test_core.py::test_onboarding_catalog_scopes_inactive_restoration_and_faq_approval",
+        "backend/tests/test_clinic_uat.py::test_production_activation_needs_exact_attestation_but_pause_always_works"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "General configuration takes effect on publication; fact validity may be scheduled. The authorized publisher may also be the reviewer; an independent two-person approval workflow is not claimed."
+    },
+    {
+      "id": "TENANT-010",
+      "title": "Routing configuration",
+      "acceptance": "DID, clinic, provider, queue and allowlisted human destination mappings are versioned and validated.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Private authenticated PBX registration maps an exact DID to an active tenant and rejects unauthorized/reused registration IDs. Human transfer uses configured destinations rather than caller-provided numbers; browser overflow cannot self-assert PBX routing authority.",
+      "evidence": [
+        "backend/receptionist/media_api.py",
+        "backend/receptionist/media/audiosocket.py",
+        "deploy/asterisk/hamava_register.py",
+        "deploy/asterisk/extensions_hamava.conf",
+        "backend/tests/test_voice_integrity.py::test_browser_cannot_assert_overflow_authority"
+      ],
+      "remaining_acceptance": [
+        "Persist versioned DID/provider/queue/human destination mappings with approval history and complete cross-field validation. The current DID mapping and PBX staff route are operator environment/dialplan configuration, not one versioned application routing registry."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "operator_evidence"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "AUTH-001",
+      "title": "Staff authentication",
+      "acceptance": "Staff authenticate with a production-appropriate password/identity flow and expiring/revocable sessions.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Staff credentials use Argon2id, non-enumerating password verification and durable login attempt limiting. Staff JWTs have audience/issuer/expiry/token version; every protected request revalidates active user, tenant and membership, so membership revocation invalidates current authority.",
+      "evidence": [
+        "backend/receptionist/security.py",
+        "backend/receptionist/api.py",
+        "scripts/admin.py",
+        "backend/tests/test_core.py::test_http_auth_membership_roles_and_cross_tenant_isolation",
+        "backend/tests/test_core.py::test_expired_or_wrong_audience_jwt_rejected",
+        "backend/tests/test_partners_and_tools.py::test_owner_team_grant_immediate_revoke_and_partner_no_staff_access"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Password and scoped-session implementation; no SSO/MFA deployment or organizational account recovery process is asserted."
+    },
+    {
+      "id": "AUTH-002",
+      "title": "Roles and memberships",
+      "acceptance": "Receptionist, manager, coordinator, billing and technical permissions are explicit and tenant scoped.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Owner, admin, receptionist, clinician and limited partner memberships are tenant scoped. Team grants require an owner, collisions are reconciled transactionally, and revoked membership immediately removes access.",
+      "evidence": [
+        "backend/receptionist/security.py",
+        "backend/receptionist/partners.py",
+        "backend/receptionist/api.py",
+        "backend/tests/test_partner_integrity.py",
+        "backend/tests/test_partners_and_tools.py::test_owner_team_grant_immediate_revoke_and_partner_no_staff_access"
+      ],
+      "remaining_acceptance": [
+        "Define and test the distinct coordinator, billing and technical permissions requested by the blueprint. Current owner/admin permissions combine several of those responsibilities rather than representing the complete least-privilege role matrix."
+      ],
+      "gap_classification": [
+        "local_implementation"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "AUTH-004",
+      "title": "Object scope enforcement",
+      "acceptance": "Every read/write/worker/export rejects cross-tenant resource IDs even if an attacker knows the ID.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Calendar/resource identifiers are scoped by server-derived tenant authority. Operations and partner exports enforce tenant predicates and current membership/credential scope; test suites exercise known cross-tenant IDs, signed slot misuse and inaccessible workflow objects.",
+      "evidence": [
+        "backend/receptionist/security.py",
+        "backend/receptionist/core.py",
+        "backend/receptionist/operations.py",
+        "backend/receptionist/operations_extensions.py",
+        "backend/receptionist/partners.py",
+        "backend/tests/test_core.py::test_tenant_isolation_and_signed_slot_scope",
+        "backend/tests/test_operations_extensions.py::test_extension_routes_enforce_roles_and_tenant_scope",
+        "backend/tests/test_partners_and_tools.py::test_partner_key_scope_masking_revocation_and_authority"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Source inspection and named negative authorization regressions, not a claim of exhaustive penetration testing of every possible object path."
+    },
+    {
+      "id": "AUTH-006",
+      "title": "Minimal patient data",
+      "acceptance": "Collect only required operational identity; encrypt sensitive contacts/notes and mask default views.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Appointments collect operational identity rather than diagnosis, and encrypt patient name/phone. Phone lookups use independent HMAC; normal list views mask phone numbers. Sensitive staff notes, caller state, proof payloads and partner destinations use encrypted fields, with safe log formatting excluding arbitrary sensitive text.",
+      "evidence": [
+        "backend/receptionist/models.py",
+        "backend/receptionist/security.py",
+        "backend/receptionist/core.py",
+        "backend/receptionist/operations_extensions.py",
+        "backend/receptionist/telemetry.py",
+        "backend/tests/test_core.py::test_booking_atomic_outbox_and_encrypted_pii",
+        "backend/tests/test_operations_extensions.py::test_contact_correction_audit_redacts_and_erasure_covers_previous_number",
+        "backend/tests/test_partners_and_tools.py::test_metrics_require_separate_secret_and_logs_drop_patient_text"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Authorized appointment staff still see the patient name required for reception; access-controlled operational identity is not represented as anonymous data."
+    },
+    {
+      "id": "AUTH-010",
+      "title": "Safe credential custody",
+      "acceptance": "Supplier and signing secrets remain server-side, are rotatable and excluded from frontend/source/logs.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Provider secrets remain server-side environment/configuration inputs; tokens are scoped or hashed at rest as appropriate. Safe logging drops arbitrary text, environment templates use placeholders, and key rotation/revocation is documented with tested nested ciphertext rotation and stable lookup identities.",
+      "evidence": [
+        "backend/receptionist/security.py",
+        "backend/receptionist/providers.py",
+        "backend/receptionist/partners.py",
+        "backend/receptionist/telemetry.py",
+        "scripts/generate_env.py",
+        "scripts/rotate_encryption.py",
+        "docs/deployment-runbook.md",
+        "backend/tests/test_deployment_boundaries.py::test_key_rotation_preserves_lookup_identity_and_resumes",
+        "backend/tests/test_deployment_boundaries.py::test_database_error_diagnostic_never_includes_sql_or_parameters"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Application custody and rotation controls; production secret-vault provisioning and actual custodian access review are operator responsibilities. Final archive hygiene is assessed separately."
+    },
+    {
+      "id": "AUTH-012",
+      "title": "Audit of overrides",
+      "acceptance": "Privileged access, policy changes, exports, staff interventions and identity corrections record actor and reason.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Policy publications, partner/privacy exports, manual appointment corrections, task lifecycle actions, team changes and intervention events retain actor/entity/action evidence. Correction and policy reasons are encrypted where free text is stored.",
+      "evidence": [
+        "backend/receptionist/core.py",
+        "backend/receptionist/operations_extensions.py",
+        "backend/receptionist/partners.py",
+        "backend/receptionist/media_api.py",
+        "backend/tests/test_operations_extensions.py::test_contact_correction_audit_redacts_and_erasure_covers_previous_number",
+        "backend/tests/test_operations_extensions.py::test_policy_restore_appends_history_and_rejects_stale_version"
+      ],
+      "remaining_acceptance": [
+        "Specify and enforce a uniform reason/evidence policy for every privileged override/export/access class. Some current audit records contain an action and actor with a generated reason or no separately supplied reason; ordinary privileged reads are not comprehensively audited."
+      ],
+      "gap_classification": [
+        "local_implementation"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "AUTH-013",
+      "title": "Request and transport protection",
+      "acceptance": "Deployable origin/TLS/cookie/token/CSRF policy and request-size constraints are documented and enforced.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Bearer tokens are used rather than ambient authentication cookies; CORS origins are explicit and credential cookies disabled. Production rejects insecure origins, emits HSTS and security headers, and the supplied Caddy edge enforces a body-size ceiling and hides internal media/metrics routes. Audio containers have independent bounds.",
+      "evidence": [
+        "backend/receptionist/main.py",
+        "backend/receptionist/config.py",
+        "backend/receptionist/providers.py",
+        "deploy/Caddyfile",
+        "compose.yaml",
+        "docs/deployment-runbook.md",
+        "backend/tests/test_deployment_boundaries.py::test_production_rejects_unsafe_startup",
+        "backend/tests/test_media_integrity.py"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Deployable policy and application checks are locally inspected/tested. Public TLS certificates, proxy configuration and NAT/firewall behavior must be verified at the real deployment; the app Content-Length check alone is not a streaming request-size firewall."
+    },
+    {
+      "id": "AUTH-015",
+      "title": "Export and deletion authorization",
+      "acceptance": "Export/correction/deletion requests require correct subject or clinic authority and scoped audit.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Privacy export/deletion and contact/time corrections require active owner/admin authority, tenant-scoped lookup and audited effects. Erasure covers linked notes/proofs/turns while retaining minimal active appointment evidence and creating review instead of silently canceling business records.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_ops.py::test_privacy_retains_active_business_record_without_silent_cancel",
+        "backend/tests/test_ops.py::test_privacy_erases_turns_challenges_and_revokes_consent",
+        "backend/tests/test_operations_extensions.py::test_privacy_export_and_erasure_cover_linked_staff_notes",
+        "backend/tests/test_operations_extensions.py::test_extension_routes_enforce_roles_and_tenant_scope"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Clinic-authority workflow is implemented. A separate unassisted public subject-access portal is not claimed."
+    },
+    {
+      "id": "BOOKING-001",
+      "title": "Authoritative calendar selection",
+      "acceptance": "Every tenant has one approved appointment authority and connector capability profile.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "All current tenants use the one internal transactional calendar, and its integration status says active. External adapters fail closed unless approved capabilities exist; the code does not silently install a second calendar authority.",
+      "evidence": [
+        "backend/receptionist/core.py",
+        "backend/receptionist/operations.py",
+        "backend/receptionist/providers.py",
+        "README.md"
+      ],
+      "remaining_acceptance": [
+        "Add a persisted per-tenant approved authority/capability profile before supporting authority selection. External calendar adoption, canonical identifiers and authoritative write ownership are not wired into the live booking service."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "external_integration"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BOOKING-002",
+      "title": "Live scoped availability",
+      "acceptance": "Only valid provider/service/resource slots are returned with canonical ID, freshness and display labels.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Availability validates tenant-scoped active provider/service/resources, clinic and practitioner hours, closures, lead time and horizon. Offers carry canonical signed slot identifiers, expiry and policy version; commit rechecks current capacity and policy.",
+      "evidence": [
+        "backend/receptionist/core.py",
+        "backend/receptionist/locale.py",
+        "backend/tests/test_core.py::test_tenant_isolation_and_signed_slot_scope",
+        "backend/tests/test_core.py::test_policy_version_holidays_and_hours",
+        "backend/tests/test_core.py::test_practitioner_shifts_validate_preserve_and_protect_existing_bookings",
+        "backend/tests/test_operations_extensions.py::test_closure_blocks_new_slots_preserves_bookings_releases_holds_and_suppresses_stale_notice"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BOOKING-004",
+      "title": "Provider duration exclusion",
+      "acceptance": "Overlapping intervals including unequal service durations and buffers cannot be confirmed concurrently.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Database-unique per-minute occupancy includes the full appointment duration and buffer. Unequal starts and service lengths conflict correctly, not merely identical timestamps; failed moves retain original claims.",
+      "evidence": [
+        "backend/receptionist/models.py",
+        "backend/receptionist/core.py",
+        "backend/tests/test_core.py::test_overlap_not_only_equal_start_and_shared_resource",
+        "backend/tests/test_core.py::test_failed_reschedule_preserves_original_claims",
+        "docs/validation/postgres-contention.json"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BOOKING-005",
+      "title": "Room and equipment exclusion",
+      "acceptance": "Required room/chair/equipment/staff occupancy participates in the same reservation conflict rules.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Provider and required shared resource occupancy are claimed in the same transaction and uniqueness namespace. Resource configuration is scoped to the tenant, and an actual 100-contender PostgreSQL shared-resource scenario produced one winner.",
+      "evidence": [
+        "backend/receptionist/models.py",
+        "backend/receptionist/core.py",
+        "backend/receptionist/api.py",
+        "backend/tests/test_core.py::test_overlap_not_only_equal_start_and_shared_resource",
+        "docs/validation/postgres-contention.json"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BOOKING-009",
+      "title": "Hundred-way contention",
+      "acceptance": "100 independent contenders for one synthetic capacity-one slot yield at most one confirmed booking.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "The retained PostgreSQL report records 100 independent contenders for one capacity-one slot: one created appointment, 99 SLOT_TAKEN outcomes, and zero duplicate occupancy. Separate shared-resource/hold/idempotency scenarios and simultaneous rescheduling also passed.",
+      "evidence": [
+        "scripts/postgres_stress.py",
+        "docs/validation/postgres-contention.json"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Actual isolated PostgreSQL connection contention using synthetic records; this does not establish carrier/media capacity or production throughput."
+    },
+    {
+      "id": "BOOKING-011",
+      "title": "Unknown external write",
+      "acceptance": "Timeout after submit creates reconciliation state and does not blindly retry or speak confirmed.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "The external calendar prototype issues at most one write, looks up the idempotency key after unknown outcome, then verifies canonical read-back and requested slot/patient token. Missing atomicity capabilities reject the write.",
+      "evidence": [
+        "backend/receptionist/providers.py",
+        "backend/tests/test_media_providers.py::test_calendar_unknown_write_reconciles_without_second_post",
+        "backend/tests/test_media_providers.py::test_calendar_rejects_unverified_capability"
+      ],
+      "remaining_acceptance": [
+        "Persist external operation/reconciliation state and connect it to the tenant-selected live booking workflow. The current prototype can return UNKNOWN errors but does not provide a durable external booking reconciliation queue or complete integrated caller/staff recovery."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "external_integration"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BOOKING-012",
+      "title": "External conflict recovery",
+      "acceptance": "A concurrent staff/website write is detected or the action remains supervised pending review.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Staff UI, public voice and supported partner voice notes all use the same internal calendar; database occupancy and optimistic revision checks reject concurrent conflicting writes or stale moves. Unsupported operations route to staff rather than inventing confirmation.",
+      "evidence": [
+        "backend/receptionist/core.py",
+        "backend/receptionist/api.py",
+        "backend/receptionist/voice.py",
+        "backend/receptionist/partners.py",
+        "backend/tests/test_core.py::test_successful_reschedule_and_stale_version",
+        "docs/validation/postgres-contention.json"
+      ],
+      "remaining_acceptance": [
+        "Detect/reconcile writes made in an independently operated clinic website/EHR/calendar. No verified external synchronization source is connected, so the internal conflict test cannot establish external website conflict recovery."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "external_integration"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BOOKING-013",
+      "title": "State transitions",
+      "acceptance": "Held, pending payment/approval, confirmed, cancel/reschedule pending, canceled, expired and failed-review transitions are explicit.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Internal hold, approval, payment, confirmation, cancellation and expiry states are explicit; transition checks, stale versions, financial review and atomic moves are tested. Pending approval/payment is not described as confirmed.",
+      "evidence": [
+        "backend/receptionist/core.py",
+        "backend/receptionist/models.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_core.py::test_pending_payment_amount_late_payment_and_approval",
+        "backend/tests/test_core.py::test_staff_approval_not_false_confirmation",
+        "backend/tests/test_core.py::test_successful_reschedule_and_stale_version"
+      ],
+      "remaining_acceptance": [
+        "Complete explicit durable cancel-pending, reschedule-pending and failed-review states for uncertain external calendar operations. Current internal transactional actions commit or reject atomically, and operational tasks do not implement the full external operation state graph."
+      ],
+      "gap_classification": [
+        "local_implementation"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BOOKING-019",
+      "title": "Operation audit",
+      "acceptance": "All booking transitions retain original IDs, revision, actor, authorization and source outcome.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Internal booking mutations retain stable appointment/reference identifiers, optimistic revision, authenticated actor and audit events for create/cancel/reschedule/approval/outcome. Staff corrections retain before/after evidence without rewriting financial history.",
+      "evidence": [
+        "backend/receptionist/core.py",
+        "backend/receptionist/models.py",
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_core.py::test_successful_reschedule_and_stale_version",
+        "backend/tests/test_core.py::test_booking_atomic_outbox_and_encrypted_pii",
+        "backend/tests/test_operations_extensions.py::test_contact_correction_audit_redacts_and_erasure_covers_previous_number"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Verified for the internal authoritative calendar. External provider operation revisions/outcomes require the missing reconciliation integration assessed under BOOKING-011/024."
+    },
+    {
+      "id": "BOOKING-020",
+      "title": "Transaction outbox",
+      "acceptance": "Booking and its logical notification are atomically durable while delivered status remains separate.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Appointment/occupancy mutation, logical notification and audit are committed atomically; idempotent replay cannot create a second booking/message. Provider acceptance, delivery, failure and unknown outcome remain distinct outbox states.",
+      "evidence": [
+        "backend/receptionist/core.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_core.py::test_booking_atomic_outbox_and_encrypted_pii",
+        "backend/tests/test_core.py::test_idempotency_replay_and_mismatched_body",
+        "backend/tests/test_ops.py::test_unknown_send_not_retried_or_claimed_twice",
+        "backend/tests/test_ops.py::test_receipt_deduplication_and_terminal_delivered",
+        "docs/validation/postgres-contention.json"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BOOKING-022",
+      "title": "Service rule exceptions",
+      "acceptance": "First/follow-up visits, packages and 10/20/40-minute examples honor tenant policy rather than global tiers.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Services accept independent durations, buffers, prices, resources and approval/deposit policies. Calendar arithmetic uses the selected service rather than fixed global 10/20/40-minute tiers, and manual service correction rechecks the new duration/resources.",
+      "evidence": [
+        "backend/receptionist/schemas.py",
+        "backend/receptionist/models.py",
+        "backend/receptionist/core.py",
+        "backend/tests/test_operations_extensions.py::test_service_correction_uses_new_duration_resources_price_approval"
+      ],
+      "remaining_acceptance": [
+        "Model and test explicit first-visit/follow-up eligibility and multi-service/package exceptions. Naming an ordinary service as a follow-up or package does not establish package entitlement or visit-history policy enforcement."
+      ],
+      "gap_classification": [
+        "local_implementation"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BOOKING-024",
+      "title": "Calendar sync reconciliation",
+      "acceptance": "Webhook or polling revisions track lag, stale data and conflicts without creating a shadow source of truth.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "The internal calendar has optimistic versions and the external prototype verifies a single create/read-back result. No second shadow calendar is automatically populated.",
+      "evidence": [
+        "backend/receptionist/core.py",
+        "backend/receptionist/providers.py",
+        "backend/tests/test_media_providers.py::test_calendar_unknown_write_reconciles_without_second_post"
+      ],
+      "remaining_acceptance": [
+        "Implement per-integration webhook/poll revision ingestion, synchronization cursor/lag, conflict recording and recovery. The current adapter has no persistent calendar sync/reconciliation ledger, so this full acceptance is not implemented."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "external_integration"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BILLING-001",
+      "title": "Usage event ledger",
+      "acceptance": "Unique source/call/tenant events record meter, quantity, unit, rate version, currency and adjustments.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Durable usage events contain tenant, optional call, kind, quantity, unit, cost_toman and timestamp. End-of-call handling avoids duplicate call-duration charges; billing duration excludes STT processing seconds. Invoice snapshots and separate adjustments preserve history.",
+      "evidence": [
+        "backend/receptionist/models.py",
+        "backend/receptionist/voice.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_ops.py::test_stt_processing_meter_never_inflates_billable_call_minutes",
+        "backend/tests/test_ops.py::test_invoice_snapshots_are_closed_period_and_not_silent_charges"
+      ],
+      "remaining_acceptance": [
+        "Add source/provider receipt identifiers with semantic uniqueness, per-event rate version and currency, and a defined precision-safe cost basis. Random event primary keys and floating cost_toman do not satisfy the complete provider billing ledger contract."
+      ],
+      "gap_classification": [
+        "local_implementation"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BILLING-002",
+      "title": "Correct call denominators",
+      "acceptance": "Attempted, connected, answered, eligible, resolved, confirmed and kept are defined distinctly.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Daily/reporting aggregates distinguish call sessions, appointment statuses, confirmed booking counts, attendance and unknown attendance. STT seconds do not inflate call duration, and unknown outcomes are not coerced into attended/resolved counts.",
+      "evidence": [
+        "backend/receptionist/operations_extensions.py",
+        "backend/receptionist/partners.py",
+        "backend/receptionist/telemetry.py",
+        "backend/tests/test_operations_extensions.py::test_digest_counts_duration_without_stt_and_keeps_unknown_attendance",
+        "backend/tests/test_ops.py::test_stt_processing_meter_never_inflates_billable_call_minutes"
+      ],
+      "remaining_acceptance": [
+        "Instrument and document the complete attempted/connected/answered/eligible/resolved funnel, including attempted calls that never create an application session and partner/carrier eligibility denominators. Current session counts are not all those distinct metrics."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "external_integration"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BILLING-003",
+      "title": "Invoice reconciliation",
+      "acceptance": "Vendor receipts reconcile to tenant/provider usage with explicit discrepancy and dispute workflow.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Closed-period invoice drafts snapshot authorized pricing, call-duration usage, adjustments and recorded costs without charging a customer. Patient deposit refund/dispute workflows exist as a separate financial domain.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/receptionist/models_ops.py",
+        "backend/receptionist/operations_extensions.py",
+        "backend/tests/test_ops.py::test_invoice_snapshots_are_closed_period_and_not_silent_charges"
+      ],
+      "remaining_acceptance": [
+        "Implement vendor/carrier receipt import, provider-event matching, discrepancy tracking and vendor-cost dispute resolution. Patient payment disputes are not supplier invoice reconciliation, and no live supplier receipts are supplied."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "external_integration"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BILLING-004",
+      "title": "Pooled building allowance",
+      "acceptance": "Included minutes and overages allocate by contract and authorized clinic usage.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Building pools require active owner authority over every included tenant in the same building and an explicit contract period/allowance/rate. Usage-based allocation uses integer Toman largest-remainder arithmetic to preserve exact pooled totals, excluding STT seconds.",
+      "evidence": [
+        "backend/receptionist/models_partner.py",
+        "backend/receptionist/partners.py",
+        "backend/tests/test_partners_and_tools.py::test_building_pool_exact_money_and_access_scope",
+        "backend/tests/test_ops.py::test_stt_processing_meter_never_inflates_billable_call_minutes"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Verified allocation software and entered contract configuration. Signed commercial terms, taxes and actual invoiced/collected money are not inferred."
+    },
+    {
+      "id": "BILLING-005",
+      "title": "Cost budget enforcement",
+      "acceptance": "Soft alerts/hard caps and humane fallback include retries, silence and provider-specific charge units.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Tenant admission accounts for persisted and active call duration, including logical-call silence; concurrency and maximum duration are bounded and 80-percent minute-budget warnings are exposed. Retries are bounded by operation type and uncertain non-idempotent sends are not blindly replayed.",
+      "evidence": [
+        "backend/receptionist/voice.py",
+        "backend/receptionist/telemetry.py",
+        "backend/receptionist/providers.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_voice_integrity.py",
+        "docs/validation/media-admission-load.json"
+      ],
+      "remaining_acceptance": [
+        "Enforce real currency-based soft/hard spending limits using actual provider/carrier billing units, rates, retries and rounded charge increments. Current minute/concurrency limits are not an all-provider cost budget and do not prove toll-fraud exposure limits."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "external_integration"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "BILLING-011",
+      "title": "Adjustment history",
+      "acceptance": "Billing corrections preserve original events and identify approving actor/reason.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Billing adjustments are append-only separate records, tenant/idempotency scoped and linked to an actor audit event and reason. Closed invoice snapshots retain their original usage/pricing/adjustments, and incompatible replay does not silently rewrite an issued snapshot.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/receptionist/models_ops.py",
+        "backend/tests/test_ops.py::test_invoice_snapshots_are_closed_period_and_not_silent_charges"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Software draft invoice/adjustment history; not external accounting-system posting or payment collection."
+    },
+    {
+      "id": "BILLING-012",
+      "title": "Permissioned reporting exports",
+      "acceptance": "Reports mask unnecessary patient data, carry definitions and enforce tenant/billing scopes.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Owner/admin billing APIs are tenant scoped, building reports require membership authority, and versioned partner exports remove patient names, phones and clinical notes. Reports label period/all-time scope, unknown attendance, allocation rules and draft invoice semantics.",
+      "evidence": [
+        "backend/receptionist/operations.py",
+        "backend/receptionist/operations_extensions.py",
+        "backend/receptionist/partners.py",
+        "backend/tests/test_partners_and_tools.py::test_partner_key_scope_masking_revocation_and_authority",
+        "backend/tests/test_partners_and_tools.py::test_building_pool_exact_money_and_access_scope",
+        "backend/tests/test_operations_extensions.py::test_digest_counts_duration_without_stt_and_keeps_unknown_attendance"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Current billing privileges are owner/admin permissions; a distinct billing-only role remains a gap under AUTH-002. JSON reporting/export is implemented; formal statutory invoice compliance is not claimed."
+    },
+    {
+      "id": "PRIVACY-002",
+      "title": "Recording off by default",
+      "acceptance": "No raw audio retained absent eligible configuration and actual permission; refusal keeps a supported service path.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Raw audio recording and training are disabled by default and unsupported true consent requests are rejected. Caller intake requires processing permission, exposes a clinic phone/human route and supports staff handoff; neither browser nor PBX path silently stores raw recordings.",
+      "evidence": [
+        "backend/receptionist/voice.py",
+        "backend/receptionist/models_voice.py",
+        "backend/receptionist/media_api.py",
+        "backend/receptionist/partners.py",
+        "backend/tests/test_voice.py::test_session_scope_recording_disabled_and_replay_mismatch",
+        "docs/deployment-runbook.md"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Recording-off implementation and offered human alternative are verified. Actual staffed availability on an owned telephone route is an external launch gate."
+    },
+    {
+      "id": "PRIVACY-003",
+      "title": "Ephemeral media handling",
+      "acceptance": "Default media buffers are bounded and discarded; traces do not silently retain full patient audio/transcript.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Default PCM/container handling is bounded in memory and raw audio is not written to a recording store. The public clinic notice explicitly discloses encrypted necessary conversation text/results for reception and recovery, the clinic retention period after call end, scheduled cleanup, a deletion request route and the separate treatment of necessary booking records. No transcript text is placed in logs; durable encrypted receipts preserve atomic replay.",
+      "evidence": [
+        "backend/receptionist/voice.py",
+        "backend/receptionist/models_voice.py",
+        "backend/receptionist/media/audio.py",
+        "services/local_speech/app.py",
+        "backend/receptionist/telemetry.py",
+        "backend/tests/test_media_integrity.py",
+        "backend/tests/test_ops.py::test_privacy_erases_turns_challenges_and_revokes_consent",
+        "backend/receptionist/voice.py::public_clinic",
+        "backend/tests/test_voice.py::test_session_scope_recording_disabled_and_replay_mismatch",
+        "docs/validation/privacy-notice-test.xml"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "The focused test verifies a tenant-specific 14-day disclosure without leaking it to a second clinic configured for 30 days. Necessary recognized text remains encrypted for replay: this is disclosed retention, not ephemeral transcript processing. The operator must run the retention worker and honor deletion review; no exact deletion instant, deployed legal adequacy, or independent per-purpose retention controls are claimed."
+    },
+    {
+      "id": "PRIVACY-009",
+      "title": "Storage and access protection",
+      "acceptance": "Sensitive objects have encryption/access control, expiry and no public playback URLs.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Sensitive patient/contact, call context, turn receipt, verification secret, staff note and partner destination values are encrypted. Authentication and tenant checks guard access; scoped caller/media capabilities expire; raw recordings/public playback objects do not exist in the implemented default flow.",
+      "evidence": [
+        "backend/receptionist/security.py",
+        "backend/receptionist/models.py",
+        "backend/receptionist/models_voice.py",
+        "backend/receptionist/models_partner.py",
+        "backend/receptionist/operations.py",
+        "backend/tests/test_core.py::test_booking_atomic_outbox_and_encrypted_pii",
+        "backend/tests/test_ops.py::test_privacy_erases_turns_challenges_and_revokes_consent",
+        "backend/tests/test_deployment_boundaries.py::test_key_rotation_preserves_lookup_identity_and_resumes"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Existing application objects only. Any future recording/object storage needs its own private-object access, expiry and processor approval; encrypted data still requires correct deployment key custody."
+    },
+    {
+      "id": "PARTNER-001",
+      "title": "Calendar adapter contract",
+      "acceptance": "List/get/hold/create/cancel/update/read-back/reconcile capability tests are reusable per integration.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "The approved-calendar prototype exposes a capabilities check and conditional/idempotent create with read-back and unknown-write lookup. Tests reject unsupported capabilities and assert no second POST after an unknown write.",
+      "evidence": [
+        "backend/receptionist/providers.py",
+        "backend/tests/test_media_providers.py::test_calendar_unknown_write_reconciles_without_second_post",
+        "backend/tests/test_media_providers.py::test_calendar_rejects_unverified_capability"
+      ],
+      "remaining_acceptance": [
+        "Complete the reusable list/get/hold/create/cancel/update/read-back/reconcile contract and capability test matrix. Current external adapter coverage is create/reconcile/read-back only and is not selected by tenant calendar authority."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "external_integration"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "PARTNER-002",
+      "title": "Partner scopes and dashboard",
+      "acceptance": "Partner/agency access is explicit per tenant and cannot bypass clinic authority.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "One-time-issued partner keys are hashed at rest, scope limited, tenant bound, expiring and revocable. Each use revalidates active issuing owner authority, user and tenant; limited partner membership cannot access normal staff/patient operations.",
+      "evidence": [
+        "backend/receptionist/partners.py",
+        "backend/receptionist/models_partner.py",
+        "backend/tests/test_partners_and_tools.py::test_partner_key_scope_masking_revocation_and_authority",
+        "backend/tests/test_partners_and_tools.py::test_owner_team_grant_immediate_revoke_and_partner_no_staff_access",
+        "backend/tests/test_partner_integrity.py"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "PARTNER-004",
+      "title": "Provider/API exports",
+      "acceptance": "Permissioned API/export contracts are versioned and support deprecation and audit.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Partner export routes use /partner/v1, a version response header, bounded date/row limits, explicit key scopes and audit records. Appointment exports omit patient identity and have a schema_version plus deprecation field.",
+      "evidence": [
+        "backend/receptionist/partners.py",
+        "backend/tests/test_partners_and_tools.py::test_partner_key_scope_masking_revocation_and_authority",
+        "docs/api-contract.md"
+      ],
+      "remaining_acceptance": [
+        "Define and test a deprecation/sunset lifecycle and compatibility behavior for changing an export version. A permanently null deprecation field and a single v1 implementation do not yet demonstrate supported deprecation."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "local_validation"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "PARTNER-006",
+      "title": "Owner digest channel abstraction",
+      "acceptance": "Telegram/Bale/Eitaa or email-style digests can be configured only with platform permission and recipient scope.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Owner-only digest destinations bind tenant, encrypted recipient and consent reference. Manual or explicitly opted-in daily scheduling is deduplicated; dispatch rechecks owner/tenant/destination authority and requires an approved allowlisted gateway. Unknown sends are not automatically resent and acceptance is only SENT.",
+      "evidence": [
+        "backend/receptionist/partners.py",
+        "backend/receptionist/models_partner.py",
+        "backend/tests/test_partners_and_tools.py::test_digest_timeout_unknown_and_acceptance_not_delivery",
+        "backend/tests/test_partners_and_tools.py::test_daily_digest_requires_opt_in_and_queues_each_closed_day_once"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Verified common gateway abstraction and scope/approval controls for Telegram/Bale/Eitaa/email-style channels. Native platform accounts, native adapters and actual recipient delivery remain PARTNER-GATE-003, not claimed by this local status."
+    },
+    {
+      "id": "PARTNER-007",
+      "title": "Messaging suppression across channels",
+      "acceptance": "WhatsApp/Telegram/SMS/social permissions and opt-outs remain purpose/channel specific.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "Channel grants require tenant, subject hash, channel and purpose. Eligibility requires explicit active permission and no suppression; withdrawal cannot be overridden by an unrelated grant. Digest destination disablement suppresses queued work, and unsupported social transports do not send.",
+      "evidence": [
+        "backend/receptionist/partners.py",
+        "backend/receptionist/models_partner.py",
+        "backend/receptionist/operations_outreach.py",
+        "backend/tests/test_partners_and_tools.py::test_channel_consent_is_specific_and_cannot_override_withdrawal"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Permission and suppression logic for configured channel abstractions; native social-platform access and end-to-end delivery have not been provisioned."
+    },
+    {
+      "id": "PARTNER-GATE-001",
+      "title": "Booking partner write access",
+      "acceptance": "A selected Paziresh24/Doctoreto/EHR/calendar provider grants clinic-specific create/update/cancel/read rights.",
+      "status": "blocked_external",
+      "verification_level": "external_gate_not_satisfied",
+      "verified_behavior": "The code explicitly treats external calendar access as unproven and does not advertise a vendor write integration as active.",
+      "evidence": [
+        "README.md",
+        "backend/receptionist/providers.py",
+        "docs/deployment-runbook.md"
+      ],
+      "remaining_acceptance": [
+        "Supply a selected provider contract, clinic-specific scoped write/read rights, sandbox credentials and actual create/update/cancel/read-back UAT."
+      ],
+      "gap_classification": [
+        "external_authorization_or_business_evidence"
+      ],
+      "external_dependencies": [
+        "Provider contract, sandbox, scoped credentials, real integration UAT"
+      ],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "PARTNER-GATE-002",
+      "title": "Additional calendar breadth",
+      "acceptance": "Cal.com/Google/Bookly/Nobat/clinic integrations are individually verified and advertised only at supported capability.",
+      "status": "blocked_external",
+      "verification_level": "external_gate_not_satisfied",
+      "verified_behavior": "Only the internal calendar is fully integrated; named additional calendars are not asserted as supported production authorities.",
+      "evidence": [
+        "README.md",
+        "backend/receptionist/providers.py",
+        "docs/deployment-runbook.md"
+      ],
+      "remaining_acceptance": [
+        "Individually implement and verify each selected official calendar integration with clinic authorization and its supported capability matrix."
+      ],
+      "gap_classification": [
+        "external_authorization_or_business_evidence"
+      ],
+      "external_dependencies": [
+        "Official provider API access and clinic authorization"
+      ],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "PARTNER-GATE-003",
+      "title": "Social API access",
+      "acceptance": "Instagram Direct, Telegram/Bale/Eitaa/WhatsApp or Mini App access satisfies actual platform requirements.",
+      "status": "blocked_external",
+      "verification_level": "external_gate_not_satisfied",
+      "verified_behavior": "The permissioned digest/voice-note abstractions exist, but no native social-platform account, webhook permission or live send is claimed.",
+      "evidence": [
+        "backend/receptionist/partners.py",
+        "docs/deployment-runbook.md"
+      ],
+      "remaining_acceptance": [
+        "Provide approved platform accounts/permissions, native connector configuration and scoped recipient delivery/webhook UAT for each selected social channel."
+      ],
+      "gap_classification": [
+        "external_authorization_or_business_evidence"
+      ],
+      "external_dependencies": [
+        "Platform accounts/permissions/webhooks and opt-in recipient policy"
+      ],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "PARTNER-GATE-004",
+      "title": "Prescription/insurance portals",
+      "acceptance": "Any dedicated insurance/e-prescription integration requires separate authorization and is never achieved by scraping.",
+      "status": "blocked_external",
+      "verification_level": "external_gate_not_satisfied",
+      "verified_behavior": "No scraping-based insurance/e-prescription connector or assumed portal access is implemented.",
+      "evidence": [
+        "README.md",
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md"
+      ],
+      "remaining_acceptance": [
+        "Obtain dedicated commercial/legal permission and implement/test only the specifically authorized portal API if the product gate is activated."
+      ],
+      "gap_classification": [
+        "external_authorization_or_business_evidence"
+      ],
+      "external_dependencies": [
+        "Dedicated commercial/legal integration permission"
+      ],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "PARTNER-GATE-005",
+      "title": "Agency distribution terms",
+      "acceptance": "White-label/revenue share/partner support terms are signed rather than inferred from example 70/30 split.",
+      "status": "blocked_external",
+      "verification_level": "external_gate_not_satisfied",
+      "verified_behavior": "Software partner scopes and entered building terms do not assert an agreed revenue split or agency support commitment.",
+      "evidence": [
+        "docs/blueprint-revision.md",
+        "docs/launch-playbook.md",
+        "backend/receptionist/partners.py"
+      ],
+      "remaining_acceptance": [
+        "Record signed white-label/revenue-share/support agreements and real operating responsibilities; the example 70/30 split is not evidence."
+      ],
+      "gap_classification": [
+        "external_authorization_or_business_evidence"
+      ],
+      "external_dependencies": [
+        "Partner agreement and operational support capability"
+      ],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "OPERATIONS-001",
+      "title": "Redacted tracing",
+      "acceptance": "Call/turn/tool/job/booking correlation IDs link outcomes with versioned configuration and no raw sensitive logs.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Structured logging allowlists static events, correlation IDs, error class and driver code, excluding SQL/parameters and arbitrary message text. Calls/turns/bookings/jobs have durable identifiers and call policy/version snapshots; HTTP metrics use route templates and latency reports label their actual observation boundaries.",
+      "evidence": [
+        "backend/receptionist/telemetry.py",
+        "backend/receptionist/main.py",
+        "backend/receptionist/voice.py",
+        "backend/receptionist/models_voice.py",
+        "backend/tests/test_partners_and_tools.py::test_metrics_require_separate_secret_and_logs_drop_patient_text",
+        "backend/tests/test_deployment_boundaries.py::test_database_error_diagnostic_never_includes_sql_or_parameters",
+        "backend/tests/test_partners_and_tools.py::test_latency_report_is_scoped_and_does_not_invent_audible_measurement"
+      ],
+      "remaining_acceptance": [
+        "Complete a documented end-to-end correlation chain across every call/turn/tool/provider/job/booking outcome and test reconstruction after a process restart. Current IDs and redaction controls do not provide a universal distributed trace contract."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "local_validation"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "OPERATIONS-002",
+      "title": "Actionable alerts",
+      "acceptance": "False confirmation, cross-tenant access, toll/spend spikes, queue delay and delivery backlog have escalation thresholds.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Scoped health and supplied Prometheus rules define queue-age, unknown-delivery, stale-task, recorded safety incident, API failure and availability thresholds. Minute-budget exposure warns at 80 percent; incidents instruct operators to pause and use the runbook.",
+      "evidence": [
+        "backend/receptionist/telemetry.py",
+        "deploy/prometheus-alerts.yml",
+        "deploy/prometheus.example.yml",
+        "docs/deployment-runbook.md",
+        "backend/tests/test_partners_and_tools.py::test_metrics_require_separate_secret_and_logs_drop_patient_text"
+      ],
+      "remaining_acceptance": [
+        "Add actual provider/toll/currency-spike detection and test notification/escalation to the assigned on-call destination. Empty safety logs are not zero unobserved incidents, and supplied alert rules do not constitute an operating pager."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "operator_evidence"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "OPERATIONS-003",
+      "title": "Backup automation",
+      "acceptance": "Encrypted database/config backup runs with retention and checksums under documented ownership.",
+      "status": "implemented_unverified",
+      "verification_level": "partial_local_evidence",
+      "verified_behavior": "Backup tooling streams pg_dump directly into GPG, publishes atomically without overwrite, writes private checksum manifests, and has validated retention/legal-hold rules. Hardened systemd service/timer templates and operating ownership instructions exist.",
+      "evidence": [
+        "scripts/backup.py",
+        "scripts/backup_daily.py",
+        "deploy/hamava-backup.service",
+        "deploy/hamava-backup.timer",
+        "docs/deployment-runbook.md",
+        "backend/tests/test_deployment_boundaries.py::test_concurrent_backup_publication_never_overwrites_first_archive",
+        "backend/tests/test_deployment_boundaries.py::test_backup_retention_respects_hold_and_keeps_unverified_files",
+        "docs/validation/restore-drill.json"
+      ],
+      "remaining_acceptance": [
+        "Execute and observe the scheduled job under the real owner and offsite retention destination. The implemented automation backs up the database; independently encrypted configuration/key-inventory backup and its recovery procedure need operational implementation and evidence."
+      ],
+      "gap_classification": [
+        "local_implementation",
+        "deployment_execution",
+        "operator_evidence"
+      ],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register."
+    },
+    {
+      "id": "OPERATIONS-004",
+      "title": "Restore drill tooling",
+      "acceptance": "Documented recovery procedure restores a test backup and verifies appointment and outbox consistency.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "An actual isolated PostgreSQL backup/restore streamed an encrypted archive without a plaintext dump, restored into an empty target, matched all 51 table counts, found zero duplicate/orphan occupancy and verified application-field decryption. Restore rejects unsafe target/checksum conditions and documents rollback isolation.",
+      "evidence": [
+        "scripts/backup.py",
+        "docs/deployment-runbook.md",
+        "docs/validation/restore-drill.json"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Synthetic quiescent restore-tool drill, not proof of offsite durability, production RPO/RTO, live-write snapshot count equivalence or a real custodian exercise."
+    },
+    {
+      "id": "OPERATIONS-005",
+      "title": "Secrets and key recovery",
+      "acceptance": "Rotation/revocation and backup encryption key recovery are documented and testable.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "The runbook defines JWT/partner/session revocation, independent stable lookup key custody and offline Fernet rotation. Rotation covers mapped and nested encrypted values, survives mixed-key restarts and is idempotent; the encrypted PostgreSQL restore exercised decryption with the available recovery keys.",
+      "evidence": [
+        "backend/receptionist/security.py",
+        "backend/receptionist/partners.py",
+        "scripts/rotate_encryption.py",
+        "scripts/backup.py",
+        "docs/deployment-runbook.md",
+        "backend/tests/test_deployment_boundaries.py::test_key_rotation_preserves_lookup_identity_and_resumes",
+        "docs/validation/restore-drill.json"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Verified software and test-key recovery procedure. Real escrow, independent custodians, key-loss response and retired-backup retention remain operator deployment evidence."
+    },
+    {
+      "id": "OPERATIONS-010",
+      "title": "Capacity and staff simulator",
+      "acceptance": "Queue staffing uses arrival/handoff/handling distributions, utilization, shrinkage and peak buffers.",
+      "status": "verified_local",
+      "verification_level": "local_test_or_inspection",
+      "verified_behavior": "The bounded reproducible simulator models Poisson arrivals, lognormal handling, handoff rate, staff shrinkage, peak multipliers, patience/abandonment and queue utilization. It labels assumptions, preserves denominators and treats released time as reassigned capacity unless avoidable-cost evidence exists.",
+      "evidence": [
+        "scripts/capacity.py",
+        "docs/evidence/capacity-synthetic.json",
+        "backend/tests/test_partners_and_tools.py::test_staff_simulation_denominators_and_reassigned_time"
+      ],
+      "remaining_acceptance": [],
+      "gap_classification": [],
+      "external_dependencies": [],
+      "assessor": "backend_core",
+      "scope": "Independent platform, security, calendar, partner, billing and deployment assessment. This proposal does not edit the main requirement register.",
+      "acceptance_boundary": "Verified synthetic planning tool, not observed clinic arrival distributions, measured staffing savings or a guarantee of real service levels."
+    }
+  ],
+  "audit_application_changes": [
+    {
+      "file": "backend/receptionist/voice.py",
+      "scope": "public_clinic disclosure only",
+      "authorization": "Parent explicitly authorized correction of the concrete transcript-retention notice gap. No schema, storage or transaction changes."
+    },
+    {
+      "file": "backend/tests/test_voice.py",
+      "scope": "Existing public recording/scope regression now checks tenant-specific retention disclosure."
+    }
+  ],
+  "focused_followup": {
+    "artifact": "docs/validation/privacy-notice-test.xml",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 1.54,
+    "command": "python -m pytest backend/tests/test_voice.py::test_session_scope_recording_disabled_and_replay_mismatch -q --junitxml=docs/validation/privacy-notice-test.xml",
+    "scope": "Existing testcase rerun after notice correction; not an extra disjoint test to add to the earlier 284-case total."
+  }
+}

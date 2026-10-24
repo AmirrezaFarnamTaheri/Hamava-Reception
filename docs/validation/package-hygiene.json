@@ -1,0 +1,29 @@
+{
+  "synthetic_only": true,
+  "source_files_checked": 215,
+  "archive_payload_files": 216,
+  "private_runtime_values_checked": 4,
+  "private_runtime_matches": 0,
+  "private_key_matches": 0,
+  "unexpected_recordings_or_screenshots": 0,
+  "excluded": [
+    "dependency directories",
+    "build/dist outputs",
+    "private .env files",
+    "databases",
+    "private keys",
+    "downloaded models",
+    "browser screenshots",
+    "nonfixture audio"
+  ],
+  "permitted_audio": [
+    "fixtures/research/audio/synthetic-tone-1.wav",
+    "fixtures/research/audio/synthetic-tone-2.wav",
+    "fixtures/research/audio/synthetic-tone-3.wav",
+    "fixtures/research/audio/synthetic-tone-4.wav",
+    "fixtures/research/audio/synthetic-tone-5.wav",
+    "fixtures/research/audio/synthetic-tone-6.wav"
+  ],
+  "passed": true,
+  "scope": "Exact final source selection checked against known private test-service values and forbidden categories. Not a universal secret-detector guarantee. Inventory excludes its own self-hash; ZIP payload/CRC and every inventoried SHA-256 are independently checked during assembly."
+}

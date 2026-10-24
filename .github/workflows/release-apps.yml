@@ -1,0 +1,261 @@
+name: Build desktop and Android apps
+on:
+  push:
+    tags: ["v[0-9]+.[0-9]+.[0-9]+"]
+  workflow_dispatch:
+    inputs:
+      sign_windows:
+        type: boolean
+        description: Require the configured Windows publisher certificate
+        default: false
+      sign_android:
+        type: boolean
+        description: Require the configured Android release keystore
+        default: false
+      publish_draft:
+        type: boolean
+        description: Create a draft GitHub Release (tag plus both signatures required)
+        default: false
+permissions:
+  contents: read
+env:
+  HAMAVA_WINDOWS_ARCH: x64
+  HAMAVA_WINDOWS_SIGNED: ${{ inputs.sign_windows && 'true' || 'false' }}
+  HAMAVA_ANDROID_RELEASE_SIGNED: ${{ inputs.sign_android && 'true' || 'false' }}
+concurrency:
+  group: app-release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  quality:
+    uses: ./.github/workflows/verify.yml
+  windows:
+    name: Windows installer and portable executable
+    needs: quality
+    runs-on: windows-2025
+    timeout-minutes: 30
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: "false"
+      CSC_LINK: ${{ inputs.sign_windows && secrets.WINDOWS_CSC_LINK || '' }}
+      CSC_KEY_PASSWORD: ${{ inputs.sign_windows && secrets.WINDOWS_CSC_KEY_PASSWORD || '' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: |
+            frontend/package-lock.json
+            apps/desktop/package-lock.json
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: web-bundle
+          path: frontend/dist
+      - run: npm ci --ignore-scripts
+        working-directory: frontend
+      - run: npm ci
+        working-directory: apps/desktop
+      - run: node scripts/check-versions.mjs
+      - name: Require signing configuration when requested
+        if: inputs.sign_windows
+        shell: pwsh
+        run: |
+          if (-not $env:CSC_LINK -or -not $env:CSC_KEY_PASSWORD) { throw 'Windows signing was requested but both signing secrets are not configured.' }
+      - run: npm run prepare:web
+        working-directory: apps/desktop
+      - run: npm run test:launch
+        working-directory: apps/desktop
+      - name: Build unsigned test packages
+        if: ${{ !inputs.sign_windows }}
+        run: npm run build:win
+        working-directory: apps/desktop
+      - name: Build publisher-signed packages
+        if: inputs.sign_windows
+        run: npm run build:win -- --config.forceCodeSigning=true
+        working-directory: apps/desktop
+      - name: Verify publisher signatures
+        if: inputs.sign_windows
+        shell: pwsh
+        run: |
+          $version = (Get-Content -LiteralPath package.json -Raw | ConvertFrom-Json).version
+          $names = @(
+            ('Hamava-Reception-{0}-windows-{1}-setup.exe' -f $version, $env:HAMAVA_WINDOWS_ARCH),
+            ('Hamava-Reception-{0}-windows-{1}-portable.exe' -f $version, $env:HAMAVA_WINDOWS_ARCH)
+          )
+          $evidence = @(foreach ($name in $names) {
+            $file = Get-Item -LiteralPath (Join-Path artifacts/desktop $name) -ErrorAction Stop
+            if ($file.PSIsContainer) { throw "Expected an executable file: $name" }
+            $before = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            $signature = Get-AuthenticodeSignature -LiteralPath $file.FullName
+            if ($signature.Status -ne 'Valid') { throw "Invalid signature: $($file.Name)" }
+            $sha256 = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            if ($before -ne $sha256) { throw "Executable changed during signature verification: $name" }
+            [ordered]@{ file=$file.Name; status=$signature.Status.ToString(); thumbprint=$signature.SignerCertificate.Thumbprint; sha256=$sha256 }
+          })
+          New-Item -ItemType Directory -Force artifacts/desktop-validation | Out-Null
+          ConvertTo-Json -InputObject $evidence -Depth 3 | Set-Content -LiteralPath artifacts/desktop-validation/signatures.json -Encoding utf8NoBOM
+      - name: Record dependency inventory
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/release | Out-Null
+          npm --prefix apps/desktop sbom --sbom-format cyclonedx | Set-Content artifacts/release/desktop-sbom.cdx.json
+          if ($LASTEXITCODE -ne 0) { throw 'Dependency inventory failed.' }
+          npm --prefix frontend sbom --sbom-format cyclonedx | Set-Content artifacts/release/frontend-sbom.cdx.json
+          if ($LASTEXITCODE -ne 0) { throw 'Shared-interface dependency inventory failed.' }
+      - run: node scripts/collect-release.mjs desktop
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: windows-packages
+          path: artifacts/release/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: windows-launch-evidence
+          path: artifacts/desktop-validation/
+          retention-days: 14
+  android:
+    name: Android APKs and app bundle
+    needs: quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/mobile/package-lock.json
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: android-actions/setup-android@be39fa834029ff78f1a44aa3bb0819b8fc2bd8fd # v4.0.4
+        with:
+          accept-android-sdk-licenses: true
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+      - run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: web-bundle
+          path: frontend/dist
+      - run: node scripts/check-versions.mjs
+      - run: npm ci --ignore-scripts
+        working-directory: apps/mobile
+      - run: npm run sync
+        working-directory: apps/mobile
+      - run: chmod +x apps/mobile/android/gradlew
+      - name: Materialize the release key only when requested
+        if: inputs.sign_android
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          python - <<'PY'
+          import base64, os
+          from pathlib import Path
+          if any(not os.environ.get(key) for key in ['KEYSTORE_BASE64', 'STORE_PASSWORD', 'KEY_ALIAS', 'KEY_PASSWORD']):
+              raise SystemExit('Android signing requested but one or more required secrets are missing')
+          target = Path(os.environ['RUNNER_TEMP']) / 'hamava-release.jks'
+          target.write_bytes(base64.b64decode(os.environ['KEYSTORE_BASE64'], validate=True))
+          target.chmod(0o600)
+          PY
+      - name: Compile and verify Android
+        working-directory: apps/mobile/android
+        env:
+          ANDROID_KEYSTORE_PATH: ${{ inputs.sign_android && format('{0}/hamava-release.jks', runner.temp) || '' }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ inputs.sign_android && secrets.ANDROID_KEYSTORE_PASSWORD || '' }}
+          ANDROID_KEY_ALIAS: ${{ inputs.sign_android && secrets.ANDROID_KEY_ALIAS || '' }}
+          ANDROID_KEY_PASSWORD: ${{ inputs.sign_android && secrets.ANDROID_KEY_PASSWORD || '' }}
+        run: ./gradlew clean testDebugUnitTest lintDebug assembleDebug assembleRelease bundleRelease --no-daemon --stacktrace
+      - name: Verify the requested release signature
+        if: inputs.sign_android
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose --print-certs apps/mobile/android/app/build/outputs/apk/release/app-release.apk
+          jarsigner -verify -strict -keystore "$RUNNER_TEMP/hamava-release.jks" -storepass:env ANDROID_KEYSTORE_PASSWORD apps/mobile/android/app/build/outputs/bundle/release/app-release.aab
+      - name: Record Android host dependency inventory
+        run: |
+          mkdir -p artifacts/release
+          npm --prefix apps/mobile sbom --sbom-format cyclonedx > artifacts/release/android-sbom.cdx.json
+      - run: node scripts/collect-release.mjs android
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-packages
+          path: artifacts/release/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: android-verification
+          path: |
+            apps/mobile/android/app/build/reports/
+            apps/mobile/android/app/build/test-results/
+          retention-days: 14
+      - name: Remove temporary signing key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/hamava-release.jks"
+  assemble:
+    name: Checksums and combined packages
+    needs: [windows, android]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+      - name: Check release collection invariants with synthetic files
+        run: node scripts/test-collect-release.mjs
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: "*-packages"
+          path: artifacts/release
+          merge-multiple: true
+      - run: node scripts/collect-release.mjs manifest
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: hamava-all-packages
+          path: artifacts/release/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
+  draft-release:
+    name: Optional signed draft release
+    if: inputs.publish_draft
+    needs: assemble
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: hamava-all-packages
+          path: artifacts/release
+      - name: Create a draft release from a verified tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          REF_TYPE: ${{ github.ref_type }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          SIGN_WINDOWS: ${{ inputs.sign_windows }}
+          SIGN_ANDROID: ${{ inputs.sign_android }}
+        run: |
+          test "$REF_TYPE" = tag && test "$SIGN_WINDOWS" = true && test "$SIGN_ANDROID" = true
+          git merge-base --is-ancestor HEAD "origin/$DEFAULT_BRANCH"
+          gh release create "$RELEASE_TAG" --draft --verify-tag --title "Hamava $RELEASE_TAG" --notes-file docs/release-notes-v0.2.0.md artifacts/release/*

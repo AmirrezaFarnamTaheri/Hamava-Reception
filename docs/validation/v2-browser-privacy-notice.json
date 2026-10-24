@@ -1,0 +1,71 @@
+{
+  "schema_version": "2.0",
+  "suite": "privacy-notice",
+  "captured_at": "2026-10-23T16:17:10.727184+00:00",
+  "source_script": "frontend/scripts/exercise-privacy-notice.mjs",
+  "source_script_sha256": "5d6070c747ecea1d0b7bc37cfe536da79d5d0cac6814e767b5f24b00e7b9341f",
+  "raw_report_sha256": "a648d7cb935ec762f2caa1502bb75cb59b15853121ee1f30509f616b93da7a1a",
+  "frontend_bundle": {
+    "entry": "/assets/index-Ckub5VW6.js",
+    "entry_sha256": "3123db40444ad5246b56a360c5ffdb082054c322781d9e3f5cb51caf5188bdbc",
+    "css": "/assets/index-s66hjDZo.css",
+    "css_sha256": "563441bd41212ca3605d0a25c969f92efb4ed309b85ccc7add49c5f700ca7ebf",
+    "source_tree_sha256": "1f89d1da8540334073689a3213182e18f9ce343d91bde4a7596a372d997512ae",
+    "captured_at": "2026-10-23T16:18:56.647867+00:00",
+    "app_version": "0.2.0"
+  },
+  "validation_environment": {
+    "interface": "built production frontend",
+    "browser": "packaged headless Chromium",
+    "api": "fresh isolated SQLite synthetic demo API per suite; RTC lifecycle uses an explicitly synthetic Room/API fixture",
+    "provider_transmission": "disabled; no external messaging, carrier, calendar or settlement qualification",
+    "functional_tool_timeout_ms": 30000,
+    "latency_slo_claim": false,
+    "accessibility": "axe WCAG2A/AA and WCAG2.1AA tags on named states; audit contexts bypass CSP only for checker injection",
+    "physical_device_qualification": false
+  },
+  "checks": [
+    "Before consent, the exact server notice distinguishes transient raw audio from encrypted recovery text, deletion requests and scheduled retention",
+    "Desktop, 390px and 320px disclosures have no accessibility findings or horizontal overflow; consent starts unchecked",
+    "A real policy change rejects the displayed old fingerprint, refreshes the notice, clears consent and never auto-starts a session",
+    "Fresh explicit consent binds the displayed fingerprint, creates a real session with recording and training disabled and does not request the microphone",
+    "The same retention notice remains keyboard accessible during the conversation without blocking typed input",
+    "The session ends cleanly, with no microphone access or browser errors"
+  ],
+  "errors": [],
+  "audits": [
+    {
+      "label": "Public consent notice at 1440px",
+      "findings": [],
+      "viewport": 1440,
+      "width": 1440
+    },
+    {
+      "label": "Public consent notice at 390px",
+      "findings": [],
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "label": "Public consent notice at 320px",
+      "findings": [],
+      "viewport": 320,
+      "width": 320
+    },
+    {
+      "label": "Changed privacy notice requires fresh consent at 320px",
+      "findings": [],
+      "viewport": 320,
+      "width": 320
+    },
+    {
+      "label": "Active conversation privacy disclosure expanded by keyboard at 320px",
+      "findings": [],
+      "viewport": 320,
+      "width": 320
+    }
+  ],
+  "retention_days_received": 29,
+  "synthetic_data": true,
+  "qualification": "This verifies disclosure, real stale-notice rejection and renewed consent against an isolated synthetic API, plus UI behavior. It does not certify the separate retention worker, deletion completion or legal policy."
+}

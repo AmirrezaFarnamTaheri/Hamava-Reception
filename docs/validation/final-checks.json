@@ -1,0 +1,258 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-23",
+  "synthetic_only": true,
+  "backend": {
+    "tests": 289,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "junit_seconds": 103.8,
+    "console_elapsed_seconds": 103.84,
+    "evidence": "docs/validation/pytest-final.xml",
+    "subsets_overlap": true
+  },
+  "static_checks": {
+    "ruff_backend_scripts_services": "passed",
+    "pip_check": "passed",
+    "frontend_typecheck_build": "passed",
+    "frontend_format": "passed",
+    "basis": "Observed command completions. Backend source remains the 289-test version. The subsequent frontend-only RTC lifecycle correction has its own final build and focused browser event-contract report."
+  },
+  "browser": {
+    "screen_states": 44,
+    "workflow_checks": 67,
+    "additional_axe_evaluations": 16,
+    "runtime_errors": 0,
+    "axe_findings_in_checked_states": 0,
+    "overflow_in_audited_states": 0,
+    "reports": [
+      {
+        "file": "docs/validation/browser-audio.json",
+        "suite": "audio",
+        "screen_states": 0,
+        "workflow_checks": 5,
+        "additional_axe_evaluations": 0,
+        "runtime_errors": 0
+      },
+      {
+        "file": "docs/validation/browser-audit.json",
+        "suite": "audit",
+        "screen_states": 44,
+        "workflow_checks": 0,
+        "additional_axe_evaluations": 0,
+        "runtime_errors": 0
+      },
+      {
+        "file": "docs/validation/browser-conversation.json",
+        "suite": "conversation",
+        "screen_states": 0,
+        "workflow_checks": 5,
+        "additional_axe_evaluations": 0,
+        "runtime_errors": 0
+      },
+      {
+        "file": "docs/validation/browser-extensions.json",
+        "suite": "extensions",
+        "screen_states": 0,
+        "workflow_checks": 13,
+        "additional_axe_evaluations": 5,
+        "runtime_errors": 0
+      },
+      {
+        "file": "docs/validation/browser-live-ui.json",
+        "suite": "live-ui",
+        "screen_states": 0,
+        "workflow_checks": 6,
+        "additional_axe_evaluations": 0,
+        "runtime_errors": 0
+      },
+      {
+        "file": "docs/validation/browser-outreach.json",
+        "suite": "outreach",
+        "screen_states": 0,
+        "workflow_checks": 8,
+        "additional_axe_evaluations": 3,
+        "runtime_errors": 0
+      },
+      {
+        "file": "docs/validation/browser-privacy-notice.json",
+        "suite": "privacy-notice",
+        "screen_states": 0,
+        "workflow_checks": 5,
+        "additional_axe_evaluations": 4,
+        "runtime_errors": 0
+      },
+      {
+        "file": "docs/validation/browser-release.json",
+        "suite": "release",
+        "screen_states": 0,
+        "workflow_checks": 7,
+        "additional_axe_evaluations": 0,
+        "runtime_errors": 0
+      },
+      {
+        "file": "docs/validation/browser-waitlist-deposit.json",
+        "suite": "waitlist-deposit",
+        "screen_states": 0,
+        "workflow_checks": 8,
+        "additional_axe_evaluations": 4,
+        "runtime_errors": 0
+      },
+      {
+        "file": "docs/validation/browser-workflows.json",
+        "suite": "workflows",
+        "screen_states": 0,
+        "workflow_checks": 10,
+        "additional_axe_evaluations": 0,
+        "runtime_errors": 0
+      }
+    ],
+    "rtc_event_contract_checks": 12,
+    "rtc_event_contract_reports": [
+      {
+        "file": "docs/validation/browser-rtc-lifecycle.json",
+        "suite": "rtc-lifecycle",
+        "screen_states": 0,
+        "workflow_checks": 12,
+        "additional_axe_evaluations": 3,
+        "runtime_errors": 0,
+        "verification_kind": "browser_component_event_contract"
+      }
+    ],
+    "limits": "The broad local Chromium matrix and real audio checks preceded the final focused RTC UI correction. The final build is checked separately using explicit API/SDK event fixtures for that correction. No actual network recovery, physical mobile, native screenreader or production qualification. Intentional negative-response tests are not network failures."
+  },
+  "postgres_contention": {
+    "attempts": 402,
+    "cases": 5,
+    "maximum_independent_contenders": 100,
+    "duplicate_resource_minutes": 0,
+    "passed": true,
+    "evidence": "docs/validation/postgres-contention.json"
+  },
+  "media_admission": {
+    "levels": [
+      4,
+      8,
+      10,
+      20,
+      50,
+      80
+    ],
+    "worker_room_limit": 8,
+    "passed": true,
+    "limits": "Direct typed new_session/media_rooms/end_session handlers over independent PostgreSQL connections; no HTTP/media provider calls.",
+    "evidence": "docs/validation/media-admission-load.json"
+  },
+  "livekit": {
+    "checks_passed": 8,
+    "latency_observation_ms": 2920.938,
+    "latency_boundary": "Last nonzero synthetic input frame submitted to SDK -> first nonzero reply PCM received after trusted turn event; includes endpointing and buffering, excludes physical speaker output. One observation, not an SLO distribution.",
+    "warnings": [
+      {
+        "component": "LiveKit native caller test SDK",
+        "stage": "cleanup",
+        "message": "Attempted to drop unknown FFI handle",
+        "functional_assertions_failed": false,
+        "interpretation": "Review SDK/room lifetime handling before deployment; this observation alone does not establish a resource leak or its absence."
+      }
+    ],
+    "evidence": "docs/validation/livekit-loopback.json"
+  },
+  "audiosocket": {
+    "checks_passed": 7,
+    "packet_spacing_seconds": 0.0201,
+    "evidence": "docs/validation/audiosocket-loopback.json"
+  },
+  "production_startup": {
+    "checks_passed": 10,
+    "public_listener_started": false,
+    "evidence": "docs/validation/production-startup.json"
+  },
+  "backup_restore": {
+    "tables": 51,
+    "count_match": true,
+    "application_decryption_checked": true,
+    "duplicate_claims": 0,
+    "orphan_claims": 0,
+    "plaintext_dump_written": false,
+    "evidence": "docs/validation/restore-drill.json"
+  },
+  "installed_wheel": {
+    "checks_passed": 7,
+    "evidence": "docs/validation/installed-package-smoke.json",
+    "limits": "Clean wheel extraction/import rather than editable-source import. The wheel smoke predates the final privacy-copy adjustment, which is covered by the 289-test source suite and final browser privacy suite. The final delivery is a source archive."
+  },
+  "dependency_audits": {
+    "python_dependencies_scanned": 81,
+    "python_known_vulnerabilities": 0,
+    "python_skipped": [
+      "hamava-receptionist 0.1.0: local project is not published on PyPI"
+    ],
+    "frontend_known_vulnerabilities": 0,
+    "evidence": [
+      "docs/validation/python-dependency-audit.json",
+      "docs/validation/dependency-remediation.json"
+    ],
+    "limits": "Observed advisory results at scan time; no unknown-vulnerability guarantee, system/image audit or executed optional training-environment audit."
+  },
+  "unexecuted": [
+    "Docker image build",
+    "Remote CI execution",
+    "Public production deployment",
+    "Real PSTN/carrier tests",
+    "Live merchant/SMS/social/calendar account operations",
+    "Physical mobile/native assistive-technology acceptance",
+    "Representative telephone speech/SLO/peak-audio benchmark",
+    "Real clinic pilot/renewal",
+    "Eligible-data fine-tuning and held-out superiority"
+  ],
+  "requirements": {
+    "total": 263,
+    "counts": {
+      "verified_local": 165,
+      "implemented_unverified": 72,
+      "blocked_external": 22,
+      "deferred_by_product_gate": 4
+    },
+    "phase_counts": {
+      "0": {
+        "verified_local": 21,
+        "implemented_unverified": 16,
+        "blocked_external": 7
+      },
+      "1": {
+        "verified_local": 63,
+        "implemented_unverified": 21
+      },
+      "2": {
+        "implemented_unverified": 14,
+        "verified_local": 18,
+        "blocked_external": 6
+      },
+      "3": {
+        "verified_local": 26,
+        "implemented_unverified": 7,
+        "blocked_external": 1
+      },
+      "4": {
+        "verified_local": 23,
+        "implemented_unverified": 6
+      },
+      "5": {
+        "implemented_unverified": 3,
+        "verified_local": 6,
+        "blocked_external": 5
+      },
+      "6": {
+        "verified_local": 8,
+        "implemented_unverified": 5,
+        "deferred_by_product_gate": 4,
+        "blocked_external": 3
+      }
+    },
+    "pending": 0,
+    "verified_external": 0
+  },
+  "scope": "Reports prove only their named local behavior. Synthetic clinic, contact, price, audio and research fixtures are not real patient or commercial evidence."
+}
