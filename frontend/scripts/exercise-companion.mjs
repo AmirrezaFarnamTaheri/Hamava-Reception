@@ -307,7 +307,18 @@ try {
       exact: true,
     })
     .check();
-  await dialog.getByLabel("آستانهٔ هشدار (درصد)", { exact: true }).fill("75");
+  const threshold = dialog.getByLabel("آستانهٔ هشدار (درصد)", { exact: true });
+  const beforeThreshold = await threshold.inputValue();
+  const newThreshold = beforeThreshold === "75" ? "76" : "75";
+  // Changing any budget field invalidates the previous approval immediately.
+  await threshold.fill(newThreshold);
+  assert(
+    !(await dialog.getByRole("checkbox", {
+      name: "سقف‌های بالا را بررسی کرده‌ام و انتشار آن‌ها را تأیید می‌کنم.",
+      exact: true,
+    }).isChecked()),
+    "Editing a budget must clear the previous publication confirmation",
+  );
   assert(
     await dialog
       .getByRole("button", { name: "انتشار سقف‌ها", exact: true })
@@ -328,10 +339,9 @@ try {
     "PUT",
   );
   await dialog.waitFor({ state: "hidden" });
-  assert.equal(
-    (await request("/operations/costs")).policy.monthly_cap_toman,
-    1000000,
-  );
+  const savedBudget = (await request("/operations/costs")).policy;
+  assert.equal(savedBudget.monthly_cap_toman, 1000000);
+  assert.equal(savedBudget.soft_percent, Number(newThreshold));
   passed(
     "Cost budget persists through the real API and editing values clears the prior confirmation",
   );

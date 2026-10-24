@@ -86,10 +86,10 @@ jobs:
         working-directory: frontend
       - name: Exercise every isolated browser suite
         run: >-
-          python scripts/ci_ui.py test:waitlist-deposit test:ui test:workflows
-          test:conversation test:extensions test:release test:outreach
-          test:privacy-notice test:rtc-lifecycle test:companion test:platform
-          test:latency-labels
+          python scripts/ci_ui.py test:companion test:platform test:latency-labels
+          test:waitlist-deposit test:ui test:workflows test:conversation
+          test:extensions test:release test:outreach test:privacy-notice
+          test:rtc-lifecycle
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
