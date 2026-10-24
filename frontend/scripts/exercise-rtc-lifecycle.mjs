@@ -1,3 +1,4 @@
+import { launchBrowser } from "./browser-launch.mjs";
 import { createRequire } from "node:module";
 import { createServer } from "node:http";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
@@ -5,8 +6,6 @@ import { resolve, extname, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import assert from "node:assert/strict";
 const require = createRequire(import.meta.url);
-const { chromium } = require("playwright"),
-  packaged = require("@sparticuz/chromium");
 const dist = fileURLToPath(new URL("../dist/", import.meta.url));
 const output =
   process.env.HAMAAVA_ARTIFACTS_DIR || "/tmp/hamaava-ui-validation";
@@ -47,20 +46,7 @@ const server = createServer(async (request, response) => {
 });
 await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 const base = "http://127.0.0.1:" + server.address().port;
-const browser = await chromium.launch({
-  headless: true,
-  args: packaged.args.filter(
-    (arg) =>
-      ![
-        "--single-process",
-        "--disable-web-security",
-        "--allow-running-insecure-content",
-        "--disable-site-isolation-trials",
-      ].includes(arg),
-  ),
-  executablePath:
-    process.env.CHROMIUM_EXECUTABLE || (await packaged.executablePath()),
-});
+const browser = await launchBrowser();
 const context = await browser.newContext({
   viewport: { width: 390, height: 844 },
   locale: "fa-IR",

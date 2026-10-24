@@ -2,8 +2,8 @@
 
 Files prefixed `v2-` describe the 0.2.0 implementation pass. The final release
 report identifies the exact successful runs and their limits; a retained failed
-diagnostic run is not passing evidence. `IMPLEMENTATION_REPORT.md` at the project
-root and `requirements.json` are the release-level reconciliation.
+diagnostic run is not passing evidence. `docs/history/implementation-0.2.0.md` in the project
+archive and `requirements.json` are the release-level reconciliation.
 
 Older, unprefixed files are retained baseline history from 0.1.0. They include
 the actual local speech and loopback AudioSocket/LiveKit experiments. They are

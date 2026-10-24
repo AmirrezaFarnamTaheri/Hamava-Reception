@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import hmac
-import hashlib
 import json
 import os
 import secrets
@@ -266,7 +265,6 @@ def pbx_transfer_event(body: PBXObservation, db: Session = Depends(get_db)):
     # stay durable and cannot race accepted/failed connection decisions.
     db.execute(update(Tenant).where(Tenant.id == call.tenant_id).values(settings_version=Tenant.settings_version))
     db.refresh(call)
-    previous = call.handoff_status
     try:
         result = accept_pbx_observation(db, body)
     except ValueError as exc:

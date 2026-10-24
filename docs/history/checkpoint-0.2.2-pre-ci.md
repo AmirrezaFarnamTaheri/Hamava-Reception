@@ -1,6 +1,6 @@
-# Hamava 0.2.2 — current source checkpoint (24 October 2026)
+# Archived Hamava 0.2.2 pre-CI source checkpoint (24 October 2026)
 
-Read **`FINAL_ENGINEERING_REPORT.md`** first. This source candidate extends the persisted 0.2.0 code and latest integrated streaming checkpoint. The previously described 0.2.1 source is not included.
+This is an **archived** pre-CI observation, not a current validation statement. For the later source branch, consult the README, current GitHub Actions, and **`FINAL_ENGINEERING_REPORT.md`**. Historical note: This source candidate extends the persisted 0.2.0 code and latest integrated streaming checkpoint. The previously described 0.2.1 source is not included.
 
 New local implementation: screened Asterisk `Dial U` staff press-1 handoff, correlated AMI `SCREENED/SCREEN_DECLINED` events and proof-gated bridge connection, offline Realtime tool-event semantic validation, extended synthetic protocol fixtures, deterministic private-data-excluding source package, version-aligned release configuration, and updated requirements evidence.
 

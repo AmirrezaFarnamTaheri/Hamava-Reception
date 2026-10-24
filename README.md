@@ -10,10 +10,10 @@ pre-bridge staff acceptance (`Dial U()`, explicit staff DTMF, and AMI bridge
 evidence); production still requires a qualified PBX, verified staff audio,
 and a tested callback route before it can be called an accepted warm transfer. Refer to
 `FINAL_ENGINEERING_REPORT.md`, `docs/streaming-pbx-integration.md`,
-`CURRENT_CHECKPOINT.md` and `docs/remaining-external-acceptance.md` before activation. Neither 0.2.1
+`docs/history/checkpoint-0.2.2-pre-ci.md` and `docs/remaining-external-acceptance.md` before activation. Neither 0.2.1
 binaries nor publisher-signed installers are claimed by this development archive.
 
-**Source candidate: 0.2.2 (not a signed or carrier-accepted release).** The source includes the application, native projects, automated release workflows, schema upgrade and retained verification evidence. The included tenants, patients, prices, audio tests and research fixtures are fictional. Real carrier service, external calendar write access, live payment/SMS accounts, clinical and privacy sign-off, representative telephone quality, and customer economics remain explicit launch gates. Read `FINAL_ENGINEERING_REPORT.md` and `docs/requirements-follow-on.csv` for the current evidence and remaining boundaries. `IMPLEMENTATION_REPORT.md` retains historical 0.2.0 evidence only.
+**Source candidate: 0.2.2 (not a signed or carrier-accepted release).** The source includes the application, native projects, automated release workflows, schema upgrade and retained verification evidence. The included tenants, patients, prices, audio tests and research fixtures are fictional. Real carrier service, external calendar write access, live payment/SMS accounts, clinical and privacy sign-off, representative telephone quality, and customer economics remain explicit launch gates. Read `FINAL_ENGINEERING_REPORT.md` and `docs/requirements-follow-on.csv` for the current evidence and remaining boundaries. `docs/history/implementation-0.2.0.md` retains historical 0.2.0 evidence only.
 
 The conversation engine is a bounded administrative state machine. It asks for verified fields, reads back the proposed action and commits through the calendar service. It does not diagnose, prescribe, pretend a callback is a connected transfer, or present a payment/SMS transport acknowledgement as final settlement/delivery. There is no generative language model or silent third-party browser speech API in the default application.
 
@@ -175,6 +175,10 @@ See `docs/research-workflow.md` for the exact curation, evaluation, economics, p
 See **`docs/native-apps-and-releases.md`** for installation, clinic connection, native security, local build commands and GitHub signing configuration. Windows builds create an assisted NSIS installer and a portable EXE. Android builds create an installable development APK, a release APK and an Android App Bundle. Release signing requires the organization's publisher certificate or Android keystore; none is embedded in the source.
 
 The verification workflow checks server behavior, PostgreSQL invariants, the shared interface, browser journeys, native bridge contracts and container startup. The release workflow consumes the verified interface bundle for both native platforms and produces SHA-256 manifests. Optional signed draft releases are separate from ordinary test-artifact builds. An authorized repository is required to execute these workflows remotely.
+
+## Maintaining and upgrading Hamava
+
+See [the maintainer guide](docs/maintenance.md) for the current CI checks, supported schema versions, backup-first migrations, generated-artifact hygiene, and retained validation evidence. Versioned database migrations must remain compatible with existing installations; do not remove historical schema transitions simply because a fresh install succeeds.
 
 ## Scope and release decisions
 

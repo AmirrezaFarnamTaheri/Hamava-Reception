@@ -1,27 +1,13 @@
+import { launchBrowser } from "./browser-launch.mjs";
 import { createRequire } from "node:module";
 import { mkdir, writeFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 const require = createRequire(import.meta.url);
-const { chromium } = require("playwright"),
-  packaged = require("@sparticuz/chromium");
 const base = process.env.HAMAAVA_BASE_URL || "http://127.0.0.1:8000";
 const output =
   process.env.HAMAAVA_ARTIFACTS_DIR || "/tmp/hamaava-ui-validation";
 await mkdir(output, { recursive: true });
-const browser = await chromium.launch({
-  headless: true,
-  args: packaged.args.filter(
-    (arg) =>
-      ![
-        "--single-process",
-        "--disable-web-security",
-        "--allow-running-insecure-content",
-        "--disable-site-isolation-trials",
-      ].includes(arg),
-  ),
-  executablePath:
-    process.env.CHROMIUM_EXECUTABLE || (await packaged.executablePath()),
-});
+const browser = await launchBrowser();
 const context = await browser.newContext({
   viewport: { width: 1440, height: 1000 },
   locale: "fa-IR",
@@ -290,19 +276,44 @@ try {
     });
   };
   await page.route(base + acceptPath, intercept, { times: 1 });
-  const [rejected, refreshed] = await Promise.all([
-    page.waitForResponse(
-      (r) => new URL(r.url()).pathname === acceptPath && r.status() === 409,
-    ),
-    page.waitForResponse(
-      (r) =>
-        new URL(r.url()).pathname ===
-          "/api/v1/operations/waitlist/offers/" + offer.id + "/terms" && r.ok(),
-    ),
-    dialog
-      .getByRole("button", { name: "ثبت پذیرش پیشنهاد", exact: true })
-      .click(),
-  ]);
+  // Keep a bounded, non-sensitive network trace so the CI artifact reveals
+  // whether the rejection or the subsequent fresh-terms lookup was missing.
+  const recoveryTraffic = [];
+  const recordRecovery = (response) => {
+    const path = new URL(response.url()).pathname;
+    if (path.startsWith(`/api/v1/operations/waitlist/offers/${offer.id}/`))
+      recoveryTraffic.push({
+        method: response.request().method(),
+        path: path.replace(offer.id, "<offer>"),
+        status: response.status(),
+      });
+  };
+  page.on("response", recordRecovery);
+  let rejected, refreshed;
+  try {
+    [rejected, refreshed] = await Promise.all([
+      page.waitForResponse(
+        (r) => new URL(r.url()).pathname === acceptPath && r.status() === 409,
+      ),
+      page.waitForResponse(
+        (r) =>
+          new URL(r.url()).pathname ===
+            "/api/v1/operations/waitlist/offers/" + offer.id + "/terms" && r.ok(),
+      ),
+      dialog
+        .getByRole("button", { name: "ثبت پذیرش پیشنهاد", exact: true })
+        .click(),
+    ]);
+  } catch (error) {
+    observations.push({ case: "stale_terms_recovery_failure", traffic: recoveryTraffic });
+    throw new Error(
+      `Stale-terms rejection must reload current terms; observed ${JSON.stringify(recoveryTraffic)}`,
+      { cause: error },
+    );
+  } finally {
+    page.off("response", recordRecovery);
+  }
+  observations.push({ case: "stale_terms_recovery", traffic: recoveryTraffic });
   assert.equal(rejected.status(), 409);
   await refreshed.finished();
   await page.waitForFunction(

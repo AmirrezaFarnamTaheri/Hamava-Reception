@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { FileCheck2, Plus, Save, ShieldCheck, Upload } from "lucide-react";
 import { api, errorText, faDate, faNumber, post } from "../api";
 import {
@@ -144,10 +144,10 @@ function BudgetForm({
   const [confirmed, setConfirmed] = useState(false),
     [busy, setBusy] = useState(false),
     [error, setError] = useState("");
-  useEffect(
-    () => setConfirmed(false),
-    [enabled, monthly, call, operation, soft, providers],
-  );
+  const updateProviders = (next: Parameters<typeof setProviders>[0]) => {
+    setProviders(next);
+    setConfirmed(false);
+  };
   async function submit(event: FormEvent) {
     event.preventDefault();
     setError("");
@@ -216,7 +216,10 @@ function BudgetForm({
               min={1}
               max={1_000_000_000_000}
               value={monthly}
-              onChange={(event) => setMonthly(event.target.value)}
+              onChange={(event) => {
+                setMonthly(event.target.value);
+                setConfirmed(false);
+              }}
             />
           </Field>
           <Field label="سقف هر تماس (تومان)">
@@ -226,7 +229,10 @@ function BudgetForm({
               min={1}
               max={1_000_000_000}
               value={call}
-              onChange={(event) => setCall(event.target.value)}
+              onChange={(event) => {
+                setCall(event.target.value);
+                setConfirmed(false);
+              }}
             />
           </Field>
           <Field label="سقف هر عملیات (تومان)">
@@ -236,7 +242,10 @@ function BudgetForm({
               min={1}
               max={1_000_000_000}
               value={operation}
-              onChange={(event) => setOperation(event.target.value)}
+              onChange={(event) => {
+                setOperation(event.target.value);
+                setConfirmed(false);
+              }}
             />
           </Field>
           <Field label="آستانهٔ هشدار (درصد)">
@@ -246,7 +255,10 @@ function BudgetForm({
               min={1}
               max={99}
               value={soft}
-              onChange={(event) => setSoft(event.target.value)}
+              onChange={(event) => {
+                setSoft(event.target.value);
+                setConfirmed(false);
+              }}
             />
           </Field>
         </div>
@@ -256,7 +268,7 @@ function BudgetForm({
             className="button secondary small"
             type="button"
             onClick={() =>
-              setProviders((old) => [...old, { provider: "", amount: "" }])
+              updateProviders((old) => [...old, { provider: "", amount: "" }])
             }
           >
             <Plus size={15} />
@@ -272,7 +284,7 @@ function BudgetForm({
                 maxLength={80}
                 value={item.provider}
                 onChange={(event) =>
-                  setProviders((old) =>
+                  updateProviders((old) =>
                     old.map((row, i) =>
                       i === index
                         ? { ...row, provider: event.target.value }
@@ -290,7 +302,7 @@ function BudgetForm({
                 max={Number(monthly) || undefined}
                 value={item.amount}
                 onChange={(event) =>
-                  setProviders((old) =>
+                  updateProviders((old) =>
                     old.map((row, i) =>
                       i === index
                         ? { ...row, amount: event.target.value }
@@ -304,7 +316,7 @@ function BudgetForm({
               className="button quiet small"
               type="button"
               onClick={() =>
-                setProviders((old) => old.filter((_, i) => i !== index))
+                updateProviders((old) => old.filter((_, i) => i !== index))
               }
             >
               حذف

@@ -1,6 +1,5 @@
 """No generated checklist can self-certify a real device, clinic or legal gate."""
 import importlib.util
-import json
 from hashlib import sha256
 from pathlib import Path
 
@@ -33,9 +32,11 @@ def test_evidence_never_equates_to_external_approval(tmp_path):
 
 
 def test_evidence_path_escape_and_mismatched_hash_fail_closed(tmp_path):
-    outside=tmp_path.parent/'external.txt';outside.write_text('unapproved')
+    outside = tmp_path.parent / 'external.txt'
+    outside.write_text('unapproved')
     result=readmodule().check_readiness(tmp_path, {'android_device':{'file':'../external.txt','sha256':sha256(outside.read_bytes()).hexdigest()}})
     assert result['gates']['android_device']['state']=='INVALID_EVIDENCE'
-    inside=tmp_path/'inside.txt';inside.write_text('receipt')
+    inside = tmp_path / 'inside.txt'
+    inside.write_text('receipt')
     result=readmodule().check_readiness(tmp_path, {'android_device':{'file':'inside.txt','sha256':'0'*64}})
     assert result['gates']['android_device']['state']=='INVALID_EVIDENCE'
