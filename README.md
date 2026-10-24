@@ -10,10 +10,10 @@ pre-bridge staff acceptance (`Dial U()`, explicit staff DTMF, and AMI bridge
 evidence); production still requires a qualified PBX, verified staff audio,
 and a tested callback route before it can be called an accepted warm transfer. Refer to
 `FINAL_ENGINEERING_REPORT.md`, `docs/streaming-pbx-integration.md`,
-`CURRENT_CHECKPOINT.md` and `docs/remaining-external-acceptance.md` before activation. Neither 0.2.1
+`docs/history/checkpoint-0.2.2-pre-ci.md` and `docs/remaining-external-acceptance.md` before activation. Neither 0.2.1
 binaries nor publisher-signed installers are claimed by this development archive.
 
-**Source candidate: 0.2.2 (not a signed or carrier-accepted release).** The source includes the application, native projects, automated release workflows, schema upgrade and retained verification evidence. The included tenants, patients, prices, audio tests and research fixtures are fictional. Real carrier service, external calendar write access, live payment/SMS accounts, clinical and privacy sign-off, representative telephone quality, and customer economics remain explicit launch gates. Read `FINAL_ENGINEERING_REPORT.md` and `docs/requirements-follow-on.csv` for the current evidence and remaining boundaries. `IMPLEMENTATION_REPORT.md` retains historical 0.2.0 evidence only.
+**Source candidate: 0.2.2 (not a signed or carrier-accepted release).** The source includes the application, native projects, automated release workflows, schema upgrade and retained verification evidence. The included tenants, patients, prices, audio tests and research fixtures are fictional. Real carrier service, external calendar write access, live payment/SMS accounts, clinical and privacy sign-off, representative telephone quality, and customer economics remain explicit launch gates. Read `FINAL_ENGINEERING_REPORT.md` and `docs/requirements-follow-on.csv` for the current evidence and remaining boundaries. `docs/history/implementation-0.2.0.md` retains historical 0.2.0 evidence only.
 
 The conversation engine is a bounded administrative state machine. It asks for verified fields, reads back the proposed action and commits through the calendar service. It does not diagnose, prescribe, pretend a callback is a connected transfer, or present a payment/SMS transport acknowledgement as final settlement/delivery. There is no generative language model or silent third-party browser speech API in the default application.
 

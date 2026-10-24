@@ -11,6 +11,7 @@ evidence is **not** proof that an updated checkout passes the same gates.
   synthetic browser journeys, all using `browser-launch.mjs`.
 - `apps/desktop/` and `apps/mobile/` are native shells for the shared interface.
 - `scripts/` contains deployment, research, packaging, and maintenance commands.
+- `docs/history/` preserves superseded engineering reports and checkpoints.
 - `docs/validation/` contains *historical observations* and build evidence,
   not automatically executed application code. See its README for provenance.
 
