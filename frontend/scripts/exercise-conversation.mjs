@@ -3,7 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
-const packaged = require("@sparticuz/chromium");
+const packaged = require("@sparticuz/chromium").default;
 const base = process.env.HAMAAVA_BASE_URL || "http://127.0.0.1:8000";
 const output =
   process.env.HAMAAVA_ARTIFACTS_DIR || "/tmp/hamaava-ui-validation";
