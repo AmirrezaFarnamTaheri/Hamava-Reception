@@ -1,27 +1,11 @@
-import { createRequire } from "node:module";
+import { launchBrowser } from "./browser-launch.mjs";
 import { mkdir, writeFile } from "node:fs/promises";
 import assert from "node:assert/strict";
-const require = createRequire(import.meta.url);
-const { chromium } = require("playwright");
-const packaged = require("@sparticuz/chromium").default;
 const base = process.env.HAMAAVA_BASE_URL || "http://127.0.0.1:8000";
 const output =
   process.env.HAMAAVA_ARTIFACTS_DIR || "/tmp/hamaava-ui-validation";
 await mkdir(output, { recursive: true });
-const browser = await chromium.launch({
-  headless: true,
-  args: packaged.args.filter(
-    (arg) =>
-      ![
-        "--single-process",
-        "--disable-web-security",
-        "--allow-running-insecure-content",
-        "--disable-site-isolation-trials",
-      ].includes(arg),
-  ),
-  executablePath:
-    process.env.CHROMIUM_EXECUTABLE || (await packaged.executablePath()),
-});
+const browser = await launchBrowser();
 const context = await browser.newContext({
   viewport: { width: 390, height: 844 },
   locale: "fa-IR",
