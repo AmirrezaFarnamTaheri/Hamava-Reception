@@ -1,0 +1,65 @@
+{
+  "product": "Hamava Reception",
+  "environment": "external_acceptance",
+  "production_ready": false,
+  "human_independent_verification_required": true,
+  "explanation": "The system only validates evidence-file identity. It cannot establish real-world approval, validity or service eligibility.",
+  "gates": {
+    "remote_ci": {
+      "state": "MISSING",
+      "external_acceptance": "Completed authorized repository CI run, source commit and logs"
+    },
+    "windows_publisher_signing": {
+      "state": "MISSING",
+      "external_acceptance": "Real publisher certificate and Authenticode-verified installer"
+    },
+    "android_release_signing": {
+      "state": "MISSING",
+      "external_acceptance": "Owner-controlled Android signing and Play/AppGallery key provenance"
+    },
+    "windows_device": {
+      "state": "MISSING",
+      "external_acceptance": "Windows install/upgrade/launch/uninstall on target version"
+    },
+    "android_device": {
+      "state": "MISSING",
+      "external_acceptance": "Android installs, secure storage, microphone and lifecycle on real devices"
+    },
+    "store_acceptance": {
+      "state": "MISSING",
+      "external_acceptance": "Store account owner approval, listing, review and release state"
+    },
+    "carrier_pstn": {
+      "state": "MISSING",
+      "external_acceptance": "Contracted Iranian trunk/PBX inbound/outbound, voice frames and human transfer"
+    },
+    "staff_screening_and_bridge": {
+      "state": "MISSING",
+      "external_acceptance": "Provisioned pre-bridge acceptance prompt, staff DTMF 1, reject/timeout handling, actual caller/staff bridge and intelligible two-way media on the deployed PBX"
+    },
+    "clinic_uat": {
+      "state": "MISSING",
+      "external_acceptance": "Clinic owner signoff of identity, policy, booking integrity and staff escalation"
+    },
+    "privacy_and_clinical_review": {
+      "state": "MISSING",
+      "external_acceptance": "Qualified local privacy and clinical safety review of actual deployment"
+    },
+    "speech_and_payment_providers": {
+      "state": "MISSING",
+      "external_acceptance": "Executed provider contracts, processing region and signed webhook trials"
+    },
+    "public_rtc_network": {
+      "state": "MISSING",
+      "external_acceptance": "TLS, ICE, TURN and representative mobile-network failure recovery"
+    },
+    "research_rights": {
+      "state": "MISSING",
+      "external_acceptance": "Separate recording, training, model licensing and retention authorization"
+    },
+    "research_evaluation": {
+      "state": "MISSING",
+      "external_acceptance": "Held-out Persian phone corpus, reviewed labels, model/compute results"
+    }
+  }
+}
