@@ -1,7 +1,7 @@
 # Optional isolated research environment. Pin the complete resolved environment
 # after installation and retain it with the experiment; these are not API deps.
 transformers==5.20.2
-torch>=2.2,<3
+torch>=2.14.1,<3
 accelerate>=1.1,<2
 numpy>=1.26,<3
 scipy>=1.11,<2
