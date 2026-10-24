@@ -34,7 +34,7 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@sparticuz/chromium": "^131.0.1",
+    "@sparticuz/chromium": "^153.0.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "@vitejs/plugin-react": "^4.4.1",
