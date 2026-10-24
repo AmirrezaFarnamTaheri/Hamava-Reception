@@ -10,6 +10,7 @@
     "typecheck": "tsc -b --pretty false",
     "preview": "vite preview --host 0.0.0.0",
     "format:check": "prettier --check src scripts",
+    "test:browser-launch": "node --test scripts/browser-launch.test.mjs",
     "test:ui": "node scripts/check-ui.mjs",
     "test:workflows": "node scripts/exercise-workflows.mjs",
     "test:conversation": "node scripts/exercise-conversation.mjs",

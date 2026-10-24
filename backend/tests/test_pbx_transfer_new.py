@@ -1,6 +1,5 @@
 """AM I handoff must use correlated call and bridge evidence, not Dial answer alone."""
 from datetime import timedelta
-from hashlib import sha256
 from uuid import uuid4
 
 import pytest

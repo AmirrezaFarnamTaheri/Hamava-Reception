@@ -84,7 +84,6 @@ async def test_audiosocket_bridge_uses_native_stream_and_preserves_human_fallbac
     import httpx
     from receptionist.media import audiosocket
     from receptionist.media.audio import wav_bytes
-    from receptionist.media.native_runtime import NativeMediaTurn
     monkeypatch.setattr(audiosocket, 'native_enabled', lambda: True)
     input_frames, paths, writes = [], [], []
     class Coord:
@@ -139,7 +138,6 @@ async def test_audiosocket_bridge_uses_native_stream_and_preserves_human_fallbac
 async def test_interrupted_native_turn_does_not_trigger_service_failure_transfer(monkeypatch):
     from receptionist.media.native_runtime import NativeMediaTurn
     from receptionist.providers import ProviderError
-    import receptionist.media.audiosocket as bridge
     # A barge-in before submission is routine cancellation, not a telephony
     # outage. Verify the shared error discriminator used by both workers.
     from receptionist.media.native_runtime import routine_interruption

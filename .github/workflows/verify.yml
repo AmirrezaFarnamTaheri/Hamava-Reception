@@ -76,6 +76,9 @@ jobs:
       - run: node scripts/check-versions.mjs
       - run: npm run build
         working-directory: frontend
+      - name: Check Chromium launcher contract
+        run: npm run test:browser-launch
+        working-directory: frontend
       - name: Exercise every isolated browser suite
         run: >-
           python scripts/ci_ui.py test:ui test:workflows test:conversation

@@ -7,7 +7,6 @@ provider usage independently and must be enabled only after clinic UAT.
 """
 from __future__ import annotations
 
-import os
 import re
 from collections.abc import AsyncIterable, Callable
 from urllib.parse import urlparse

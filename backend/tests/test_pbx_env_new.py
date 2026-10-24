@@ -1,5 +1,4 @@
 """PBX observation token must be independent from the media registration key."""
-import os
 import subprocess
 import sys
 from pathlib import Path
