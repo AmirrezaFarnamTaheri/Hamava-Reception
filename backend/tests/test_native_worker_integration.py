@@ -136,7 +136,6 @@ async def test_audiosocket_bridge_uses_native_stream_and_preserves_human_fallbac
 
 @pytest.mark.asyncio
 async def test_interrupted_native_turn_does_not_trigger_service_failure_transfer(monkeypatch):
-    from receptionist.media.native_runtime import NativeMediaTurn
     from receptionist.providers import ProviderError
     # A barge-in before submission is routine cancellation, not a telephony
     # outage. Verify the shared error discriminator used by both workers.
