@@ -116,6 +116,7 @@ def fake_agent(client):
     agent.generation = 3
     agent.playback = None
     agent.pending_audio = None
+    agent.native_turn = None
     agent.source = SimpleNamespace(clear_queue=lambda: None)
     from receptionist.media.contracts import LiveKitTransport
     agent.transport = LiveKitTransport(agent.source, None, None)

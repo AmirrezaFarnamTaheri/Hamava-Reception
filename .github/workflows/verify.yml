@@ -39,6 +39,11 @@ jobs:
           cache-dependency-path: requirements.lock.txt
       - run: python -m pip install --upgrade -r requirements-bootstrap.txt
       - run: python -m pip install -c requirements.lock.txt '.[test,media]'
+      - name: Install FFmpeg for real speech-decoder regression tests
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg
+          ffmpeg -version | head -n 1
       - run: ruff check backend scripts services
       - run: pytest -q --junitxml=artifacts/backend/pytest.xml
       - name: Replay synthetic streaming and PBX protocol contracts
@@ -81,8 +86,8 @@ jobs:
         working-directory: frontend
       - name: Exercise every isolated browser suite
         run: >-
-          python scripts/ci_ui.py test:ui test:workflows test:conversation
-          test:extensions test:release test:outreach test:waitlist-deposit
+          python scripts/ci_ui.py test:waitlist-deposit test:ui test:workflows
+          test:conversation test:extensions test:release test:outreach
           test:privacy-notice test:rtc-lifecycle test:companion test:platform
           test:latency-labels
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

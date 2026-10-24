@@ -15,7 +15,9 @@ evidence is **not** proof that an updated checkout passes the same gates.
 - `docs/validation/` contains *historical observations* and build evidence,
   not automatically executed application code. See its README for provenance.
 
-The normal CI gate uses Python 3.12, Node 24, and PostgreSQL 16. Reproduce
+The normal CI gate uses Python 3.12, Node 24, PostgreSQL 16, and the
+FFmpeg command-line decoder for speech-integrity tests. The optional local
+speech Docker image also installs FFmpeg explicitly. Reproduce
 with the pinned dependencies before changing a test assertion to match a bug:
 
 ```sh

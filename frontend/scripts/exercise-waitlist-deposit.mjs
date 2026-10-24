@@ -276,19 +276,44 @@ try {
     });
   };
   await page.route(base + acceptPath, intercept, { times: 1 });
-  const [rejected, refreshed] = await Promise.all([
-    page.waitForResponse(
-      (r) => new URL(r.url()).pathname === acceptPath && r.status() === 409,
-    ),
-    page.waitForResponse(
-      (r) =>
-        new URL(r.url()).pathname ===
-          "/api/v1/operations/waitlist/offers/" + offer.id + "/terms" && r.ok(),
-    ),
-    dialog
-      .getByRole("button", { name: "ثبت پذیرش پیشنهاد", exact: true })
-      .click(),
-  ]);
+  // Keep a bounded, non-sensitive network trace so the CI artifact reveals
+  // whether the rejection or the subsequent fresh-terms lookup was missing.
+  const recoveryTraffic = [];
+  const recordRecovery = (response) => {
+    const path = new URL(response.url()).pathname;
+    if (path.startsWith(`/api/v1/operations/waitlist/offers/${offer.id}/`))
+      recoveryTraffic.push({
+        method: response.request().method(),
+        path: path.replace(offer.id, "<offer>"),
+        status: response.status(),
+      });
+  };
+  page.on("response", recordRecovery);
+  let rejected, refreshed;
+  try {
+    [rejected, refreshed] = await Promise.all([
+      page.waitForResponse(
+        (r) => new URL(r.url()).pathname === acceptPath && r.status() === 409,
+      ),
+      page.waitForResponse(
+        (r) =>
+          new URL(r.url()).pathname ===
+            "/api/v1/operations/waitlist/offers/" + offer.id + "/terms" && r.ok(),
+      ),
+      dialog
+        .getByRole("button", { name: "ثبت پذیرش پیشنهاد", exact: true })
+        .click(),
+    ]);
+  } catch (error) {
+    observations.push({ case: "stale_terms_recovery_failure", traffic: recoveryTraffic });
+    throw new Error(
+      `Stale-terms rejection must reload current terms; observed ${JSON.stringify(recoveryTraffic)}`,
+      { cause: error },
+    );
+  } finally {
+    page.off("response", recordRecovery);
+  }
+  observations.push({ case: "stale_terms_recovery", traffic: recoveryTraffic });
   assert.equal(rejected.status(), 409);
   await refreshed.finished();
   await page.waitForFunction(
