@@ -23,7 +23,7 @@ jobs:
           POSTGRES_DB: hamava_test
         ports: [5432:5432]
         options: >-
-          --health-cmd pg_isready --health-interval 5s --health-timeout 3s --health-retries 20
+          --health-cmd "pg_isready -U hamava_test -d hamava_test" --health-interval 5s --health-timeout 3s --health-retries 20
           --shm-size 256m
     env:
       TEST_DATABASE_URL: postgresql+psycopg://hamava_test:test-only-ephemeral-password@127.0.0.1:5432/hamava_test

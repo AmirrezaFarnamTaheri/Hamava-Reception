@@ -28,6 +28,9 @@ __pycache__/
 data/
 artifacts/
 
+# The source-release command writes its manifest into the zip, not the repository.
+/PACKAGE-MANIFEST.json
+
 
 # Native build outputs and private signing material
 **/.gradle/

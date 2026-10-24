@@ -176,6 +176,10 @@ See **`docs/native-apps-and-releases.md`** for installation, clinic connection, 
 
 The verification workflow checks server behavior, PostgreSQL invariants, the shared interface, browser journeys, native bridge contracts and container startup. The release workflow consumes the verified interface bundle for both native platforms and produces SHA-256 manifests. Optional signed draft releases are separate from ordinary test-artifact builds. An authorized repository is required to execute these workflows remotely.
 
+## Maintaining and upgrading Hamava
+
+See [the maintainer guide](docs/maintenance.md) for the current CI checks, supported schema versions, backup-first migrations, generated-artifact hygiene, and retained validation evidence. Versioned database migrations must remain compatible with existing installations; do not remove historical schema transitions simply because a fresh install succeeds.
+
 ## Scope and release decisions
 
 The internal calendar and the external-authority adapter contract are implemented. An external provider must implement the documented conditional/idempotent write/read-back contract and pass clinic-specific acceptance before it becomes that clinic's authority. No Paziresh24, Doctoreto, EHR, Google, Bookly or insurer write permission is assumed. Native social-platform access requires an actual platform adapter and account. The outbound-voice gateway is implemented and disabled by default; live calls require its approved provider, consent and destination policy.
