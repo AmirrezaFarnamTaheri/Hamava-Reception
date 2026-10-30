@@ -83,6 +83,35 @@ Costs follow **approved rate/policy → maximum liability reservation → provid
 
 Privacy is similarly explicit: a caller's consent to receive a service does not automatically permit training, indefinite recording or unrelated outreach. Processing purpose, provider approval, retention limits, withdrawal and artifact erasure are separate records and checks. Access logs are minimized and avoid recording sensitive request paths or raw patient text.
 
+## Follow a booking request through the code
+
+A staff booking enters `main.py`, passes authentication and clinic-scope checks, and reaches `/appointments` in `api.py`. The route uses the internal scheduler or `calendar_bridge.py` according to the clinic's configured calendar authority.
+
+For the internal path, `ReceptionService.create_appointment()` in `core.py` validates the signed slot, current rules and idempotency key. The write transaction claims the resource minutes, records the appointment and audit event, and creates the notification intent. The server returns its recorded result. The browser never decides that an appointment is confirmed on its own.
+
+After the transaction, `operations.py` processes the notification outbox. The SMS provider may accept the message but report delivery much later. A booking remains a booking even if its SMS fails.
+
+For an external calendar, the route records a durable operation before sending the write. `calendar_bridge.py` later compares the result with the external authority. If the network loses the reply after the remote calendar commits, the operation stays pending or unknown until readback. A blind second write could create a duplicate.
+
+## Two receptionists, one available time
+
+Two staff members may see the same available slot before either confirms it. Both search results were accurate when retrieved. The first completed transaction occupies the resource; the second conflicting transaction must fail and refresh availability. A signed slot offer or temporary hold cannot bypass this final check. `backend/tests/test_core.py` and `scripts/postgres_stress.py` cover core and concurrent behavior.
+
+A retry after network loss is different. If the employee submits identical content with the same idempotency key, the stored result can be returned without creating a second appointment. Reusing the same key with different content produces `IDEMPOTENCY_MISMATCH`. A new key belongs to a new action, not an uncertain replay.
+
+## What counts as evidence at each boundary
+
+| Boundary | Initial observation | Authoritative result |
+| --- | --- | --- |
+| Internal calendar | Search result or held slot | Committed appointment and occupancy |
+| External calendar | Request sent, acknowledged or timed out | Provider readback and reconciled operation |
+| SMS | Request accepted | Delivery receipt; independent of the booking |
+| Payment | Intent, redirect or callback | Verified settlement or refund |
+| Phone transfer | Dial attempt or staff acceptance | Observed bridge connecting caller and staff |
+| Native application | Compatibility check or stored session | Current server membership and record |
+
+Each adapter should document its stable request identity, retry rule, failure states and the evidence that turns an uncertain result into a final one. Put that logic in the server module that owns the operation, not in frontend state.
+
 ## Database and failure recovery
 
 Production schema history is **0001 → 0002** in `backend/receptionist/migrations.py`. The first version is a real upgrade predecessor, not dead code. The second creates additional controls and transforms legacy billing notes without discarding financial data. Unknown or partially migrated schemas are rejected instead of being silently “repaired.” Take and test a backup before changing a live database.

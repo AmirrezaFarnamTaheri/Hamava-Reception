@@ -54,6 +54,33 @@ The daily workspace should show the next action before secondary metrics. Admini
 - Show only actions the user can request; always recheck authority on the server.
 - Avoid storing an offline copy of appointments on a native client. A connection interruption must not create phantom bookings.
 
+## What the patient should hear
+
+A booking has stages, and a receptionist should describe the one that exists. Consider a fictional patient requesting a Tuesday appointment at 14:30.
+
+| Current state | What to tell the patient | Next action |
+| --- | --- | --- |
+| A slot appears in search | "14:30 is available right now." | Ask the patient to choose it |
+| A hold is active | "I've set that time aside while we confirm your details." | Finish before the hold expires |
+| The booking is `PENDING_PAYMENT` | "Your time is reserved while payment is completed." | Verify the deposit against the current terms |
+| The booking is `PENDING_STAFF_APPROVAL` | "Reception needs to approve this request." | Assign the approval to a staff member |
+| The booking is `CONFIRMED` | "Your appointment is confirmed for Tuesday at 14:30." | Track message delivery separately |
+| A remote calendar write is unknown | "We're checking the result with the clinic's calendar." | Reconcile the original operation first |
+
+The patient may travel after hearing "confirmed." That word cannot describe a hold, a payment intent, or a request sent to another calendar. Even a delivered confirmation message does not establish the booking state; the authoritative calendar does.
+
+## A change while the patient is booking
+
+Suppose the doctor becomes unavailable after the patient has seen an open slot. The receptionist must request current availability again. An old offer cannot override the doctor's schedule, room limits, or buffers. If the server rejects a stale appointment version, the desk should show the newer record and let the receptionist choose a valid next action.
+
+A cancellation can release time for the waitlist. The waitlist offer has its own expiry and consent requirements; it is not a new appointment until the required acceptance and booking checks complete. If the patient already paid, cancellation and refund are separate operations. Reception can confirm that the booking was cancelled while finance checks whether the refund actually settled.
+
+## Handing work to a person
+
+The assistant should pass a request to reception when the question needs clinical judgment, the approved facts conflict, identity cannot be established, an external write remains unresolved, or the patient wants a person. A handoff must carry the clinic, the intended action, already verified details, the uncertain point, and the next task. The receiving staff member sees only information permitted by their role.
+
+A callback request is a task that someone must own. It is not a completed phone transfer. A telephone transfer is complete only when the caller actually reaches the receiving staff member.
+
 ## Scope and deployment stages
 
 The repository provides the scheduling core, web experience, native hosts, operational workflows and opt-in integration adapters. It does not ship with an Iranian carrier trunk, a clinic's payment merchant, live SMS delivery rights or an approved clinical script.
