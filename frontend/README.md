@@ -48,6 +48,30 @@ python scripts/ci_ui.py test:ui test:workflows test:conversation test:privacy-no
 
 The CI matrix also exercises outreach, waitlist/deposits, RTC lifecycle, companion and platform connection. Each browser suite uses an isolated synthetic server; evidence is stored per run rather than checked in.
 
+## Make loading and failure states explicit
+
+A page that starts a mutation must show the state of that request separately from the state of the appointment. For example, when a receptionist clicks Confirm, disable another submission while the HTTP request is in flight. If the request succeeds, render the returned booking status. If it fails with a version conflict, read the current appointment and ask the employee to review it. If the network fails while an external calendar is writing, surface the saved operation and its reconciliation route.
+
+The visible label matters more than an optimistic animation:
+
+| Response or state | Recommended presentation |
+| --- | --- |
+| Slot lookup still running | Keep earlier selection visible and label the search as loading |
+| No slots meet the chosen service rules | Show an empty result and a way to change date or practitioner |
+| Hold expires | Explain that the time is no longer reserved; fetch availability again |
+| Appointment is waiting for approval or payment | Show which step remains and avoid a "confirmed" label |
+| Request lacks permission | Explain the restriction without exposing another clinic's details |
+| Connection is lost | Keep known unsent form fields available where safe; do not claim the server accepted them |
+| External result remains unknown | Give staff an explicit path to inspect the original operation |
+
+Check both keyboard focus and accessible announcements when a dialog opens, closes or reports an error. In Persian layouts, test long names, Jalali dates, Latin IDs and numbers together: mixed-direction text often exposes alignment defects missed by English-only fixtures.
+
+## What a frontend PR should include
+
+A useful UI change identifies the route, the affected role and clinic scope, the request it sends, its loading/error states, and one browser regression. If an API response shape changed, update `src/types.ts` and the consuming page together. If an endpoint is permission-gated, verify the server rejects an unauthorized request even when the user opens a route manually.
+
+Screenshots can help review a visual change, but save transient captures with the relevant CI or review artifact. Generated images and browser logs do not belong in the maintained source tree.
+
 ## Native host boundary
 
 The same frontend is packaged by Electron and Capacitor. The native host supplies only the approved bridge for connection, session storage and device behavior. `src/platform.ts` checks `/api/v1/client-info` before sign-in and prevents the application from creating a second offline appointment database. On sign-out, client credentials must not be silently restored from an old vault entry. See [Clients and releases](../docs/clients-and-releases.md).

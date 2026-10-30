@@ -2,18 +2,35 @@
 
 [فارسی](README.fa.md) · [Research guide](../../docs/research.md)
 
-These are deterministic non-speech tones and fictional text/count/price inputs. They contain no real caller, clinic, consent, acoustic benchmark, market quote or clinical outcome. Consent and review fields are clearly fictional plumbing fixtures. The text is not a transcription of the tones. Do not use these fixtures as evidence of Persian ASR accuracy or model improvement. The training adapter refuses synthetic data unless explicitly placed in smoke-test mode.
+The files in this directory are repeatable test inputs. The text, prices, participants and permission records describe fictional cases. The six WAV files contain non-speech tones. Their associated text is **not** a transcription of the audio.
 
-Generate a fresh copy with `python scripts/make_synthetic_fixtures.py /tmp/new-synthetic-fixtures`. The destination must be new or empty; the command refuses to overwrite an existing fixture directory.
+## Find the input for your test
 
-## When to use these examples
+| File | What it exercises |
+| --- | --- |
+| `manifest-input.jsonl` | Audio records, metadata, rights checks and dataset curation |
+| `withdrawals.json` | The exclusion of withdrawn records |
+| `speech-predictions.jsonl` | Evaluation result parsing and error reports |
+| `training-recipe.template.json` | Training recipe validation without a real training run |
+| `capacity-input.json` | Queue and staffing scenario calculations |
+| `economics-input.json` | Exact cost calculations from fictional rates |
+| `pilot-cohorts.jsonl` | Baseline and pilot reporting logic |
+| `audio/synthetic-tone-*.wav` | Audio file decoding and segmentation plumbing |
 
-They are suitable for testing rights metadata, withdrawal handling, file parsing, redaction, dataset splitting, evaluation output and cost or capacity calculations without using real people. The audio files are tones rather than speech; they must not be compared with the fictional transcripts as if they were human recordings.
+These fixtures tell you whether a parser or calculation behaves as expected on known values. They cannot establish Persian speech accuracy, actual supplier prices, patient permission or business impact. In particular, the presence of fictional consent fields is no substitute for permission to process a real recording.
 
-Generate a fresh copy from the repository root:
+## Generate your own clean copy
+
+From the repository root, use a new or empty directory:
 
 ~~~sh
 python scripts/make_synthetic_fixtures.py /tmp/new-synthetic-fixtures
 ~~~
 
-The generator requires a new or empty destination. Inspect the generated manifest and rights flags before using a research tool; follow the [research workflow](../../docs/research.md) for actual authorized recordings. Synthetic inputs can exercise a smoke test, but they cannot measure Persian recognition quality or real clinic value.
+The generator refuses to overwrite existing files. Inspect the new manifests and expected labels before running a downstream tool. The training adapter requires an explicit synthetic smoke-test mode for these examples.
+
+## Work with approved real recordings
+
+For actual research, keep source recordings, participant permissions, withdrawal records and model weights in approved private storage. Use a new dataset manifest tied to those permissions. Freeze speaker- and clinic-separated splits before model selection, preserve the held-out test set and record the decoding and model versions.
+
+The [research guide](../../docs/research.md) explains the full evaluation procedure and how to interpret critical-field errors. Keep synthetic fixtures separate from any claimed real-world benchmark.
