@@ -6,7 +6,14 @@ import sqlite3
 
 import pytest
 
-from scripts.ci_ui import prepare_outreach_attendance
+import importlib.util
+
+script = Path(__file__).resolve().parents[2] / "scripts/ci_ui.py"
+spec = importlib.util.spec_from_file_location("hamava_ci_ui", script)
+assert spec and spec.loader
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+prepare_outreach_attendance = module.prepare_outreach_attendance
 
 
 def test_outreach_fixture_moves_attendance_and_occupancy_together(tmp_path: Path):
