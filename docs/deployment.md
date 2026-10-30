@@ -136,4 +136,4 @@ Treat the connection's *observed result* as the recovery criterion. A restarted 
 
 Track queue backlog, pending calendar operations, provider health observations, booking conflicts, message delivery failures, payment liabilities, media admission/transfer failures, disk/DB health and backup age. Prometheus/alert examples live under `deploy/`; keep diagnostic endpoints restricted. A patient complaint is often the first sign that an “accepted” provider request never completed—preserve request IDs and investigate the authoritative result.
 
-For the shift checklist, escalation and external launch review see [Operations](operations.md). For the service boundaries and failure states see [Architecture](architecture.md).
+For provider configuration and acceptance tests, follow [Provider integrations](provider-integrations.md). Use [Troubleshooting](troubleshooting.md) when a deployed route fails and [Operations](operations.md) for staffing and escalation. [Clinic acceptance](clinic-acceptance.md) describes the production configuration gate.

@@ -35,6 +35,50 @@ def prepare_synthetic_quiet_hours(database: Path) -> int:
     return len(tenants)
 
 
+
+def prepare_outreach_attendance(database: Path) -> None:
+    """Give the isolated outreach suite a genuinely elapsed attended booking.
+
+    The ordinary demo retains today's schedule. Only this suite shifts its
+    synthetic first appointment one day earlier, including occupancy claims.
+    """
+    with sqlite3.connect(database) as connection:
+        booking = connection.execute(
+            "SELECT start_at, end_at, occupied_until FROM appointments "
+            "WHERE id = ? AND status = 'CONFIRMED'",
+            ("demo-appt-1",),
+        ).fetchone()
+        if booking is None:
+            raise RuntimeError("Outreach fixture requires the confirmed demo appointment")
+        earlier = [
+            (datetime.fromisoformat(value) - timedelta(days=1)).isoformat(sep=" ")
+            for value in booking
+        ]
+        connection.execute(
+            "UPDATE appointments SET start_at = ?, end_at = ?, occupied_until = ?, "
+            "attendance = 'ATTENDED' WHERE id = ?",
+            (*earlier, "demo-appt-1"),
+        )
+        connection.execute(
+            "UPDATE occupancy SET minute = minute - 1440 "
+            "WHERE owner_type = 'appointment' AND owner_id = ?",
+            ("demo-appt-1",),
+        )
+        for message_id, raw in connection.execute(
+            "SELECT id, payload FROM message_outbox WHERE appointment_id = ?",
+            ("demo-appt-1",),
+        ).fetchall():
+            payload = json.loads(raw)
+            if "start_at" in payload:
+                payload["start_at"] = (
+                    datetime.fromisoformat(payload["start_at"]) - timedelta(days=1)
+                ).isoformat()
+                connection.execute(
+                    "UPDATE message_outbox SET payload = ? WHERE id = ?",
+                    (json.dumps(payload, ensure_ascii=False), message_id),
+                )
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("suites", nargs="*", default=["test:ui", "test:workflows", "test:conversation", "test:extensions", "test:release", "test:outreach", "test:waitlist-deposit", "test:privacy-notice", "test:rtc-lifecycle", "test:companion", "test:platform"])
@@ -82,6 +126,8 @@ def main():
                     if not ready:
                         raise TimeoutError("Synthetic API was not ready in 120 seconds")
                     synthetic_tenants = prepare_synthetic_quiet_hours(Path(temporary) / "demo.db")
+                    if suite == "test:outreach":
+                        prepare_outreach_attendance(Path(temporary) / "demo.db")
                     result = subprocess.run(["npm", "run", suite], cwd=project / "frontend", env=env, timeout=900)
                     reports.append({"suite": suite, "exit_code": result.returncode,
                                     "fresh_synthetic_database": True, "tool_timeout_ms": 30000,

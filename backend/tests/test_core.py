@@ -394,7 +394,9 @@ def test_practitioner_shifts_validate_preserve_and_protect_existing_bookings(dat
     headers = {"Authorization": "Bearer " + token}
     client = TestClient(app)
     endpoint = "/api/v1/practitioners/provider-bahar-1"
-    shifts = {str(day): [["10:00", "13:00"], ["14:00", "17:00"]] for day in range(7)}
+    # The demo seed has a 09:00 appointment today. Before 09:00 Tehran time it
+    # is still in the future, so the test's initial schedule must cover it.
+    shifts = {str(day): [["09:00", "13:00"], ["14:00", "17:00"]] for day in range(7)}
     changed = client.put(endpoint, headers=headers, json={"name": "پزشک با شیفت", "working_hours": shifts})
     assert changed.status_code == 200 and changed.json()["working_hours"] == shifts
     unchanged = client.put(endpoint, headers=headers, json={"name": "نام اصلاح‌شده"})

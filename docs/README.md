@@ -14,6 +14,10 @@
 | Change or review the code | [Development](development.md) | Local setup, test strategy, migrations and code ownership |
 | Install Hamava for a center | [Deployment and recovery](deployment.md) | Production configuration, Compose, integrations, backups and rollback |
 | Manage a center's working day | [Operations](operations.md) | Onboarding, shift routines, exceptions, incidents and approval |
+| Attest a clinic's production configuration | [Clinic acceptance](clinic-acceptance.md) | Five required synthetic checks, evidence, fingerprint and renewal |
+| Enable an external provider | [Provider integrations](provider-integrations.md) | Credentials, permissions, health observations and real acceptance tests |
+| Handle consent, export or erasure | [Privacy operations](privacy-operations.md) | Independent purposes, withdrawal, disclosure and backup follow-up |
+| Diagnose a failed workflow | [Troubleshooting](troubleshooting.md) | Health signals, error handling, reconciliation and incident closure |
 | Build Windows or Android applications | [Clients and releases](clients-and-releases.md) | Native architecture, build steps, signing and device checks |
 | Evaluate voice models or the business case | [Research](research.md) | Dataset governance, speech metrics, capacity and pilot design |
 | Review the current release scope | [Release notes](release-notes.md) | Source capabilities, upgrade notes and distribution boundaries |
@@ -25,7 +29,7 @@ The web interface has its own [developer entry point](../frontend/README.md). Th
 
 A **patient asks for an appointment**. The product guide describes what the patient experiences; the API guide shows the calls; architecture explains why the scheduler checks capacity again before committing. The operations guide tells staff what to do if the result is uncertain. Deployment explains how to keep the service running and how to recover it after failure.
 
-A **team wants to enable phone calls**. Architecture explains the separation between media and appointment state; deployment covers the private AudioSocket/PBX and LiveKit setup; operations explains the real two-way transfer test; research sets out how to measure noisy Persian speech and response time.
+A **team wants to enable phone calls**. Begin with provider approval and controlled tests in [Provider integrations](provider-integrations.md). [Architecture](architecture.md) explains what counts as an observed staff connection. [Deployment](deployment.md) covers private networking, and [Clinic acceptance](clinic-acceptance.md) records the five production checks. [Research](research.md) covers speech measurement.
 
 A **developer changes the app**. Start with the relevant code area in development, add a regression test, and use API/architecture to preserve the contract. Update both language versions of the affected guide.
 
@@ -40,7 +44,7 @@ The [requirements register](requirements-register.md) is an original **0.2.0 sna
 | You see… | Read first | Then check |
 | --- | --- | --- |
 | A booking was requested but has no confirmed slot | [Product](product.md) | [API](api.md) and [Architecture](architecture.md) for holds, states and retries |
-| The server responds, but a provider operation is stuck | [Operations](operations.md) | [Deployment](deployment.md) for provider readiness and recovery |
+| The server responds, but a provider operation is stuck | [Troubleshooting](troubleshooting.md) | [Provider integrations](provider-integrations.md) for approval, readiness and reconciliation |
 | A phone call says it transferred but nobody answered | [Operations](operations.md) | [Architecture](architecture.md) for bridge evidence |
 | A native app fails on first connection | [Clients and releases](clients-and-releases.md) | [Frontend guide](../frontend/README.md) for the handshake |
 | A test passes locally but fails in CI | [Development](development.md) | The actual workflow job and its artifacts |
