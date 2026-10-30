@@ -40,6 +40,33 @@ def test_dynamic_literal_imports_and_npm_script_roots_are_followed():
         assert results["unreferenced_tooling"] == ["frontend/scripts/manual.mjs"]
 
 
+def test_native_preload_and_browser_fixture_loaded_by_literal_path():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write(root, "apps/desktop/src/main.cjs", 'const x = {preload: path.join(__dirname, "preload.cjs")};')
+        write(root, "apps/desktop/src/preload.cjs", 'console.log("bridge");')
+        write(root, "frontend/src/main.tsx", 'const value = 1;')
+        write(root, "frontend/scripts/test.mjs", 'const f = new URL("./fixtures/rtc-room.mjs", import.meta.url);')
+        write(root, "frontend/scripts/fixtures/rtc-room.mjs", 'export const x = 1;')
+        write(root, "frontend/package.json", '{"scripts":{"test:ui":"node scripts/test.mjs"}}')
+        result = audit.javascript_inventory(root)
+        assert result["unreachable_desktop"] == []
+        assert result["unreferenced_tooling"] == []
+
+
+def test_android_manifest_and_capacitor_plugin_are_reachable():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write(root, "apps/mobile/android/app/src/main/AndroidManifest.xml", '<activity android:name=".MainActivity" />')
+        prefix = "apps/mobile/android/app/src/main/java/ir/hamava/reception/"
+        write(root, prefix + "MainActivity.java", "public class MainActivity { HamavaDevicePlugin plugin; }")
+        write(root, prefix + "HamavaDevicePlugin.java", "public class HamavaDevicePlugin { ServerPolicy p; }")
+        write(root, prefix + "ServerPolicy.java", "public class ServerPolicy {}")
+        write(root, prefix + "Dead.java", "public class Dead {}")
+        result = audit.java_inventory(root)
+        assert result["unreachable"] == [prefix + "Dead.java"]
+
+
 def test_test_only_python_module_is_not_automatically_deleted():
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)

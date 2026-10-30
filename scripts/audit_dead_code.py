@@ -95,9 +95,13 @@ def python_inventory(root: Path) -> dict:
 
 def js_imports(source: str, path: Path, known: set[str]) -> set[str]:
     matches = re.findall(r"(?:\bfrom\s*|\bimport\s*\(|\brequire\s*\(|\bimport\s*|@import\s*)[\s]*['\"]([^'\"]+)['\"]", source)
+    # Electron preloads and browser fixtures are loaded through literal paths
+    # instead of import statements; these are active runtime dependencies.
+    matches += re.findall(r"\bnew\s+URL\(\s*['\"]([^'\"]+)['\"]", source)
+    matches += re.findall(r"\bpath\.join\(\s*__dirname\s*,\s*['\"]([^'\"]+)['\"]", source)
     out = set()
     for spec in matches:
-        if not spec.startswith("."):
+        if not spec.startswith(".") and "/" in spec:
             continue
         full = (path.parent / spec).as_posix()
         parts = []
@@ -145,11 +149,25 @@ def javascript_inventory(root: Path) -> dict:
             "reachable": len(active)}
 
 
+def java_inventory(root: Path) -> dict:
+    paths = files(root, "apps/mobile/android/app/src/main", (".java",))
+    by_class = {p.stem: p for p in paths}
+    edges = {}
+    for name, path in by_class.items():
+        source = (root / path).read_text(encoding="utf8")
+        edges[name] = {candidate for candidate in by_class if candidate != name and
+                       re.search(r"\b" + re.escape(candidate) + r"\b", source)}
+    manifest = root / "apps/mobile/android/app/src/main/AndroidManifest.xml"
+    text = manifest.read_text(encoding="utf8") if manifest.exists() else ""
+    roots = {name for name in by_class if re.search(r"android:name=[\"]\.?" + re.escape(name) + r"[\"]", text)}
+    used = reachable(edges, roots)
+    return {"scanned": len(paths), "unreachable": sorted(str(path) for name, path in by_class.items() if name not in used),
+            "entrypoints": sorted(roots), "note": "Android resources and native entrypoints need manifest/Gradle validation."}
+
+
 def audit(root: Path) -> dict:
-    return {"schema_version": 1, "python": python_inventory(root), "javascript": javascript_inventory(root),
-            "native_java": {"files": len(files(root, "apps/mobile/android/app/src/main", (".java",))),
-                            "entrypoint": "AndroidManifest.xml/MainActivity.java",
-                            "note": "Android manifests, resources and Capacitor plugin registration need runtime-aware review; no auto-pruning."}}
+    return {"schema_version": 1, "python": python_inventory(root),
+            "javascript": javascript_inventory(root), "native_java": java_inventory(root)}
 
 
 def main() -> int:
@@ -166,7 +184,8 @@ def main() -> int:
         args.output.write_text(text, encoding="utf8")
     print(text)
     failures = (report["python"]["unreachable"] + report["javascript"]["unreachable_application"]
-                + report["javascript"]["unreachable_desktop"])
+                + report["javascript"]["unreachable_desktop"] + report["javascript"]["unreferenced_tooling"]
+                + report["native_java"]["unreachable"])
     return int(bool(args.check and failures))
 
 
