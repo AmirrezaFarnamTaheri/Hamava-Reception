@@ -1,8 +1,0 @@
-{
-  "tool_session": "90844",
-  "status": "interrupted_incomplete",
-  "result": "No completed full-suite result is inferred from this serial attempt",
-  "stopped_by": "parent before this controller was invoked; controller never signals it",
-  "preserved_log": "/workspace/scratch/4d7de602d755/voice-receptionist/artifacts/backend-final-shards/serial-interrupted.log",
-  "log_sha256": "4700fcd8226e778f2f067003f8d6501c10f88ed29262bdb8655d98405f12af5d"
-}

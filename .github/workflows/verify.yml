@@ -10,6 +10,22 @@ concurrency:
   group: verify-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
+  dead-code:
+    name: Static source reachability
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check application module reachability
+        run: python3 scripts/audit_dead_code.py --check --output artifacts/dead-code/report.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: source-reachability
+          path: artifacts/dead-code/
+          retention-days: 14
   backend:
     name: Server, migration and PostgreSQL invariants
     runs-on: ubuntu-24.04
@@ -79,6 +95,10 @@ jobs:
       - run: npm ci --ignore-scripts
         working-directory: frontend
       - run: node scripts/check-versions.mjs
+      - name: Check bilingual documentation and local links
+        run: |
+          node --test scripts/check-docs.test.mjs
+          node scripts/check-docs.mjs
       - run: npm run build
         working-directory: frontend
       - name: Check Chromium launcher contract

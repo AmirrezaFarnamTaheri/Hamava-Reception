@@ -99,7 +99,7 @@ def verify_production_schema():
         validate_schema(connection)
 
 
-app = FastAPI(title="Hamava Reception", version="0.2.0", lifespan=lifespan,
+app = FastAPI(title="Hamava Reception", version="0.2.2", lifespan=lifespan,
               description="Tenant-scoped Persian reception, transactional scheduling and explicit integration states.")
 app.add_middleware(AccessControlMiddleware, session_factory=SessionLocal)
 app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_credentials=False,
@@ -141,7 +141,7 @@ def health():
     try:
         with engine.connect() as connection:
             connection.execute(text("SELECT 1"))
-        return {"status": "ok", "version": "0.2.0", "mode": "demo" if settings.demo_mode else "configured", "database": "reachable"}
+        return {"status": "ok", "version": "0.2.2", "mode": "demo" if settings.demo_mode else "configured", "database": "reachable"}
     except Exception:
         return JSONResponse({"status": "degraded", "database": "unavailable"}, status_code=503)
 
@@ -149,7 +149,7 @@ def health():
 @app.get("/api/v1/client-info")
 def client_info():
     """Public compatibility handshake; never exposes accounts, provider settings or secrets."""
-    return {"product": "hamava", "api_version": 1, "app_version": "0.2.0",
+    return {"product": "hamava", "api_version": 1, "app_version": "0.2.2",
             "mode": "demo" if settings.demo_mode else "configured",
             "demo_mode": settings.demo_mode, "native_clients": True}
 

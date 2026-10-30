@@ -1,4 +1,5 @@
 import { Capacitor, registerPlugin } from "@capacitor/core";
+import webPackage from "../package.json";
 
 export type AppPlatform = "web" | "desktop" | "android" | "ios";
 export interface Runtime {
@@ -38,7 +39,7 @@ const device: NativeDevice | undefined =
     : undefined);
 const runtime: Runtime = {
   platform,
-  version: "0.2.0",
+  version: webPackage.version,
   serverUrl: "",
   setupRequired: platform !== "web",
   secureStorage: false,
@@ -231,12 +232,6 @@ export async function saveServerUrl(value: string): Promise<void> {
   runtime.demoMode = result.demoMode;
   runtime.setupRequired = false;
   window.location.replace("/");
-}
-
-export async function resetServer(): Promise<void> {
-  await removeSessionToken();
-  localStorage.removeItem(SERVER_KEY);
-  window.location.replace("/connection");
 }
 
 export async function openExternal(url: string): Promise<void> {
