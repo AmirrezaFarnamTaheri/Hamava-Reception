@@ -228,7 +228,9 @@ def main() -> int:
     print(text)
     failures = (report["python"]["unreachable"] + report["javascript"]["unreachable_application"]
                 + report["javascript"]["unreachable_desktop"] + report["javascript"]["unreferenced_tooling"]
-                + report["native_java"]["unreachable"])
+                + report["native_java"]["unreachable"]
+                + report["symbol_candidates"]["python_top_level_candidates"]
+                + report["symbol_candidates"]["frontend_export_candidates"])
     return int(bool(args.check and failures))
 
 

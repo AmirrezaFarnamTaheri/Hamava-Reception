@@ -234,12 +234,6 @@ export async function saveServerUrl(value: string): Promise<void> {
   window.location.replace("/");
 }
 
-export async function resetServer(): Promise<void> {
-  await removeSessionToken();
-  localStorage.removeItem(SERVER_KEY);
-  window.location.replace("/connection");
-}
-
 export async function openExternal(url: string): Promise<void> {
   const parsed = new URL(url);
   if (!["https:", "http:"].includes(parsed.protocol))

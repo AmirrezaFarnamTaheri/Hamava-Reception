@@ -285,12 +285,6 @@ def time_words(value: str) -> str:
     return number_words(hour) + (" و " + number_words(minute) + " دقیقه" if minute else " تمام")
 
 
-def spoken_jalali(day: date, hour: str | None = None) -> str:
-    value = jdatetime.date.fromgregorian(date=day)
-    label = f"{WEEKDAYS[day.weekday()]}، {number_words(value.day)} {MONTHS[value.month]} {number_words(value.year)}"
-    return label + ("، ساعت " + time_words(hour) if hour else "")
-
-
 def spoken_administrative(text: str) -> str:
     """Render trusted server text for TTS without changing its numeric meaning.
 

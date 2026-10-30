@@ -93,3 +93,17 @@ A good PR describes **what behavior changed, why, how it was tested and what rem
 Every maintained Markdown guide has an English file and a `.fa.md` translation. Edit both in the same PR. Translate the explanation, but leave endpoint names, file paths, config keys and executable snippets intact. Check the pair and local links with `node scripts/check-docs.mjs`. Release notes are tied to the package version via `node scripts/check-versions.mjs`.
 
 Use [Architecture](architecture.md) for responsibility boundaries, [API](api.md) for request contracts, [Deployment](deployment.md) for release setup and [Operations](operations.md) for real-world procedures.
+
+## Removing dead code safely
+
+Run the source inventory from the repository root:
+
+~~~sh
+python scripts/audit_dead_code.py --check --output artifacts/dead-code/report.json
+~~~
+
+The check follows Python imports from FastAPI, workers, scripts and tests; JavaScript/TypeScript imports and lazy routes from the web and native entry points; and Android Java references from the manifest and Capacitor registration. It also reports unreferenced top-level Python functions and frontend exports. Ruff catches unused Python imports and locals; TypeScript's `noUnusedLocals` and `noUnusedParameters` catch ordinary frontend dead declarations. CI runs the source graph as an independent fast job and separately verifies server, browser, desktop and container behavior.
+
+A name that looks unused can still be loaded through a framework. Before deletion, inspect FastAPI decorators, SQLAlchemy model registration, migrations, Electron preload paths, Java/Android manifest entries, browser test fixtures and the package/Actions commands that start operator tools. A script manually run for recovery remains a supported entry point even if no other Python file imports it.
+
+The repository-wide audit found one abandoned screenshot-preview utility and two unreferenced functions; those were removed. Essential registrations, all existing database migration versions, native bridges and RTC test fixtures remain. The machine-readable audit output is generated under `artifacts/`, not committed. For each later cleanup, remove only candidates with verified references and run the relevant regression suite.
