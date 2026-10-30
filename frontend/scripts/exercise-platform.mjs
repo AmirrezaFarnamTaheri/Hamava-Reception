@@ -16,7 +16,7 @@ const context = await browser.newContext({
   locale: "fa-IR",
 });
 await context.exposeBinding("testNativeVault", async (_, method, options) => {
-  if (method === "info") return { version: "0.2.0", secureStorage: true };
+  if (method === "info") return { version: "0.2.2", secureStorage: true };
   if (method === "read")
     return { token: vault?.server === options.server ? vault.token : null };
   if (method === "write") {

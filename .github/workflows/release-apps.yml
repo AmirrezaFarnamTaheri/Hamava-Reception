@@ -258,4 +258,4 @@ jobs:
         run: |
           test "$REF_TYPE" = tag && test "$SIGN_WINDOWS" = true && test "$SIGN_ANDROID" = true
           git merge-base --is-ancestor HEAD "origin/$DEFAULT_BRANCH"
-          gh release create "$RELEASE_TAG" --draft --verify-tag --title "Hamava $RELEASE_TAG" --notes-file docs/release-notes-v0.2.0.md artifacts/release/*
+          gh release create "$RELEASE_TAG" --draft --verify-tag --title "Hamava $RELEASE_TAG" --notes-file docs/release-notes.md artifacts/release/*

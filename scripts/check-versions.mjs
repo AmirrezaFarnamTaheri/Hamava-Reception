@@ -12,6 +12,12 @@ assert.ok(python.includes(`version = "${pkg.version}"`), "Python package version
 const compose = await readFile(new URL("compose.yaml", root), "utf8");
 const imageVersion = compose.match(/^\s*image:\s*hamava-receptionist:([^\s]+)\s*$/m);
 assert.equal(imageVersion?.[1], pkg.version, "Deployment image version must match the release");
+const notes = await readFile(new URL("docs/release-notes.md", root), "utf8");
+const notesFa = await readFile(new URL("docs/release-notes.fa.md", root), "utf8");
+assert.ok(notes.includes(`# Hamava Reception ${pkg.version}`), "English release notes must match source version");
+assert.ok(notesFa.includes(pkg.version), "Persian release notes must match source version");
+const releaseWorkflow = await readFile(new URL(".github/workflows/release-apps.yml", root), "utf8");
+assert.ok(releaseWorkflow.includes("--notes-file docs/release-notes.md"), "Draft release notes path must exist");
 if (process.env.GITHUB_REF_TYPE === "tag")
   assert.equal(process.env.GITHUB_REF_NAME, `v${pkg.version}`, "Release tag must match package versions");
 console.log(`Release version ${pkg.version}: consistent across server, web, desktop, Android and deployment image.`);

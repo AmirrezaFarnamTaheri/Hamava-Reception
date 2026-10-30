@@ -14,6 +14,8 @@ This is the maintained documentation set for source version **0.2.2**. Read Engl
 | [Operations](operations.md) | Onboarding, daily work, incidents and live acceptance |
 | [Clients and releases](clients-and-releases.md) | Desktop, Android, signing and publishing |
 | [Research](research.md) | Speech evaluation, governance, capacity and economics |
+| [Release notes](release-notes.md) | Changes, upgrade compatibility and external launch boundaries |
+| [Requirements register](requirements-register.md) | Historical scope and evidence rules |
 
 The repository intentionally excludes historical per-run screenshots, JUnit XML and test logs from the maintained docs. They belong in ephemeral **GitHub Actions artifacts** or operator-controlled evidence storage, linked to an exact commit/run. Git history retains previous reports without presenting obsolete results as current.
 

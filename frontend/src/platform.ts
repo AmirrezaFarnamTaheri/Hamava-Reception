@@ -1,4 +1,5 @@
 import { Capacitor, registerPlugin } from "@capacitor/core";
+import webPackage from "../package.json";
 
 export type AppPlatform = "web" | "desktop" | "android" | "ios";
 export interface Runtime {
@@ -38,7 +39,7 @@ const device: NativeDevice | undefined =
     : undefined);
 const runtime: Runtime = {
   platform,
-  version: "0.2.0",
+  version: webPackage.version,
   serverUrl: "",
   setupRequired: platform !== "web",
   secureStorage: false,
