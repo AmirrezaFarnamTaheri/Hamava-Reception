@@ -88,6 +88,50 @@ The current supported schema path is `0001 → 0002`; unknown/partial schemas ar
 
 Schedule and periodically verify backup jobs using `scripts/backup_daily.py` and the templates in `deploy/`. A backup existing on disk is not proof that a clinic can be restored.
 
+## Understand startup order and health signals
+
+The Compose configuration does not start everything at once. PostgreSQL must become healthy before `migrate` runs. The migration must exit successfully before `api` starts. The `jobs` worker starts after the API health check succeeds. The optional `https` profile adds Caddy; the `speech`, `pbx`, and `webrtc` profiles each require separate setup.
+
+After starting a deployment, check the service list and read the affected logs before changing settings:
+
+~~~sh
+docker compose --env-file .env.production --profile https ps
+docker compose --env-file .env.production logs --tail=100 migrate api jobs
+curl --fail --silent https://reception.your-domain.example/health
+~~~
+
+Replace the example hostname with your own. `/health` establishes that the application can reach its database. `/ready` also checks configured dependencies and can return HTTP `503` when one is degraded. Do not suppress that response merely to make monitoring green. Find out which dependency is unavailable and decide whether the affected workflow should remain disabled.
+
+If `migrate` fails, keep writers stopped and inspect its error. Do not skip migrations, create tables manually or mark the database at the latest version. Restore the last tested database and matching keys if the upgrade cannot be recovered safely.
+
+## A restore drill you can repeat
+
+A working backup procedure has two halves: creating the archive and proving that it can restore a usable clinic. `scripts/backup.py` expects `BACKUP_DATABASE_URL` in the environment and requires a GnuPG recipient when creating an archive. For example, after privately configuring the database URL and the recipient:
+
+~~~sh
+python scripts/backup.py backup \
+  --output /secure/offhost/hamava-example.dump.gpg \
+  --recipient '<approved GnuPG recipient>'
+~~~
+
+The command is illustrative; use a location and recipient approved for the installation. Keep the encrypted database archive together with its integrity metadata. Store configuration, encryption keys and the key-custody inventory separately with `scripts/config_backup.py`. Backing up the database without a recoverable application encryption key can leave sensitive fields unreadable.
+
+For a restore drill, prepare an *empty isolated PostgreSQL target*, set its `BACKUP_DATABASE_URL`, and use the restore command below. The tool requires explicit acknowledgement that the destination is empty.
+
+~~~sh
+python scripts/backup.py restore \
+  --source /secure/offhost/hamava-example.dump.gpg \
+  --acknowledge-empty-target --verify-application-key
+~~~
+
+Do not point the restore command at a live database. Verify a few representative appointments, staff memberships and protected records after the restore, then check `schema_version` and the database constraints. Record the date, revision, archive digest, operator and result of the drill. The return code, not an existing archive filename, determines whether the restore command completed.
+
+## Recovering individual integrations
+
+When the core web application still works, disable only the failing optional workflow where possible. For example, a speech failure can fall back to text or an authorized staffed callback; a calendar write with an unknown result must be reconciled rather than resent as a fresh booking. Before enabling an integration again, test one controlled end-to-end request and the corresponding failure path.
+
+Treat the connection's *observed result* as the recovery criterion. A restarted container does not prove that an SMS reached a handset, a merchant settled a payment, or a caller could hear a staff member.
+
 ## 6. Monitor what matters
 
 Track queue backlog, pending calendar operations, provider health observations, booking conflicts, message delivery failures, payment liabilities, media admission/transfer failures, disk/DB health and backup age. Prometheus/alert examples live under `deploy/`; keep diagnostic endpoints restricted. A patient complaint is often the first sign that an “accepted” provider request never completed—preserve request IDs and investigate the authoritative result.
