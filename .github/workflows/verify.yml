@@ -10,6 +10,22 @@ concurrency:
   group: verify-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
+  dead-code:
+    name: Static source reachability
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check application module reachability
+        run: python3 scripts/audit_dead_code.py --check --output artifacts/dead-code/report.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: source-reachability
+          path: artifacts/dead-code/
+          retention-days: 14
   backend:
     name: Server, migration and PostgreSQL invariants
     runs-on: ubuntu-24.04
@@ -45,8 +61,6 @@ jobs:
           sudo apt-get install -y --no-install-recommends ffmpeg
           ffmpeg -version | head -n 1
       - run: ruff check backend scripts services
-      - name: Inventory dead-code candidates across application modules
-        run: python scripts/audit_dead_code.py --output artifacts/backend/dead-code.json
       - run: pytest -q --junitxml=artifacts/backend/pytest.xml
       - name: Replay synthetic streaming and PBX protocol contracts
         run: python scripts/protocol_conformance.py --output artifacts/backend/protocol-conformance.json
