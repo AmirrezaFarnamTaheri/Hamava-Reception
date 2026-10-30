@@ -45,6 +45,8 @@ jobs:
           sudo apt-get install -y --no-install-recommends ffmpeg
           ffmpeg -version | head -n 1
       - run: ruff check backend scripts services
+      - name: Inventory dead-code candidates across application modules
+        run: python scripts/audit_dead_code.py --output artifacts/backend/dead-code.json
       - run: pytest -q --junitxml=artifacts/backend/pytest.xml
       - name: Replay synthetic streaming and PBX protocol contracts
         run: python scripts/protocol_conformance.py --output artifacts/backend/protocol-conformance.json
