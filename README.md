@@ -1,14 +1,14 @@
-# Hamava Reception · هم‌آوا
+# Hamava Reception
 
-[فارسی](README.fa.md) | English
+**A Persian reception desk for appointments, calls and follow-up.** [فارسی](README.fa.md)
 
-Hamava is a Persian-first reception platform for appointment-based organizations. It combines a transaction-safe scheduling service, right-to-left staff workspace, patient conversation, optional media workers, and Windows/Android companions. The authoritative clinic state resides on the server; clients do not maintain independent appointment databases.
+Hamava puts the work of a reception team in one place: an appointment calendar, patient conversations, staff tasks, messaging, deposits and a clear route back to a person when automation cannot finish the job. The web workspace, Windows application and Android companion connect to the same server and share the same clinic records.
 
-**Current source version: 0.2.2.** This repository is a development/source candidate, **not** evidence of a signed public release or an approved live clinic, carrier, clinical workflow, payment processor, or speech model. Demo patients, clinics, prices, recordings and research inputs are synthetic. External services are disabled until explicitly configured and accepted.
+The current source version is **0.2.2**. You can run the complete text-based demo locally. Speech, telephony, calendar providers, SMS and payments are separate integrations that a clinic enables only after configuring and testing them. The repository supplies code and packaging workflows; it is not a preconfigured live reception service.
 
-## Quick start: isolated demo
+## Try Hamava in five minutes
 
-Requirements: **Python 3.12**, **Node.js 24**, npm; FFmpeg for media decoding tests. PostgreSQL 16 is used for production; the single-machine demo uses SQLite. Run from the repository root:
+You need Python **3.12**, Node.js **24** and npm. These commands are for a POSIX shell, from the repository root:
 
 ~~~sh
 python3.12 -m venv .venv
@@ -22,25 +22,41 @@ set -a; . ./.env; set +a
 python -m uvicorn receptionist.main:app --host 127.0.0.1 --port 8000 --no-access-log
 ~~~
 
-On Windows use the equivalent Python virtual-environment activation and environment-loading commands; the shell example above targets POSIX systems. Open **http://127.0.0.1:8000** for the staff workspace or **http://127.0.0.1:8000/talk/bahar** for the fictional caller flow. Demo owner login: `owner@example.test` / `DemoReception2026!` (**never** use these credentials or demo mode for a real clinic). Text interaction needs no speech provider.
+Open **http://127.0.0.1:8000**. The demo owner is `owner@example.test` with password `DemoReception2026!`. You can also start a visitor conversation at **http://127.0.0.1:8000/talk/bahar**. The example clinics, people, appointment records and message/payment responses are fictional. They let you explore the complete workflow without connecting real services.
 
-Start background jobs in a separate shell with the same environment:
+Open another terminal, activate the same environment and load `.env` before starting the background worker:
 
 ~~~sh
 python -m receptionist.worker
 ~~~
 
-Keep `RUN_WORKER=false` in the API process when using this separate worker. Do not launch duplicate workers without understanding their scheduling and recovery behavior.
+The API process should keep `RUN_WORKER=false` while the separate worker is running. On Windows, use the equivalent virtual-environment activation and environment-variable commands. PostgreSQL **16** is used for production; the demo uses local SQLite. FFmpeg is needed for certain speech-decoding tests.
 
-## Key capabilities
+### A useful first walkthrough
 
-- Transactional holds, appointment creation/rescheduling/cancellation, occupancy conflicts, service buffers, idempotency, audit events and follow-up tasks.
-- Persian and Jalali date handling, consent-first patient conversation, verified facts, explicit readback and safe handoff to staff.
-- Tenant-scoped staff management, approved service/catalog policies, calendar authority, communication status, waitlists, deposits, refund/dispute records, privacy and provider controls.
-- Optional AudioSocket/Asterisk, LiveKit, local speech and external processors behind independent approval, routing, cost and reconciliation controls.
-- A shared React interface with Electron/Windows and Capacitor/Android hosts. The native shells connect to a deployed API; they are not standalone servers.
+1. Sign in and switch between the fictional clinics **Bahar** and **Niloufar**. Notice that the selected clinic controls which appointments, settings and tasks you can see.
+2. Open the appointment calendar. Choose a practitioner and service, check available slots, create a hold, then confirm a booking. A hold expires; it is not a completed appointment.
+3. Move or cancel the booking. Hamava checks its current version and records the change instead of overwriting whatever happened in the meantime.
+4. Open the staff task queue and inspect an unresolved handoff or notification. A request marked *pending* should stay pending until there is evidence of the next step.
+5. Open the visitor page, give the displayed processing consent, and ask to book an appointment in Persian. Try an ambiguous date or a correction and see how the conversation asks for clarification.
 
-## Verification
+## What lives where
+
+| Part | Job | Code |
+| --- | --- | --- |
+| Reception server | Scheduling, identity, permissions, tenant policies and authoritative business state | `backend/receptionist/` |
+| Background worker | Reminders, delivery, reconciliation and operational follow-up | `backend/receptionist/worker.py` |
+| Shared interface | Persian RTL desk, administration and public conversation | `frontend/` |
+| Desktop app | Electron host, clinic connection and protected session storage | `apps/desktop/` |
+| Android app | Capacitor host, HTTPS connection and device-backed session storage | `apps/mobile/` |
+| Speech and media | Optional local speech, AudioSocket, LiveKit and Asterisk handoff | `services/local_speech/`, `backend/receptionist/media/`, `deploy/asterisk/` |
+| Infrastructure | Docker, Caddy, database, observability and CI | `compose.yaml`, `deploy/`, `.github/workflows/` |
+
+The backend owns appointment writes, contact permissions and the notification outbox. Clients never become independent calendars. An accepted request from a remote provider is not automatically the same thing as an appointment saved, an SMS delivered, money settled or a staff call connected. These distinctions are reflected in the interface and in the underlying state records.
+
+## Run the checks
+
+After installing the dependencies above:
 
 ~~~sh
 python -m ruff check backend scripts services
@@ -50,14 +66,14 @@ npm --prefix frontend run build
 npm --prefix frontend run test:browser-launch
 npm --prefix apps/desktop test
 node scripts/check-versions.mjs
-node scripts/check-docs.mjs
 node --test scripts/check-docs.test.mjs
+node scripts/check-docs.mjs
 ~~~
 
-The GitHub verification workflow additionally runs isolated PostgreSQL invariants, browser journeys and container startup. Passing synthetic tests does **not** validate actual PSTN audio, bank settlement, physical devices, publisher signing or clinic authorization. Read the current CI results for the exact revision; archived reports are not current test proof.
+`.github/workflows/verify.yml` additionally checks an isolated PostgreSQL database, browser journeys and the deployable container. The native release workflow has separate Windows and Android jobs. For the exact results of a commit, read its Actions run rather than an old report.
 
-## Documentation
+## Where to go next
 
-Start at the [documentation index](docs/README.md), then use the [product](docs/product.md), [architecture](docs/architecture.md), [API](docs/api.md), [development](docs/development.md), [deployment](docs/deployment.md), [operations](docs/operations.md), [native clients and releases](docs/clients-and-releases.md), and [research](docs/research.md) guides. Every maintained guide has a corresponding `.fa.md` Persian version. The API's live OpenAPI specification is available from a running server at `/openapi.json` (and `/docs` when enabled).
+The [documentation index](docs/README.md) gives each guide a clear purpose. For a first deployment, read [Deployment](docs/deployment.md), then [Operations](docs/operations.md). To understand how a booking or an integration works, start with [Architecture](docs/architecture.md) and [API](docs/api.md). Developers should use [Development](docs/development.md); native packaging is covered in [Clients and releases](docs/clients-and-releases.md).
 
-**Production stays closed until named operators approve provider contracts, tenant settings, telephone handoff, privacy/clinical obligations, backup recovery and real end-to-end acceptance.** No generated artifact or self-attested checklist grants that approval.
+**Before serving a real clinic**, provision a unique production configuration, tested backups, approved staff fallback and the actual accounts and authorizations for every enabled provider. The [launch checklist](docs/operations.md) separates checks the software can perform from those the clinic and its suppliers must complete.
