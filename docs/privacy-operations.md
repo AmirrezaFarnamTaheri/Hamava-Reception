@@ -23,6 +23,27 @@ Recording an independent choice uses `POST /api/v1/operations/privacy-controls/p
 
 Do not infer permission from a telephone number or from the fact that the patient completed a booking. A withdrawn choice must be recorded as `granted: false` against the current policy. The API can expire stored artifacts and end active sessions when the corresponding purpose is withdrawn.
 
+For a verified request to withdraw **recording** permission, the request body has this shape:
+
+~~~http
+POST /api/v1/operations/privacy-controls/permissions
+Authorization: Bearer <privacy-authorized-staff-token>
+Content-Type: application/json
+
+{
+  "phone": "<verified-phone>",
+  "purpose": "recording",
+  "granted": false,
+  "policy_version": 1,
+  "evidence_reference": "<private-evidence-id>",
+  "evidence_sha256": "<64-character-hex-digest>",
+  "method": "verified_subject_request",
+  "subject_request_confirmed": true
+}
+~~~
+
+This is a template. Replace the private identifiers and the evidence digest, and use the numeric version returned by the current purpose policy rather than the illustrative `1`. Set `subject_request_confirmed` only after verifying the person's actual choice. The server checks that the policy version matches and records a tenant-scoped audit event.
+
 ## Approve the outside processor separately
 
 `PUT /api/v1/operations/privacy-controls/processors` needs both `privacy:manage` and `integration:write`. The processor approval records the provider key, approved purposes and regions, origin region, retention, fallback eligibility, contract reference and digest, expiry and enabled state. The service checks expiry and purpose before sensitive provider work.

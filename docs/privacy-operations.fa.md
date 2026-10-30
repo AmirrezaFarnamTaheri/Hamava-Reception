@@ -23,6 +23,27 @@ Authorization: Bearer <privacy-authorized-staff-token>
 
 از داشتن شمارهٔ تلفن یا کامل‌شدن نوبت، رضایت برای هدف دیگری نتیجه نگیرید. انصراف با `granted: false` و سیاست فعلی ثبت می‌شود. با پس‌گرفتن رضایت مربوط، API می‌تواند نگهداری برخی فایل‌ها را منقضی و نشست‌های فعال پردازش را پایان دهد.
 
+برای درخواست تأییدشدهٔ انصراف از **ضبط صدا**، قالب بدنه چنین است:
+
+~~~http
+POST /api/v1/operations/privacy-controls/permissions
+Authorization: Bearer <privacy-authorized-staff-token>
+Content-Type: application/json
+
+{
+  "phone": "<verified-phone>",
+  "purpose": "recording",
+  "granted": false,
+  "policy_version": 1,
+  "evidence_reference": "<private-evidence-id>",
+  "evidence_sha256": "<64-character-hex-digest>",
+  "method": "verified_subject_request",
+  "subject_request_confirmed": true
+}
+~~~
+
+این نمونه یک قالب است. شناسه‌های خصوصی و هش مدرک را با مقدار واقعی جایگزین کنید و به‌جای نسخهٔ نمایشی `1`، شمارهٔ نسخهٔ فعلی سیاست را بفرستید. `subject_request_confirmed` فقط پس از بررسی انتخاب واقعی شخص باید درست باشد. سرور تطابق نسخه را می‌سنجد و رویداد حسابرسی مربوط به مرکز را ثبت می‌کند.
+
 ## ارائه‌دهندهٔ بیرونی تأیید جدا می‌خواهد
 
 مسیر `PUT /api/v1/operations/privacy-controls/processors` به هر دو مجوز `privacy:manage` و `integration:write` نیاز دارد. تأیید پردازشگر، کلید سرویس، هدف‌ها و منطقه‌های مجاز، منطقهٔ مبدأ، زمان نگهداری، اجازهٔ مسیر جایگزین، مرجع قرارداد و هش آن، انقضا و وضعیت فعال‌سازی را ثبت می‌کند. پیش از پردازش حساس، سامانه اعتبار مجوز و هدف را بررسی می‌کند.
