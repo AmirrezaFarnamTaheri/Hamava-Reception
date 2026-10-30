@@ -1,4 +1,4 @@
-# Hamava Reception 0.2.2 — source-candidate release notes
+# Hamava Reception 0.2.2: release notes
 
 [فارسی](release-notes.fa.md) | [Documentation](README.md)
 
@@ -45,7 +45,35 @@ External systems introduce an important extra step. A calendar write, provider-a
 
 The repository runs server/PostgreSQL, browser, desktop bridge and container checks through GitHub Actions. The native release workflow builds Windows NSIS/portable and Android APK/AAB artifacts, collects checksums and can create a signed draft GitHub Release when the necessary credentials and tag are available.
 
-For a source-only package, run `python scripts/make_source_release.py --output artifacts/hamava-source.zip`. For native packages use [Clients and releases](clients-and-releases.md), and record the actual artifact digest, publisher signature, tested OS and installation result. A source archive and a signed installer serve different purposes.
+For a source-only package, run `python scripts/make_source_release.py --output ../hamava-source.zip`. For native packages use [Clients and releases](clients-and-releases.md), and record the actual artifact digest, publisher signature, tested OS and installation result. A source archive and a signed installer serve different purposes.
+
+## A release checklist with an explicit owner
+
+Before anyone distributes a build, identify the exact source commit and workflow run. The artifact name alone is not enough: an installer with the right version string may still be unsigned, built from the wrong commit or missing a required file.
+
+| Checkpoint | Where to inspect it | What to record |
+| --- | --- | --- |
+| Source and version | Commit, tag, `node scripts/check-versions.mjs` | Commit SHA, release version and tag |
+| Verification | `.github/workflows/verify.yml` | Run ID and result for every required job |
+| Archive integrity | Manifest and SHA-256 of the generated file | File name, digest and storage location |
+| Windows identity | Signing check and an installed Windows test | Publisher identity, OS version and upgrade result |
+| Android identity | Keystore signing check and device tests | Package/version identity, device and install result |
+| Existing data | A restored backup and migration result | Schema version, record checks and recovery owner |
+| Clinic acceptance | Named operations and provider checks | Accepted features, remaining limits and staff fallback |
+
+For a source-only archive, run the following from the repository root. The script deliberately refuses to write its output **inside** the source tree.
+
+~~~sh
+python scripts/make_source_release.py --output ../hamava-source.zip
+~~~
+
+This produces a source archive with its own content manifest. It is different from an installed or publisher-signed native application. Keep the exact build and test evidence with the release record, not as historical screenshots copied into the handbook.
+
+## Upgrading a running clinic
+
+Treat the upgrade as a short operational change, not just a code replacement. Record the previous revision, stop writers, take a recoverable encrypted backup with the matching keys, deploy the intended image, run the schema migration and verify existing appointments, membership and finance records. Restart the API and worker only after the migration has succeeded.
+
+If the new version fails its functional checks, use the documented restoration route and the matching old configuration. Do not try to invent a reverse SQL migration for schema `0002`. The [deployment guide](deployment.md) explains the restore drill and startup checks; [operations](operations.md) covers the staff acceptance decision.
 
 ## Still required for real-world launch
 

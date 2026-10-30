@@ -35,6 +35,34 @@ For implemented behavior, inspect the relevant code, tests and the running serve
 
 The [requirements register](requirements-register.md) is an original **0.2.0 snapshot**, not a current completion dashboard. Some evidence paths in that JSON refer to files preserved in Git history after the repository cleanup. They are not live files or present-day test results.
 
+## Start with the symptom when something goes wrong
+
+| You see… | Read first | Then check |
+| --- | --- | --- |
+| A booking was requested but has no confirmed slot | [Product](product.md) | [API](api.md) and [Architecture](architecture.md) for holds, states and retries |
+| The server responds, but a provider operation is stuck | [Operations](operations.md) | [Deployment](deployment.md) for provider readiness and recovery |
+| A phone call says it transferred but nobody answered | [Operations](operations.md) | [Architecture](architecture.md) for bridge evidence |
+| A native app fails on first connection | [Clients and releases](clients-and-releases.md) | [Frontend guide](../frontend/README.md) for the handshake |
+| A test passes locally but fails in CI | [Development](development.md) | The actual workflow job and its artifacts |
+| A historic acceptance link is missing | [Requirements register](requirements-register.md) | The named source commit in Git history |
+
+## Keep the same words for the same states
+
+The code keeps state identifiers in English. User-facing Persian should explain the state without changing its meaning. The shared vocabulary below is a useful review reference, not a replacement for the API enum values.
+
+| Code or English term | Recommended Persian wording |
+| --- | --- |
+| Hold / held slot | رزرو موقت |
+| Confirmed appointment | نوبت قطعی |
+| `PENDING_PAYMENT` | در انتظار پرداخت |
+| `PENDING_STAFF_APPROVAL` | در انتظار تأیید پذیرش |
+| Unknown external outcome | نتیجهٔ نامعلوم سرویس بیرونی |
+| Reconciliation | تطبیق نتیجه با مرجع |
+| Callback task | وظیفهٔ تماس مجدد |
+| Observed staff bridge | اتصال مشاهده‌شدهٔ بیمار به کارمند |
+
+Translate for the reader, but keep executable commands and machine-readable state values unchanged. For screenshots or support replies, prefer the phrase a receptionist would recognize over a literal translation of a database column.
+
 ## Editing the handbook
 
 - Change the English and `.fa.md` counterparts together. Prefer concrete instructions, examples and failure handling to repeated status claims.
