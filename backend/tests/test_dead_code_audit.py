@@ -67,6 +67,18 @@ def test_android_manifest_and_capacitor_plugin_are_reachable():
         assert result["unreachable"] == [prefix + "Dead.java"]
 
 
+def test_unused_export_and_top_level_function_are_reported_advisory_only():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write(root, "backend/receptionist/helpers.py", "def orphan(): pass\ndef used(): pass\nused()\n")
+        write(root, "frontend/src/used.ts", "export function usedValue() {return 1;}\n")
+        write(root, "frontend/src/other.ts", "export const deadValue = 2;\n")
+        report = audit.symbol_inventory(root)
+        assert any("orphan" in s for s in report["python_top_level_candidates"])
+        assert not any(":used" in s for s in report["python_top_level_candidates"])
+        assert any("deadValue" in s for s in report["frontend_export_candidates"])
+
+
 def test_test_only_python_module_is_not_automatically_deleted():
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)

@@ -165,9 +165,52 @@ def java_inventory(root: Path) -> dict:
             "entrypoints": sorted(roots), "note": "Android resources and native entrypoints need manifest/Gradle validation."}
 
 
+def symbol_inventory(root: Path) -> dict:
+    """Advisory only: review public APIs and dynamic dispatch before removal."""
+    py_paths = (files(root, "backend/receptionist", (".py",)) +
+                files(root, "backend/tests", (".py",)) +
+                files(root, "scripts", (".py",)) +
+                files(root, "deploy", (".py",)) +
+                files(root, "services", (".py",)))
+    trees = {str(p): ast.parse((root / p).read_text(encoding="utf8")) for p in py_paths}
+    uses = set()
+    for tree in trees.values():
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load):
+                uses.add(node.id)
+            elif isinstance(node, ast.Attribute):
+                uses.add(node.attr)
+            elif isinstance(node, ast.ImportFrom):
+                uses.update(alias.name for alias in node.names)
+            elif isinstance(node, ast.Constant) and isinstance(node.value, str):
+                uses.update(re.findall(r"[a-zA-Z_]\w*", node.value))
+    py_unused = []
+    for path in files(root, "backend/receptionist", (".py",)):
+        for node in trees[str(path)].body:
+            if (isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and
+                    not node.decorator_list and not node.name.startswith("__") and
+                    node.name not in uses):
+                py_unused.append(f"{path}:{node.lineno}:{node.name}")
+    ts_paths = files(root, "frontend/src", (".ts", ".tsx"))
+    all_ts = [(str(p), (root / p).read_text(encoding="utf8")) for p in ts_paths]
+    # Single-occurrence exports merit inspection. They may be public or loaded
+    # dynamically, so the advisory never triggers automatic deletion.
+    unused_exports = []
+    for path, source in all_ts:
+        for match in re.finditer(r"\bexport\s+(?:declare\s+|async\s+)?(?:const|let|function|class|type|interface|enum)\s+([A-Za-z_]\w*)", source):
+            name = match.group(1)
+            count = sum(len(re.findall(r"\b" + re.escape(name) + r"\b", t)) for _, t in all_ts)
+            if count == 1:
+                unused_exports.append(f"{path}:{source.count(chr(10), 0, match.start())+1}:{name}")
+    return {"python_top_level_candidates": sorted(py_unused),
+            "frontend_export_candidates": sorted(unused_exports),
+            "note": "Advisory static signals; callbacks, reflection and public interfaces require manual review."}
+
+
 def audit(root: Path) -> dict:
     return {"schema_version": 1, "python": python_inventory(root),
-            "javascript": javascript_inventory(root), "native_java": java_inventory(root)}
+            "javascript": javascript_inventory(root), "native_java": java_inventory(root),
+            "symbol_candidates": symbol_inventory(root)}
 
 
 def main() -> int:
