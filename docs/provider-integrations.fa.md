@@ -41,10 +41,21 @@ PUT /api/v1/operations/integration-capabilities/calendar_primary
 Authorization: Bearer <authorized-staff-token>
 Content-Type: application/json
 
-<CapabilityInput from the current OpenAPI schema and reviewed evidence>
+{
+  "version": 0,
+  "kind": "calendar",
+  "operations": ["get"],
+  "endpoint_version": "<provider-contract-revision>",
+  "region": "<approved-region>",
+  "data_terms_reference": "<private-terms-reference>",
+  "verification_state": "declared_unverified",
+  "evidence_reference": "<private-review-reference>",
+  "expires_at": "<future-ISO-8601-timestamp-with-zone>",
+  "reason": "Record an unverified capability declaration"
+}
 ~~~
 
-بخش آخر نمونهٔ توضیحیِ بدنه است و JSON قابل‌اجرا نیست. ساختار دقیق در `CapabilityInput` در `backend/receptionist/provider_control.py` یا `/openapi.json` قرار دارد. تا پیش از تأیید جزئیات، وضعیت `declared_unverified` را نگه دارید. فقط پس از بازبینی مدرک توسط مسئول پاسخ‌گو `operator_attested` ثبت کنید. اعلام قابلیت تاریخ انقضا و کنترل نسخه دارد و به‌تنهایی سلامت سرویس را ثابت نمی‌کند.
+JSON بالا **قالب نمونه** است، نه درخواست تکمیل‌شده. همهٔ مقدارهای داخل علامت زاویه‌دار را جایگزین کنید؛ `version: 0` فقط برای اولین اعلام بدون نسخهٔ قبلی است و فهرست عملیات باید به قابلیت‌های واقعی ارائه‌دهنده محدود بماند. پیش از تغییر، رکورد فعلی را بخوانید. ساختار کامل در `CapabilityInput` در `backend/receptionist/provider_control.py` و `/openapi.json` است. تا پیش از بررسی مدرک، `declared_unverified` را حفظ کنید و فقط پس از بازبینی مسئول پاسخ‌گو وضعیت `operator_attested` را در نظر بگیرید. اعلام نسخه‌دار ممکن است منقضی شود و به‌تنهایی سلامت سرویس را ثابت نمی‌کند.
 
 کلیدهای فعلی فهرست عبارت‌اند از `speech_primary`، ‏`speech_fallback`، ‏`calendar_primary`، ‏`telephony_primary`، ‏`sms_kavenegar`، ‏`payment_primary` و `digest_gateway`.
 

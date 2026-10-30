@@ -41,10 +41,21 @@ PUT /api/v1/operations/integration-capabilities/calendar_primary
 Authorization: Bearer <authorized-staff-token>
 Content-Type: application/json
 
-<CapabilityInput from the current OpenAPI schema and reviewed evidence>
+{
+  "version": 0,
+  "kind": "calendar",
+  "operations": ["get"],
+  "endpoint_version": "<provider-contract-revision>",
+  "region": "<approved-region>",
+  "data_terms_reference": "<private-terms-reference>",
+  "verification_state": "declared_unverified",
+  "evidence_reference": "<private-review-reference>",
+  "expires_at": "<future-ISO-8601-timestamp-with-zone>",
+  "reason": "Record an unverified capability declaration"
+}
 ~~~
 
-The value above is a description of the required request body, not copyable JSON. See `CapabilityInput` in `backend/receptionist/provider_control.py` or `/openapi.json` for the exact schema. Use `declared_unverified` while details have not been checked. Record `operator_attested` only after an accountable person has reviewed the evidence. A declaration expires and is version-checked; publishing it does not make a provider healthy.
+The JSON above is a **template**, not a completed request: replace every bracketed value, use `version: 0` only for a provider with no existing declaration, and include only operations that the provider actually supports. Read the current entry before updating it. The complete schema is `CapabilityInput` in `backend/receptionist/provider_control.py` and `/openapi.json`. Keep `declared_unverified` until the accountable operator has reviewed evidence; only then consider `operator_attested`. A versioned declaration can expire, and publication alone does not make a provider healthy.
 
 The current registry uses these keys: `speech_primary`, `speech_fallback`, `calendar_primary`, `telephony_primary`, `sms_kavenegar`, `payment_primary` and `digest_gateway`.
 
