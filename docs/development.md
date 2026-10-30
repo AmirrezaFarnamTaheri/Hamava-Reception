@@ -2,7 +2,7 @@
 
 [فارسی](development.fa.md) · [Documentation](README.md)
 
-This guide is for the person changing the source, reviewing a pull request or investigating a failed test. The central rule is simple: **the API and database decide business outcomes; interfaces and external adapters report what they can actually observe**.
+When changing Hamava, trace the behavior from the request to the stored record before editing a screen or adapter. **The API and database decide business outcomes.** Clients and provider adapters report the state they have actually observed. Use the code map and test procedures below to find the owner of a change and check its consequences.
 
 ## Set up a repeatable local workspace
 

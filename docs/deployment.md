@@ -2,7 +2,7 @@
 
 [فارسی](deployment.fa.md) · [Documentation](README.md)
 
-This guide is for the person responsible for getting Hamava onto an owned server and keeping it recoverable. The default architecture is one HTTPS entrance, a FastAPI service, PostgreSQL and a separate background worker. Telephony and speech are additional, explicitly configured services—not prerequisites for the text receptionist.
+The standard deployment runs FastAPI and a background worker behind an HTTPS gateway, with PostgreSQL storing the clinic's operational records. Start with the text receptionist. Enable speech and telephony separately after configuring their providers, private network paths and recovery procedures. This guide covers initial setup, upgrades and restoration.
 
 ## 1. Prepare the host and ownership
 

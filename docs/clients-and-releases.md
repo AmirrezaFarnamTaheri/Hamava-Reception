@@ -2,7 +2,7 @@
 
 [فارسی](clients-and-releases.fa.md) · [Documentation](README.md)
 
-Hamava has one shared React application and two native hosts, not three separate reception engines. The web interface lives in `frontend/`; `apps/desktop/` packages it with Electron, and `apps/mobile/` packages it with Capacitor for Android. Appointments, permissions, conversations and payment outcomes remain on the clinic server.
+The React application in `frontend/` supplies the shared reception interface. `apps/desktop/` packages it with Electron for Windows; `apps/mobile/` uses Capacitor for Android. Both clients connect to the clinic server for appointments, permissions, conversations and payment results. This guide covers what each host adds and how its releases are checked.
 
 ## What the native client adds
 

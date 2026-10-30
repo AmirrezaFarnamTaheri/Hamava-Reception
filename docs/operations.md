@@ -2,7 +2,7 @@
 
 [فارسی](operations.fa.md) · [Documentation](README.md)
 
-This is the day-to-day playbook for the people responsible for a clinic, not a description of backend classes. Its purpose is to keep work visible when a call, appointment, message or payment does not finish automatically.
+Reception work continues after the initial request. A call can end with a pending callback, a calendar can leave an uncertain booking, and a payment may need reconciliation. This guide shows the clinic team how to assign, check and hand over that work without losing the patient's request.
 
 ## Decide who owns what
 

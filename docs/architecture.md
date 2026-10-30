@@ -2,7 +2,7 @@
 
 [فارسی](architecture.fa.md) · [Documentation](README.md)
 
-Hamava is deliberately a server-owned application. A web page, a desktop app, an Android app or a phone call may all request the same appointment, but none is allowed to invent a second version of the calendar. This choice is what makes retries, handoffs, reconciliation and staff supervision possible.
+The clinic server owns appointments and their changes. A browser, Windows app, Android app or phone call can request a booking, but each goes through the same scheduling rules. That shared record allows staff to check retries, reconcile uncertain provider results and resume work after a handoff.
 
 ## The system at a glance
 

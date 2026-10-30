@@ -2,7 +2,7 @@
 
 [فارسی](research.fa.md) · [Documentation](README.md)
 
-Hamava's research tools answer practical questions about speech recognition, staffing and cost. They do not run a hidden learning pipeline on patient calls. The data preparation, training and evaluation scripts live under `scripts/`; their generated reports are stored separately from the application and tied to the input and code revision.
+Research scripts in `scripts/` help evaluate speech recognition, forecast reception workload under stated assumptions and compare costs. Each result should identify the dataset, code revision, evaluation method and conditions of the run. Patient recordings require a separately approved collection and research process.
 
 ## Choose an evaluation for the decision
 

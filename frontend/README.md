@@ -2,7 +2,7 @@
 
 [فارسی](README.fa.md) | [Project](../README.md) | [Development guide](../docs/development.md)
 
-The React/TypeScript/Vite application supplies the Persian RTL staff console and public caller flows. It connects to the FastAPI `/api/v1` service and never substitutes imaginary success after a failed network operation.
+The React/TypeScript/Vite application presents the Persian reception desk and public patient pages. It reads clinic data and sends actions through FastAPI at `/api/v1`. For each action, the page must show the state returned by the server, including pending and failed outcomes.
 
 ## Work locally
 

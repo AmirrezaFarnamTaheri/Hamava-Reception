@@ -4,7 +4,7 @@
 
 ## The reception problem
 
-A receptionist works across several queues at once: someone calls while another patient arrives, a doctor moves a shift, a cancellation frees a slot, and a payment still has no verified outcome. A useful system must do more than take a booking. It must keep one dependable account of **what has happened**, **what is waiting** and **who owns the next step**.
+A receptionist works across several queues at once: someone calls while another patient arrives, a doctor moves a shift, a cancellation frees a slot, and a payment still has no verified outcome. Reception needs one reliable record of **what happened**, **what is still waiting** and **who must act next**.
 
 Hamava joins three experiences around that account:
 
