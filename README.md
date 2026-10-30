@@ -40,6 +40,23 @@ The API process should keep `RUN_WORKER=false` while the separate worker is runn
 4. Open the staff task queue and inspect an unresolved handoff or notification. A request marked *pending* should stay pending until there is evidence of the next step.
 5. Open the visitor page, give the displayed processing consent, and ask to book an appointment in Persian. Try an ambiguous date or a correction and see how the conversation asks for clarification.
 
+## Decide what to explore next
+
+The demo is most useful when you follow one request through its entire life. Start by booking a fictional patient, then try a change that makes the original screen stale. The conflict is deliberate: two people should not be able to overwrite each other's work without seeing what changed.
+
+If you are approaching Hamava with a particular job in mind, use this route:
+
+| Your job | First stop | What to check |
+| --- | --- | --- |
+| Receptionist or clinic owner | [Product guide](docs/product.md) | Booking states, staff handoff and a typical day |
+| Developer | [Development handbook](docs/development.md) | Code map, repeatable tests and safe schema changes |
+| Client or integration developer | [API guide](docs/api.md) | Scope, request fields, idempotency and error handling |
+| System operator | [Deployment guide](docs/deployment.md) | Configuration, health, worker startup and restore drills |
+| Release engineer | [Native release guide](docs/clients-and-releases.md) | Windows/Android packaging, signing and device checks |
+| Researcher | [Research guide](docs/research.md) | Dataset rights, speech evaluation, capacity and pilot measures |
+
+The demo uses fictional records and provider responses. You can use it to check how the interface and server handle a workflow; it does not establish what an actual phone carrier, payment provider or clinic will do. The [operations guide](docs/operations.md) describes the additional checks needed for those integrations.
+
 ## What lives where
 
 | Part | Job | Code |

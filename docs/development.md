@@ -2,7 +2,7 @@
 
 [فارسی](development.fa.md) · [Documentation](README.md)
 
-This guide is for the person changing the source, reviewing a pull request or investigating a failed test. The central rule is simple: **the API and database decide business outcomes; interfaces and external adapters report what they can actually observe**.
+When changing Hamava, trace the behavior from the request to the stored record before editing a screen or adapter. **The API and database decide business outcomes.** Clients and provider adapters report the state they have actually observed. Use the code map and test procedures below to find the owner of a change and check its consequences.
 
 ## Set up a repeatable local workspace
 
@@ -75,6 +75,45 @@ python scripts/production_smoke.py --acknowledge-isolated-test-database --output
 ~~~
 
 These validate software invariants; they are not telephone-call or deployment-load benchmarks.
+
+## Follow one defect from report to regression test
+
+Suppose a receptionist reports that a stale appointment screen showed a successful cancellation even though another employee had already moved the booking. Start with the server contract, not the success toast.
+
+1. Find the cancellation handler in `backend/receptionist/api.py` and its implementation in `core.py`. Confirm which appointment `version` and idempotency key the request sends.
+2. Add a test that creates the appointment, changes it once, then submits the earlier version. The test must prove that the stale request is rejected and that the newer record remains unchanged.
+3. Run that test against the unmodified implementation to see whether it reproduces the defect. If it already passes, investigate the UI response handling instead of changing correct server logic.
+4. Change the smallest responsible layer. For a presentation bug, inspect `frontend/src/pages/Appointments.tsx` and `frontend/src/api.ts`; do not weaken the backend's version check to make the screen show success.
+5. Run the focused tests, the frontend type/build check, then the full suite. Record what you observed and which environment produced it.
+
+~~~sh
+python -m pytest -q backend/tests/test_core.py
+python -m pytest -q backend/tests/test_core_integrations.py
+npm --prefix frontend run typecheck
+npm --prefix frontend run build
+~~~
+
+For a bug involving a remote calendar, add the unknown-outcome path as well as accepted and rejected responses. For a messaging bug, verify the outbox row and delivery receipt state separately. Use an isolated PostgreSQL database when the behavior depends on locks or simultaneous requests; SQLite cannot prove that part of the contract.
+
+## Know which check proves which claim
+
+| Check | Useful for | Does not prove |
+| --- | --- | --- |
+| Ruff | Python syntax, imports and selected lint rules | Runtime concurrency or provider behavior |
+| TypeScript build | Types and build-time frontend imports | Actual browser interaction |
+| `scripts/audit_dead_code.py --check` | Unreferenced application modules and selected exports | Every reflection or plugin entry point |
+| Pytest | Server state transitions, migration cases and integration doubles | Real bank settlement or PBX audio |
+| Browser suites | Route navigation, API error presentation and responsive workflows | All physical devices and operating systems |
+| PostgreSQL stress | Conflicting writes and locking on the test database | A production load limit |
+| Desktop bridge tests | Electron's permitted bridge and storage policy | A signed installer upgrade on real Windows |
+
+A successful test needs a specific scope in the PR description. "Tests passed" is useful only when the reviewer knows which tests ran and against which revision.
+
+## Review a change as its next maintainer
+
+Begin with the effect a user would see. Then follow the affected request from the UI to its route, state change, database record and any worker or provider. Look for error paths, retries, role changes, tenant switching and stale versions. If a new document explains behavior that no longer exists, correct the document in the same PR.
+
+Documentation checks verify bilingual filename pairs and local links. They cannot judge whether the Persian instructions mean the same as the English ones. Review both versions for field names, command output, ordered steps and important qualifications.
 
 ## Schema changes: preserve the upgrade path
 

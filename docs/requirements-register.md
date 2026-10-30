@@ -42,6 +42,26 @@ Suppose you need to understand `FOUNDATION-002`, the durable relational-state re
 
 This separates three questions that are often confused: *was the feature planned?*, *does the code implement it?* and *has the actual operating environment accepted it?*
 
+## Reconstruct one acceptance decision
+
+A requirement can have code, an automated test and an external acceptance condition. Those three pieces are worth recording separately. For `FOUNDATION-002`, the register points to relational-state persistence and a restore drill. Follow the code and migration tests on the current branch, then recover the archived drill report at its historical revision to understand what was observed at the time.
+
+Do not copy the old `verified_local` status into a current release checklist as if it were a new result. The historical entry says the 2026 snapshot recorded local evidence. Current verification means running the current tests. Production acceptance also asks whether the actual clinic can restore a usable database with its encryption keys.
+
+When writing a new PR or acceptance record, capture:
+
+~~~text
+Requirement ID: <existing register ID>
+Behavior and acceptance condition: <what must work>
+Current code location: <path and symbol>
+Verification: <test command, commit SHA, CI run>
+External evidence, if required: <provider/clinic review reference and date>
+Decision owner: <role or named reviewer>
+Remaining gap: <precise untested case or dependency>
+~~~
+
+Keep the report close to the change it verifies. The old JSON remains intact so readers can trace how the original requirements evolved.
+
 ## Updating requirements without creating a second source of truth
 
 Keep the original JSON as an historical register and refer to IDs when useful. Put the current, reader-facing explanation in the [Product](product.md), [Architecture](architecture.md), [API](api.md) or [Operations](operations.md) guide. For a new or changed acceptance condition, record the exact implementation change, regression test, current run and unresolved external dependency in the PR. Avoid modifying the archived status fields merely to make a progress count look better.

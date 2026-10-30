@@ -2,7 +2,7 @@
 
 [فارسی](clients-and-releases.fa.md) · [Documentation](README.md)
 
-Hamava has one shared React application and two native hosts, not three separate reception engines. The web interface lives in `frontend/`; `apps/desktop/` packages it with Electron, and `apps/mobile/` packages it with Capacitor for Android. Appointments, permissions, conversations and payment outcomes remain on the clinic server.
+The React application in `frontend/` supplies the shared reception interface. `apps/desktop/` packages it with Electron for Windows; `apps/mobile/` uses Capacitor for Android. Both clients connect to the clinic server for appointments, permissions, conversations and payment results. This guide covers what each host adds and how its releases are checked.
 
 ## What the native client adds
 
@@ -64,6 +64,30 @@ The Capacitor host consumes the built web assets. Use the Android Gradle wrapper
 The release workflow accepts explicit signing switches. Windows publishing needs the authorized certificate and password; Android publishing needs the operator's keystore and aliases. When signing is requested, the workflow checks the resulting signatures rather than treating the presence of a file as sufficient. A signed, tagged run can optionally create a **draft** GitHub Release with [release notes](release-notes.md); publishing a public release or a store listing remains a separate owner decision.
 
 Release versions are aligned across the root package, web, native apps, Python metadata and Compose image. `node scripts/check-versions.mjs` checks parity and that the English and Persian release notes match the version.
+
+## The first launch, step by step
+
+The desktop and Android applications open a clinic connection screen when there is no saved, trusted server. The user enters the server's origin. The application calls `/api/v1/client-info` without a staff token and checks the advertised product and API compatibility before showing the sign-in flow.
+
+After login, the session belongs to the selected clinic and current server membership. A connection interruption does not authorize a local booking. The UI can retain enough state to explain the interruption and offer retry, while the authoritative appointment and task data remain on the server.
+
+| Situation | What the client should display | What must remain true |
+| --- | --- | --- |
+| Unknown or incompatible server | Explanation and a chance to correct the address | No staff credential is sent to an unverified origin |
+| Temporary network loss | Connection status and a retry action | No new local appointment is presented as confirmed |
+| Staff member signs out while offline | Signed-out state | Old device credentials must not silently restore the session |
+| Clinic membership changes on the server | Renewed authorization or sign-in | The old clinic scope cannot authorize new requests |
+| User upgrades the installed client | Restored authorized workflow after compatibility check | Build version and server contract still match |
+
+On Android, HTTPS and Keystore-backed session storage are part of the platform rules. Electron uses its restricted preload bridge and the operating system's protected session storage when available. Keep those decisions in the host rather than copying sensitive credentials into the web bundle.
+
+## What a publishable package needs
+
+A successful `npm run build:win` or `npm run build:release` demonstrates packaging, not distribution acceptance. The release owner should check the package name and version, SHA-256 digest, signing identity, installation path, upgrade over an existing version, sign-out after a network failure, and removal or reinstallation. On Android, also test foreground/background transitions and microphone permission prompts when voice is enabled.
+
+Record each run against the actual file produced: platform, OS version, artifact filename and digest, signature result, device, reviewer, and any failure. Reuse the same acceptance checklist when a dependency or native host version changes.
+
+If a signing secret is missing, do not convert an unsigned test artifact into a public release by renaming it. The release workflow can prepare draft artifacts, but the publisher decides when a signed package is distributed.
 
 ## Acceptance matrix before giving an installer to users
 

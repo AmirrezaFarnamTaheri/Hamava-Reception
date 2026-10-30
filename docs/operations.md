@@ -2,7 +2,7 @@
 
 [فارسی](operations.fa.md) · [Documentation](README.md)
 
-This is the day-to-day playbook for the people responsible for a clinic, not a description of backend classes. Its purpose is to keep work visible when a call, appointment, message or payment does not finish automatically.
+Reception work continues after the initial request. A call can end with a pending callback, a calendar can leave an uncertain booking, and a payment may need reconciliation. This guide shows the clinic team how to assign, check and hand over that work without losing the patient's request.
 
 ## Decide who owns what
 
@@ -66,6 +66,44 @@ Distinguish transfer request, staff screening/DTMF acceptance and observed bridg
 ### “The service is up, but appointments fail”
 
 Check application `/health`, dependency `/ready`, current clinic policy, provider observations, appointment conflicts and background queue separately. A healthy database does not prove that a provider is reachable or a clinic has published operating hours. Use the request ID and sanitized logs to locate the failing stage, then choose a safe recovery rather than repeatedly submitting the same action.
+
+## Prioritize work by what the patient is waiting for
+
+Queues become confusing when every card looks equally urgent. Use the patient's expected next action to decide what reception should handle first. This example order is a team procedure, not a new automatic priority algorithm.
+
+| Work item | First check | Owner and next action |
+| --- | --- | --- |
+| An urgent concern or a patient requesting human help | Is a trained staff member available now? | Reception lead routes it through the clinic's approved urgent process |
+| An appointment that may exist in an external calendar | Is the original remote operation still pending or unknown? | Assigned operator performs provider readback before anyone creates another booking |
+| A payment or refund with uncertain settlement | Is there a verified provider result for the intent? | Finance lead reconciles it; reception avoids promising that money moved |
+| A patient waiting for a callback | Who owns the task and when was contact last attempted? | Named staff member makes the permitted contact and records the outcome |
+| A notification with no final receipt | Was it sent, accepted, delivered, suppressed or failed? | Reception chooses a permitted alternative instead of announcing delivery |
+| A waitlist offer about to expire | Is the offer still valid and the patient eligible? | Staff follow the approved offer and acceptance rules |
+
+A useful task is specific. "Follow up" says too little. "Check remote calendar operation 123 before offering a new time; call the patient with the verified result" tells the next employee what to do. Keep patient identifiers out of public incident reports.
+
+## A handover note that someone can act on
+
+At the end of a shift, every unresolved item should have a person, a status and a next step. Use this format in the clinic's approved internal task system:
+
+~~~text
+Clinic and task reference: <clinic / internal ID>
+Current state: <confirmed, pending, failed, unknown>
+Last verified observation: <what the authoritative system showed, and when>
+Action already taken: <request or contact attempt; reference ID>
+Next action: <specific check, call or approval>
+Owner and due time: <named role/person; local time>
+Patient communication: <what they were told, without unnecessary details>
+Escalation: <who takes over if the owner cannot resolve it>
+~~~
+
+Do not copy passwords, tokens, payment credentials, raw recordings or unnecessary patient details into the note. Link the protected record instead. A handover should save the next shift from repeating a risky operation.
+
+## A short example: the calendar times out
+
+A patient asks to move an appointment. The external calendar accepts the network connection but the request times out without a result. Reception sees an unresolved operation. The employee records the operation ID, avoids submitting the same move with a new idempotency key, and assigns a reconciliation task. The operator reads the remote calendar using the original identity. Only after the authoritative result is known does reception tell the patient whether the move happened.
+
+If the clinic's external system is unavailable for a longer period, staff should use the approved callback procedure and explain when they expect to check again. A pending operation must remain visible to the next shift.
 
 ## Incidents and privacy requests
 

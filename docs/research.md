@@ -2,7 +2,7 @@
 
 [فارسی](research.fa.md) · [Documentation](README.md)
 
-Hamava's research tools answer practical questions about speech recognition, staffing and cost. They do not run a hidden learning pipeline on patient calls. The data preparation, training and evaluation scripts live under `scripts/`; their generated reports are stored separately from the application and tied to the input and code revision.
+Research scripts in `scripts/` help evaluate speech recognition, forecast reception workload under stated assumptions and compare costs. Each result should identify the dataset, code revision, evaluation method and conditions of the run. Patient recordings require a separately approved collection and research process.
 
 ## Choose an evaluation for the decision
 
@@ -59,6 +59,38 @@ The project includes three complementary analysis tools:
 - `scripts/pilot_analysis.py` compares matured baseline and pilot cohorts by comparable strata. Do not mix a booking created yesterday with a booking whose attendance can already be verified.
 
 A pilot's evaluation plan should define the eligible inbound population, primary outcome, exclusions, time window and ownership of follow-up before data collection. Good primary measures include **verified bookings per eligible request**, **human interventions**, **duplicate/incorrect bookings**, **time to resolution**, **staff minutes** and **net cost per completed outcome**. When the design is observational, describe differences; do not claim causation from a before/after chart alone.
+
+## An example dataset and its limits
+
+An evaluation row associates a known reference with a model's prediction. The following is invented text; it contains no recording and cannot establish speech accuracy.
+
+~~~json
+{"id":"synthetic-001","reference":"نوبت سه شنبه ساعت دو","hypothesis":"نوبت سه شنبه ساعت سه"}
+~~~
+
+The output differs by a word, but the practical difference is a time the patient did not request. A report that only presents average word error rate would hide that failure among harmless spelling variations. Add a separate exact-match check for the intended date, time, practitioner, service and phone number when those fields are available from authorized reference data.
+
+A reproducible experiment needs a dataset version, a defined held-out split, a model revision, a fixed decoding recipe, and a clear list of excluded or withdrawn samples. Report the number of calls and utterances in each group. A group with very few examples should be described as limited evidence even if its observed error rate looks attractive.
+
+## Define the denominator before reporting outcomes
+
+Consider a pilot that receives calls but also creates tasks and callbacks. Counting only successful conversations would ignore the very requests that consumed staff time. Define the eligible inbound requests first, then count outcomes against that population.
+
+| Measure | Numerator | Denominator or basis |
+| --- | --- | --- |
+| Verified booking rate | Eligible requests with an appointment confirmed by the authoritative calendar | All eligible booking requests in the observation window |
+| Human intervention rate | Eligible requests requiring a staffed task or takeover | All eligible requests, including unresolved ones |
+| Critical-field error rate | Evaluated requests with an incorrect date, time, service, name or number | Evaluated requests with an independently verified field |
+| Correction workload | Staff minutes spent correcting, reconciling or contacting patients | Total staff time in the observed cohort |
+| Cost per completed appointment | Observed provider charges plus attributable staff and compute costs | Verified completed appointments |
+
+Keep the baseline and pilot populations comparable by service, shift, season and request complexity. For an observational comparison, report uncertainty and possible differences in case mix. Do not turn a synthetic demand curve into a claimed staffing saving.
+
+## Reading a benchmark responsibly
+
+When a speech benchmark reports a fast median response, inspect the slowest useful tail as well. A phone interaction includes speech-end detection, recognition, policy checks, scheduling tools, synthesis and playback. One slow upstream tool can dominate the whole turn. Record whether timeouts and interrupted calls were included in the measurement.
+
+Before a model or adapter is activated for a real clinic, review its missed critical fields, handoff behavior, capacity under concurrent calls, approved data use and rollback method. The decision depends on the full interaction, not a transcription score in isolation.
 
 ## Moving a research result into service
 
