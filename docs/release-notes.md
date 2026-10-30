@@ -45,7 +45,7 @@ External systems introduce an important extra step. A calendar write, provider-a
 
 The repository runs server/PostgreSQL, browser, desktop bridge and container checks through GitHub Actions. The native release workflow builds Windows NSIS/portable and Android APK/AAB artifacts, collects checksums and can create a signed draft GitHub Release when the necessary credentials and tag are available.
 
-For a source-only package, run `python scripts/make_source_release.py --output ../hamava-source.zip`. For native packages use [Clients and releases](clients-and-releases.md), and record the actual artifact digest, publisher signature, tested OS and installation result. A source archive and a signed installer serve different purposes.
+For native packaging commands and signing details, see [Clients and releases](clients-and-releases.md). The checklist below covers artifact identity and source-only archives.
 
 ## A release checklist with an explicit owner
 
@@ -77,6 +77,6 @@ If the new version fails its functional checks, use the documented restoration r
 
 ## Still required for real-world launch
 
-Independently verify legal/clinical and privacy approvals; carrier/PBX routing and audible two-way staff transfer; actual calendar authority; SMS delivery receipts; payment settlement and reversals; secure secrets and backup restoration; native signing and physical device upgrade/logout behavior; approved speech rights and real noisy Persian-telephone metrics; supervised clinic acceptance and staffed fallback.
+Before a clinic starts taking real requests, its owners need evidence for the services they chose to enable. Test the actual calendar authority, SMS delivery, merchant settlement and reversals, and audible staff handoff on the intended telephone line. Verify configuration and key recovery, native signing and device upgrades where those clients are used, and permission to process real voice data. The clinic also needs an approved processing notice, trained staff coverage and a signed-off pilot or launch review.
 
 The source history and GitHub Actions logs are the evidence trail for each commit. Synthetic fixtures and historical reports must never be represented as current external acceptance.
