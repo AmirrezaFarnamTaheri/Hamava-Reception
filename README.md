@@ -93,4 +93,4 @@ node scripts/check-docs.mjs
 
 The [documentation index](docs/README.md) gives each guide a clear purpose. For a first deployment, read [Deployment](docs/deployment.md), then [Operations](docs/operations.md). To understand how a booking or an integration works, start with [Architecture](docs/architecture.md) and [API](docs/api.md). Developers should use [Development](docs/development.md); native packaging is covered in [Clients and releases](docs/clients-and-releases.md).
 
-**Before serving a real clinic**, provision a unique production configuration, tested backups, approved staff fallback and the actual accounts and authorizations for every enabled provider. The [launch checklist](docs/operations.md) separates checks the software can perform from those the clinic and its suppliers must complete.
+**Before serving a real clinic**, prepare its production configuration, tested backups and staffed fallback. Use [Clinic acceptance](docs/clinic-acceptance.md) for the required synthetic checks and [Provider integrations](docs/provider-integrations.md) for real provider tests. [Operations](docs/operations.md) covers the team's decision to begin service.

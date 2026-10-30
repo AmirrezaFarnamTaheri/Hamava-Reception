@@ -127,4 +127,4 @@ The checklist is an evidence record, not a score automatically computed by the s
 
 The included `scripts/launch_readiness.py` organizes references to that evidence, but it does not make the decision for the organization. Record what was tested, by whom, against which environment and on what date. Keep the scope of a pilot narrower than the scope of unverified integrations.
 
-For deployment and disaster recovery use [Deployment](deployment.md). The [Product guide](product.md) explains why these state distinctions matter to a patient.
+For the five configuration-bound production checks, use [Clinic acceptance](clinic-acceptance.md). [Provider integrations](provider-integrations.md) covers live provider evidence, [Privacy operations](privacy-operations.md) covers consent and erasure, and [Troubleshooting](troubleshooting.md) covers failing workflows. Recovery steps remain in [Deployment](deployment.md).

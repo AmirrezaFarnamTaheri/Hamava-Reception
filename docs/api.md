@@ -172,4 +172,4 @@ Application errors commonly have this shape:
 
 Validation errors use FastAPI's standard structure, so clients should handle both. HTTP `409`-style business conflicts and ambiguous external outcomes should be represented separately from ordinary connectivity failures. `X-Request-ID` can correlate safe diagnostic events; do not log patient transcripts, bearer tokens or response-link fragments.
 
-For broader design decisions see [Architecture](architecture.md). Staff-facing exception handling is in [Operations](operations.md).
+For system boundaries, see [Architecture](architecture.md). For observed provider failures and safe retries, use [Troubleshooting](troubleshooting.md). Independent purpose permissions are documented in [Privacy operations](privacy-operations.md).
