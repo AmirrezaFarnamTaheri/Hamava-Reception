@@ -67,7 +67,24 @@ Content-Type: application/json
 
 This is a request **format**, not a completed attestation. Never fill all checks with `true` to bypass a gate. Each reference must identify real, reviewed evidence without patient data. The endpoint rejects incomplete checks or missing references.
 
-Read the UAT endpoint again with the same target mode. The response must show `approved: true` for the current fingerprint before the authorized owner publishes the intended operating mode.
+Read the UAT endpoint again with the same target mode. The response must show `approved: true` for the current fingerprint.
+
+To activate that approved mode, read the clinic's settings, then submit the current version through the authorized settings route:
+
+~~~http
+GET /api/v1/settings
+Authorization: Bearer <staff-access-token>
+~~~
+
+~~~http
+PUT /api/v1/settings
+Authorization: Bearer <policy-authorized-staff-token>
+Content-Type: application/json
+
+{"version":1,"mode":"after_hours"}
+~~~
+
+The `version: 1` above is **illustrative**. Replace it with the `settings_version` returned by the preceding GET. The change requires `policy:write`; if it fails with `STALE_VERSION`, read settings again. If it fails with `CLINIC_UAT_REQUIRED`, the current configuration has no matching approval. Do not bundle an unreviewed service or policy change into the same request. Read settings again to confirm the published mode and complete a supervised workflow check.
 
 ## When the approval stops applying
 
