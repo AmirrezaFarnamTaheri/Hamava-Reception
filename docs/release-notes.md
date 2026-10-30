@@ -2,7 +2,7 @@
 
 [فارسی](release-notes.fa.md) | [Documentation](README.md)
 
-**Release class:** development source candidate. These notes describe source capabilities and distribution mechanisms; **they do not certify** a signed Windows release, store-approved Android app, production carrier, approved clinic, deployed provider integration or representative speech quality.
+Version **0.2.2** brings the reception server, Persian workspace, patient conversation, operational controls and Windows/Android packaging together. This guide explains what the release includes, how to use it, and the checks to perform before upgrading a clinic.
 
 ## What is included
 
@@ -32,6 +32,20 @@
 Runtime baseline: Python **3.12**, PostgreSQL **16** for production, Node.js **24** for the web/native build, and the locked dependencies in this repository. Do not deploy upgrades before taking and verifying an encrypted database and key/configuration backup. Pause writers, execute `python scripts/migrate.py`, inspect schema version and records, and verify staff workflows before restoring traffic. **Do not remove the 0001 migration path**, since earlier installs depend on it.
 
 Use `node scripts/check-versions.mjs` for version parity. The native release workflow publishes artifacts only after the required quality checks. Signed draft release creation requires an explicit tagged, signed, authorized run and does not publish to app stores.
+
+## A walkthrough from request to result
+
+A receptionist signs in, selects a clinic, chooses a service and practitioner, and checks available slots. A short-lived hold reserves the selected time while details are confirmed. The server checks occupancy again before committing the appointment. If another staff member made a change in the meantime, the appointment-version check prevents a silent overwrite. Notification delivery is tracked separately from the booking itself.
+
+A patient can instead use the public Persian conversation. The assistant clarifies ambiguous Jalali dates and names, reads proposed actions back, and requests human help when the case cannot safely be completed. Both interfaces use the same scheduler and clinic policy. The result is one authoritative booking rather than competing staff and conversational calendars.
+
+External systems introduce an important extra step. A calendar write, provider-accepted SMS and payment initiation may each need later verification. Operations screens keep uncertain results visible so staff can reconcile them rather than accidentally retrying a completed action.
+
+## Build and distribution in practice
+
+The repository runs server/PostgreSQL, browser, desktop bridge and container checks through GitHub Actions. The native release workflow builds Windows NSIS/portable and Android APK/AAB artifacts, collects checksums and can create a signed draft GitHub Release when the necessary credentials and tag are available.
+
+For a source-only package, run `python scripts/make_source_release.py --output artifacts/hamava-source.zip`. For native packages use [Clients and releases](clients-and-releases.md), and record the actual artifact digest, publisher signature, tested OS and installation result. A source archive and a signed installer serve different purposes.
 
 ## Still required for real-world launch
 
