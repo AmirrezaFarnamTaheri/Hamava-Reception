@@ -48,11 +48,11 @@ All routes in this table, except the public reception routes, generally require 
 ### 1. Find a slot
 
 ~~~http
-GET /api/v1/slots?provider_id=<provider-id>&service_id=<service-id>&date=2026-11-03
+GET /api/v1/slots?provider_id=<provider-id>&service_id=<service-id>&date=<future-YYYY-MM-DD>
 Authorization: Bearer <access_token>
 ~~~
 
-`date` is an ISO Gregorian date for the transport contract; the interface can display the corresponding Jalali date. Select a slot from the response rather than manufacturing the signed `slot_id`.
+`date` is an ISO Gregorian date for the transport contract; the interface can display the corresponding Jalali date. Read the selected clinic's `timezone` from `GET /api/v1/settings`, then choose a future day within its booking horizon. A fixed example date would eventually expire, and even a valid day may have no available slots. Select a slot from the response rather than manufacturing the signed `slot_id`.
 
 ### 2. Hold the chosen slot
 
@@ -78,7 +78,7 @@ Content-Type: application/json
   "hold_id": "<hold-id-if-issued>",
   "patient_name": "بیمار نمونه",
   "phone": "09120000000",
-  "idempotency_key": "example-booking-20261103-0001",
+  "idempotency_key": "example-booking-unique-0001",
   "confirmed": true,
   "reminder_opt_in": false
 }
@@ -107,27 +107,28 @@ Use a local demo, a staff account and fictional patient details for this exercis
 ~~~sh
 BASE='http://127.0.0.1:8000'
 TOKEN='<access_token returned by auth/login>'
+DATE='<future-YYYY-MM-DD>'
 curl -sS -H "Authorization: Bearer $TOKEN" "$BASE/api/v1/services"
 curl -sS -H "Authorization: Bearer $TOKEN" "$BASE/api/v1/practitioners"
 ~~~
 
-Choose a service and practitioner that belong to the same selected clinic. Fetch available signed slots using their returned IDs:
+Choose a service and practitioner that belong to the same selected clinic. Replace `DATE` with a future Gregorian date in that clinic's timezone. Fetch available signed slots using the returned IDs:
 
 ~~~sh
 curl -sS -G "$BASE/api/v1/slots" \
   -H "Authorization: Bearer $TOKEN" \
   --data-urlencode 'provider_id=<provider-id>' \
   --data-urlencode 'service_id=<service-id>' \
-  --data-urlencode 'date=2026-11-03'
+  --data-urlencode "date=$DATE"
 ~~~
 
-Take a `slot_id` from the response. The hold endpoint accepts `slot_id`, an optional `session_id` and an optional idempotency key. If it returns a hold ID, include that ID in the booking request. The example below shows the shape of the write; the placeholders must come from the current server response.
+Take a `slot_id` from the response. The hold endpoint accepts `slot_id`, an optional `session_id` and an optional idempotency key. If it returns a hold ID, include that ID in the booking request. The example below shows the shape of the write; the placeholders must come from the current server response. Use a distinct idempotency key for each new booking, and retain the **same key** when retrying that exact request. The value `demo-create-unique-01` is illustrative.
 
 ~~~sh
 curl -sS -X POST "$BASE/api/v1/appointments" \
   -H "Authorization: Bearer $TOKEN" \
   -H 'Content-Type: application/json' \
-  --data '{"slot_id":"<returned-slot-id>","patient_name":"بیمار آزمایشی","phone":"09120000000","idempotency_key":"demo-create-20261103-01","confirmed":true,"reminder_opt_in":false}'
+  --data '{"slot_id":"<returned-slot-id>","patient_name":"بیمار آزمایشی","phone":"09120000000","idempotency_key":"demo-create-unique-01","confirmed":true,"reminder_opt_in":false}'
 ~~~
 
 The booking may be `PENDING_PAYMENT` or `PENDING_STAFF_APPROVAL` rather than immediately `CONFIRMED`. Payment terms require their current version and deliberate acceptance when the service demands a deposit. Record the returned appointment ID and version before changing it.
@@ -139,7 +140,7 @@ POST /api/v1/appointments/<appointment-id>/cancel
 Authorization: Bearer <access_token>
 Content-Type: application/json
 
-{"version":1,"reason":"درخواست بیمار","idempotency_key":"demo-cancel-20261103-01"}
+{"version":1,"reason":"درخواست بیمار","idempotency_key":"demo-cancel-unique-01"}
 ~~~
 
 ## Handle errors according to their meaning

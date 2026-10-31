@@ -71,6 +71,7 @@ Translate for the reader, but keep executable commands and machine-readable stat
 
 - Change the English and `.fa.md` counterparts together. Prefer concrete instructions, examples and failure handling to repeated status claims.
 - Do not translate code identifiers, CLI commands or API paths; do translate user-facing explanations naturally.
+- Keep executable `sh`, `http`, `json`, and similar examples identical across both languages. The checker rejects unclosed or mismatched code fences; reviewers still need to check translated meaning.
 - Keep generated logs, screenshots, transient reports, credentials and customer data out of tracked documentation. Link evidence to the exact CI run instead.
 - Run `node --test scripts/check-docs.test.mjs`, `node scripts/check-docs.mjs` and `node scripts/check-versions.mjs` before submitting a change.
 
