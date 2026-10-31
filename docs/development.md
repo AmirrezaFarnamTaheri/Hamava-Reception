@@ -129,7 +129,7 @@ A good PR describes **what behavior changed, why, how it was tested and what rem
 
 ## Keeping the handbook current
 
-Every maintained Markdown guide has an English file and a `.fa.md` translation. Edit both in the same PR. Translate the explanation, but leave endpoint names, file paths, config keys and executable snippets intact. Check the pair, local links, and executable example parity with `node scripts/check-docs.mjs`. Release notes are tied to the package version via `node scripts/check-versions.mjs`.
+Every maintained Markdown guide has an English file and a `.fa.md` translation. Edit both in the same PR. Translate the explanation, but leave endpoint names, file paths, config keys and executable snippets intact. Check the pair, local links, and executable example parity with `node scripts/check-docs.mjs`. Run `node --test scripts/check-doc-contracts.test.mjs` and `node scripts/check-doc-contracts.mjs` to compare fenced HTTP requests and explicit Python/npm shell commands against registered routes and CLI definitions. This static check does not verify request bodies, permissions, provider behavior, or the correctness of translated prose. See [Contract reference](contract-reference.md) for the source map and limits. Release notes are tied to the package version via `node scripts/check-versions.mjs`.
 
 Use [Architecture](architecture.md) for responsibility boundaries, [API](api.md) for request contracts, [Deployment](deployment.md) for release setup and [Operations](operations.md) for real-world procedures.
 

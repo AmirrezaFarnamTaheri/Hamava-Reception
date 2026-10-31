@@ -11,6 +11,7 @@
 | Understand the product or demonstrate it | [Product and workflows](product.md) | Who uses Hamava, how a booking proceeds and what the staff sees |
 | Understand why a request has a particular state | [Architecture](architecture.md) | Service boundaries, state transitions, external calendars and persistence |
 | Build a client or integrate another service | [API](api.md) | Authentication, route groups, booking examples and error handling |
+| Check whether documented commands still exist | [Contract reference](contract-reference.md) | Route owners, CLI flags, environment sources and verification limits |
 | Change or review the code | [Development](development.md) | Local setup, test strategy, migrations and code ownership |
 | Install Hamava for a center | [Deployment and recovery](deployment.md) | Production configuration, Compose, integrations, backups and rollback |
 | Manage a center's working day | [Operations](operations.md) | Onboarding, shift routines, exceptions, incidents and approval |
@@ -73,6 +74,6 @@ Translate for the reader, but keep executable commands and machine-readable stat
 - Do not translate code identifiers, CLI commands or API paths; do translate user-facing explanations naturally.
 - Keep executable `sh`, `http`, `json`, and similar examples identical across both languages. The checker rejects unclosed or mismatched code fences; reviewers still need to check translated meaning.
 - Keep generated logs, screenshots, transient reports, credentials and customer data out of tracked documentation. Link evidence to the exact CI run instead.
-- Run `node --test scripts/check-docs.test.mjs`, `node scripts/check-docs.mjs` and `node scripts/check-versions.mjs` before submitting a change.
+- Run `node --test scripts/check-docs.test.mjs`, `node scripts/check-docs.mjs`, `node --test scripts/check-doc-contracts.test.mjs`, `node scripts/check-doc-contracts.mjs` and `node scripts/check-versions.mjs` before submitting a change.
 
 The license notice under `docs/licenses/` remains in its original wording. It is not an editorial guide and should not be edited as a translation exercise.

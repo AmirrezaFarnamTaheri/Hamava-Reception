@@ -99,6 +99,10 @@ jobs:
         run: |
           node --test scripts/check-docs.test.mjs
           node scripts/check-docs.mjs
+      - name: Check documented HTTP and CLI source contracts
+        run: |
+          node --test scripts/check-doc-contracts.test.mjs
+          node scripts/check-doc-contracts.mjs
       - run: npm run build
         working-directory: frontend
       - name: Check Chromium launcher contract
