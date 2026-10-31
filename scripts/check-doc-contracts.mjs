@@ -58,7 +58,14 @@ async function checkShell(root, contents, place, errors) {
       while (/\\\s*$/.test(lines[k]) && k + 1 < lines.length) {
         command += '\n' + lines[++k];
       }
-      const supported = new Set([...script.matchAll(/\.add_argument\(\s*["'](--[\w-]+)["']/g)].map(m => m[1]));
+      const subparsers = new Map([...script.matchAll(/(\w+)\s*=\s*\w+\.add_parser\(\s*["']([\w-]+)["']/g)]
+        .map(m => [m[2], m[1]]));
+      const subcommand = command.slice(match[0].length).trim().match(/^([a-z][\w-]*)\b/)?.[1];
+      const selectedParser = subparsers.get(subcommand);
+      const parserVariables = new Set(subparsers.values());
+      const supported = new Set([...script.matchAll(/(\w+)\.add_argument\(\s*["'](--[\w-]+)["']/g)]
+        .filter(m => !selectedParser || !parserVariables.has(m[1]) || m[1] === selectedParser)
+        .map(m => m[2]));
       for (const flag of command.matchAll(/(?<![\w-])(--[a-z][a-z0-9-]*)\b/g)) {
         if (flag[1] !== '--help' && !supported.has(flag[1]))
           errors.push(`${place}: ${relativeScript} does not accept ${flag[1]}`);

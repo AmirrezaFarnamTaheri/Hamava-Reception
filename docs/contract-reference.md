@@ -62,7 +62,7 @@ The repository has three complementary commands:
 | Command | What it verifies |
 | --- | --- |
 | `node scripts/check-docs.mjs` | English–Persian file pairs, local links, balanced fences and identical executable blocks |
-| `node scripts/check-doc-contracts.mjs` | Fenced HTTP method and path against direct FastAPI decorators; documented `python scripts/…` flags against argparse declarations; explicit `npm --prefix` scripts against their package manifests |
+| `node scripts/check-doc-contracts.mjs` | Fenced HTTP method and path against direct FastAPI decorators; documented `python scripts/…` flags against their specific argparse subcommand declarations; explicit `npm --prefix` scripts against their package manifests |
 | `node scripts/check-versions.mjs` | Release number consistency across the Python, web, native, Compose and release-notes surfaces |
 
 The contract checker runs on both languages and reports the document and code-fence line of a mismatch. Its unit tests live in `scripts/check-doc-contracts.test.mjs`; the bilingual checker tests live in `scripts/check-docs.test.mjs`. CI runs both.

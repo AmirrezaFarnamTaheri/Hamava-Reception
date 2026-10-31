@@ -63,3 +63,12 @@ test('ignores prose and API examples in non-executable documentation code fences
     assert.deepEqual(await checkContracts(root), []);
   });
 });
+
+test('rejects an option that belongs to a different Python subcommand', async () => {
+  await withFixture({
+    'scripts/backup.py': 'commands = parser.add_subparsers(dest="command", required=True)\nsave = commands.add_parser("backup")\nsave.add_argument("--output", required=True)\nrecover = commands.add_parser("restore")\nrecover.add_argument("--source", required=True)\n',
+    'README.md': '~~~sh\npython scripts/backup.py backup --source /tmp/a.dump\n~~~',
+  }, async root => {
+    assert.ok((await checkContracts(root)).some(e => e.includes('backup') && e.includes('--source')));
+  });
+});

@@ -62,7 +62,7 @@
 | فرمان | آنچه بررسی می‌کند |
 | --- | --- |
 | `node scripts/check-docs.mjs` | جفت فایل فارسی و انگلیسی، پیوند محلی، بسته‌شدن بلوک کد و یکسان‌بودن نمونه‌های اجرایی |
-| `node scripts/check-doc-contracts.mjs` | روش و مسیر HTTP داخل بلوک کد در برابر decoratorهای مستقیم FastAPI؛ گزینه‌های `python scripts/…` در برابر argparse؛ نام اسکریپت‌های صریح `npm --prefix` در برابر package |
+| `node scripts/check-doc-contracts.mjs` | روش و مسیر HTTP داخل بلوک کد در برابر decoratorهای مستقیم FastAPI؛ گزینه‌های `python scripts/…` در برابر argparse همان زیر‌فرمان؛ نام اسکریپت‌های صریح `npm --prefix` در برابر package |
 | `node scripts/check-versions.mjs` | سازگاری شمارهٔ نسخه میان پایتون، وب، برنامه‌های بومی، Compose و یادداشت انتشار |
 
 بررسی قراردادها هر دو زبان را می‌خواند و برای اختلاف، نام فایل و خط شروع بلوک کد را گزارش می‌کند. آزمون‌های آن در `scripts/check-doc-contracts.test.mjs` و آزمون‌های جفت‌بودن زبان‌ها در `scripts/check-docs.test.mjs` هستند. هر دو در CI اجرا می‌شوند.
