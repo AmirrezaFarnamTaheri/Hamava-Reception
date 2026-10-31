@@ -106,17 +106,17 @@ If `migrate` fails, keep writers stopped and inspect its error. Do not skip migr
 
 ## A restore drill you can repeat
 
-A working backup procedure has two halves: creating the archive and proving that it can restore a usable clinic. `scripts/backup.py` expects `BACKUP_DATABASE_URL` in the environment and requires a GnuPG recipient when creating an archive. For example, after privately configuring the database URL and the recipient:
+A working backup procedure has two halves: creating the archive and proving that it can restore a usable clinic. `scripts/backup.py` expects `BACKUP_DATABASE_URL` in the environment. The `--recipient` value must be the **full reviewed 40–64-character hexadecimal GnuPG key fingerprint**, not an email address, short key ID, or informal recipient name. For example, after privately configuring the database URL and verifying the key fingerprint:
 
 ~~~sh
 python scripts/backup.py backup \
   --output /secure/offhost/hamava-example.dump.gpg \
-  --recipient '<approved GnuPG recipient>'
+  --recipient '<full-hex-GnuPG-key-fingerprint>'
 ~~~
 
 The command is illustrative; use a location and recipient approved for the installation. Keep the encrypted database archive together with its integrity metadata. Store configuration, encryption keys and the key-custody inventory separately with `scripts/config_backup.py`. Backing up the database without a recoverable application encryption key can leave sensitive fields unreadable.
 
-For a restore drill, prepare an *empty isolated PostgreSQL target*, set its `BACKUP_DATABASE_URL`, and use the restore command below. The tool requires explicit acknowledgement that the destination is empty.
+For a restore drill, prepare an *empty isolated PostgreSQL target*, set its `BACKUP_DATABASE_URL`, and recover the matching `ENCRYPTION_KEY` (and previous keys when relevant) through the approved private channel. The restore tool also needs access to the corresponding GnuPG decryption key. Use the command below only after confirming the target is empty.
 
 ~~~sh
 python scripts/backup.py restore \

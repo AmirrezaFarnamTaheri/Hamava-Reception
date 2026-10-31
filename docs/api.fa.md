@@ -48,11 +48,11 @@ Content-Type: application/json
 ### ۱. یافتن زمان
 
 ~~~http
-GET /api/v1/slots?provider_id=<provider-id>&service_id=<service-id>&date=2026-11-03
+GET /api/v1/slots?provider_id=<provider-id>&service_id=<service-id>&date=<future-YYYY-MM-DD>
 Authorization: Bearer <access_token>
 ~~~
 
-`date` در قرارداد انتقال، تاریخ میلادی با قالب ISO است؛ رابط می‌تواند معادل شمسی را نمایش دهد. `slot_id` را از پاسخ بردارید و شناسهٔ امضاشده را خودتان نسازید.
+`date` در قرارداد انتقال، تاریخ میلادی با قالب ISO است؛ رابط می‌تواند معادل شمسی را نمایش دهد. از `GET /api/v1/settings` منطقهٔ زمانی مرکز انتخاب‌شده را بخوانید و روز آینده‌ای را در محدودهٔ مجاز نوبت‌دهی انتخاب کنید. تاریخ نمونه ثابت نیست، زیرا با گذشت زمان منقضی می‌شود؛ یک تاریخ معتبر هم ممکن است زمان خالی نداشته باشد. `slot_id` را از پاسخ بردارید و شناسهٔ امضاشده را خودتان نسازید.
 
 ### ۲. رزرو موقت
 
@@ -78,7 +78,7 @@ Content-Type: application/json
   "hold_id": "<hold-id-if-issued>",
   "patient_name": "بیمار نمونه",
   "phone": "09120000000",
-  "idempotency_key": "example-booking-20261103-0001",
+  "idempotency_key": "example-booking-unique-0001",
   "confirmed": true,
   "reminder_opt_in": false
 }
@@ -107,27 +107,28 @@ Content-Type: application/json
 ~~~sh
 BASE='http://127.0.0.1:8000'
 TOKEN='<access_token returned by auth/login>'
+DATE='<future-YYYY-MM-DD>'
 curl -sS -H "Authorization: Bearer $TOKEN" "$BASE/api/v1/services"
 curl -sS -H "Authorization: Bearer $TOKEN" "$BASE/api/v1/practitioners"
 ~~~
 
-خدمت و پزشکی را انتخاب کنید که به مرکز جاری تعلق دارند. با شناسه‌های برگشتی، زمان‌های امضاشده را بگیرید:
+خدمت و پزشکی را انتخاب کنید که به مرکز جاری تعلق دارند. مقدار `DATE` را با تاریخ میلادی آینده در منطقهٔ زمانی همین مرکز جایگزین کنید. با شناسه‌های برگشتی، زمان‌های امضاشده را بگیرید:
 
 ~~~sh
 curl -sS -G "$BASE/api/v1/slots" \
   -H "Authorization: Bearer $TOKEN" \
   --data-urlencode 'provider_id=<provider-id>' \
   --data-urlencode 'service_id=<service-id>' \
-  --data-urlencode 'date=2026-11-03'
+  --data-urlencode "date=$DATE"
 ~~~
 
-یکی از `slot_id`های پاسخ را انتخاب کنید. مسیر رزرو موقت `slot_id`، مقدار اختیاری `session_id` و کلید تکرارپذیری اختیاری می‌پذیرد. اگر شناسهٔ رزرو برگرداند، آن را در درخواست ثبت بفرستید. فرمان زیر قالب نوشتن را نشان می‌دهد؛ جای‌خالی‌ها را از پاسخ همان سرور پر کنید.
+یکی از `slot_id`های پاسخ را انتخاب کنید. مسیر رزرو موقت `slot_id`، مقدار اختیاری `session_id` و کلید تکرارپذیری اختیاری می‌پذیرد. اگر شناسهٔ رزرو برگرداند، آن را در درخواست ثبت بفرستید. فرمان زیر قالب نوشتن را نشان می‌دهد؛ جای‌خالی‌ها را از پاسخ همان سرور پر کنید. برای هر نوبت تازه یک کلید مستقل بسازید و در تلاش دوبارهٔ **همان درخواست** همان کلید را نگه دارید. مقدار `demo-create-unique-01` فقط نمونه است.
 
 ~~~sh
 curl -sS -X POST "$BASE/api/v1/appointments" \
   -H "Authorization: Bearer $TOKEN" \
   -H 'Content-Type: application/json' \
-  --data '{"slot_id":"<returned-slot-id>","patient_name":"بیمار آزمایشی","phone":"09120000000","idempotency_key":"demo-create-20261103-01","confirmed":true,"reminder_opt_in":false}'
+  --data '{"slot_id":"<returned-slot-id>","patient_name":"بیمار آزمایشی","phone":"09120000000","idempotency_key":"demo-create-unique-01","confirmed":true,"reminder_opt_in":false}'
 ~~~
 
 ممکن است وضعیت نوبت به‌جای `CONFIRMED`، برابر `PENDING_PAYMENT` یا `PENDING_STAFF_APPROVAL` باشد. در خدماتی که بیعانه می‌خواهند، نسخهٔ فعلی شرایط پرداخت و پذیرش صریح آن لازم است. شناسه و نسخهٔ نوبت برگشتی را پیش از هر تغییر نگه دارید.
@@ -139,7 +140,7 @@ POST /api/v1/appointments/<appointment-id>/cancel
 Authorization: Bearer <access_token>
 Content-Type: application/json
 
-{"version":1,"reason":"درخواست بیمار","idempotency_key":"demo-cancel-20261103-01"}
+{"version":1,"reason":"درخواست بیمار","idempotency_key":"demo-cancel-unique-01"}
 ~~~
 
 ## واکنش مناسب به هر خطا

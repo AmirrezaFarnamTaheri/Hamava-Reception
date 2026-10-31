@@ -113,7 +113,7 @@ A successful test needs a specific scope in the PR description. "Tests passed" i
 
 Begin with the effect a user would see. Then follow the affected request from the UI to its route, state change, database record and any worker or provider. Look for error paths, retries, role changes, tenant switching and stale versions. If a new document explains behavior that no longer exists, correct the document in the same PR.
 
-Documentation checks verify bilingual filename pairs and local links. They cannot judge whether the Persian instructions mean the same as the English ones. Review both versions for field names, command output, ordered steps and important qualifications.
+Documentation checks now verify bilingual filename pairs, local links, closed code fences and identical executable examples. They cannot judge whether Persian instructions mean the same as English instructions. Review both versions for field names, command output, ordered steps and important qualifications.
 
 ## Schema changes: preserve the upgrade path
 
@@ -129,7 +129,7 @@ A good PR describes **what behavior changed, why, how it was tested and what rem
 
 ## Keeping the handbook current
 
-Every maintained Markdown guide has an English file and a `.fa.md` translation. Edit both in the same PR. Translate the explanation, but leave endpoint names, file paths, config keys and executable snippets intact. Check the pair and local links with `node scripts/check-docs.mjs`. Release notes are tied to the package version via `node scripts/check-versions.mjs`.
+Every maintained Markdown guide has an English file and a `.fa.md` translation. Edit both in the same PR. Translate the explanation, but leave endpoint names, file paths, config keys and executable snippets intact. Check the pair, local links, and executable example parity with `node scripts/check-docs.mjs`. Release notes are tied to the package version via `node scripts/check-versions.mjs`.
 
 Use [Architecture](architecture.md) for responsibility boundaries, [API](api.md) for request contracts, [Deployment](deployment.md) for release setup and [Operations](operations.md) for real-world procedures.
 
