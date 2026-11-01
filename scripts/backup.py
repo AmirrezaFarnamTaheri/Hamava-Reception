@@ -60,13 +60,12 @@ def inspect_database(url: str, *, empty=False, verify_key=False) -> dict:
                 if tables:
                     raise ValueError("Restore target is not empty; no changes were made")
                 return {"empty": True}
-            version = db.execute(text("SELECT version FROM schema_version")).scalar()
-            from receptionist.migrations import BASELINE_TABLES, SCHEMA_VERSION
-            if version not in {"0001", SCHEMA_VERSION}:
-                raise ValueError("Unsupported restored schema version")
             from receptionist import model_registry  # noqa: F401
-            from receptionist.db import validate_schema
-            validate_schema(db, table_names=BASELINE_TABLES if version == "0001" else None)
+            from receptionist.db import Base, validate_schema
+            expected_tables = set(Base.metadata.tables)
+            if set(tables) != expected_tables:
+                raise ValueError("Database tables do not match the current application schema")
+            validate_schema(db)
             counts = {table: db.execute(text('SELECT count(*) FROM "' + table.replace('"','""') + '"')).scalar() for table in tables}
             duplicate_claims = db.execute(text("SELECT count(*) FROM (SELECT 1 FROM occupancy GROUP BY tenant_id,resource_id,minute HAVING count(*) > 1) d")).scalar()
             orphans = db.execute(text("SELECT count(*) FROM occupancy o WHERE (o.owner_type='appointment' AND NOT EXISTS (SELECT 1 FROM appointments a WHERE a.id=o.owner_id AND a.tenant_id=o.tenant_id)) OR (o.owner_type='hold' AND NOT EXISTS (SELECT 1 FROM slot_holds h WHERE h.id=o.owner_id AND h.tenant_id=o.tenant_id))")).scalar()
@@ -83,7 +82,7 @@ def inspect_database(url: str, *, empty=False, verify_key=False) -> dict:
                     previous = [item.strip() for item in os.environ.get("ENCRYPTION_PREVIOUS_KEYS", "").split(",") if item.strip()]
                     MultiFernet([Fernet(item.encode()) for item in [key, *previous]]).decrypt(encrypted.encode())
                     key_checked = True
-            return {"schema_version": version, "table_counts": counts, "duplicate_claims": duplicate_claims,
+            return {"schema_tables": sorted(expected_tables), "table_counts": counts, "duplicate_claims": duplicate_claims,
                     "orphan_claims": orphans, "application_key_checked": key_checked}
     finally:
         engine.dispose()
@@ -148,7 +147,8 @@ def restore(url: str, source: Path, *, pg_restore="pg_restore", gpg="gpg", verif
                 raise RuntimeError("Restore pipeline failed; isolate the target and inspect privately before retrying")
         state = inspect_database(url, verify_key=verify_key)
         return {"restored": True, "duration_seconds": round(time.monotonic()-start, 3),
-                "verification": state, "source_schema": expected["verification_before_backup"]["schema_version"],
+                "verification": state,
+                "schema_match": state["schema_tables"] == expected["verification_before_backup"]["schema_tables"],
                 "count_match": state["table_counts"] == expected["verification_before_backup"]["table_counts"],
                 "notes": "Count equality is expected for a quiescent drill; a live pg_dump snapshot may differ from the preflight counts."}
     finally:
