@@ -17,7 +17,6 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 
 from . import model_registry  # noqa: F401 -- register every mapped table
-from .migrations import SCHEMA_VERSION
 from .api import router as core_router
 from .core_policy import router as core_policy_router
 from .bookings_ext import router as bookings_ext_router
@@ -33,7 +32,8 @@ from .privacy_controls import router as privacy_controls_router
 from .ops_controls import router as ops_controls_router, run_control_jobs
 from .messaging_controls import router as messaging_controls_router, run_messaging_control_jobs
 from .config import settings
-from .db import Base, SessionLocal, engine, validate_schema
+from .db import SessionLocal, engine
+from .schema import initialize_schema, verify_schema
 from .media_api import router as media_router
 from .operations import router as ops_router, run_once
 from .operations_extensions import router as extensions_router
@@ -75,7 +75,7 @@ async def worker_loop(stop=None):
 async def lifespan(app: FastAPI):
     settings.validate()
     if settings.environment.lower() not in {"production", "prod"}:
-        Base.metadata.create_all(engine)
+        initialize_schema(engine)
     else:
         verify_production_schema()
     if settings.demo_mode:
@@ -93,10 +93,7 @@ async def lifespan(app: FastAPI):
 
 def verify_production_schema():
     with engine.connect() as connection:
-        versions = connection.execute(text("SELECT version FROM schema_version")).scalars().all()
-        if versions != [SCHEMA_VERSION]:
-            raise RuntimeError("Run the supported database migration before starting this version")
-        validate_schema(connection)
+        verify_schema(connection)
 
 
 app = FastAPI(title="Hamava Reception", version="0.2.2", lifespan=lifespan,

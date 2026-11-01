@@ -449,35 +449,6 @@ def erase_subject_extensions(db, tenant_id, subject):
         "structured_external_records_retained": structured_calendar_records}
 
 
-def migrate_legacy_billing_notes(db):
-    """Idempotently encrypt old free-text notes without changing invoice amounts."""
-    from .models_ops import BillingAdjustment, Invoice
-    counts = {"adjustment_notes_encrypted": 0, "invoice_note_snapshots_encrypted": 0}
-    invoices = list(db.scalars(select(Invoice)))
-    for invoice in invoices:
-        if not isinstance(invoice.snapshot, dict) or not isinstance(invoice.snapshot.get("adjustments", []), list):
-            raise ValueError("legacy_invoice_snapshot_requires_manual_review")
-        for item in invoice.snapshot.get("adjustments", []):
-            if not isinstance(item, dict) or item.get("reason") is not None and not isinstance(item["reason"], str):
-                raise ValueError("legacy_invoice_adjustment_requires_manual_review")
-    for row in db.scalars(select(BillingAdjustment).where(BillingAdjustment.reason != "encrypted_audit_evidence")):
-        audit(db, row.tenant_id, "privacy-migration-v2", "billing.adjustment", "billing_adjustment", row.id,
-            amount_toman=row.amount_toman, reason_encrypted=encrypt(row.reason), migrated_from_legacy=True)
-        row.reason = "encrypted_audit_evidence"
-        counts["adjustment_notes_encrypted"] += 1
-    for invoice in invoices:
-        adjustments = invoice.snapshot.get("adjustments", [])
-        if not any(isinstance(item, dict) and item.get("reason") not in {None, "authorized_billing_adjustment"} for item in adjustments):
-            continue
-        audit(db, invoice.tenant_id, "privacy-migration-v2", "billing.legacy_notes_encrypted", "invoice", invoice.id,
-            adjustments_encrypted=encrypt(json.dumps(adjustments, ensure_ascii=False)), financial_amount_unchanged=True)
-        snapshot = dict(invoice.snapshot)
-        snapshot["adjustments"] = [{**item, "reason": "authorized_billing_adjustment"} if isinstance(item, dict) else item for item in adjustments]
-        invoice.snapshot = snapshot
-        counts["invoice_note_snapshots_encrypted"] += 1
-    db.flush()
-    return counts
-
 
 @router.get("/erasures")
 def erasures(actor: Actor = Depends(require_permissions("privacy:manage")), db: Session = Depends(get_db)):
