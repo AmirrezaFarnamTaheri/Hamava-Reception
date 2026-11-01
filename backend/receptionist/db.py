@@ -33,8 +33,8 @@ class Base(DeclarativeBase):
 def validate_schema(connection, *, table_names=None) -> None:
     """Fail startup on a missing column or lost integrity constraint.
 
-    This is a drift guard, not a replacement for a forward data migration. It
-    never edits an existing schema or stamps an unrecognized legacy database.
+    This read-only check never alters tables. An incompatible database must
+    be restored from a compatible backup or replaced with an empty one.
     """
     inspector = inspect(connection)
     existing = set(inspector.get_table_names())
@@ -63,7 +63,7 @@ def validate_schema(connection, *, table_names=None) -> None:
             if expected not in actual_foreign_keys:
                 problems.append(f"foreign key differs on {name}")
     if problems:
-        raise RuntimeError("Database schema does not match this release; apply an explicit migration: " + "; ".join(problems[:20]))
+        raise RuntimeError("Database schema does not match current models; restore a compatible backup or use an empty database: " + "; ".join(problems[:20]))
 
 
 def now_utc() -> datetime:

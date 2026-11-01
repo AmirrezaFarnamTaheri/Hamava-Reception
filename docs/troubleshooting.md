@@ -12,7 +12,7 @@ From the deployment host, use the private production environment and inspect con
 
 ~~~sh
 docker compose --env-file .env.production ps
-docker compose --env-file .env.production logs --tail=100 migrate api jobs
+docker compose --env-file .env.production logs --tail=100 schema-init api jobs
 ~~~
 
 Then query the approved public HTTPS hostname:
@@ -22,7 +22,7 @@ curl --silent --show-error --include https://reception.your-domain.example/healt
 curl --silent --show-error --include https://reception.your-domain.example/ready
 ~~~
 
-Replace the hostname with the clinic's actual one. `/health` checks application access to its database. `/ready` also checks configured provider dependencies. It returns `503` for degraded dependencies even when the database is reachable. If migration fails or the database schema is unexpected, stop writers and follow [Deployment and recovery](deployment.md). Do not manually invent a schema version.
+Replace the hostname with the clinic's actual one. `/health` checks application access to its database. `/ready` also checks configured provider dependencies. It returns `503` for degraded dependencies even when the database is reachable. If schema initialization fails or the database schema is unexpected, stop writers and follow [Deployment and recovery](deployment.md). Do not manually invent a schema structure.
 
 With an authorized staff token, the clinic-specific operational view is:
 
@@ -37,7 +37,7 @@ This endpoint requires `health:read`. It reports active calls, age of due messag
 
 | Symptom | Look at | Next action |
 | --- | --- | --- |
-| All pages fail, `/health` returns `503` | Database reachability, migration, API logs | Keep patient traffic closed; restore the verified service/database combination |
+| All pages fail, `/health` returns `503` | Database reachability, schema initialization, API logs | Keep patient traffic closed; restore the verified service/database combination |
 | `/health` succeeds but `/ready` returns `503` | Integration capability, provider approval, health freshness | Identify the degraded dependency; disable or repair only the affected route |
 | No appointment slots appear | Selected clinic, service, practitioner shifts, closures, room occupancy, calendar authority | Refresh availability from the authoritative scheduler |
 | Booking says `409` | Current appointment version, policy and `IDEMPOTENCY_MISMATCH` code | For a stale version, read the appointment again; for a reused key with different content, inspect the original request |

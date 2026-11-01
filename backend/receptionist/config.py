@@ -232,7 +232,7 @@ class Settings:
             if not self.lookup_hash_key or len(self.lookup_hash_key) < 32 or self.lookup_hash_key == self.encryption_key:
                 raise ValueError("A separate durable LOOKUP_HASH_KEY of at least 32 characters is required in production")
             if not self.database_url.startswith("postgresql"):
-                raise ValueError("Production requires PostgreSQL and the database migration step")
+                raise ValueError("Production requires PostgreSQL and schema initialization before startup")
         validate_optional_providers(production)
         from .access_controls import retirement_policies
         retirement_policies()

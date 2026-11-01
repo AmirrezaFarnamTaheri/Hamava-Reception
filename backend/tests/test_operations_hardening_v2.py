@@ -13,14 +13,13 @@ from receptionist.billing import (BudgetInput, ReservationReconcileInput, Statem
 from receptionist.config import settings
 from receptionist.db import get_db, now_utc
 from receptionist.messaging_controls import poll_sms_receipts
-from receptionist.models import Appointment, AuditEvent, MessageOutbox, Tenant
+from receptionist.models import Appointment, MessageOutbox, Tenant
 from receptionist.models_finance import CostReservation, UsageCharge
-from receptionist.models_ops import BillingAdjustment, Invoice
 from receptionist.models_ops_control import SMSReceiptPoll
 from receptionist.models_privacy import GovernedArtifact
-from receptionist.operations import adjustment_reason, router as operations_router
+from receptionist.operations import router as operations_router
 from receptionist.payment_policy import router as payment_policy_router
-from receptionist.privacy_controls import expire_artifacts, migrate_legacy_billing_notes
+from receptionist.privacy_controls import expire_artifacts
 from receptionist.security import Actor, current_actor, decrypt, encrypt
 from test_core import create, database as database
 from test_finance_privacy_v2 import owner, setup_costs
@@ -98,45 +97,6 @@ def test_vendor_statement_does_not_double_charge_inline_receipt_and_ledger_is_im
         db.rollback()
         assert db.get(UsageCharge, charge["charge_id"]).cost_micro_toman == 5_000_000
 
-
-def legacy_notes(db, snapshot=None):
-    adjustment = BillingAdjustment(tenant_id="clinic-bahar", period="2026-10", amount_toman=-27,
-        reason="Synthetic private billing explanation", idempotency_key="legacy-adjustment")
-    db.add(adjustment)
-    db.flush()
-    invoice = Invoice(tenant_id="clinic-bahar", period="2026-10", amount_toman=973,
-        snapshot=snapshot if snapshot is not None else {"subtotal": 1000,
-            "adjustments": [{"id": adjustment.id, "amount_toman": -27, "reason": adjustment.reason}]})
-    db.add(invoice)
-    db.commit()
-    return adjustment, invoice
-
-
-def test_legacy_billing_note_migration_preserves_money_and_is_idempotent(database):
-    with database() as db:
-        adjustment, invoice = legacy_notes(db)
-        result = migrate_legacy_billing_notes(db)
-        assert result == {"adjustment_notes_encrypted": 1, "invoice_note_snapshots_encrypted": 1}
-        db.commit()
-        assert adjustment.amount_toman == -27 and invoice.amount_toman == 973
-        assert invoice.snapshot["subtotal"] == 1000
-        assert invoice.snapshot["adjustments"][0]["amount_toman"] == -27
-        assert invoice.snapshot["adjustments"][0]["id"] == adjustment.id
-        assert "Synthetic private" not in json.dumps(invoice.snapshot)
-        assert adjustment_reason(db, adjustment) == "Synthetic private billing explanation"
-        event = db.scalar(select(AuditEvent).where(AuditEvent.action == "billing.legacy_notes_encrypted", AuditEvent.entity_id == invoice.id))
-        assert json.loads(decrypt(event.details["adjustments_encrypted"]))[0]["reason"] == "Synthetic private billing explanation"
-        assert "Synthetic private" not in json.dumps(event.details)
-        assert migrate_legacy_billing_notes(db) == {"adjustment_notes_encrypted": 0, "invoice_note_snapshots_encrypted": 0}
-
-
-def test_malformed_legacy_invoice_fails_before_any_note_mutation(database):
-    with database() as db:
-        adjustment, _ = legacy_notes(db, {"adjustments": [{"reason": ["malformed"]}]})
-        with pytest.raises(ValueError, match="legacy_invoice_adjustment_requires_manual_review"):
-            migrate_legacy_billing_notes(db)
-        assert adjustment.reason == "Synthetic private billing explanation"
-        assert not db.scalar(select(AuditEvent.id).where(AuditEvent.actor_id == "privacy-migration-v2"))
 
 
 def test_holds_do_not_starve_expiry_and_disabled_clinic_still_erases(database):

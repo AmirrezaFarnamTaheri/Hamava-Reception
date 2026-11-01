@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exercise production startup/migration gates in a disposable PostgreSQL schema.
+"""Exercise production fresh-schema and startup gates in a disposable PostgreSQL schema.
 
 Requires an explicitly isolated TEST_DATABASE_URL. Creates and drops only its
 own random schema. It never starts a public listener or calls a supplier.
@@ -41,10 +41,15 @@ def run(url: str) -> dict:
         return subprocess.run([sys.executable, *arguments], cwd=project, env=env | (overrides or {}),
                               capture_output=True, text=True, timeout=60)
     try:
-        first = execute(["scripts/migrate.py"])
-        checks["fresh_versioned_schema"] = first.returncode == 0
-        second = execute(["scripts/migrate.py"])
-        checks["repeat_migration_is_idempotent"] = second.returncode == 0
+        first = execute(["scripts/init_db.py"])
+        checks["fresh_schema_initialized"] = first.returncode == 0
+        second = execute(["scripts/init_db.py"])
+        checks["repeat_initialization_is_idempotent"] = second.returncode == 0
+        with engine.connect() as db:
+            count = db.execute(text(
+                "SELECT count(*) FROM pg_tables WHERE schemaname = :schema AND tablename = 'schema_version'"
+            ), {"schema": schema}).scalar_one()
+            checks["no_history_table_created"] = count == 0
         startup = execute(["-c", """
 import json
 from fastapi.testclient import TestClient
@@ -82,16 +87,11 @@ with TestClient(app):
     pass
 """])
         checks["missing_column_blocks_startup"] = drift.returncode != 0 and "missing columns users: name" in drift.stderr
-        drift_migration = execute(["scripts/migrate.py"])
-        checks["baseline_migration_does_not_silently_repair_drift"] = drift_migration.returncode != 0
-        # An unversioned legacy table is also never stamped as this release.
-        with engine.begin() as db:
-            db.execute(text(f'DELETE FROM "{schema}".schema_version'))
-        legacy = execute(["scripts/migrate.py"])
-        checks["unversioned_existing_data_rejected"] = legacy.returncode != 0 and "Existing unversioned" in legacy.stderr
+        retry = execute(["scripts/init_db.py"])
+        checks["initialization_does_not_repair_drift"] = retry.returncode != 0
         report = {"synthetic_only": True, "database": "isolated PostgreSQL schema", "checks": checks,
                   "passed": all(checks.values()), "public_listener_started": False,
-                  "limits": "Local configuration/migration/startup checks; no container build, public deployment or supplier/customer approval."}
+                  "limits": "Local configuration/schema/startup checks; no container build, public deployment or supplier/customer approval."}
         if not report["passed"]:
             report["failed_checks"] = [name for name, passed in checks.items() if not passed]
         return report

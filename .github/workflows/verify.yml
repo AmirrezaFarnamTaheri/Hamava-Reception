@@ -27,7 +27,7 @@ jobs:
           path: artifacts/dead-code/
           retention-days: 14
   backend:
-    name: Server, migration and PostgreSQL invariants
+    name: Server, schema and PostgreSQL invariants
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     services:
