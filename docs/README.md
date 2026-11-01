@@ -12,7 +12,7 @@
 | Understand why a request has a particular state | [Architecture](architecture.md) | Service boundaries, state transitions, external calendars and persistence |
 | Build a client or integrate another service | [API](api.md) | Authentication, route groups, booking examples and error handling |
 | Check whether documented commands still exist | [Contract reference](contract-reference.md) | Route owners, CLI flags, environment sources and verification limits |
-| Change or review the code | [Development](development.md) | Local setup, test strategy, migrations and code ownership |
+| Change or review the code | [Development](development.md) | Local setup, test strategy, schema initialization and code ownership |
 | Install Hamava for a center | [Deployment and recovery](deployment.md) | Production configuration, Compose, integrations, backups and rollback |
 | Manage a center's working day | [Operations](operations.md) | Onboarding, shift routines, exceptions, incidents and approval |
 | Attest a clinic's production configuration | [Clinic acceptance](clinic-acceptance.md) | Five required synthetic checks, evidence, fingerprint and renewal |

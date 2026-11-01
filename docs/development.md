@@ -22,7 +22,7 @@ python -m uvicorn receptionist.main:app --host 127.0.0.1 --port 8000 --no-access
 
 In a second shell use `python -m receptionist.worker` with the same environment. Keep `RUN_WORKER=false` in the API process if you start the separate worker. For browser development you can use `npm --prefix frontend run dev`; Vite proxies `/api` to the local API. On Windows use the corresponding environment commands.
 
-Local runs use synthetic clinics and SQLite by default. The production stack uses PostgreSQL **16**; concurrency checks therefore need a separate PostgreSQL test database. Do **not** run destructive experiments, migrations or UI mutation suites against customer data.
+Local runs use synthetic clinics and SQLite by default. The production stack uses PostgreSQL **16**; concurrency checks therefore need a separate PostgreSQL test database. Do **not** run destructive experiments, schema-reset experiments or UI mutation suites against customer data.
 
 ## Find the right code first
 
@@ -102,7 +102,7 @@ For a bug involving a remote calendar, add the unknown-outcome path as well as a
 | Ruff | Python syntax, imports and selected lint rules | Runtime concurrency or provider behavior |
 | TypeScript build | Types and build-time frontend imports | Actual browser interaction |
 | `scripts/audit_dead_code.py --check` | Unreferenced application modules and selected exports | Every reflection or plugin entry point |
-| Pytest | Server state transitions, migration cases and integration doubles | Real bank settlement or PBX audio |
+| Pytest | Server state transitions, schema initialization cases and integration doubles | Real bank settlement or PBX audio |
 | Browser suites | Route navigation, API error presentation and responsive workflows | All physical devices and operating systems |
 | PostgreSQL stress | Conflicting writes and locking on the test database | A production load limit |
 | Desktop bridge tests | Electron's permitted bridge and storage policy | A signed installer upgrade on real Windows |
@@ -115,11 +115,11 @@ Begin with the effect a user would see. Then follow the affected request from th
 
 Documentation checks now verify bilingual filename pairs, local links, closed code fences and identical executable examples. They cannot judge whether Persian instructions mean the same as English instructions. Review both versions for field names, command output, ordered steps and important qualifications.
 
-## Schema changes: preserve the upgrade path
+## Schema changes: current baseline only
 
-`backend/receptionist/migrations.py` defines the existing **0001 → 0002** path. Version `0001` represents installations that must still be upgraded; deleting it because a fresh database can create `0002` would strand those installations.
+The pre-launch database schema is derived from the registered SQLAlchemy models. `backend/receptionist/schema.py` initializes an empty database, rejects a partial or unfamiliar schema, and validates all expected tables. `python scripts/init_db.py` is the explicit production setup command. The historical 0001/0002 upgrade chain was deleted because the product was not in service. This is intentionally **not** a tool for upgrading existing installations.
 
-For a new schema version, write a forward-only migration and tests for clean creation, upgrade from each supported version, partial failure, unknown versions, data preservation and restart/idempotency. On a real database: stop writers, take a tested backup, run `python scripts/migrate.py`, verify records, then resume. Do not silently stamp a damaged schema or change production tables to make one test pass. The operator-only `scripts/migrate_privacy_notes.py` is not a replacement for migration.
+For future model changes, decide on an explicit data-preserving transition before any real installation adopts the new schema. Do not use automatic table creation to mutate a database containing patient records.
 
 ## Files that should not be in a commit
 
@@ -143,6 +143,6 @@ python scripts/audit_dead_code.py --check --output artifacts/dead-code/report.js
 
 The check follows Python imports from FastAPI, workers, scripts and tests; JavaScript/TypeScript imports and lazy routes from the web and native entry points; and Android Java references from the manifest and Capacitor registration. It also reports unreferenced top-level Python functions and frontend exports. Ruff catches unused Python imports and locals; TypeScript's `noUnusedLocals` and `noUnusedParameters` catch ordinary frontend dead declarations. CI runs the source graph as an independent fast job and separately verifies server, browser, desktop and container behavior.
 
-A name that looks unused can still be loaded through a framework. Before deletion, inspect FastAPI decorators, SQLAlchemy model registration, migrations, Electron preload paths, Java/Android manifest entries, browser test fixtures and the package/Actions commands that start operator tools. A script manually run for recovery remains a supported entry point even if no other Python file imports it.
+A name that looks unused can still be loaded through a framework. Before deletion, inspect FastAPI decorators, SQLAlchemy model registration, schema registration, Electron preload paths, Java/Android manifest entries, browser test fixtures and the package/Actions commands that start operator tools. A script manually run for recovery remains a supported entry point even if no other Python file imports it.
 
-The repository-wide audit found one abandoned screenshot-preview utility and two unreferenced functions; those were removed. Essential registrations, all existing database migration versions, native bridges and RTC test fixtures remain. The machine-readable audit output is generated under `artifacts/`, not committed. For each later cleanup, remove only candidates with verified references and run the relevant regression suite.
+The repository-wide audit found one abandoned screenshot-preview utility and two unreferenced functions; those were removed. Essential registrations, current schema validation, native bridges and RTC test fixtures remain. The machine-readable audit output is generated under `artifacts/`, not committed. For each later cleanup, remove only candidates with verified references and run the relevant regression suite.

@@ -13,7 +13,7 @@ The repository's `compose.yaml` supplies the following services:
 | Service | Role | Default |
 | --- | --- | --- |
 | `db` | PostgreSQL data store | On |
-| `migrate` | Validate/create/upgrade the schema before API startup | Runs before API |
+| `schema-init` | Initialize/validate the current schema before API startup | Runs before API |
 | `api` | FastAPI HTTP application | On |
 | `jobs` | Durable outbox and operations worker | On |
 | `edge` | Caddy public HTTPS gateway | `https` profile |
@@ -58,7 +58,7 @@ docker compose --env-file .env.production --profile https up -d
 docker compose --env-file .env.production exec api python scripts/admin.py --email owner@your-domain.example --clinic-name 'نام مرکز' --slug your-clinic
 ~~~
 
-The owner-creation command is interactive; choose a unique password instead of using the demo account. `migrate` must complete successfully before `api` starts. The new clinic starts in a restricted state until services, hours, approved facts, policies and staff coverage are configured.
+The owner-creation command is interactive; choose a unique password instead of using the demo account. `schema-init` must complete successfully before `api` starts. The new clinic starts in a restricted state until services, hours, approved facts, policies and staff coverage are configured.
 
 Check both endpoints: `/health` verifies database access, and `/ready` reports configured dependencies. A healthy HTTP server can still lack a qualified payment account, voice route or clinic approval. Use authenticated operational screens to inspect the specific dependency and its latest observation.
 
@@ -74,35 +74,35 @@ Check both endpoints: `/health` verifies database access, and `/ready` reports c
 
 Keep the text path and a staffed callback route available when optional services degrade.
 
-## 5. Backups, migrations and keys
+## 5. Backups, schema initialization and keys
 
 Before deployment changes or schema upgrades:
 
 1. Announce a maintenance window and stop API, background and media writers.
 2. Back up PostgreSQL in encrypted form and separately back up configuration/key-custody material. `scripts/backup.py` uses an approved GnuPG recipient; `scripts/config_backup.py` requires a separate protected backup key and an inventory of key custody.
 3. **Restore those backups to an isolated empty target** and verify schema, counts, encrypted field access and the right application keys.
-4. Run `python scripts/migrate.py` on the intended database, then check `schema_version` and representative appointments, money records, clinic memberships and policy revisions.
+4. Run `python scripts/init_db.py` on the intended database, then check the current table structure and representative appointments, money records, clinic memberships and policy revisions.
 5. Resume workers and API; check health, business flows, queues and staff connection before reopening patient traffic.
 
-The current supported schema path is `0001 → 0002`; unknown/partial schemas are not automatically repaired. There is no general reversible migration. If an upgrade fails, restore the tested database **and** its corresponding keys/configuration rather than manually guessing a downgrade. `scripts/rotate_encryption.py` has an offline preview and explicit apply gate; preserve previous keys until every protected record and eligible backup is accounted for.
+Only fresh installation of the current schema is supported. Unknown, incomplete, or historical schemas are not modified automatically. There is no automatic upgrade or reverse migration. If an upgrade fails, restore the tested database **and** its corresponding keys/configuration rather than manually guessing a downgrade. `scripts/rotate_encryption.py` has an offline preview and explicit apply gate; preserve previous keys until every protected record and eligible backup is accounted for.
 
 Schedule and periodically verify backup jobs using `scripts/backup_daily.py` and the templates in `deploy/`. A backup existing on disk is not proof that a clinic can be restored.
 
 ## Understand startup order and health signals
 
-The Compose configuration does not start everything at once. PostgreSQL must become healthy before `migrate` runs. The migration must exit successfully before `api` starts. The `jobs` worker starts after the API health check succeeds. The optional `https` profile adds Caddy; the `speech`, `pbx`, and `webrtc` profiles each require separate setup.
+The Compose configuration does not start everything at once. PostgreSQL must become healthy before `schema-init` runs. Schema initialization must exit successfully before `api` starts. The `jobs` worker starts after the API health check succeeds. The optional `https` profile adds Caddy; the `speech`, `pbx`, and `webrtc` profiles each require separate setup.
 
 After starting a deployment, check the service list and read the affected logs before changing settings:
 
 ~~~sh
 docker compose --env-file .env.production --profile https ps
-docker compose --env-file .env.production logs --tail=100 migrate api jobs
+docker compose --env-file .env.production logs --tail=100 schema-init api jobs
 curl --fail --silent https://reception.your-domain.example/health
 ~~~
 
 Replace the example hostname with your own. `/health` establishes that the application can reach its database. `/ready` also checks configured dependencies and can return HTTP `503` when one is degraded. Do not suppress that response merely to make monitoring green. Find out which dependency is unavailable and decide whether the affected workflow should remain disabled.
 
-If `migrate` fails, keep writers stopped and inspect its error. Do not skip migrations, create tables manually or mark the database at the latest version. Restore the last tested database and matching keys if the upgrade cannot be recovered safely.
+If `schema-init` fails, keep writers stopped and inspect its error. Do not bypass schema validation or modify tables by hand. Restore the last tested database and matching keys if the upgrade cannot be recovered safely.
 
 ## A restore drill you can repeat
 
@@ -124,7 +124,7 @@ python scripts/backup.py restore \
   --acknowledge-empty-target --verify-application-key
 ~~~
 
-Do not point the restore command at a live database. Verify a few representative appointments, staff memberships and protected records after the restore, then check `schema_version` and the database constraints. Record the date, revision, archive digest, operator and result of the drill. The return code, not an existing archive filename, determines whether the restore command completed.
+Do not point the restore command at a live database. Verify a few representative appointments, staff memberships and protected records after the restore, then check the current table structure and the database constraints. Record the date, revision, archive digest, operator and result of the drill. The return code, not an existing archive filename, determines whether the restore command completed.
 
 ## Recovering individual integrations
 

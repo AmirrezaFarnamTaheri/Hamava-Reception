@@ -114,7 +114,7 @@ Each adapter should document its stable request identity, retry rule, failure st
 
 ## Database and failure recovery
 
-Production schema history is **0001 → 0002** in `backend/receptionist/migrations.py`. The first version is a real upgrade predecessor, not dead code. The second creates additional controls and transforms legacy billing notes without discarding financial data. Unknown or partially migrated schemas are rejected instead of being silently “repaired.” Take and test a backup before changing a live database.
+The application uses one current schema defined by SQLAlchemy models and checked by `backend/receptionist/schema.py`. Fresh installations create all tables together, while subsequent starts validate existing tables without modifying them. Historical database upgrade paths are intentionally unsupported because no live installations existed at this reset. Take and verify a backup before changing any database containing real records.
 
 | Failure | System behavior | Staff/operator response |
 | --- | --- | --- |
