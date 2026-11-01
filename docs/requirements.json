@@ -53,8 +53,8 @@
         ".env.example",
         "requirements.lock.txt",
         "docs/validation/v2-installed-package-smoke.json",
-        "docs/validation/v2-migration-worker.xml",
-        "backend/tests/test_worker_shutdown.py"
+        "backend/tests/test_worker_shutdown.py",
+        "backend/tests/test_schema_initialization.py"
       ],
       "external_dependencies": [],
       "owner": "Platform engineering (role; actual accountable person not assigned)",
@@ -167,28 +167,29 @@
       "component": "application/deployment",
       "kind": "software",
       "title": "PostgreSQL deployment",
-      "acceptance": "Deployment uses PostgreSQL with validated schema/migrations and independent-connection contention tests.",
+      "acceptance": "Deployment uses PostgreSQL with current-schema initialization, drift rejection, and independent-connection contention tests.",
       "status": "verified_local",
       "verification_level": "local_executed_checks_and_source_inspection",
       "evidence": [
         "backend/receptionist/config.py",
-        "scripts/migrate.py",
         "backend/receptionist/db.py",
         "docs/validation/production-startup.json",
         "docs/validation/postgres-contention.json",
-        "backend/receptionist/migrations.py",
         "scripts/postgres_stress.py",
         "scripts/production_smoke.py",
         "backend/tests/test_postgres_controls_v2.py",
         "docs/validation/v2-production-startup.json",
         "docs/validation/v2-postgres-contention.json",
-        "docs/validation/v2-postgres-retention.xml"
+        "docs/validation/v2-postgres-retention.xml",
+        "backend/receptionist/schema.py",
+        "scripts/init_db.py",
+        "backend/tests/test_schema_initialization.py"
       ],
       "external_dependencies": [],
       "owner": "Platform engineering (role; actual accountable person not assigned)",
-      "notes": "Version 0.2.0 evidence is reconciled with retained earlier evidence. Current remaining_acceptance and acceptance_limits control; local verification does not establish live suppliers, device acceptance, clinical/legal approval or commercial outcomes.",
+      "notes": "The earlier version 0.2.0 evidence is historical. The 0.2.2 initializer and isolated CI production smoke are the current verification targets; live deployment and real provider acceptance remain separate.",
       "verified_behavior": [
-        "Production PostgreSQL validates schema version 0002 and all 88 application tables plus schema_version. Ten isolated configuration/startup checks passed.",
+        "The current deployment initializes registered models directly in an empty database, verifies matching tables on repeated starts, and refuses incomplete or incompatible schemas. There is no database schema history table.",
         "Actual PostgreSQL 16.15 independent-connection contention exercised 402 operations across five cases with up to 100 contenders, one committed logical booking/notice, no duplicate occupancy and wrong-tenant 404.",
         "Four purpose-retention cases additionally ran against fresh isolated PostgreSQL schemas."
       ],
@@ -762,28 +763,28 @@
       ],
       "component": "application/deployment",
       "kind": "software",
-      "title": "Schema migration and rollback",
-      "acceptance": "Versioned migrations have tested upgrade and documented rollback/recovery procedures.",
-      "status": "verified_local",
+      "title": "Fresh schema initialization and recovery",
+      "acceptance": "A clean database is initialized to the current mapped schema; incomplete or unfamiliar databases fail closed and a compatible restore procedure is documented.",
+      "status": "implemented_unverified",
       "verification_level": "local_executed_checks_and_source_inspection",
       "evidence": [
-        "scripts/migrate.py",
         "backend/receptionist/db.py",
         "docs/deployment-runbook.md",
         "docs/validation/production-startup.json",
         "docs/validation/restore-drill.json",
         "backend/tests/test_deployment_boundaries.py::test_schema_drift_is_detected_without_mutation",
-        "backend/receptionist/migrations.py",
-        "backend/tests/test_migrations_v2.py",
-        "docs/validation/v2-migration-worker.xml",
-        "docs/validation/v2-restore-drill.json"
+        "docs/validation/v2-restore-drill.json",
+        "backend/receptionist/schema.py",
+        "scripts/init_db.py",
+        "backend/tests/test_schema_initialization.py",
+        "docs/deployment.md"
       ],
       "external_dependencies": [],
       "owner": "Platform engineering (role; actual accountable person not assigned)",
-      "notes": "Version 0.2.0 evidence is reconciled with retained earlier evidence. Current remaining_acceptance and acceptance_limits control; local verification does not establish live suppliers, device acceptance, clinical/legal approval or commercial outcomes.",
+      "notes": "Historical 0.2.0 upgrade results do not validate the new fresh-install baseline. Current initialization is exercised in CI, but the current-baseline encrypted restoration drill has not been claimed.",
       "verified_behavior": [
-        "Nine version 0002 migration cases cover fresh/repeat startup, valid 0001 upgrade, preserved records, legacy billing-note encryption, ambiguous/damaged schema refusal and transaction rollback on failure.",
-        "The runbook documents compatible-image rollback or isolated pre-change restore with reconciliation; the actual encrypted 89-table restore drill succeeded."
+        "The pre-launch initializer creates all current mapped tables in an empty database and validates an existing compatible schema without rewriting its records. A partial schema or an obsolete history table is rejected.",
+        "The encrypted backup and restore tools validate current mapped tables, constraints, and calendar occupancy. A new encrypted restore drill is still required for this baseline; prior version-specific reports remain historical."
       ],
       "assessors": [
         "backend_core",
@@ -794,7 +795,9 @@
         "docs/validation/platform-requirement-evidence.json",
         "docs/validation/v2-root-requirement-evidence.json"
       ],
-      "remaining_acceptance": [],
+      "remaining_acceptance": [
+        "Complete an encrypted PostgreSQL backup-and-restore drill on the current baseline, with application-key decryption and record checks, before first live deployment."
+      ],
       "acceptance_limits": [
         "No destructive schema downgrade or production live-write recovery acceptance is claimed."
       ],
@@ -1718,7 +1721,7 @@
         "docs/validation/v2-core-requirement-evidence.json"
       ],
       "remaining_acceptance": [
-        "An accountable clinic approver must establish fact accuracy; migration preserves technical calendar authority without inventing clinical approvals."
+        "An accountable clinic approver must establish fact accuracy; current schema creation does not authorize clinical facts or calendar-provider ownership."
       ],
       "acceptance_limits": [],
       "root_reconciliation": [
@@ -13134,7 +13137,6 @@
         "backend/tests/test_operations_hardening_v2.py",
         "backend/tests/test_runtime_retention_v2.py",
         "backend/receptionist/ops_controls.py",
-        "scripts/migrate_privacy_notes.py",
         "docs/v2-operations-api.md",
         "docs/research-workflow-v2.md"
       ],
@@ -13144,7 +13146,7 @@
       "owner": "Privacy owner and security engineering (role; actual accountable person not assigned)",
       "notes": "Version 0.2.0 evidence is reconciled with retained earlier evidence. Current remaining_acceptance and acceptance_limits control; local verification does not establish live suppliers, device acceptance, clinical/legal approval or commercial outcomes.",
       "verified_behavior": [
-        "Redaction covers Persian/Arabic-digit phone and national-ID patterns, card/account/email patterns and encrypted governed name/health/address terms. Trace attributes are a closed non-content allowlist. New financial free-text notes are encrypted; migration0002 idempotently encrypts legacy notes while preserving amounts and rejecting malformed snapshots before mutation."
+        "Redaction covers Persian/Arabic-digit phone and national-ID patterns, card/account/email patterns and encrypted governed name/health/address terms. Trace attributes are a closed non-content allowlist. New financial free-text notes are encrypted when written, and invoice snapshots retain non-content adjustment markers rather than private explanations."
       ],
       "assessors": [
         "blueprint_review",
@@ -16305,19 +16307,22 @@
       "kind": "software",
       "title": "Restore drill tooling",
       "acceptance": "Documented recovery procedure restores a test backup and verifies appointment and outbox consistency.",
-      "status": "verified_local",
+      "status": "implemented_unverified",
       "verification_level": "local_executed_checks_and_source_inspection",
       "evidence": [
         "scripts/backup.py",
         "docs/deployment-runbook.md",
         "docs/validation/restore-drill.json",
-        "docs/validation/v2-restore-drill.json"
+        "docs/validation/v2-restore-drill.json",
+        "docs/deployment.md",
+        "backend/receptionist/schema.py",
+        "backend/tests/test_schema_initialization.py"
       ],
       "external_dependencies": [],
       "owner": "Technical operations and service owner (role; actual accountable person not assigned)",
-      "notes": "Version 0.2.0 evidence is reconciled with retained earlier evidence. Current remaining_acceptance and acceptance_limits control; local verification does not establish live suppliers, device acceptance, clinical/legal approval or commercial outcomes.",
+      "notes": "Previous synthetic restore reports are retained as historical evidence only. No fresh-baseline encrypted restore drill is claimed.",
       "verified_behavior": [
-        "An actual local encrypted PostgreSQL backup/restore recovered all 89 version 0002 tables into an isolated empty database with matching counts, zero duplicate/orphan occupancy, appointment decryption and four new protected-data roundtrips."
+        "The current backup/restore implementation verifies the registered application table set, database integrity constraints, and duplicate/orphan calendar occupancy. Historical versioned-schema restore evidence is not proof of a current-baseline restore."
       ],
       "assessors": [
         "backend_core",
@@ -16328,7 +16333,9 @@
         "docs/validation/platform-requirement-evidence.json",
         "docs/validation/v2-root-requirement-evidence.json"
       ],
-      "remaining_acceptance": [],
+      "remaining_acceptance": [
+        "Run and record a new encrypted PostgreSQL restore drill against the fresh-install schema, including protected-field decryption and representative record checks."
+      ],
       "acceptance_limits": [
         "Synthetic quiescent local recovery; no offsite custody/durability, continuous backup service, production RPO/RTO or live-write count equivalence claim."
       ],
@@ -17537,5 +17544,6 @@
     }
   },
   "implementation_blueprint": "docs/blueprint-revision.md",
-  "implementation_blueprint_sha256": "bb022e8b0369886e1f51c0957e44987275449115b702017ef048aefd88adbfc9"
+  "implementation_blueprint_sha256": "bb022e8b0369886e1f51c0957e44987275449115b702017ef048aefd88adbfc9",
+  "maintenance_note": "Pre-launch schema reset in 0.2.2: historical 0.2.0 evidence and reconciliation metadata are archival, not proof of compatibility with the current first-install database baseline."
 }
