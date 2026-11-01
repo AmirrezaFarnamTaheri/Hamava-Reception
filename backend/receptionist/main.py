@@ -14,7 +14,6 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from sqlalchemy import text
 
 from . import model_registry  # noqa: F401 -- register every mapped table
 from .api import router as core_router

@@ -58,7 +58,7 @@ Before anyone distributes a build, identify the exact source commit and workflow
 | Archive integrity | Manifest and SHA-256 of the generated file | File name, digest and storage location |
 | Windows identity | Signing check and an installed Windows test | Publisher identity, OS version and upgrade result |
 | Android identity | Keystore signing check and device tests | Package/version identity, device and install result |
-| Existing data | A restored backup and migration result | Schema validation, record checks and recovery owner |
+| Existing data | A restored backup and schema verification result | Schema validation, record checks and recovery owner |
 | Clinic acceptance | Named operations and provider checks | Accepted features, remaining limits and staff fallback |
 
 For a source-only archive, run the following from the repository root. The script deliberately refuses to write its output **inside** the source tree.
